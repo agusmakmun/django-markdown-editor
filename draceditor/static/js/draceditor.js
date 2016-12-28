@@ -150,13 +150,13 @@ $(document).ready(function(){
   var editor = CodeMirror.fromTextArea(textArea, {
     onKeyEvent: function(e , s){
         if (s.type == "keyup") {
-            console.log("test");
+            console.log("test"); // this dosn't show anything
         }
     }
   });
-  console.log(editor);
+  console.log(editor); // this work well.
   editor.on("keyup", function(editor, event) {
-    console.log(editor);
+    console.log(editor); // this dosn't show anything
   });
 });
 */
