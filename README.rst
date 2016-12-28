@@ -1,4 +1,5 @@
-# draceditor
+draceditor
+------------
 
 .. image:: https://img.shields.io/pypi/v/draceditor.svg?style=flat-square
    :target: https://pypi.python.org/pypi/draceditor
@@ -14,3 +15,6 @@
 
 .. image:: https://img.shields.io/pypi/dm/draceditor.svg?style=flat-square
    :target: https://pypi.python.org/pypi/draceditor
+
+
+   Django Markdown Editor build for Dracos Linux https://dracos-linux.org *(Under Development Mode)*
