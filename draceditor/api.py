@@ -1,7 +1,7 @@
 import json
 import base64
 import requests
-from .settings import (IMGUR_CLIENT_ID, IMGUR_API_KEY)
+from .settings import (DRACEDITOR_IMGUR_CLIENT_ID, DRACEDITOR_IMGUR_API_KEY)
 
 requests.packages.urllib3.disable_warnings()
 
@@ -16,12 +16,12 @@ def imgur_uploader(image):
         error  : {'status': <error_code>, 'erorr': <erorr_message>}
     """
     url_api = 'https://api.imgur.com/3/upload.json'
-    headers = {'Authorization': 'Client-ID ' + IMGUR_CLIENT_ID}
+    headers = {'Authorization': 'Client-ID ' + DRACEDITOR_IMGUR_CLIENT_ID}
     response = requests.post(
         url_api,
         headers=headers,
         data={
-            'key': IMGUR_API_KEY,
+            'key': DRACEDITOR_IMGUR_API_KEY,
             'image': base64.b64encode(image.read()),
             'type': 'base64',
             'name': image.name

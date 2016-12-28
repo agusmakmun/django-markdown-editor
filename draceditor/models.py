@@ -1,11 +1,11 @@
 from django.db import models
 
-from .fields import MarkdownxFormField
+from .fields import DraceditorFormField
 
 
-class MarkdownxField(models.TextField):
+class DraceditorField(models.TextField):
 
     def formfield(self, **kwargs):
-        defaults = {'form_class': MarkdownxFormField}
+        defaults = {'form_class': DraceditorFormField}
         defaults.update(kwargs)
-        return super(MarkdownxField, self).formfield(**defaults)
+        return super(DraceditorField, self).formfield(**defaults)

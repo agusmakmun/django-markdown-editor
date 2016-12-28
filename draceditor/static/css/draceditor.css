@@ -1,0 +1,7 @@
+form .uk-htmleditor-navbar-nav,
+form .aligned ul.uk-htmleditor-navbar-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+}

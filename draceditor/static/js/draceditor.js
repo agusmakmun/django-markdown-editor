@@ -25,13 +25,13 @@
     // Markdown Image Uploader auto insert to textarea.
     // with special insert, eg: ![avatar.png](i.imgur.com/DytfpTz.png)
     var uploadFile = function(selector) {
-        $selector.on('change', function(evt) {
+        selector.on('change', function(evt) {
           evt.preventDefault();
           var formData = new FormData($('form').get(0));
           formData.append("csrfmiddlewaretoken", getCookie('csrftoken'));
 
           $.ajax({
-              url: dracEditor.data('upload-urls-path'),
+              url: draceditor.data('upload-urls-path'),
               type: 'POST',
               data: formData,
               async: true,
@@ -62,29 +62,30 @@
               }
           });
           return false;
-        }
+        });
     }
 
     // Markdown Emoji
     // require `atwho/atwho.min.js` and list `emojis` from `atwho/emojis.min.js`
     var onEmoji = function() {
       $emojis = emojis; // from `atwho/emojis.min.js`
+      var emojiurl = draceditor.data('base-emoji-url');
       var emoji_config = {
           at: ":",
           data: $.map($emojis, function(value, i) {return {key: value.replace(/:/g , ''), name:value}}),
-          displayTpl: "<li>${name} <img src='"+dracEditor.data('base-emoji-url')+"'${key}.png'  height='20' width='20' /></li>",
+          displayTpl: "<li>${name} <img src='"+emojiurl+"${key}.png'  height='20' width='20' /></li>",
           insertTpl: ':${key}:',
           delay: 400
       }
       // Triger process if inserted: https://github.com/ichord/At.js/wiki/Events#insertedatwho
-      dracEditor.atwho(emoji_config).on('inserted.atwho', function(event, flag, query) {
+      draceditor.atwho(emoji_config).on('inserted.atwho', function(event, flag, query) {
         //$('.markdownx').markdownx();
       });
     }
 
     // Markdown Mention
     var onMention = function() {
-      dracEditor.atwho({
+      draceditor.atwho({
         at: "@[",
         displayTpl: "<li>${name}</li>",
         insertTpl: "@[${key}]",
@@ -92,7 +93,7 @@
         callbacks: {
             remoteFilter: function(query, callback) {
               $.ajax({
-                  url: dracEditor.data('search-users-urls-path'),
+                  url: draceditor.data('search-users-urls-path'),
                   data: {
                       'username': query,
                       'csrfmiddlewaretoken': getCookie('csrftoken')
@@ -111,18 +112,31 @@
             }//end remoteFilter
         }
       });
+    };
+
+    var onKeyUpEvent = function(e) {
+      console.log(e);
+      onMention();
+      onEmoji();
     }
 
     var draceditor = $(this);
     var dracEditor = $(this).find('.draceditor');
-    draceditor.trigger('draceditor.init');
+    dracEditor.on('keydown.draceditor', onKeyUpEvent);
 
-    uploadFile($('.upload-image-file');
+    dracEditor.trigger('draceditor.init');
+
+    var selector_upload = $('.upload-image-file');
+    selector_upload.click(function(){
+      uploadFile(selector_upload);
+    });
+
     onMention();
     onEmoji();
 };
 
 $(function() {
-    $('.draceditor').draceditor();
+  $.fn.atwho.debug = true;
+  $('.draceditor').draceditor();
 });
 })(jQuery);

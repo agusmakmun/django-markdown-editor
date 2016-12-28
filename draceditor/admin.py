@@ -1,12 +1,12 @@
 from django.contrib import admin
 from django.db import models
 
-from .widgets import AdminMarkdownxWidget
-from .models import MarkdownxField
+from .widgets import AdminDraceditorWidget
+from .models import DraceditorField
 
 
-class MarkdownxModelAdmin(admin.ModelAdmin):
+class DraceditorModelAdmin(admin.ModelAdmin):
 
     formfield_overrides = {
-        MarkdownxField: {'widget': AdminMarkdownxWidget}
+        DraceditorField: {'widget': AdminDraceditorWidget}
     }
