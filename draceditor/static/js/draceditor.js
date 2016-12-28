@@ -140,3 +140,23 @@ $(function() {
   $('.draceditor').draceditor();
 });
 })(jQuery);
+
+// Development mode:
+// * http://stackoverflow.com/a/27417339/6396981
+// * http://cgit.drupalcode.org/uikitapi/tree/uikit/js/components/htmleditor.js?id=6b5fc5f8d767b7e2b70c44e7e01b949b89870d8f
+/*
+$(document).ready(function(){
+  var textArea = document.getElementById('id_description');
+  var editor = CodeMirror.fromTextArea(textArea, {
+    onKeyEvent: function(e , s){
+        if (s.type == "keyup") {
+            console.log("test");
+        }
+    }
+  });
+  console.log(editor);
+  editor.on("keyup", function(editor, event) {
+    console.log(editor);
+  });
+});
+*/

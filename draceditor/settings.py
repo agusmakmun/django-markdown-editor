@@ -54,15 +54,12 @@ DRACEDITOR_MARKDOWN_BASE_MENTION_URL = getattr(
 
 # https://getuikit.com/docs/htmleditor.html#javascript-options
 DRACEDITOR_EDITOR_OPTIONS = getattr(
-    settings, 'DRACEDITOR_EDITOR_OPTIONS', "{markdown:true}"
+    settings, 'DRACEDITOR_EDITOR_OPTIONS', {
+        'markdown': 'true',
+        'toolbar': [
+            'bold', 'italic', 'strike',
+            'link', 'image', 'blockquote',
+            'listUl', 'listOl', 'upload',
+        ]
+    }
 )
-"""
-{
-    'markdown': 'true',
-    'toolbar': [
-        'bold', 'italic', 'strike',
-        'link', 'picture', 'blockquote',
-        'listUl', 'listOl', 'upload'
-    ]
-}
-"""

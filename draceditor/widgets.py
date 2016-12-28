@@ -52,6 +52,9 @@ class DraceditorWidget(forms.Textarea):
             'plugins/js/overlay.js',
             'plugins/js/xml.js',
             'plugins/js/marked.min.js',
+
+            # i dont't know if use this editor,
+            # the `emoji` and `mention` is't work well.
             'plugins/js/htmleditor.js',
 
             'plugins/js/caret.min.js',
