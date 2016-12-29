@@ -143,7 +143,8 @@
     editor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,
-        enableLiveAutocompletion: true
+        enableLiveAutocompletion: true,
+        enableMultiselect: false
     });
 
     // Ace autocomplete
@@ -189,18 +190,211 @@
         });
     }
 
-    //var container_area = $(editor.container);
-    //container_area.attr({'contenteditable': 'true'});
-
     editor.on('change', function(e){
         //onEmoji(container_area);
         //onMention(editor);
         onRender();
     });
 
-    // set initial value
+    // Set initial value
     editor.setValue(draceditor.val());
     onRender();
+
+    // Trigger Keyboards
+    var onKeyboard = function(editor) {
+        /*
+        var commandChars = {
+          'bold'            : ['**', '**'],
+          'italic'          : ['_', '_'],
+          'h1'              : ['# ', ''],
+          'h2'              : ['## ', ''],
+          'h3'              : ['### ', ''],
+          'pre'             : ['```', '\n```'],
+          'code'            : ['`', '``'],
+          'blockquote'      : ['> ', '']
+          'unordered-list'  : ['* ', ''],
+          'ordered-list'    : ['1. ', ''],
+          'link'            : ['[', '](http://)'],
+          'image-link'      : ['![', '](http://)']
+        }*/
+
+        // win/linux: Ctrl+B, mac: Command+B
+        var markdownToBold = function() {
+            var originalRange = editor.getSelectionRange();
+            if (editor.selection.isEmpty()) {
+                var curpos = editor.getCursorPosition();
+                editor.session.insert(curpos, ' **** ')
+                editor.selection.moveTo(curpos.row, curpos.column+3);
+            }else {
+              var range = editor.getSelectionRange();
+              var text = editor.session.getTextRange(range);
+              editor.session.replace(range, '**'+text+'**');
+              originalRange.end.column += 4; // this because injected from 4 `*` characters.
+              editor.selection.setSelectionRange(originalRange);
+            }
+        };
+        // win/linux: Ctrl+I, mac: Command+I
+        var markdownToItalic = function() {
+            var originalRange = editor.getSelectionRange();
+            if (editor.selection.isEmpty()) {
+                var curpos = editor.getCursorPosition();
+                editor.session.insert(curpos, ' __ ')
+                editor.selection.moveTo(curpos.row, curpos.column+2);
+            }else {
+              var range = editor.getSelectionRange();
+              var text = editor.session.getTextRange(range);
+              editor.session.replace(range, '_'+text+'_');
+              originalRange.end.column += 2; // this because injected from 2 `_` characters.
+              editor.selection.setSelectionRange(originalRange);
+            }
+        };
+        // win/linux: Ctrl+Q, mac: Command+Q
+        var markdownToBlockQuote = function() {
+            var originalRange = editor.getSelectionRange();
+            if (editor.selection.isEmpty()) {
+                var curpos = editor.getCursorPosition();
+                editor.session.insert(curpos, '\n\n> ');
+                editor.selection.moveTo(curpos.row+2, curpos.column+2);
+            }
+            else {
+              var range = editor.getSelectionRange();
+              var text = editor.session.getTextRange(range);
+              editor.session.replace(range, '\n\n> '+text);
+              editor.selection.moveTo(
+                  originalRange.end.row+2,
+                  originalRange.end.column+2
+              );
+            }
+        };
+        // win/linux: Ctrl+U, mac: Command+U
+        var markdownToUnorderedList = function() {
+            var originalRange = editor.getSelectionRange();
+            if (editor.selection.isEmpty()) {
+                var curpos = editor.getCursorPosition();
+                editor.session.insert(curpos, '\n\n* ');
+                editor.selection.moveTo(curpos.row+2, curpos.column+2);
+            }
+            else {
+              var range = editor.getSelectionRange();
+              var text = editor.session.getTextRange(range);
+              editor.session.replace(range, '\n\n> '+text);
+              editor.selection.moveTo(
+                  originalRange.end.row+2,
+                  originalRange.end.column+2
+              );
+            }
+        };
+        // win/linux: Ctrl+Shift+O, mac: Command+Option+O
+        var markdownToOrderedList = function() {
+            var originalRange = editor.getSelectionRange();
+            if (editor.selection.isEmpty()) {
+                var curpos = editor.getCursorPosition();
+                editor.session.insert(curpos, '\n\n1. ');
+                editor.selection.moveTo(curpos.row+3, curpos.column+3);
+            }
+            else {
+              var range = editor.getSelectionRange();
+              var text = editor.session.getTextRange(range);
+              editor.session.replace(range, '\n\n1. '+text);
+              editor.selection.moveTo(
+                  originalRange.end.row+3,
+                  originalRange.end.column+3
+              );
+            }
+        };
+        // win/linux: Ctrl+L, mac: Command+L
+        var markdownToLink = function() {
+            var originalRange = editor.getSelectionRange();
+            if (editor.selection.isEmpty()) {
+                var curpos = editor.getCursorPosition();
+                editor.session.insert(curpos, ' [](http://) ')
+                editor.selection.moveTo(curpos.row, curpos.column+2);
+            }else {
+              var range = editor.getSelectionRange();
+              var text = editor.session.getTextRange(range);
+              editor.session.replace(range, '['+text+'](http://) ');
+              editor.selection.moveTo(
+                  originalRange.end.row,
+                  originalRange.end.column+10
+              );
+            }
+        };
+        // win/linux: Ctrl+Shift+I, mac: Command+Option+I
+        var markdownToImageLink = function() {
+            var originalRange = editor.getSelectionRange();
+            if (editor.selection.isEmpty()) {
+                var curpos = editor.getCursorPosition();
+                editor.session.insert(curpos, ' ![](http://) ')
+                editor.selection.moveTo(curpos.row, curpos.column+3);
+            }else {
+              var range = editor.getSelectionRange();
+              var text = editor.session.getTextRange(range);
+              editor.session.replace(range, '!['+text+'](http://) ');
+              editor.selection.moveTo(
+                  originalRange.end.row,
+                  originalRange.end.column+11
+              );
+            }
+        };
+
+        editor.commands.addCommand({
+            name: 'markdownToBold',
+            bindKey: {win: 'Ctrl-B', mac: 'Command-B'},
+            exec: function(editor) {
+                markdownToBold()
+            },
+            readOnly: true
+        });
+        editor.commands.addCommand({
+            name: 'markdownToItalic',
+            bindKey: {win: 'Ctrl-I', mac: 'Command-I'},
+            exec: function(editor) {
+                markdownToItalic()
+            },
+            readOnly: true
+        });
+        editor.commands.addCommand({
+            name: 'markdownToBlockQuote',
+            bindKey: {win: 'Ctrl-Q', mac: 'Command-Q'},
+            exec: function(editor) {
+                markdownToBlockQuote()
+            },
+            readOnly: true
+        });
+        editor.commands.addCommand({
+            name: 'markdownToUnorderedList',
+            bindKey: {win: 'Ctrl-U', mac: 'Command-U'},
+            exec: function(editor) {
+                markdownToUnorderedList()
+            },
+            readOnly: true
+        });
+        editor.commands.addCommand({
+            name: 'markdownToOrderedList',
+            bindKey: {win: 'Ctrl-Shift+O', mac: 'Command-Option-O'},
+            exec: function(editor) {
+                markdownToOrderedList()
+            },
+            readOnly: true
+        });
+        editor.commands.addCommand({
+            name: 'markdownToLink',
+            bindKey: {win: 'Ctrl-L', mac: 'Command-L'},
+            exec: function(editor) {
+                markdownToLink()
+            },
+            readOnly: true
+        });
+        editor.commands.addCommand({
+            name: 'markdownToImageLink',
+            bindKey: {win: 'Ctrl-Shift-I', mac: 'Command-Option-I'},
+            exec: function(editor) {
+                markdownToImageLink()
+            },
+            readOnly: true
+        });
+    }
+    onKeyboard(editor);
 };
 
 $(function() {
