@@ -36,26 +36,20 @@ class DraceditorWidget(forms.Textarea):
     class Media:
         css = {
             'all': (
-                'plugins/css/uikit.gradient.min.css',
-                'plugins/css/htmleditor.gradient.min.css',
-                'plugins/css/codemirror.css',
+                'plugins/css/ace.min.css',
                 'plugins/css/atwho.css',
                 'css/draceditor.css',
             )
         }
         js = (
             'plugins/js/jquery.min.js',
-            'plugins/js/uikit.min.js',
-            'plugins/js/codemirror.min.js',
-
-            'plugins/js/markdown.js',
-            'plugins/js/overlay.js',
-            'plugins/js/xml.js',
+            'plugins/js/ace.js',
+            'plugins/js/mode-markdown.js',
+            'plugins/js/ext-language_tools.js',
+            'plugins/js/theme-github.js',
             'plugins/js/marked.min.js',
-
-            # i dont't know if use this editor,
-            # the `emoji` and `mention` is't work well.
-            'plugins/js/htmleditor.js',
+            'plugins/js/marked-emoji.js',
+            'plugins/js/highlight.min.js',
 
             'plugins/js/caret.min.js',
             'plugins/js/atwho.min.js',

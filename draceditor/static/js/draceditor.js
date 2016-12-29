@@ -67,7 +67,7 @@
 
     // Markdown Emoji
     // require `atwho/atwho.min.js` and list `emojis` from `atwho/emojis.min.js`
-    var onEmoji = function() {
+    var onEmoji = function(textarea) {
       $emojis = emojis; // from `atwho/emojis.min.js`
       var emojiurl = draceditor.data('base-emoji-url');
       var emoji_config = {
@@ -78,7 +78,7 @@
           delay: 400
       }
       // Triger process if inserted: https://github.com/ichord/At.js/wiki/Events#insertedatwho
-      draceditor.atwho(emoji_config).on('inserted.atwho', function(event, flag, query) {
+      textarea.atwho(emoji_config).on('inserted.atwho', function(event, flag, query) {
         //$('.markdownx').markdownx();
       });
     }
@@ -114,83 +114,11 @@
       });
     };
 
-    /**
-     * The state of CodeMirror at the given position.
-     * https://github.com/lepture/editor
-     */
-    var getState = function(cm, pos) {
-      pos = pos || cm.getCursor('start');
-      var stat = cm.getTokenAt(pos);
-      if (!stat.type) return {};
-
-      var types = stat.type.split(' ');
-
-      var ret = {}, data, text;
-      for (var i = 0; i < types.length; i++) {
-        data = types[i];
-        if (data === 'strong') {
-          ret.bold = true;
-        } else if (data === 'variable-2') {
-          text = cm.getLine(pos.line);
-          if (/^\s*\d+\.\s/.test(text)) {
-            ret['ordered-list'] = true;
-          } else {
-            ret['unordered-list'] = true;
-          }
-        } else if (data === 'atom') {
-          ret.quote = true;
-        } else if (data === 'em') {
-          ret.italic = true;
-        }
-      }
-      return ret;
-    }
-
-    var replaceSelection = function(cm, active, start, end) {
-      var text;
-      var startPoint = cm.getCursor('start');
-      var endPoint = cm.getCursor('end');
-      if (active) {
-        text = cm.getLine(startPoint.line);
-        start = text.slice(0, startPoint.ch);
-        end = text.slice(startPoint.ch);
-        cm.setLine(startPoint.line, start + end);
-      } else {
-        text = cm.getSelection();
-        cm.replaceSelection(start + text + end);
-
-        startPoint.ch += start.length;
-        endPoint.ch += start.length;
-      }
-      cm.setSelection(startPoint, endPoint);
-      cm.focus();
-    }
-
     var onKeyUpEvent = function(e) {
       console.log(e);
       onMention();
       onEmoji();
     }
-
-    var timeout;
-    var update = function(e) {
-        console.log(e);
-        onMention();
-        console.log(e.getValue());
-        //clearTimeout(timeout);
-        //timeout = setTimeout(getMarkdown, 1000);
-    };
-
-    var editor;
-    setTimeout(function(){
-      //$('.CodeMirror').attr({'contentEditable': 'true'});
-      editor = $('.CodeMirror')[0].CodeMirror;
-      editor.on('change', update);
-      editor.on('keyup', function(cm, e) {
-        console.log(cm, e);
-        onMention();
-      });
-    }, 500);
 
     var draceditor = $(this);
     var dracEditor = $(this).find('.draceditor');
@@ -203,8 +131,76 @@
       uploadFile(selector_upload);
     });
 
-    onMention();
-    onEmoji();
+    // Ace editor
+    var editor = ace.edit('editor');
+    editor.setTheme('ace/theme/github');
+    editor.getSession().setMode('ace/mode/markdown');
+    editor.$blockScrolling = Infinity; //prevents ace from logging annoying warnings
+    /*
+    editor.getSession().on('change', function () {
+        draceditor.val(editor.getSession().getValue());
+    });*/
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+
+    // Ace autocomplete
+    var langTools = ace.require('ace/ext/language_tools');
+
+    var emojiWordCompleter = {
+        getCompletions: function(editor, session, pos, prefix, callback) {
+            var wordList = emojis; // from `atwho/emojis.min.js`
+            var obj = editor.getSession().getTokenAt(pos.row, pos.column.count);
+            var curTokens = obj.value.split(/\s+/);
+            var lastToken = curTokens[curTokens.length-1];
+
+            if (lastToken[0] == ':') {
+              console.log(lastToken);
+              callback(null, wordList.map(function(word) {
+                  return {
+                      caption: word,
+                      value: word.replace(':', '') + ' ',
+                      meta: 'emoji' // this should return as text only.
+                  };
+              }));
+            }
+        }
+    }
+    editor.completers = [emojiWordCompleter]
+
+    // update preview based on editor content
+    var onRender = function(){
+        marked.setOptions({
+            renderer    : markedRenderer, // require from `marked-emoji.js`
+            gfm         : true,
+            tables      : true,
+            breaks      : true,
+            pedantic    : false,
+            smartLists  : true,
+            smartypants : true
+        });
+        $('#preview').html(
+          marked(editor.getValue())
+        );
+        $('pre').each(function(i, block){
+        	hljs.highlightBlock(block);
+        });
+    }
+
+    //var container_area = $(editor.container);
+    //container_area.attr({'contenteditable': 'true'});
+
+    editor.on('change', function(e){
+        //onEmoji(container_area);
+        //onMention(editor);
+        onRender();
+    });
+
+    // set initial value
+    editor.setValue(draceditor.val());
+    onRender();
 };
 
 $(function() {
@@ -212,23 +208,3 @@ $(function() {
   $('.draceditor').draceditor();
 });
 })(jQuery);
-
-// Development mode:
-// * http://stackoverflow.com/a/27417339/6396981
-// * http://cgit.drupalcode.org/uikitapi/tree/uikit/js/components/htmleditor.js?id=6b5fc5f8d767b7e2b70c44e7e01b949b89870d8f
-/*
-$(document).ready(function(){
-  var textArea = document.getElementById('id_description');
-  var editor = CodeMirror.fromTextArea(textArea, {
-    onKeyEvent: function(e , s){
-        if (s.type == "keyup") {
-            console.log("test"); // this dosn't show anything
-        }
-    }
-  });
-  console.log(editor); // this work well.
-  editor.on("keyup", function(editor, event) {
-    console.log(editor); // this dosn't show anything
-  });
-});
-*/

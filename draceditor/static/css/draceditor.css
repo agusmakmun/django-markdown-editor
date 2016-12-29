@@ -1,7 +1,44 @@
-form .uk-htmleditor-navbar-nav,
-form .aligned ul.uk-htmleditor-navbar-nav {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    float: left;
+.main-draceditor {
+  max-width: 100%;
+  position: relative;
+  margin: 10px 0;
+  max-height: 700px;
+}
+.draceditor {
+  height: 500px;
+  max-height: 500px;
+}
+#editor {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 50%;
+}
+
+#preview {
+  margin: 0;
+  padding: 0.5rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 0;
+  overflow: auto;
+  background: #f0f0f0
+}
+
+@media print {
+    #editor {
+        display: none;
+    }
+
+    #preview {
+        left: 0;
+    }
+}
+
+.marked-emoji {
+  max-width: 20px;
 }
