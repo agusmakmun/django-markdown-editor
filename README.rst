@@ -37,7 +37,7 @@ Features
 Preview
 ------------------------------
 
-.. image:: https://raw.githubusercontent.com/agusmakmun/draceditor/master/__screenshot/draceditor-preview.png
+.. image:: https://raw.githubusercontent.com/agusmakmun/dracos-markdown-editor/master/__screenshot/draceditor-preview.png
 
 
 Installation
@@ -148,7 +148,7 @@ Usage
 Draceditor Commands Refference
 --------------------------------
 
-.. image:: https://raw.githubusercontent.com/agusmakmun/draceditor/master/__screenshot/draceditor-guide.png
+.. image:: https://raw.githubusercontent.com/agusmakmun/dracos-markdown-editor/master/__screenshot/draceditor-guide.png
 
 
 .. _PyPI: https://pypi.python.org/pypi/draceditor
