@@ -54,7 +54,6 @@ DRACEDITOR_MARKDOWN_BASE_MENTION_URL = getattr(
     settings, 'DRACEDITOR_MARKDOWN_BASE_MENTION_URL', 'https://forum.dracos-linux.org/profile/'
 )
 
-# https://getuikit.com/docs/htmleditor.html#javascript-options
 DRACEDITOR_EDITOR_OPTIONS = getattr(
     settings, 'DRACEDITOR_EDITOR_OPTIONS', {
         'markdown': 'true',

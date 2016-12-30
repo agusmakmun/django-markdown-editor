@@ -100,6 +100,15 @@ Configurations
     DRACEDITOR_MARKDOWN_BASE_EMOJI_URL = 'https://assets-cdn.github.com/images/icons/emoji/' # default
     DRACEDITOR_MARKDOWN_BASE_MENTION_URL = 'https://forum.dracos-linux.org/profile/' # default (change this)
 
+    # Editor Options (use default for now)
+    DRACEDITOR_EDITOR_OPTIONS = {
+        'markdown': 'true',
+        'toolbar': [
+            'bold', 'italic', 'strike',
+            'link', 'image', 'blockquote',
+            'listUl', 'listOl', 'upload',
+        ]
+    }
 
 Usage
 ------------------------------
