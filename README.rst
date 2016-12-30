@@ -24,7 +24,8 @@ draceditor |pypi version|
 Features
 ------------------------------
 
-* Integrated with Ace Editor
+* Integrated with `Ace Editor`_
+* Integrated with `Semantic-UI`_
 * Live Preview
 * Upload Image to imgur.com `(via API)`
 * Emoji ``:emoji_name:``
@@ -100,7 +101,7 @@ Configurations
     DRACEDITOR_MARKDOWN_BASE_EMOJI_URL = 'https://assets-cdn.github.com/images/icons/emoji/' # default
     DRACEDITOR_MARKDOWN_BASE_MENTION_URL = 'https://forum.dracos-linux.org/profile/' # default (change this)
 
-    # Editor Options (use default for now)
+    # Editor Options (please use default for now)
     DRACEDITOR_EDITOR_OPTIONS = {
         'markdown': 'true',
         'toolbar': [
@@ -160,4 +161,6 @@ Draceditor Commands Refference
 .. image:: https://raw.githubusercontent.com/agusmakmun/dracos-markdown-editor/master/__screenshot/draceditor-guide.png
 
 
+.. _Ace Editor: https://ace.c9.io
+.. _Semantic-UI: http://semantic-ui.com
 .. _PyPI: https://pypi.python.org/pypi/draceditor
