@@ -32,6 +32,8 @@ DRACEDITOR_MARKDOWN_EXTENSIONS = getattr(
         'draceditor.utils.extensions.emoji',
     ]
 )
+
+# Markdown Extensions Configs
 DRACEDITOR_MARKDOWN_EXTENSION_CONFIGS = getattr(
     settings, 'DRACEDITOR_MARKDOWN_EXTENSION_CONFIGS', {}
 )

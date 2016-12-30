@@ -506,7 +506,6 @@
                 },
                 error: function(response) {
                     console.log("error", response);
-                    alert(response);
                 }
             });
             return false;
@@ -688,7 +687,6 @@
             // setup initial loader
             segmentEmoji.html('');
             loaderInit.show();
-
             modalEmoji.modal({
                 onVisible: function () {
                     for (var i = 0; i < emojiList.length; i++) {

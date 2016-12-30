@@ -81,7 +81,7 @@
         left: 0;
     }
 }
-#emoji-loader-init {
+.ui.segment.emoji-loader-init {
   padding: 5em;
 }
 .insert-emoji {
