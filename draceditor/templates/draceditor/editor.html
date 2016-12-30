@@ -1,5 +1,12 @@
 <div class="main-draceditor">
-  <div id="editor"></div>
-  {{ draceditor }}
-  <div id="preview" class="markdown-preview"></div>
+  {% include 'draceditor/toolbar.html' %}
+
+  <div class="section-draceditor">
+    <div id="editor"></div>
+    {{ draceditor }}
+    <div id="preview" class="markdown-preview"></div>
+  </div>
+
+  {% include 'draceditor/guide.html' %}
+  {% include 'draceditor/emoji.html' %}
 </div>

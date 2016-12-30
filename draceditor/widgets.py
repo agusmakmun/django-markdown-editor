@@ -23,7 +23,7 @@ class DraceditorWidget(forms.Textarea):
         attrs['data-upload-urls-path'] = DRACEDITOR_UPLOAD_URLS_PATH
         attrs['data-search-users-urls-path'] = DRACEDITOR_SEARCH_USERS_URLS_PATH
         attrs['data-base-emoji-url'] = DRACEDITOR_MARKDOWN_BASE_EMOJI_URL
-        attrs['data-uk-htmleditor'] = DRACEDITOR_EDITOR_OPTIONS
+        attrs['data-toolbar'] = DRACEDITOR_EDITOR_OPTIONS
 
         widget = super(DraceditorWidget, self).render(name, value, attrs)
 
@@ -38,21 +38,20 @@ class DraceditorWidget(forms.Textarea):
             'all': (
                 'plugins/css/ace.min.css',
                 'plugins/css/atwho.css',
+                'plugins/css/semantic.min.css',
                 'css/draceditor.css',
             )
         }
         js = (
             'plugins/js/jquery.min.js',
             'plugins/js/ace.js',
+            'plugins/js/semantic.min.js',
             'plugins/js/mode-markdown.js',
             'plugins/js/ext-language_tools.js',
             'plugins/js/theme-github.js',
             'plugins/js/marked.min.js',
-            'plugins/js/marked-emoji.js',
             'plugins/js/highlight.min.js',
 
-            'plugins/js/caret.min.js',
-            'plugins/js/atwho.min.js',
             'plugins/js/emojis.min.js',
             'js/draceditor.js',
         )
