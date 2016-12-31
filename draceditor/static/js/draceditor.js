@@ -1,3 +1,12 @@
+/**
+ * Name         : DracEditor v1.0.3
+ * Created by   : Agus Makmun (Summon Agus)
+ * Release date : 30-Dec-2016
+ * Official     : https://dracos-linux.org
+ * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ * Repository   : https://github.com/agusmakmun/dracos-markdown-editor
+**/
+
 (function ($) {
     if (!$) {
         $ = django.jQuery;
@@ -28,15 +37,17 @@
 
     // Ace editor
     var editor = ace.edit('editor');
+    var sessionEditor = editor.getSession();
     editor.setTheme('ace/theme/github');
-    editor.getSession().setMode('ace/mode/markdown');
+    sessionEditor.setMode('ace/mode/markdown');
+    sessionEditor.setUseWrapMode(true);
     editor.$blockScrolling = Infinity; // prevents ace from logging annoying warnings
     editor.renderer.setScrollMargin(10, 10); // set padding
 
     // Saving for the session.
     /*
-    editor.getSession().on('change', function () {
-        draceditor.val(editor.getSession().getValue());
+    sessionEditor.on('change', function () {
+        draceditor.val(sessionEditor.getValue());
     });*/
 
     editor.setOptions({
@@ -51,7 +62,7 @@
     var emojiWordCompleter = {
         getCompletions: function(editor, session, pos, prefix, callback) {
             var wordList = emojis; // from `atwho/emojis.min.js`
-            var obj = editor.getSession().getTokenAt(pos.row, pos.column.count);
+            var obj = sessionEditor.getTokenAt(pos.row, pos.column.count);
             var curTokens = obj.value.split(/\s+/);
             var lastToken = curTokens[curTokens.length-1];
 
@@ -69,7 +80,7 @@
     }
     var mentionWordCompleter = {
         getCompletions: function(editor, session, pos, prefix, callback) {
-            var obj = editor.getSession().getTokenAt(pos.row, pos.column.count);
+            var obj = sessionEditor.getTokenAt(pos.row, pos.column.count);
             var curTokens = obj.value.split(/\s+/);
             var lastToken = curTokens[curTokens.length-1];
 
@@ -175,10 +186,23 @@
         return "<p>" + this.emoji(text) + "</p>\n";
     };
 
+    // Synchronize the scroll positions between the editor and preview.
+    sessionEditor.on('changeScrollTop', function() {
+        $('.markdown-preview').scrollTop(
+            sessionEditor.getScrollTop()
+        );
+    });
+    $('.markdown-preview').on('scroll', function () {
+        sessionEditor.setScrollTop(
+            $(this).scrollTop()
+        );
+    });
+
     // update preview based on editor content
     var onRender = function(){
-        // Release save session value to textarea (require for saving to database).
-        draceditor.val(editor.getSession().getValue());
+
+        // Save session value to textarea (require for saving to database).
+        draceditor.val(sessionEditor.getValue());
 
         // Setup with marked js.
         marked.setOptions({

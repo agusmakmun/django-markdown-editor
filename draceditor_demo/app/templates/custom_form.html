@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+  <form class="ui form" method="post">{% csrf_token %}
+    <div class="field">
+      {{ form.title }}
+    </div>
+    <div class="field">
+      {{ form.description }}
+    </div>
+    <div class="field">
+      <div class="ui clearing segment">
+        <button class="ui right floated positive button">
+          <i class="save icon"></i> Save Post
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // just disable `two fields`
+    $('.draceditor-toolbar').removeClass('two');
+    $('form [name="title"]').attr({'placeholder': 'Post Title'});
+  </script>
+{% endblock %}
