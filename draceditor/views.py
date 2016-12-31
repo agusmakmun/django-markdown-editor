@@ -28,7 +28,7 @@ def markdown_search_user(request):
     Json usernames of the users registered & actived.
 
     url(method=get):
-        /api/markdown/search-user/?username={username}
+        /draceditor/search-user/?username={username}
 
     Response:
         error:
