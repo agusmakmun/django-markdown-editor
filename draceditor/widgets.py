@@ -37,7 +37,6 @@ class DraceditorWidget(forms.Textarea):
         css = {
             'all': (
                 'plugins/css/ace.min.css',
-                'plugins/css/atwho.css',
                 'plugins/css/semantic.min.css',
                 'css/draceditor.css',
             )

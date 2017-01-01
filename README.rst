@@ -41,19 +41,6 @@ Preview
 .. image:: https://raw.githubusercontent.com/agusmakmun/dracos-markdown-editor/master/__screenshot/draceditor-preview.png
 
 
-Installation
-------------------------------
-
-DracEditor is available directly from `PyPI`_:
-
-::
-
-    $ pip install draceditor
-
-
-***).** And don't forget to add ``'draceditor'`` to your ``'INSTALLED_APPS'`` setting `(without migrations)`.
-
-
 Requirements
 ------------------------------
 
@@ -62,8 +49,49 @@ Requirements
 * ``requests>=2.12.4``
 
 
-Configurations
+Installation
 ------------------------------
+
+DracEditor is available directly from `PyPI`_:
+
+1. Installing the package.
+
+::
+
+    $ pip install draceditor
+
+
+2. Don't forget to add ``'draceditor'`` to your ``'INSTALLED_APPS'`` setting `(without migrations)`.
+
+::
+
+    # settings.py
+    INSTALLED_APPS = [
+        ....
+        'draceditor',
+    ]
+
+
+3. Add url pattern to your ``urls.py.``
+
+::
+
+    # urls.py
+    urlpatterns = [
+        ...
+        url(r'^draceditor/', include('draceditor.urls')),
+    ]
+
+
+4. Collect included some draceditor static files to your ``STATIC_ROOT`` folder.
+
+::
+
+    ./manage.py collectstatic
+
+
+Setting Configurations ``settings.py``
+---------------------------------------
 
 ::
 
