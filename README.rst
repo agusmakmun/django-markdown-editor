@@ -114,9 +114,9 @@ Setting Configurations ``settings.py``
         'markdown.extensions.fenced_code',
 
         # Custom markdown extensions.
-        'draceditor.utils.extensions.urlize',
-        'draceditor.utils.extensions.mention', # require for mention
-        'draceditor.utils.extensions.emoji',   # require for emoji
+        'draceditor.extensions.urlize',
+        'draceditor.extensions.mention', # require for mention
+        'draceditor.extensions.emoji',   # require for emoji
     ]
 
     # Markdown Extensions Configs
@@ -172,6 +172,36 @@ Usage
         }
 
     admin.site.register(YourModel, YourModelAdmin)
+
+
+**Template**
+
+Simply safe the markdown content as html ouput with loading the templatetags from ``draceditor/templatetags/dractags.py``.
+
+::
+
+    {% load dractags %}
+    {{ field_name|safe_markdown }}
+
+    # example
+    {{ post.description|safe_markdown }}
+
+
+Test Draceditor from this Repository
+-------------------------------------
+
+I assume you already setup with virtual enviroment (virtualenv).
+
+::
+
+    $ git clone https://github.com/agusmakmun/dracos-markdown-editor.git
+    $ cd dracos-markdown-editor/ && python setup.py install
+    $ cd draceditor_demo/
+    $ python manage.py makemigrations && python manage.py migrate
+    $ python manage.py runserver
+
+
+And let checkout at http://127.0.0.1:8000/simple-form/ to your browser.
 
 
 Draceditor Commands Refference
