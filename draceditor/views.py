@@ -1,10 +1,21 @@
 import json
 from django.http import HttpResponse
+from django.utils.module_loading import import_string
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
 
 from .api import imgur_uploader
+from .settings import DRACEDITOR_MARKDOWNIFY_FUNCTION
+
+
+def markdownfy_view(request):
+    if request.method == 'POST':
+        markdownify = import_string(DRACEDITOR_MARKDOWNIFY_FUNCTION)
+        return HttpResponse(
+            markdownify(request.POST['content'])
+        )
+    return HttpResponse('Invalid request!')
 
 
 @login_required

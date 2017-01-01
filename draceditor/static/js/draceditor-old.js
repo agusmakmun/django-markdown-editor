@@ -1,7 +1,7 @@
 /**
- * Name         : DracEditor v1.0.4
+ * Name         : DracEditor v1.0.3
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 1-Jan-2017
+ * Release date : 30-Dec-2016
  * Official     : https://dracos-linux.org
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/dracos-markdown-editor
@@ -13,127 +13,225 @@
     }
     $.fn.draceditor = function() {
 
-        var draceditor   = $(this);
-        var dracPreview  = $('.draceditor-preview');
-        var dracSplitter = $('.draceditor-splitter');
+    var draceditor = $(this);
+    var dracEditor = $(this).find('.draceditor');
+    dracEditor.trigger('draceditor.init');
 
-        draceditor.trigger('draceditor.init');
+    // CSRF code
+    var getCookie = function(name) {
+        var cookieValue = null;
+        var i = 0;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (i; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 
-        // Ace editor
-        var editor = ace.edit('draceditor'); // require for div#id
-        var sessionEditor = editor.getSession();
-        editor.setTheme('ace/theme/github');
-        sessionEditor.setMode('ace/mode/markdown');
-        sessionEditor.setUseWrapMode(true);
-        editor.$blockScrolling = Infinity; // prevents ace from logging annoying warnings
-        editor.renderer.setScrollMargin(10, 10); // set padding
-        editor.setOptions({
-            enableBasicAutocompletion: true,
-            enableSnippets: true,
-            enableLiveAutocompletion: true,
-            enableMultiselect: false
-        });
+    // Ace editor
+    var editor = ace.edit('editor');
+    var sessionEditor = editor.getSession();
+    editor.setTheme('ace/theme/github');
+    sessionEditor.setMode('ace/mode/markdown');
+    sessionEditor.setUseWrapMode(true);
+    editor.$blockScrolling = Infinity; // prevents ace from logging annoying warnings
+    editor.renderer.setScrollMargin(10, 10); // set padding
 
-        // CSRF code
-        var getCookie = function(name) {
-            var cookieValue = null;
-            var i = 0;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (i; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
+    // Saving for the session.
+    /*
+    sessionEditor.on('change', function () {
+        draceditor.val(sessionEditor.getValue());
+    });*/
+
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true,
+        enableMultiselect: false
+    });
+
+    // Ace autocomplete
+    //var langTools = ace.require('ace/ext/language_tools');
+    var emojiWordCompleter = {
+        getCompletions: function(editor, session, pos, prefix, callback) {
+            var wordList = emojis; // from `atwho/emojis.min.js`
+            var obj = sessionEditor.getTokenAt(pos.row, pos.column.count);
+            var curTokens = obj.value.split(/\s+/);
+            var lastToken = curTokens[curTokens.length-1];
+
+            if (lastToken[0] == ':') {
+              //console.log(lastToken);
+              callback(null, wordList.map(function(word) {
+                  return {
+                      caption: word,
+                      value: word.replace(':', '') + ' ',
+                      meta: 'emoji' // this should return as text only.
+                  };
+              }));
+            }
+        }
+    }
+    var mentionWordCompleter = {
+        getCompletions: function(editor, session, pos, prefix, callback) {
+            var obj = sessionEditor.getTokenAt(pos.row, pos.column.count);
+            var curTokens = obj.value.split(/\s+/);
+            var lastToken = curTokens[curTokens.length-1];
+
+            if (lastToken[0] == '@' && lastToken[1] == '[') {
+                username = lastToken.replace(/([\@\[/\]/])/g, '');
+                //console.log(username);
+                $.ajax({
+                    url: draceditor.data('search-users-urls-path'),
+                    data: {
+                        'username': username,
+                        'csrfmiddlewaretoken': getCookie('csrftoken')
+                    },
+                    success: function(data) {
+                        if (data['status'] == 200) {
+                          var wordList = [];
+                          for (var i = 0; i < data['data'].length; i++) {
+                              wordList.push(data['data'][i].username)
+                          }
+                          callback(null, wordList.map(function(word) {
+                              return {
+                                  caption: word,
+                                  value: word,
+                                  meta: 'username' // this should return as text only.
+                              };
+                          }));
+                        }
                     }
-                }
-            }
-            return cookieValue;
-        }
-
-        // Render the content and parse as html output
-        var getMarkdown = function(value) {
-            var form = new FormData();
-            form.append('content', value);
-            form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
-
-            $.ajax({
-                url: draceditor.data('markdownfy-url'),
-                type: 'POST',
-                data: form,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    // Save session value to textarea (require for saving to database).
-                    draceditor.val(value);
-                    dracPreview.html(response);
-                    $('pre').each(function(i, block){
-                        hljs.highlightBlock(block);
-                    });
-                    draceditor.trigger('draceditor.update', [response]);
-                },
-                error: function(response) {
-                    console.log("error", response);
-                }
-            })
-        }
-
-        // Ace editor for autocomplete
-        var emojiWordCompleter = {
-            getCompletions: function(editor, session, pos, prefix, callback) {
-                var wordList = emojis; // from `atwho/emojis.min.js`
-                var obj = sessionEditor.getTokenAt(pos.row, pos.column.count);
-                var curTokens = obj.value.split(/\s+/);
-                var lastToken = curTokens[curTokens.length-1];
-
-                if (lastToken[0] == ':') {
-                  callback(null, wordList.map(function(word) {
-                      return {
-                          caption: word,
-                          value: word.replace(':', '') + ' ',
-                          meta: 'emoji' // this should return as text only.
-                      };
-                  }));
-                }
+                });
             }
         }
-        var mentionWordCompleter = {
-            getCompletions: function(editor, session, pos, prefix, callback) {
-                var obj = sessionEditor.getTokenAt(pos.row, pos.column.count);
-                var curTokens = obj.value.split(/\s+/);
-                var lastToken = curTokens[curTokens.length-1];
+    }
+    editor.completers = [emojiWordCompleter, mentionWordCompleter]
 
-                if (lastToken[0] == '@' && lastToken[1] == '[') {
-                    username = lastToken.replace(/([\@\[/\]/])/g, '');
-                    $.ajax({
-                        url: draceditor.data('search-users-url'),
-                        data: {
-                            'username': username,
-                            'csrfmiddlewaretoken': getCookie('csrftoken')
-                        },
-                        success: function(data) {
-                            if (data['status'] == 200) {
-                                var wordList = [];
-                                for (var i = 0; i < data['data'].length; i++) {
-                                    wordList.push(data['data'][i].username)
-                                }
-                                callback(null, wordList.map(function(word) {
-                                    return {
-                                        caption: word,
-                                        value: word,
-                                        meta: 'username' // this should return as text only.
-                                    };
-                                }));
-                            }
-                        }// end success
-                    });
-                }
+    // Source: https://github.com/pandao/editor.md/blob/master/tests/marked-emoji-test.html
+    var markedRenderer = new marked.Renderer();
+    var emojiRegex     = /:([\-\w]+):/g;
+    var mentionRegex   = /\@\[([\-\S]+)\]/g;
+
+    markedRenderer.emoji = function(text) {
+        var matchEmojis = text.match(emojiRegex);
+        var matchMentions = text.match(mentionRegex);
+
+        if (matchEmojis){
+            for (var i = 0, len = matchEmojis.length; i < len; i++){
+                text = text.replace(new RegExp(matchEmojis[i]), function($1, $2){
+                    var name = $1.replace(/:/g, '');
+                    return "<img class='marked-emoji' src='" +
+                            draceditor.data('base-emoji-url') + name + ".png' />";
+                });
+            }
+        }/*
+        if (matchMentions){
+            for (var i = 0, len = matchMentions.length; i < len; i++){
+                text = text.replace(new RegExp(matchMentions[i]), function($1, $2){
+                    var name = $1.replace(mentionRegex, ''); // reg: /([\@\[/\]/])/g
+                    console.log(name);
+                    return "<a class='marked-mention' href='" +
+                            draceditor.data('search-users-urls-path') +
+                            name + "'>" + name + "</a>";
+                });
+            }
+        }*/
+        return text;
+    };
+    /*
+    markedRenderer.mention = function(text) {
+        var matchs = text.match(mentionRegex);
+        if (matchs){
+            for (var i = 0, len = matchs.length; i < len; i++){
+                text = text.replace(new RegExp(matchs[i]), function($1, $2){
+                    var name = $1.replace(mentionRegex, ''); // reg: /([\@\[/\]/])/g
+                    return "<a class='marked-mention' href='" +
+                            draceditor.data('search-users-urls-path') +
+                            name + "'>" + name + "</a>";
+                });
             }
         }
-        // Set autocomplete for ace editor
-        editor.completers = [emojiWordCompleter, mentionWordCompleter]
+        return text;
+    };*/
 
+    markedRenderer.blockquote = function (quote){
+        return "<blockquote>\n" + quote + "</blockquote>\n";
+    };
+    markedRenderer.tablecell = function (content, flags){
+        var type = flags.header?"th":"td";
+        var tag  = flags.align?"<"+type+' style="text-align:'+
+                   flags.align+'">':"<"+type+">";
+        return tag+this.emoji(content)+"</"+type+">\n";
+    }
+    markedRenderer.heading = function (text, level, raw){
+        return "<h"+level+' id="'+
+            this.options.headerPrefix +
+            raw.toLowerCase().replace(/[^\w]+/g,"-")+'">' +
+            this.emoji(text) +
+            "</h"+level+">\n"
+    };
+    markedRenderer.listitem = function (text){
+        return "<li>" +
+            this.emoji(text) +
+            "</li>\n";
+    };
+    markedRenderer.paragraph = function(text) {
+        return "<p>" + this.emoji(text) + "</p>\n";
+    };
+
+    // Synchronize the scroll positions between the editor and preview.
+    sessionEditor.on('changeScrollTop', function() {
+        $('.markdown-preview').scrollTop(
+            sessionEditor.getScrollTop()
+        );
+    });
+    $('.markdown-preview').on('scroll', function () {
+        sessionEditor.setScrollTop(
+            $(this).scrollTop()
+        );
+    });
+
+    // update preview based on editor content
+    var onRender = function(){
+
+        // Save session value to textarea (require for saving to database).
+        draceditor.val(sessionEditor.getValue());
+
+        // Setup with marked js.
+        marked.setOptions({
+            renderer    : markedRenderer,
+            gfm         : true,
+            tables      : true,
+            breaks      : true,
+            pedantic    : false,
+            smartLists  : true,
+            smartypants : true
+        });
+        $('#preview').html(
+          marked(editor.getValue())
+        );
+        $('pre').each(function(i, block){
+        	hljs.highlightBlock(block);
+        });
+    }
+
+    editor.on('change', function(e){
+        onRender();
+    });
+
+    // Set initial value
+    editor.setValue(draceditor.val());
+    onRender();
+
+    // Trigger Keyboards & Buttons
+    var onTriggerEvent = function(editor) {
         // win/linux: Ctrl+B, mac: Command+B
         var markdownToBold = function() {
             var originalRange = editor.getSelectionRange();
@@ -183,6 +281,7 @@
             }
         };
         // win/linux: Ctrl+Alt+1, mac: Command+Option+1
+        // or via button click.
         var markdownToH1 = function() {
             var originalRange = editor.getSelectionRange();
             if (editor.selection.isEmpty()) {
@@ -201,6 +300,7 @@
             }
         };
         // win/linux: Ctrl+Alt+2, mac: Command+Option+2
+        // or via button click.
         var markdownToH2 = function() {
             var originalRange = editor.getSelectionRange();
             if (editor.selection.isEmpty()) {
@@ -219,6 +319,7 @@
             }
         };
         // win/linux: Ctrl+Alt+3, mac: Command+Option+3
+        // or via button click.
         var markdownToH3 = function() {
             var originalRange = editor.getSelectionRange();
             if (editor.selection.isEmpty()) {
@@ -237,6 +338,7 @@
             }
         };
         // win/linux: Ctrl+Alt+P, mac: Command+Option+P
+        // or via button click.
         var markdownToPre = function() {
             var originalRange = editor.getSelectionRange();
             if (editor.selection.isEmpty()) {
@@ -255,6 +357,7 @@
             }
         };
         // win/linux: Ctrl+Alt+C, mac: Command+Option+C
+        // or via button click.
         var markdownToCode = function() {
             var originalRange = editor.getSelectionRange();
             if (editor.selection.isEmpty()) {
@@ -393,14 +496,13 @@
 
         // Markdown Image Uploader auto insert to editor.
         // with special insert, eg: ![avatar.png](i.imgur.com/DytfpTz.png)
-        var markdownToUploadImage = function() {
-            var form = new FormData(draceditor.closest('form').get(0));
-            form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
-
+        var markdownToUploadFile = function() {
+            var formData = new FormData($('form').get(0));
+            formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
             $.ajax({
-                url: draceditor.data('upload-url'),
+                url: draceditor.data('upload-urls-path'),
                 type: 'POST',
-                data: form,
+                data: formData,
                 async: true,
                 cache: false,
                 contentType: false,
@@ -408,10 +510,8 @@
                 processData: false,
                 beforeSend: function() {
                     console.log('Uploading...');
-                    $('.upload-progress').show();
                 },
                 success: function (response) {
-                    $('.upload-progress').hide();
                     if (response.status == 200) {
                         console.log(response);
                         markdownToImageLink(imageData={
@@ -430,7 +530,6 @@
                 },
                 error: function(response) {
                     console.log("error", response);
-                    $('.upload-progress').hide();
                 }
             });
             return false;
@@ -593,55 +692,19 @@
         $('.markdown-direct-mention').click(function(){
             markdownToMention();
         });
-        // To Upload Image
         $('.markdown-image-upload').on('change', function(evt){
             evt.preventDefault();
-            markdownToUploadImage();
+            markdownToUploadFile();
         });
+
         // Modal Popup for Help Guide & Emoji Cheat Sheet
         $('.markdown-help').click(function(){
             $('.modal-help-guide').modal('show');
         });
 
-        // Toggle editor & preview
-        var draceEditorId    = $('#draceditor');
-        var btnToggleEditor  = $('.markdown-toggle-editor');
-        var btnTogglePreview = $('.markdown-toggle-preview');
-
-        var handleToggleEditorOne = function() {
-            dracPreview.hide();
-            draceEditorId.css('right', '0%');
-            editor.resize();
-            btnToggleEditor.one('click', handleToggleEditorTwo);
-            btnTogglePreview.addClass('disabled');
-        }
-        var handleToggleEditorTwo = function(){
-            draceEditorId.css('right', '50%');
-            editor.resize();
-            dracPreview.show();
-            btnToggleEditor.one('click', handleToggleEditorOne);
-            btnTogglePreview.removeClass('disabled');
-        }
-        // Toggle preview
-        var handleTogglePreviewOne = function() {
-            draceEditorId.hide();
-            dracPreview.css('left', '0%');
-            btnTogglePreview.one('click', handleTogglePreviewTwo);
-            btnToggleEditor.addClass('disabled');
-        }
-        var handleTogglePreviewTwo = function(){
-            dracPreview.css('left', '50%');
-            draceEditorId.show();
-            btnTogglePreview.one('click', handleTogglePreviewOne);
-            btnToggleEditor.removeClass('disabled');
-        }
-        btnToggleEditor.one('click', handleToggleEditorOne);
-        btnTogglePreview.one('click', handleTogglePreviewOne);
-
-        // Show emojis cheat sheet and insert to ace editor.
         $('.markdown-emoji').click(function(){
             var modalEmoji = $('.modal-emoji');
-            var emojiList = emojis; // from `plugins/js/emojis.min.js`
+            var emojiList = emojis; // from `atwho/emojis.min.js`
             var segmentEmoji = $('.emoji-content-body');
             var loaderInit  = $('.emoji-loader-init');
 
@@ -667,57 +730,20 @@
                 }
             }).modal('show');
         });
+    }
 
-        var timeout;
-        var markdownIfy = function(value) {
-            clearTimeout(timeout);
-            timeout = setTimeout(function(){
-                getMarkdown(value);
-            }, 500);
-        };
-
-        // Set if editor has changed.
-        editor.on('change', function(evt){
-            value = editor.getValue();
-            markdownIfy(value);
-        });
-
-        // Set initial value if has the content before.
-        if (draceditor.val() != '') {
-            var value = editor.setValue(draceditor.val());
-            markdownIfy(value);
-        }
-
-        // Synchronize the scroll positions between the editor and preview.
-        /*
-        sessionEditor.on('changeScrollTop', function(scroll) {
-            // var totalLinesEditor  = editor.getSession().doc.getAllLines().length;
-            // var totalLinesPreview = dracPreview[0].scrollHeight;
-            // var currentScroll = parseInt(scroll) || 0;
-            // var scrollFactor = currentScroll / totalLinesEditor;
-            dracPreview.scrollTop(
-                sessionEditor.getScrollTop()
-            );
-        });
-        dracPreview.on('scroll', function () {
-            sessionEditor.setScrollTop(
-                $(this).scrollTop()
-            );
-        });
-        */
-        sessionEditor.on('changeScrollTop', function(scroll) {
-            dracPreview.scrollTop(
-                sessionEditor.getScrollTop()
-            );
-        });
+    // Set trigger for editor
+    onTriggerEvent(editor);
 };
+
 $(function() {
-    $('.draceditor').draceditor();
+  $('.draceditor').draceditor();
 });
 })(jQuery);
 
+
 $( document ).ready(function(){
-    // Semantic UI
-    $('.ui.dropdown').dropdown();
-    $('.button').popup();
+  // Semantic UI
+  $('.ui.dropdown').dropdown();
+  $('.button').popup();
 });

@@ -5,7 +5,7 @@ from ..settings import DRACEDITOR_MARKDOWN_BASE_EMOJI_URL
 >>> import markdown
 >>> md = markdown.Markdown(extensions=['draceditor.utils.extensions.emoji'])
 >>> md.convert(':smile:')
-'<p><img class="direct-emoji-img" src="https://assets-cdn.github.com/images/icons/emoji/smile.png" /></p>'
+'<p><img class="marked-emoji" src="https://assets-cdn.github.com/images/icons/emoji/smile.png" /></p>'
 >>>
 """
 
@@ -128,7 +128,7 @@ class EmojiPattern(markdown.inlinepatterns.Pattern):
         )
         el = markdown.util.etree.Element('img')
         el.set('src', url)
-        el.set('class', 'direct-emoji-img')
+        el.set('class', 'marked-emoji')
         el.text = markdown.util.AtomicString(emoji)
         return el
 

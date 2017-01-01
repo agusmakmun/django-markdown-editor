@@ -28,8 +28,8 @@ Features
 * Integrated with `Semantic-UI`_
 * Live Preview
 * Upload Image to imgur.com `(via API)`
-* Emoji ``:emoji_name:``
-* Direct Mention users `(not yet)` - ``@[username]``
+* Emoji ``:emoji_name:`` + Cheat sheet
+* Direct Mention users ``@[username]`` - `(require user to logged in)`
 * Highlight ``pre``
 * Django Admin support
 * Toolbar Buttons
@@ -76,6 +76,7 @@ Configurations
 
     # Markdownify
     DRACEDITOR_MARKDOWNIFY_FUNCTION = 'draceditor.utils.markdownify' # default
+    DRACEDITOR_MARKDOWNIFY_URL = '/draceditor/markdownify/' # default
 
     # Markdown extensions (default)
     DRACEDITOR_MARKDOWN_EXTENSIONS = [
@@ -94,22 +95,12 @@ Configurations
     DRACEDITOR_MARKDOWN_EXTENSION_CONFIGS = {}
 
     # Markdown urls
-    DRACEDITOR_UPLOAD_URLS_PATH = '/draceditor/uploader/' # default
-    DRACEDITOR_SEARCH_USERS_URLS_PATH = '/draceditor/search-user/' # default
+    DRACEDITOR_UPLOAD_URL = '/draceditor/uploader/' # default
+    DRACEDITOR_SEARCH_USERS_URL = '/draceditor/search-user/' # default
 
     # Markdown Extensions
     DRACEDITOR_MARKDOWN_BASE_EMOJI_URL = 'https://assets-cdn.github.com/images/icons/emoji/' # default
     DRACEDITOR_MARKDOWN_BASE_MENTION_URL = 'https://forum.dracos-linux.org/profile/' # default (change this)
-
-    # Editor Options (please use default for now)
-    DRACEDITOR_EDITOR_OPTIONS = {
-        'markdown': 'true',
-        'toolbar': [
-            'bold', 'italic', 'strike',
-            'link', 'image', 'blockquote',
-            'listUl', 'listOl', 'upload',
-        ]
-    }
 
 Usage
 ------------------------------

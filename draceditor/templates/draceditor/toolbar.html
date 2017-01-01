@@ -1,3 +1,7 @@
+<div class="ui active dimmer upload-progress" style="display:none">
+  <div class="ui text loader">Uploading... please wait...</div>
+</div>
+
 <div class="two fields draceditor-toolbar">
   <div class="field left-toolbar">
     <div class="ui basic icon buttons">
@@ -46,17 +50,23 @@
       <div class="ui icon button markdown-image-link" data-tooltip="Insert Image Link (Ctrl+Shift+I)" data-position="top center">
         <i class="image icon"></i>
       </div>
-      <div class="ui icon button markdown-image-upload">
+      <div class="ui icon button markdown-image-upload" data-tooltip="Upload an Image" data-position="top right">
         <i class="cloud upload icon"></i>
-        <input name="markdown-image-upload" class="button input-tooltip" type="file" accept="image/*" title="Upload an Image" data-tooltip="Upload an Image" data-position="top right">
+        <input name="markdown-image-upload" class="button" type="file" accept="image/*" title="Upload an Image">
       </div>
-    </div>
-    <div class="ui basic icon buttons">
       <div class="ui icon button markdown-emoji" data-tooltip="Insert Emoji" data-position="top center">
         <i class="smile icon"></i>
       </div>
       <div class="ui icon button markdown-direct-mention" data-tooltip="Direct Mention a User (Ctrl+M)" data-position="top center">
         <i class="at icon"></i>
+      </div>
+    </div>
+    <div class="ui basic icon buttons">
+      <div class="ui icon button markdown-toggle-editor" data-tooltip="Toggle Editor" data-position="top center">
+        <i class="columns icon"></i>
+      </div>
+      <div class="ui icon button markdown-toggle-preview" data-tooltip="Toggle Preview" data-position="top center">
+        <i class="unhide icon"></i>
       </div>
       <div class="ui icon button markdown-help" data-tooltip="Markdown Guide (Help)" data-position="top center">
         <i class="help circle icon"></i>

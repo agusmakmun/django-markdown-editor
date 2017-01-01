@@ -17,6 +17,9 @@ DRACEDITOR_MARKDOWN_SAFE_MODE = getattr(
 DRACEDITOR_MARKDOWNIFY_FUNCTION = getattr(
     settings, 'DRACEDITOR_MARKDOWNIFY_FUNCTION', 'draceditor.utils.markdownify'
 )
+DRACEDITOR_MARKDOWNIFY_URL = getattr(
+    settings, 'DRACEDITOR_MARKDOWNIFY_URL', '/draceditor/markdownify/'
+)
 
 # Markdown extensions
 DRACEDITOR_MARKDOWN_EXTENSIONS = getattr(
@@ -27,9 +30,9 @@ DRACEDITOR_MARKDOWN_EXTENSIONS = getattr(
         'markdown.extensions.fenced_code',
 
         # Custom markdown extensions.
-        'draceditor.utils.extensions.urlize',
-        'draceditor.utils.extensions.mention',
-        'draceditor.utils.extensions.emoji',
+        'draceditor.extensions.urlize',
+        'draceditor.extensions.mention',
+        'draceditor.extensions.emoji',
     ]
 )
 
@@ -39,11 +42,11 @@ DRACEDITOR_MARKDOWN_EXTENSION_CONFIGS = getattr(
 )
 
 # Markdown urls
-DRACEDITOR_UPLOAD_URLS_PATH = getattr(
-    settings, 'DRACEDITOR_UPLOAD_URLS_PATH', '/draceditor/uploader/'
+DRACEDITOR_UPLOAD_URL = getattr(
+    settings, 'DRACEDITOR_UPLOAD_URL', '/draceditor/uploader/'
 )
-DRACEDITOR_SEARCH_USERS_URLS_PATH = getattr(
-    settings, 'DRACEDITOR_SEARCH_USERS_URLS_PATH', '/draceditor/search-user/'
+DRACEDITOR_SEARCH_USERS_URL = getattr(
+    settings, 'DRACEDITOR_SEARCH_USERS_URL', '/draceditor/search-user/'
 )
 
 # Markdown Extensions
@@ -52,15 +55,4 @@ DRACEDITOR_MARKDOWN_BASE_EMOJI_URL = getattr(
 )
 DRACEDITOR_MARKDOWN_BASE_MENTION_URL = getattr(
     settings, 'DRACEDITOR_MARKDOWN_BASE_MENTION_URL', 'https://forum.dracos-linux.org/profile/'
-)
-
-DRACEDITOR_EDITOR_OPTIONS = getattr(
-    settings, 'DRACEDITOR_EDITOR_OPTIONS', {
-        'markdown': 'true',
-        'toolbar': [
-            'bold', 'italic', 'strike',
-            'link', 'image', 'blockquote',
-            'listUl', 'listOl', 'upload',
-        ]
-    }
 )

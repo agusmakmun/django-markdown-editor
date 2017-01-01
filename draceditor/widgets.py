@@ -3,10 +3,10 @@ from django.template.loader import get_template
 from django.contrib.admin import widgets
 
 from .settings import (
-    DRACEDITOR_UPLOAD_URLS_PATH,
-    DRACEDITOR_SEARCH_USERS_URLS_PATH,
-    DRACEDITOR_MARKDOWN_BASE_EMOJI_URL,
-    DRACEDITOR_EDITOR_OPTIONS
+    DRACEDITOR_UPLOAD_URL,
+    DRACEDITOR_MARKDOWNIFY_URL,
+    DRACEDITOR_SEARCH_USERS_URL,
+    DRACEDITOR_MARKDOWN_BASE_EMOJI_URL
 )
 
 
@@ -20,10 +20,10 @@ class DraceditorWidget(forms.Textarea):
         else:
             attrs.update({'class': 'draceditor'})
 
-        attrs['data-upload-urls-path'] = DRACEDITOR_UPLOAD_URLS_PATH
-        attrs['data-search-users-urls-path'] = DRACEDITOR_SEARCH_USERS_URLS_PATH
+        attrs['data-upload-url'] = DRACEDITOR_UPLOAD_URL
+        attrs['data-markdownfy-url'] = DRACEDITOR_MARKDOWNIFY_URL
+        attrs['data-search-users-url'] = DRACEDITOR_SEARCH_USERS_URL
         attrs['data-base-emoji-url'] = DRACEDITOR_MARKDOWN_BASE_EMOJI_URL
-        attrs['data-toolbar'] = DRACEDITOR_EDITOR_OPTIONS
 
         widget = super(DraceditorWidget, self).render(name, value, attrs)
 
@@ -49,7 +49,6 @@ class DraceditorWidget(forms.Textarea):
             'plugins/js/mode-markdown.js',
             'plugins/js/ext-language_tools.js',
             'plugins/js/theme-github.js',
-            'plugins/js/marked.min.js',
             'plugins/js/highlight.min.js',
 
             'plugins/js/emojis.min.js',

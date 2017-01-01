@@ -1,9 +1,16 @@
 from django.conf.urls import url
 from .views import (
-    markdown_imgur_uploader, markdown_search_user
+    markdownfy_view,
+    markdown_imgur_uploader,
+    markdown_search_user
 )
 
 urlpatterns = [
+    url(
+        r'^markdownify/$',
+        markdownfy_view,
+        name='draceditor_markdownfy'
+    ),
     url(
         r'^uploader/$',
         markdown_imgur_uploader,

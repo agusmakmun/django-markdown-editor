@@ -20,7 +20,7 @@ def markdownify(markdown_content):
     """
     return markdown.markdown(
         markdown_content,
-        safe_mode=settings.DRACEDITOR_MARKDOWN_SAFE_MODE,
-        extensions=settings.DRACEDITOR_MARKDOWN_EXTENSIONS,
-        extension_configs=settings.DRACEDITOR_MARKDOWN_EXTENSION_CONFIGS,
+        safe_mode=DRACEDITOR_MARKDOWN_SAFE_MODE,
+        extensions=DRACEDITOR_MARKDOWN_EXTENSIONS,
+        extension_configs=DRACEDITOR_MARKDOWN_EXTENSION_CONFIGS
     )
