@@ -18,7 +18,7 @@ draceditor |pypi version|
    :target: https://pypi.python.org/pypi/draceditor
 
 
-**DracEditor** is Django Markdown Editor build for Dracos Linux *(https://dracos-linux.org)*. Demo video: https://youtu.be/DZCZD7Y8P0Y
+**DracEditor** is Django Markdown Editor built for Dracos Linux *(https://dracos-linux.org)*. Demo video: https://youtu.be/DZCZD7Y8P0Y
 
 
 Features
@@ -180,6 +180,15 @@ Draceditor Commands Refference
 .. image:: https://raw.githubusercontent.com/agusmakmun/dracos-markdown-editor/master/__screenshot/draceditor-guide.png
 
 
+Notes
+--------------------------------
+
+**DracEditor** was inspired by great `django-markdownx`_, `Python Markdown`_ and `Online reStructuredText editor`_.
+
+
 .. _Ace Editor: https://ace.c9.io
 .. _Semantic-UI: http://semantic-ui.com
 .. _PyPI: https://pypi.python.org/pypi/draceditor
+.. _django-markdownx: https://github.com/adi-/django-markdownx
+.. _Python Markdown: https://github.com/waylan/Python-Markdown
+.. _Online reStructuredText editor: http://rst.ninjs.org
