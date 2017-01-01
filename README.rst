@@ -18,7 +18,7 @@ draceditor |pypi version|
    :target: https://pypi.python.org/pypi/draceditor
 
 
-**DracEditor** is Django Markdown Editor build for Dracos Linux *(https://dracos-linux.org)*
+**DracEditor** is Django Markdown Editor build for Dracos Linux *(https://dracos-linux.org)*. Demo video: https://youtu.be/DZCZD7Y8P0Y
 
 
 Features
