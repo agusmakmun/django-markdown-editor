@@ -12,7 +12,7 @@ setup(
     packages=find_packages(exclude=["*demo"]),
     include_package_data=True,
     zip_safe=False,
-    description='Django Markdown Editor build for Dracos Linux https://dracos-linux.org',
+    description='Django Markdown Editor built for Dracos Linux https://dracos-linux.org',
     url='https://github.com/agusmakmun/dracos-markdown-editor',
     download_url='https://github.com/agusmakmun/djipsum/tarball/v{}'.format(__VERSION__),
     keywords=['draceditor', 'django markdown', 'django markdown editor'],
