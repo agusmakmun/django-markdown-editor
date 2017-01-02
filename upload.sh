@@ -17,7 +17,7 @@ if [ "$1" == "git" ]; then
         new_version=$(
           git tag | tail -n1 | awk -F '[/.]' '{ gsub("v", "", $1); print $1$2$3 + 1}' | fold -w1 | paste -sd.
         );
-        # new_version = git tag | tail -n1 | perl -pe 's/\v//g;s/\.//g;$_++;s/(\d)/$1./g;s/.$/\n/;' # v1.0.9 => v1.1.0
+        # new_version = $(git tag | tail -n1 | perl -pe 's/\v//g;s/\.//g;$_++;s/(\d)/$1./g;s/.$/\n/;') # v1.0.9 => v1.1.0
         # echo "git tag -a v$new_version -m 'Release v$new_version'";
         git tag -a "v$new_version" -m "Release v$new_version";
         git push origin "v$new_version";
