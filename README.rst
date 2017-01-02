@@ -98,6 +98,14 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
 
 ::
 
+    # Global draceditor settings
+    # Input: string boolean, `true/false`
+    DRACEDITOR_ENABLE_CONFIGS' = {
+        'imgur': 'true',     # to enable/disable imgur uploader.
+        'mention': 'false',  # to enable/disable mention
+        'jquery': 'true',    # to include/revoke jquery (require for admin default django)
+    }
+
     # Imgur API Keys
     DRACEDITOR_IMGUR_CLIENT_ID = 'your-client-id'
     DRACEDITOR_IMGUR_API_KEY   = 'your-api-key'
