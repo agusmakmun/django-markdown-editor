@@ -13,7 +13,7 @@ if [ "$1" == "git" ]; then
     # ./upload.sh git tag
     if [ "$2" == "tag" ]; then
         # check last release version and plus it with 1
-        # eg: 1.0.8 => 1.0.9
+        # eg: v1.0.8 => v1.0.9
         new_version=$(
           git tag | tail -n1 | awk -F '[/.]' '{ gsub("v", "", $1); print $1$2$3 + 1}' | fold -w1 | paste -sd.
         );
