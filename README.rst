@@ -93,6 +93,9 @@ DracEditor is available directly from `PyPI`_:
 Setting Configurations ``settings.py``
 ---------------------------------------
 
+Please register application in https://api.imgur.com/oauth2/addclient
+to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
+
 ::
 
     # Imgur API Keys
