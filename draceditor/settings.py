@@ -1,5 +1,15 @@
 from django.conf import settings
 
+# Global draceditor settings
+# Input: string boolean, `true/false`
+DRACEDITOR_ENABLE_CONFIGS = getattr(
+    settings, 'DRACEDITOR_ENABLE_CONFIGS', {
+        'imgur': 'true',     # to enable/disable imgur uploader.
+        'mention': 'false',   # to enable/disable mention
+        'jquery': 'true',    # to include/revoke jquery (require for admin default django)
+    }
+)
+
 # Imgur API Keys
 DRACEDITOR_IMGUR_CLIENT_ID = getattr(
     settings, 'DRACEDITOR_IMGUR_CLIENT_ID', ''
@@ -31,8 +41,8 @@ DRACEDITOR_MARKDOWN_EXTENSIONS = getattr(
 
         # Custom markdown extensions.
         'draceditor.extensions.urlize',
-        'draceditor.extensions.mention',
-        'draceditor.extensions.emoji',
+        'draceditor.extensions.mention',  # to parse markdown mention
+        'draceditor.extensions.emoji',    # to parse markdown emoji
     ]
 )
 
@@ -43,10 +53,10 @@ DRACEDITOR_MARKDOWN_EXTENSION_CONFIGS = getattr(
 
 # Markdown urls
 DRACEDITOR_UPLOAD_URL = getattr(
-    settings, 'DRACEDITOR_UPLOAD_URL', '/draceditor/uploader/'
+    settings, 'DRACEDITOR_UPLOAD_URL', '/draceditor/uploader/'  # for imgur
 )
 DRACEDITOR_SEARCH_USERS_URL = getattr(
-    settings, 'DRACEDITOR_SEARCH_USERS_URL', '/draceditor/search-user/'
+    settings, 'DRACEDITOR_SEARCH_USERS_URL', '/draceditor/search-user/'  # for mention
 )
 
 # Markdown Extensions

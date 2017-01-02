@@ -3,6 +3,7 @@ from django.template.loader import get_template
 from django.contrib.admin import widgets
 
 from .settings import (
+    DRACEDITOR_ENABLE_CONFIGS,
     DRACEDITOR_UPLOAD_URL,
     DRACEDITOR_MARKDOWNIFY_URL,
     DRACEDITOR_SEARCH_USERS_URL,
@@ -20,6 +21,7 @@ class DraceditorWidget(forms.Textarea):
         else:
             attrs.update({'class': 'draceditor'})
 
+        attrs['data-enable-configs'] = DRACEDITOR_ENABLE_CONFIGS
         attrs['data-upload-url'] = DRACEDITOR_UPLOAD_URL
         attrs['data-markdownfy-url'] = DRACEDITOR_MARKDOWNIFY_URL
         attrs['data-search-users-url'] = DRACEDITOR_SEARCH_USERS_URL
@@ -42,7 +44,7 @@ class DraceditorWidget(forms.Textarea):
             )
         }
         js = (
-            'plugins/js/jquery.min.js',
+            #'plugins/js/jquery.min.js',
             'plugins/js/ace.js',
             'plugins/js/semantic.min.js',
             'plugins/js/mode-markdown.js',
@@ -53,6 +55,8 @@ class DraceditorWidget(forms.Textarea):
             'plugins/js/emojis.min.js',
             'js/draceditor.js',
         )
+        if DRACEDITOR_ENABLE_CONFIGS['jquery'] == 'true':
+            js = ('plugins/js/jquery.min.js',).__add__(js)
 
 
 class AdminDraceditorWidget(DraceditorWidget, widgets.AdminTextareaWidget):

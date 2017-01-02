@@ -1,5 +1,5 @@
 /**
- * Name         : DracEditor v1.0.7
+ * Name         : DracEditor v1.0.8
  * Created by   : Agus Makmun (Summon Agus)
  * Release date : 2-Jan-2017
  * Official     : https://dracos-linux.org
@@ -132,7 +132,11 @@
             }
         }
         // Set autocomplete for ace editor
-        editor.completers = [emojiWordCompleter, mentionWordCompleter]
+        if (draceditor.data('enable-configs').mention === 'true') {
+            editor.completers = [emojiWordCompleter, mentionWordCompleter]
+        }else {
+            editor.completers = [emojiWordCompleter]
+        }
 
         // win/linux: Ctrl+B, mac: Command+B
         var markdownToBold = function() {
@@ -541,14 +545,16 @@
             },
             readOnly: true
         });
-        editor.commands.addCommand({
-            name: 'markdownToMention',
-            bindKey: {win: 'Ctrl-M', mac: 'Command-M'},
-            exec: function(editor) {
-                markdownToMention()
-            },
-            readOnly: true
-        });
+        if (draceditor.data('enable-configs').mention === 'true') {
+            editor.commands.addCommand({
+                name: 'markdownToMention',
+                bindKey: {win: 'Ctrl-M', mac: 'Command-M'},
+                exec: function(editor) {
+                    markdownToMention()
+                },
+                readOnly: true
+            });
+        }
 
         // Trigger Click
         $('.markdown-bold').click(function(){
@@ -590,14 +596,27 @@
         $('.markdown-image-link').click(function(){
             markdownToImageLink();
         });
-        $('.markdown-direct-mention').click(function(){
-            markdownToMention();
-        });
-        // To Upload Image
-        $('.markdown-image-upload').on('change', function(evt){
-            evt.preventDefault();
-            markdownToUploadImage();
-        });
+
+        // Custom decission for toolbar buttons.
+        var btnMention = $('.markdown-direct-mention'); // To Direct Mention
+        var btnUpload = $('.markdown-image-upload'); // To Upload Image
+        var configs = draceditor.data('enable-configs');
+        if (configs.mention === 'true') {
+            btnMention.click(function(){
+                markdownToMention();
+            });
+        }else if (configs.imgur === 'true') {
+            btnUpload.on('change', function(evt){
+                evt.preventDefault();
+                markdownToUploadImage();
+            });
+        }else {
+            btnMention.remove();
+            btnUpload.remove();
+            // Disable help of `mention`
+            $('.markdown-reference tbody tr')[1].remove();
+        }
+
         // Modal Popup for Help Guide & Emoji Cheat Sheet
         $('.markdown-help').click(function(){
             $('.modal-help-guide').modal('show');
