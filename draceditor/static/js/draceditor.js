@@ -1,5 +1,5 @@
 /**
- * Name         : DracEditor v1.1.0
+ * Name         : DracEditor v1.1.1
  * Created by   : Agus Makmun (Summon Agus)
  * Release date : 5-Jan-2017
  * Official     : https://dracos-linux.org
@@ -600,7 +600,7 @@
         // Custom decission for toolbar buttons.
         var btnMention = $('.markdown-direct-mention'); // To Direct Mention
         var btnUpload = $('.markdown-image-upload'); // To Upload Image
-        var configs = draceditor.data('enable-configs');
+        var configs = JSON.parse(draceditor.data('enable-configs').replace(/'/g, '"'));
         if (configs.mention === 'true') {
             btnMention.click(function(){
                 markdownToMention();
