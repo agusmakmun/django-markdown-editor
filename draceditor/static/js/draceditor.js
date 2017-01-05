@@ -1,5 +1,5 @@
 /**
- * Name         : DracEditor v1.1.1
+ * Name         : DracEditor v1.1.2
  * Created by   : Agus Makmun (Summon Agus)
  * Release date : 5-Jan-2017
  * Official     : https://dracos-linux.org
@@ -132,7 +132,8 @@
             }
         }
         // Set autocomplete for ace editor
-        if (draceditor.data('enable-configs').mention === 'true') {
+        var configs = JSON.parse(draceditor.data('enable-configs').replace(/'/g, '"'));
+        if (configs.mention === 'true') {
             editor.completers = [emojiWordCompleter, mentionWordCompleter]
         }else {
             editor.completers = [emojiWordCompleter]
