@@ -1,5 +1,5 @@
 /**
- * Name         : DracEditor v1.1.2
+ * Name         : DracEditor v1.1.3
  * Created by   : Agus Makmun (Summon Agus)
  * Release date : 5-Jan-2017
  * Official     : https://dracos-linux.org
@@ -16,6 +16,8 @@
         var draceditor   = $(this);
         var dracPreview  = $('.draceditor-preview');
         var dracSplitter = $('.draceditor-splitter');
+        var dracConfig   = JSON.parse(draceditor.data('enable-configs').replace(/'/g, '"'));
+        console.log(dracConfig);
 
         draceditor.trigger('draceditor.init');
 
@@ -132,8 +134,7 @@
             }
         }
         // Set autocomplete for ace editor
-        var configs = JSON.parse(draceditor.data('enable-configs').replace(/'/g, '"'));
-        if (configs.mention === 'true') {
+        if (dracConfig.mention === 'true') {
             editor.completers = [emojiWordCompleter, mentionWordCompleter]
         }else {
             editor.completers = [emojiWordCompleter]
@@ -546,7 +547,7 @@
             },
             readOnly: true
         });
-        if (draceditor.data('enable-configs').mention === 'true') {
+        if (dracConfig.mention === 'true') {
             editor.commands.addCommand({
                 name: 'markdownToMention',
                 bindKey: {win: 'Ctrl-M', mac: 'Command-M'},
@@ -601,12 +602,11 @@
         // Custom decission for toolbar buttons.
         var btnMention = $('.markdown-direct-mention'); // To Direct Mention
         var btnUpload = $('.markdown-image-upload'); // To Upload Image
-        var configs = JSON.parse(draceditor.data('enable-configs').replace(/'/g, '"'));
-        if (configs.mention === 'true') {
+        if (dracConfig.mention === 'true') {
             btnMention.click(function(){
                 markdownToMention();
             });
-        }else if (configs.imgur === 'true') {
+        }if (dracConfig.imgur === 'true') {
             btnUpload.on('change', function(evt){
                 evt.preventDefault();
                 markdownToUploadImage();
