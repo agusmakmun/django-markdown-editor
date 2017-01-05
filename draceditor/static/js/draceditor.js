@@ -1,5 +1,5 @@
 /**
- * Name         : DracEditor v1.1.3
+ * Name         : DracEditor v1.1.4
  * Created by   : Agus Makmun (Summon Agus)
  * Release date : 5-Jan-2017
  * Official     : https://dracos-linux.org
@@ -602,16 +602,27 @@
         // Custom decission for toolbar buttons.
         var btnMention = $('.markdown-direct-mention'); // To Direct Mention
         var btnUpload = $('.markdown-image-upload'); // To Upload Image
-        if (dracConfig.mention === 'true') {
+        if (dracConfig.mention === 'true' && dracConfig.imgur === 'true') {
             btnMention.click(function(){
                 markdownToMention();
             });
-        }if (dracConfig.imgur === 'true') {
             btnUpload.on('change', function(evt){
                 evt.preventDefault();
                 markdownToUploadImage();
             });
-        }else {
+        }else if (dracConfig.mention === 'true' && dracConfig.imgur === 'false') {
+            btnMention.click(function(){
+                markdownToMention();
+            });
+            btnUpload.remove();
+        }else if (dracConfig.mention === 'false' && dracConfig.imgur === 'true') {
+            btnMention.remove();
+            btnUpload.on('change', function(evt){
+                evt.preventDefault();
+                markdownToUploadImage();
+            });
+        }
+        else {
             btnMention.remove();
             btnUpload.remove();
             // Disable help of `mention`
