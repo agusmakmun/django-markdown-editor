@@ -41,6 +41,7 @@ DRACEDITOR_MARKDOWN_EXTENSIONS = getattr(
 
         # Custom markdown extensions.
         'draceditor.extensions.urlize',
+        'draceditor.extensions.del_ins',  # ~~strikethrough~~ and ++underscores++
         'draceditor.extensions.mention',  # to parse markdown mention
         'draceditor.extensions.emoji',    # to parse markdown emoji
     ]

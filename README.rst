@@ -126,6 +126,7 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
 
         # Custom markdown extensions.
         'draceditor.extensions.urlize',
+        'draceditor.extensions.del_ins', # ~~strikethrough~~ and ++underscores++
         'draceditor.extensions.mention', # require for mention
         'draceditor.extensions.emoji',   # require for emoji
     ]

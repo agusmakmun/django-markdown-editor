@@ -1,5 +1,5 @@
 /**
- * Name         : DracEditor v1.1.4
+ * Name         : DracEditor v1.1.5
  * Created by   : Agus Makmun (Summon Agus)
  * Release date : 5-Jan-2017
  * Official     : https://dracos-linux.org

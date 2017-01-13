@@ -4,6 +4,8 @@
 # ./upload.sh pypi
 if [ "$1" == "pypi" ]; then
     python setup.py sdist upload -r pypi
+    cd ../organization/dracos-markdown-editor
+    git fetch upstream && git merge upstream/master && git push
 fi
 
 if [ "$1" == "git" ]; then
