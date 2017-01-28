@@ -1,16 +1,17 @@
+{% load i18n %}
 <div class="ui medium modal scrolling transition modal-help-guide">
   <i class="close icon"></i>
-  <div class="header"><i class="help circle icon"></i> Markdown Guide</div>
+  <div class="header"><i class="help circle icon"></i> {% trans "Markdown Guide" %}</div>
   <div class="content">
-    <p>This site is powered by Markdown. For full documentation, <a href="http://commonmark.org/help/" target="_blank">click here</a></p>
+    <p>{% blocktrans with doc_url='http://commonmark.org/help/' %}This site is powered by Markdown. For full documentation, <a href="{{ doc_url }}" target="_blank">click here</a>{% endblocktrans %}</p>
     <table class="ui celled table markdown-reference">
       <thead>
         <tr>
-          <th>Type</th>
-          <th>Or</th>
+          <th>{% trans "Code" %}</th>
+          <th>{% trans "Or" %}</th>
           <th>Linux/Windows</th>
           <th>Mac OS</th>
-          <th>... to Get</th>
+          <th>{% trans "... to Get" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -46,15 +47,15 @@
         <tr>
           <td>++Underscores++</td>
           <td>&mdash;</td>
-          <td>&mdash;</td>
-          <td>&mdash;</td>
+          <td>Shift+U</td>
+          <td>Option+U</td>
           <td><ins>Underscores</ins></td>
         </tr>
         <tr>
           <td>~~Strikethrough~~</td>
           <td>&mdash;</td>
-          <td>&mdash;</td>
-          <td>&mdash;</td>
+          <td>Shift+S</td>
+          <td>Option+S</td>
           <td><del>Strikethrough</del></td>
         </tr>
         <tr>

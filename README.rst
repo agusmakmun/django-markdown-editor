@@ -18,7 +18,8 @@ draceditor |pypi version|
    :target: https://pypi.python.org/pypi/draceditor
 
 
-**DracEditor** is Django Markdown Editor built for Dracos Linux *(https://dracos-linux.org)*. Demo video: https://youtu.be/DZCZD7Y8P0Y
+**DracEditor** is Django Markdown Editor built for Dracos Linux *(https://dracos-linux.org)*.
+Demo video: https://youtu.be/DZCZD7Y8P0Y
 
 
 Features
@@ -101,7 +102,7 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
     # Global draceditor settings
     # Input: string boolean, `true/false`
     DRACEDITOR_ENABLE_CONFIGS' = {
-        'imgur': 'true',     # to enable/disable imgur uploader.
+        'imgur': 'true',     # to enable/disable imgur/custom uploader.
         'mention': 'false',  # to enable/disable mention
         'jquery': 'true',    # to include/revoke jquery (require for admin default django)
     }
@@ -199,6 +200,12 @@ Simply safe the markdown content as html ouput with loading the templatetags fro
     {{ post.description|safe_markdown }}
 
 
+Custom Uploader
+-----------------
+
+If you want to save the images uploaded to your storage,
+**DracEditor** also provide to handle it. Please checkout this `WIKI`_.
+
 Test Draceditor from this Repository
 -------------------------------------
 
@@ -234,3 +241,4 @@ Notes
 .. _django-markdownx: https://github.com/adi-/django-markdownx
 .. _Python Markdown: https://github.com/waylan/Python-Markdown
 .. _Online reStructuredText editor: http://rst.ninjs.org
+.. _WIKI: https://github.com/agusmakmun/dracos-markdown-editor/wiki

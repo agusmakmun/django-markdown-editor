@@ -142,3 +142,7 @@ class EmojiExtension(markdown.Extension):
 
 def makeExtension(*args, **kwargs):
     return EmojiExtension(*args, **kwargs)
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

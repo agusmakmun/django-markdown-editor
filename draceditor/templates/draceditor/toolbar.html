@@ -1,74 +1,78 @@
+{% load i18n %}
 <div class="ui active dimmer upload-progress" style="display:none">
-  <div class="ui text loader">Uploading... please wait...</div>
+  <div class="ui text loader">{% trans "Uploading... please wait..." %}</div>
 </div>
 
 <div class="two fields draceditor-toolbar">
   <div class="field left-toolbar">
     <div class="ui basic icon buttons">
-      <div class="ui icon button markdown-bold" data-tooltip="Bold (Ctrl+B)" data-position="top left">
+      <div class="ui icon button markdown-bold" title="{% trans 'Bold' %} (Ctrl+B)">
         <i class="bold icon"></i>
       </div>
-      <div class="ui icon button markdown-italic" data-tooltip="Italic (Ctrl+I)" data-position="top center">
+      <div class="ui icon button markdown-italic" title="{% trans 'Italic' %} (Ctrl+I)">
         <i class="italic icon"></i>
       </div>
-      <div class="ui icon button markdown-horizontal" data-tooltip="Horizontal Line (Ctrl+H)" data-position="top center">
+      <div class="ui icon button markdown-horizontal" title="{% trans 'Horizontal Line' %} (Ctrl+H)">
         <i class="minus icon"></i>
       </div>
-      <div class="ui icon top left pointing dropdown button" data-tooltip="Heading" data-position="top center">
+      <div class="ui icon top left pointing dropdown button" title="{% trans 'Heading' %}">
         <i class="header icon"></i>
         <div class="menu">
-          <div class="item markdown-h1">Heading 1 (Ctrl+Alt+1)</div>
-          <div class="item markdown-h2">Heading 2 (Ctrl+Alt+2)</div>
-          <div class="item markdown-h3">Heading 3 (Ctrl+Alt+3)</div>
+          <div class="item markdown-h1" title="">{% trans 'Heading' %} 1 (Ctrl+Alt+1)</div>
+          <div class="item markdown-h2" title="">{% trans 'Heading' %} 2 (Ctrl+Alt+2)</div>
+          <div class="item markdown-h3" title="">{% trans 'Heading' %} 3 (Ctrl+Alt+3)</div>
         </div>
       </div>
     </div>
 
     <div class="ui basic icon buttons">
-      <div class="ui icon top left pointing dropdown button" data-tooltip="Pre or Code" data-position="top center">
+      <div class="ui icon top left pointing dropdown button" title="{% trans 'Pre or Code' %}">
         <i class="code icon"></i>
         <div class="menu">
-          <div class="item markdown-pre">Pre (Ctrl+Alt+P)</div>
-          <div class="item markdown-code">Code (Ctrl+Alt+C)</div>
+          <div class="item markdown-pre" title="">{% trans 'Pre' %} (Ctrl+Alt+P)</div>
+          <div class="item markdown-code" title="">{% trans 'Code' %} (Ctrl+Alt+C)</div>
         </div>
       </div>
-      <div class="ui icon button markdown-blockquote" data-tooltip="Quote (Ctrl+Q)" data-position="top center">
+      <div class="ui icon button markdown-blockquote" title="{% trans 'Quote' %} (Ctrl+Q)">
         <i class="quote left icon"></i>
       </div>
-      <div class="ui icon button markdown-unordered-list" data-tooltip="Unordered List (Ctrl+U)" data-position="top center">
+      <div class="ui icon button markdown-unordered-list" title="{% trans 'Unordered List' %} (Ctrl+U)">
         <i class="unordered list icon"></i>
       </div>
-      <div class="ui icon button markdown-ordered-list" data-tooltip="Ordered List (Ctrl+Shift+O)" data-position="top center">
+      <div class="ui icon button markdown-ordered-list" title="{% trans 'Ordered List' %} (Ctrl+Shift+O)">
         <i class="ordered list icon"></i>
       </div>
     </div>
 
     <div class="ui basic icon buttons">
-      <div class="ui icon button markdown-link" data-tooltip="URL/Link (Ctrl+L)" data-position="top center">
+      <div class="ui icon button markdown-link" title="{% trans 'URL/Link' %} (Ctrl+L)">
         <i class="linkify icon"></i>
       </div>
-      <div class="ui icon button markdown-image-link" data-tooltip="Insert Image Link (Ctrl+Shift+I)" data-position="top center">
+      <div class="ui icon button markdown-image-link" title="{% trans 'Insert Image Link' %} (Ctrl+Shift+I)">
         <i class="image icon"></i>
       </div>
-      <div class="ui icon button markdown-image-upload" data-tooltip="Upload an Image" data-position="top right">
+      <div class="ui icon button markdown-image-upload" title="{% trans 'Upload an Image' %}">
         <i class="cloud upload icon"></i>
-        <input name="markdown-image-upload" class="button" type="file" accept="image/*" title="Upload an Image">
+        <input name="markdown-image-upload" class="button" type="file" accept="image/*" title="{% trans 'Upload an Image' %}">
       </div>
-      <div class="ui icon button markdown-emoji" data-tooltip="Insert Emoji" data-position="top center">
+      <div class="ui icon button markdown-emoji" title="{% trans 'Insert Emoji' %}">
         <i class="smile icon"></i>
       </div>
-      <div class="ui icon button markdown-direct-mention" data-tooltip="Direct Mention a User (Ctrl+M)" data-position="top center">
+      <div class="ui icon button markdown-direct-mention" title="{% trans 'Direct Mention a User' %} (Ctrl+M)">
         <i class="at icon"></i>
       </div>
     </div>
     <div class="ui basic icon buttons">
-      <div class="ui icon button markdown-toggle-editor" data-tooltip="Toggle Editor" data-position="top center">
+      <div class="ui icon button markdown-toggle-editor" title="{% trans 'Toggle Editor' %}">
         <i class="columns icon"></i>
       </div>
-      <div class="ui icon button markdown-toggle-preview" data-tooltip="Toggle Preview" data-position="top center">
+      <div class="ui icon button markdown-toggle-preview" title="{% trans 'Toggle Preview' %}">
         <i class="unhide icon"></i>
       </div>
-      <div class="ui icon button markdown-help" data-tooltip="Markdown Guide (Help)" data-position="top center">
+      <div class="ui icon button markdown-toggle-maximize" title="{% trans 'Full Screen' %}">
+        <i class="maximize icon"></i>
+      </div>
+      <div class="ui icon button markdown-help" title="{% trans 'Markdown Guide (Help)' %}">
         <i class="help circle icon"></i>
       </div>
     </div>

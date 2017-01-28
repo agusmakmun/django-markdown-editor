@@ -1,7 +1,7 @@
 /**
- * Name         : DracEditor v1.1.5
+ * Name         : DracEditor v1.1.6
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 5-Jan-2017
+ * Release date : 28-Jan-2017
  * Official     : https://dracos-linux.org
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/dracos-markdown-editor
@@ -17,7 +17,7 @@
         var dracPreview  = $('.draceditor-preview');
         var dracSplitter = $('.draceditor-splitter');
         var dracConfig   = JSON.parse(draceditor.data('enable-configs').replace(/'/g, '"'));
-        console.log(dracConfig);
+        //console.log(dracConfig);
 
         draceditor.trigger('draceditor.init');
 
@@ -167,6 +167,36 @@
               var text = editor.session.getTextRange(range);
               editor.session.replace(range, '_'+text+'_');
               originalRange.end.column += 2; // this because injected from 2 `_` characters.
+              editor.selection.setSelectionRange(originalRange);
+            }
+        };
+        // win/linux: Shift+U
+        var markdownToUnderscores = function() {
+            var originalRange = editor.getSelectionRange();
+            if (editor.selection.isEmpty()) {
+                var curpos = editor.getCursorPosition();
+                editor.session.insert(curpos, ' ++++ ');
+                editor.selection.moveTo(curpos.row, curpos.column+3);
+            }else {
+              var range = editor.getSelectionRange();
+              var text = editor.session.getTextRange(range);
+              editor.session.replace(range, '++'+text+'++');
+              originalRange.end.column += 4; // this because injected from 4 `*` characters.
+              editor.selection.setSelectionRange(originalRange);
+            }
+        };
+        // win/linux: Shift+S
+        var markdownToStrikethrough = function() {
+            var originalRange = editor.getSelectionRange();
+            if (editor.selection.isEmpty()) {
+                var curpos = editor.getCursorPosition();
+                editor.session.insert(curpos, ' ~~~~ ');
+                editor.selection.moveTo(curpos.row, curpos.column+3);
+            }else {
+              var range = editor.getSelectionRange();
+              var text = editor.session.getTextRange(range);
+              editor.session.replace(range, '~~'+text+'~~');
+              originalRange.end.column += 4; // this because injected from 4 `*` characters.
               editor.selection.setSelectionRange(originalRange);
             }
         };
@@ -460,6 +490,22 @@
             readOnly: true
         });
         editor.commands.addCommand({
+            name: 'markdownToUnderscores',
+            bindKey: {win: 'Shift-U', mac: 'Option-U'},
+            exec: function(editor) {
+                markdownToUnderscores()
+            },
+            readOnly: true
+        });
+        editor.commands.addCommand({
+            name: 'markdownToStrikethrough',
+            bindKey: {win: 'Shift-S', mac: 'Option-S'},
+            exec: function(editor) {
+                markdownToStrikethrough()
+            },
+            readOnly: true
+        });
+        editor.commands.addCommand({
             name: 'markdownToHorizontal',
             bindKey: {win: 'Ctrl-H', mac: 'Command-H'},
             exec: function(editor) {
@@ -634,10 +680,12 @@
             $('.modal-help-guide').modal('show');
         });
 
-        // Toggle editor & preview
-        var draceEditorId    = $('#draceditor');
-        var btnToggleEditor  = $('.markdown-toggle-editor');
-        var btnTogglePreview = $('.markdown-toggle-preview');
+        // Toggle editor, preview, maximize
+        var draceEditorId     = $('#draceditor');
+        var mainDracEditor    = $('.main-draceditor');
+        var btnToggleEditor   = $('.markdown-toggle-editor');
+        var btnTogglePreview  = $('.markdown-toggle-preview');
+        var btnToggleMaximize = $('.markdown-toggle-maximize');
 
         var handleToggleEditorOne = function() {
             dracPreview.hide();
@@ -669,6 +717,26 @@
         btnToggleEditor.one('click', handleToggleEditorOne);
         btnTogglePreview.one('click', handleTogglePreviewOne);
 
+        // Toggle maximize and minimize
+        var handleToggleMinimize = function() {
+            $(document.body).removeClass('overflow');
+            $(this).attr({'title': 'Full Screen'});
+            $(this).find('.minimize.icon').removeClass('minimize').addClass('maximize');
+            mainDracEditor.removeClass('main-draceditor-fullscreen');
+            editor.resize();
+        }
+        var handleToggleMaximize = function(selector) {
+            selector.attr({'title': 'Minimize'});
+            selector.find('.maximize.icon').removeClass('maximize').addClass('minimize');
+            mainDracEditor.addClass('main-draceditor-fullscreen');
+            editor.resize();
+            selector.one('click', handleToggleMinimize);
+            $(document.body).addClass('overflow');
+        }
+        btnToggleMaximize.on('click', function(){
+            handleToggleMaximize($(this));
+        });
+
         // Show emojis cheat sheet and insert to ace editor.
         $('.markdown-emoji').click(function(){
             var modalEmoji = $('.modal-emoji');
@@ -683,11 +751,12 @@
                 onVisible: function () {
                     for (var i = 0; i < emojiList.length; i++) {
                         var linkEmoji = draceditor.data('base-emoji-url') + emojiList[i].replace(/:/g, '') + '.png';
-                        segmentEmoji.append('<div class="four wide column"><p>' +
-                                                '<a data-emoji-target="' + emojiList[i] +
-                                                '" class="insert-emoji"><img class="marked-emoji" src="' +
-                                                linkEmoji + '"> ' + emojiList[i] +
-                                            '</a></p></div>');
+                        segmentEmoji.append(''
+                            +'<div class="four wide column">'
+                            + '<p><a data-emoji-target="'+emojiList[i]+'" class="insert-emoji">'
+                            + '<img class="marked-emoji" src="'+linkEmoji+'"> '+emojiList[i]
+                            + '</a></p>'
+                            +'</div>');
                         $('a[data-emoji-target="'+emojiList[i]+'"]').click(function(){
                             markdownToEmoji($(this).data('emoji-target'));
                             modalEmoji.modal('hide', 100);
@@ -720,6 +789,7 @@
         }
 
         // Synchronize the scroll positions between the editor and preview.
+        // Not fixed yet until now.
         /*
         sessionEditor.on('changeScrollTop', function(scroll) {
             // var totalLinesEditor  = editor.getSession().doc.getAllLines().length;
@@ -750,5 +820,4 @@ $(function() {
 $( document ).ready(function(){
     // Semantic UI
     $('.ui.dropdown').dropdown();
-    $('.button').popup();
 });

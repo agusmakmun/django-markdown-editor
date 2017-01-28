@@ -1,12 +1,14 @@
 import json
 from django.http import HttpResponse
 from django.utils.module_loading import import_string
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
 
 from .api import imgur_uploader
 from .settings import DRACEDITOR_MARKDOWNIFY_FUNCTION
+from .utils import LazyEncoder
 
 
 def markdownfy_view(request):
@@ -15,7 +17,7 @@ def markdownfy_view(request):
         return HttpResponse(
             markdownify(request.POST['content'])
         )
-    return HttpResponse('Invalid request!')
+    return HttpResponse(_('Invalid request!'))
 
 
 @login_required
@@ -29,8 +31,8 @@ def markdown_imgur_uploader(request):
             image = request.FILES['markdown-image-upload']
             data = imgur_uploader(image)
             return HttpResponse(data, content_type='application/json')
-        return HttpResponse('Invalid request!')
-    return HttpResponse('Invalid request!')
+        return HttpResponse(_('Invalid request!'))
+    return HttpResponse(_('Invalid request!'))
 
 
 @login_required
@@ -59,17 +61,27 @@ def markdown_search_user(request):
     if username is not None \
             and username != '' \
             and ' ' not in username:
-        queryset = User.objects.filter(
+        users = User.objects.filter(
             Q(username__icontains=username)
-        )
-        if queryset.exists():
+        ).filter(is_active=True)
+        if users.exists():
             data.update({
                 'status': 200,
-                'data': [{'username': u.username} for u in queryset]
+                'data': [{'username': u.username} for u in users]
             })
-            return HttpResponse(json.dumps(data), content_type='application/json')
-    data.update({
-        'status': 204,
-        'error': 'No users registered by query `{}`.'.format(username)
-    })
-    return HttpResponse(json.dumps(data), content_type='application/json')
+            return HttpResponse(
+                json.dumps(data, cls=LazyEncoder),
+                content_type='application/json')
+        data.update({
+            'status': 204,
+            'error': _('No users registered as `%(username)s` '
+                       'or user is unactived.') % {'username': username}
+        })
+    else:
+        data.update({
+            'status': 204,
+            'error': _('Validation Failed for field `username`')
+        })
+    return HttpResponse(
+        json.dumps(data, cls=LazyEncoder),
+        content_type='application/json')

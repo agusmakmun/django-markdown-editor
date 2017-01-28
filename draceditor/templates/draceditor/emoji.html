@@ -1,10 +1,11 @@
+{% load i18n %}
 <div class="ui large modal scrolling transition modal-emoji">
   <i class="close icon"></i>
-  <div class="header"><i class="help circle icon"></i> Select Emoji to Insert</div>
+  <div class="header"><i class="help circle icon"></i> {% trans "Select Emoji to Insert" %}</div>
   <div class="content emoji-content-base">
     <div class="ui segment emoji-loader-init">
       <div class="ui active inverted dimmer">
-        <div class="ui text loader">Preparing emojis...</div>
+        <div class="ui text loader">{% trans "Preparing emojis..." %}</div>
       </div>
       <p></p>
     </div>

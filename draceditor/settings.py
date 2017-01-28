@@ -4,9 +4,9 @@ from django.conf import settings
 # Input: string boolean, `true/false`
 DRACEDITOR_ENABLE_CONFIGS = getattr(
     settings, 'DRACEDITOR_ENABLE_CONFIGS', {
-        'imgur': 'true',     # to enable/disable imgur uploader.
+        'imgur': 'true',      # to enable/disable imgur/custom uploader.
         'mention': 'false',   # to enable/disable mention
-        'jquery': 'true',    # to include/revoke jquery (require for admin default django)
+        'jquery': 'true',     # to include/revoke jquery (require for admin default django)
     }
 )
 
