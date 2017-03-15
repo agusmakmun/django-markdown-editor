@@ -40,7 +40,7 @@ class DraceditorWidget(forms.Textarea):
             'all': (
                 'plugins/css/ace.min.css',
                 'plugins/css/semantic.min.css',
-                'css/draceditor.css',
+                'draceditor/css/draceditor.css',
             )
         }
         js = (
@@ -53,7 +53,7 @@ class DraceditorWidget(forms.Textarea):
             'plugins/js/highlight.min.js',
 
             'plugins/js/emojis.min.js',
-            'js/draceditor.js',
+            'draceditor/js/draceditor.js',
         )
         if DRACEDITOR_ENABLE_CONFIGS['jquery'] == 'true':
             js = ('plugins/js/jquery.min.js',).__add__(js)

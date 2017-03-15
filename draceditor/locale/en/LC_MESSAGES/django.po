@@ -1,0 +1,139 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-15 07:07+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/draceditor/emoji.html:4
+msgid "Select Emoji to Insert"
+msgstr ""
+
+#: templates/draceditor/emoji.html:8
+msgid "Preparing emojis..."
+msgstr ""
+
+#: templates/draceditor/guide.html:4
+msgid "Markdown Guide"
+msgstr ""
+
+#: templates/draceditor/guide.html:6
+#, python-format
+msgid ""
+"This site is powered by Markdown. For full documentation, <a href="
+"\"%(doc_url)s\" target=\"_blank\">click here</a>"
+msgstr ""
+
+#: templates/draceditor/guide.html:10 templates/draceditor/toolbar.html:33
+msgid "Code"
+msgstr ""
+
+#: templates/draceditor/guide.html:11
+msgid "Or"
+msgstr ""
+
+#: templates/draceditor/guide.html:14
+msgid "... to Get"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:3
+msgid "Uploading... please wait..."
+msgstr ""
+
+#: templates/draceditor/toolbar.html:9
+msgid "Bold"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:12
+msgid "Italic"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:15
+msgid "Horizontal Line"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:18 templates/draceditor/toolbar.html:21
+#: templates/draceditor/toolbar.html:22 templates/draceditor/toolbar.html:23
+msgid "Heading"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:29
+msgid "Pre or Code"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:32
+msgid "Pre"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:36
+msgid "Quote"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:39
+msgid "Unordered List"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:42
+msgid "Ordered List"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:48
+msgid "URL/Link"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:51
+msgid "Insert Image Link"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:54 templates/draceditor/toolbar.html:56
+msgid "Upload an Image"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:58
+msgid "Insert Emoji"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:61
+msgid "Direct Mention a User"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:66
+msgid "Toggle Editor"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:69
+msgid "Toggle Preview"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:72
+msgid "Full Screen"
+msgstr ""
+
+#: templates/draceditor/toolbar.html:75
+msgid "Markdown Guide (Help)"
+msgstr ""
+
+#: views.py:20 views.py:34 views.py:35
+msgid "Invalid request!"
+msgstr ""
+
+#: views.py:77
+#, python-format
+msgid "No users registered as `%(username)s` or user is unactived."
+msgstr ""
+
+#: views.py:83
+msgid "Validation Failed for field `username`"
+msgstr ""

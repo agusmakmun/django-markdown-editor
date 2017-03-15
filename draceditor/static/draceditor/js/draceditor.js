@@ -1,7 +1,7 @@
 /**
- * Name         : DracEditor v1.1.6
+ * Name         : DracEditor v1.1.7
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 28-Jan-2017
+ * Release date : 15-March-2017
  * Official     : https://dracos-linux.org
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/dracos-markdown-editor
