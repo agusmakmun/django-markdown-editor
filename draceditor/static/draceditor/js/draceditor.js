@@ -170,7 +170,7 @@
               editor.selection.setSelectionRange(originalRange);
             }
         };
-        // win/linux: Shift+U
+        // win/linux: Ctrl+Shift+U
         var markdownToUnderscores = function() {
             var originalRange = editor.getSelectionRange();
             if (editor.selection.isEmpty()) {
@@ -185,7 +185,7 @@
               editor.selection.setSelectionRange(originalRange);
             }
         };
-        // win/linux: Shift+S
+        // win/linux: Ctrl+Shift+S
         var markdownToStrikethrough = function() {
             var originalRange = editor.getSelectionRange();
             if (editor.selection.isEmpty()) {
@@ -491,7 +491,7 @@
         });
         editor.commands.addCommand({
             name: 'markdownToUnderscores',
-            bindKey: {win: 'Shift-U', mac: 'Option-U'},
+            bindKey: {win: 'Ctrl-Shift-U', mac: 'Command-Option-U'},
             exec: function(editor) {
                 markdownToUnderscores()
             },
@@ -499,7 +499,7 @@
         });
         editor.commands.addCommand({
             name: 'markdownToStrikethrough',
-            bindKey: {win: 'Shift-S', mac: 'Option-S'},
+            bindKey: {win: 'Ctrl-Shift-S', mac: 'Command-Option-S'},
             exec: function(editor) {
                 markdownToStrikethrough()
             },
