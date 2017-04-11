@@ -98,6 +98,7 @@ Please register application in https://api.imgur.com/oauth2/addclient
 to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
 
 Check this setting is not set else csrf will not be sent over ajax calls
+
 ::
     CSRF_COOKIE_HTTPONLY = False
 
