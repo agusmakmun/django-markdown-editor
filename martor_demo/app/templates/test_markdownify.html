@@ -6,6 +6,7 @@
   <title>Test Markdonify :: Martor</title>
   <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
   <link href="{% static 'plugins/css/semantic.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'martor/css/martor.css' %}" type="text/css" media="all" rel="stylesheet" />
   <style>
     .main-container {margin-top: 7em}
   </style>
@@ -42,7 +43,7 @@
   </header>
 
   <div class="ui container main-container">
-    <div class="ui segment">
+    <div class="ui segment martor-preview">
       <h1>Title: {{ post.title }}</h1>
       <p><b>Description:</b></p>
       <hr />
