@@ -235,7 +235,7 @@ And let checkout at http://127.0.0.1:8000/simple-form/ to your browser.
 Martor Commands Refference
 --------------------------------
 
-.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/__screenshot/markdown-guide.png
+.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/__screenshot/martor-guide.png
 
 
 Notes
