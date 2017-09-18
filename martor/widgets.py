@@ -42,7 +42,7 @@ class MartorWidget(forms.Textarea):
                 'plugins/css/ace.min.css',
                 'plugins/css/semantic.min.css',
                 'plugins/css/resizable.min.css',
-                'martor/css/martor.css',
+                'martor/css/martor.min.css',
             )
         }
         js = (
@@ -54,7 +54,7 @@ class MartorWidget(forms.Textarea):
             'plugins/js/highlight.min.js',
             'plugins/js/resizable.min.js',
             'plugins/js/emojis.min.js',
-            'martor/js/martor.js',
+            'martor/js/martor.min.js',
         )
         if MARTOR_ENABLE_CONFIGS['jquery'] == 'true':
             js = ('plugins/js/jquery.min.js',).__add__(js)
