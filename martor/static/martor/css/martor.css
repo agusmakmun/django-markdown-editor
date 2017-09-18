@@ -54,6 +54,8 @@ body.overflow {
 .emoji-loader-init {
   min-height: 200px!important;
 }
+.insert-emoji {cursor: pointer}
+
 /* Full Screen Mode */
 .main-martor-fullscreen {
   background: #fff;
