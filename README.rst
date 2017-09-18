@@ -11,7 +11,7 @@ martor |pypi version|
 .. image:: https://img.shields.io/pypi/pyversions/martor.svg?style=flat-square
    :target: https://pypi.python.org/pypi/martor
 
-.. image:: https://img.shields.io/badge/Django-1.8,%201.9,%201.10-green.svg?style=flat-square
+.. image:: https://img.shields.io/badge/Django-1.8,%201.9,%201.10,%201.11-green.svg?style=flat-square
   :target: https://www.djangoproject.com
 
 .. image:: https://img.shields.io/pypi/dm/martor.svg?style=flat-square
