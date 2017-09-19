@@ -14,25 +14,23 @@ martor |pypi version|
 .. image:: https://img.shields.io/badge/Django-1.8,%201.9,%201.10,%201.11-green.svg?style=flat-square
   :target: https://www.djangoproject.com
 
-.. image:: https://img.shields.io/pypi/dm/martor.svg?style=flat-square
-   :target: https://pypi.python.org/pypi/martor
 
-
-**Martor** is a Django Markdown Editor and new face of **DracEditor**.
+**Martor** is Markdown Editor plugin for Django and new face of **DracEditor**.
 
 
 Features
 ------------------------------
 
+* Live Preview
 * Integrated with `Ace Editor`_
 * Integrated with `Semantic-UI`_
-* Live Preview
 * Support Multiple Fields (`fixed this issue`_)
-* Upload Image to imgur.com `(via API)`
-* Emoji ``:emoji_name:`` + Cheat sheet
+* Upload Image to imgur.com `(via API)` and `custom uploader`_.
 * Direct Mention users ``@[username]`` - `(require user to logged in)`
+* Emoji ``:emoji_name:`` + Cheat sheets
+* Martor Commands Refference
+* Support Django Admin
 * Highlight ``pre``
-* Django Admin support
 * Toolbar Buttons
 
 
@@ -252,3 +250,4 @@ Notes
 .. _Online reStructuredText editor: http://rst.ninjs.org
 .. _WIKI: https://github.com/agusmakmun/django-markdown-editor/wiki
 .. _fixed this issue: https://github.com/agusmakmun/django-markdown-editor/issues/3
+.. _custom uploader: https://github.com/agusmakmun/django-markdown-editor/wiki

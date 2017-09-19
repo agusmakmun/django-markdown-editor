@@ -743,6 +743,13 @@
                 handleToggleMaximize($(this));
             });
 
+            // Exit full screen when `ESC` is pressed.
+            $(document).keyup(function(e) {
+              if (e.keyCode == 27 && mainMartor.hasClass('main-martor-fullscreen')) {
+                $('.minimize.icon').trigger('click');
+              }
+            });
+
             // markdown insert emoji from the modal
             $('.markdown-emoji[data-field-name='+field_name+']').click(function(){
                 var modalEmoji = $('.modal-emoji[data-field-name='+field_name+']');
