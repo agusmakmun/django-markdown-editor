@@ -65,5 +65,5 @@ MARTOR_MARKDOWN_BASE_EMOJI_URL = getattr(
     settings, 'MARTOR_MARKDOWN_BASE_EMOJI_URL', 'https://assets-cdn.github.com/images/icons/emoji/'
 )
 MARTOR_MARKDOWN_BASE_MENTION_URL = getattr(
-    settings, 'MARTOR_MARKDOWN_BASE_MENTION_URL', 'https://websitedomain.com/profile/'
+    settings, 'MARTOR_MARKDOWN_BASE_MENTION_URL', 'https://python.web.id/author/'
 )

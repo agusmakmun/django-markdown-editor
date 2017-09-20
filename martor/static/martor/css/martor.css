@@ -3,7 +3,7 @@
   box-sizing: content-box;
 }
 body.overflow {
-  overflow: hidden;
+  overflow: hidden!important;
 }
 
 /* Scroll Bar */

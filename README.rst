@@ -30,8 +30,8 @@ Features
 * Emoji ``:emoji_name:`` + Cheat sheets
 * Martor Commands Refference
 * Support Django Admin
-* Highlight ``pre``
 * Toolbar Buttons
+* Highlight ``pre``
 
 
 Preview
@@ -141,7 +141,7 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
 
     # Markdown Extensions
     MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://assets-cdn.github.com/images/icons/emoji/' # default
-    MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/profile/' # default (change this)
+    MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/' # default (change this)
 
 Check this setting is not set else csrf will not be sent over ajax calls:
 
