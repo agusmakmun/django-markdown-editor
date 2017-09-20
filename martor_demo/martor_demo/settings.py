@@ -26,15 +26,6 @@ SECRET_KEY = '=evi9e)i7pc)yvlqj0-p-dp%wl^@x4t-5&z70(krq9(xr4_wco'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-MARTOR_ENABLE_CONFIGS = {
-    'imgur': 'true',      # to enable/disable imgur/custom uploader.
-    'mention': 'true',   # to enable/disable mention
-    'jquery': 'true',     # to include/revoke jquery (require for admin default django)
-}
-
-MARTOR_IMGUR_CLIENT_ID = '5734b2f09eba239'
-MARTOR_IMGUR_API_KEY = '9eb9642579ffc558b51e0af2e9a7f97f164d1431'
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
