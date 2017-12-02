@@ -20,8 +20,11 @@
       </div>
     </div>
   </div>
+{% endblock %}
 
+{% block js %}
   <script>
     $('form [name="title"]').attr({'placeholder': 'Post Title'});
+    $('.ui.menu .ui.dropdown.item').dropdown();
   </script>
 {% endblock %}

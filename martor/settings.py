@@ -10,7 +10,7 @@ MARTOR_ENABLE_CONFIGS = getattr(
     }
 )
 
-# To setup the martor edito with label or not (default is False)
+# To setup the martor editor with label or not (default is False)
 MARTOR_ENABLE_LABEL = getattr(
     settings, 'MARTOR_ENABLE_LABEL', False
 )

@@ -107,7 +107,7 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
         'jquery': 'true',    # to include/revoke jquery (require for admin default django)
     }
 
-    # To setup the martor edito with label or not (default is False)
+    # To setup the martor editor with label or not (default is False)
     MARTOR_ENABLE_LABEL = False
 
     # Imgur API Keys
