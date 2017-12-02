@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.2.4
+ * Name         : Martor v1.2.5
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 18-Sep-2017
+ * Release date : 02-Dec-2017
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
@@ -117,7 +117,7 @@
             // set css `display:none` fot this textarea.
             textareaId.attr({'style': 'display:none'});
 
-            // assign all button single toolbar
+            // assign all `field_name`, uses for a per-single editor.
             $(obj).find('.martor-toolbar').find('.markdown-selector').attr({'data-field-name': field_name});
             $(obj).find('.upload-progress').attr({'data-field-name': field_name});
             $(obj).find('.modal-help-guide').attr({'data-field-name': field_name});
@@ -131,7 +131,7 @@
 
             // resize the editor using `resizable.min.js`
             $('#'+editorId).resizable({
-		            direction: 'bottom',
+                direction: 'bottom',
                 stop: function() {
                     editor.resize();
                 }
@@ -491,7 +491,12 @@
                               editor=editor,
                               imageData={name: response.name, link: response.link}
                             );
-                        }else {console.log(response)}
+                        }else if (response.status == 403) {
+                          alert(response.data.error); // invalid client id
+                        }
+                        else {
+                          console.log(response)
+                        }
                     },
                     error: function(response) {
                         console.log("error", response);
@@ -794,6 +799,6 @@ $(function() {
 
 $( document ).ready(function(){
     // Semantic UI
-    $('.ui.dropdown').dropdown();
+    $('.ui.martor-toolbar .ui.dropdown').dropdown();
     $('.ui.tab-martor-menu .item').tab();
 });
