@@ -11,7 +11,7 @@ martor |pypi version|
 .. image:: https://img.shields.io/pypi/pyversions/martor.svg?style=flat-square
    :target: https://pypi.python.org/pypi/martor
 
-.. image:: https://img.shields.io/badge/Django-1.8,%201.9,%201.10,%201.11-green.svg?style=flat-square
+.. image:: https://img.shields.io/badge/Django-1.8,%201.9,%201.10,%201.11,%202.0-green.svg?style=flat-square
   :target: https://www.djangoproject.com
 
 
@@ -27,6 +27,7 @@ Features
 * Support Multiple Fields (`fixed this issue`_)
 * Upload Image to imgur.com `(via API)` and `custom uploader`_.
 * Direct Mention users ``@[username]`` - `(require user to logged in)`
+* Support embed/iframe video from (Youtube, Vimeo, Dailymotion, Yahoo, Veoh, & Metacafe)
 * Emoji ``:emoji_name:`` + Cheat sheets
 * Martor Commands Refference
 * Support Django Admin
@@ -78,6 +79,13 @@ Martor is available directly from `PyPI`_:
 ::
 
     # urls.py
+    # django >= 2.0
+    urlpatterns = [
+        ...
+        path('martor/', include('martor.urls')),
+    ]
+
+    # django <= 1.9
     urlpatterns = [
         ...
         url(r'^martor/', include('martor.urls')),
@@ -130,9 +138,10 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
 
         # Custom markdown extensions.
         'martor.extensions.urlize',
-        'martor.extensions.del_ins', # ~~strikethrough~~ and ++underscores++
-        'martor.extensions.mention', # require for mention
-        'martor.extensions.emoji',   # require for emoji
+        'martor.extensions.del_ins',    # ~~strikethrough~~ and ++underscores++
+        'martor.extensions.mention',    # to parse markdown mention
+        'martor.extensions.emoji',      # to parse markdown emoji
+        'martor.extensions.mdx_video',  # to parse embed/iframe video
     ]
 
     # Markdown Extensions Configs

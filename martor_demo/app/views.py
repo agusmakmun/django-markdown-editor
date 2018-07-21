@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import (render, redirect)
 from django.contrib.auth.decorators import login_required
 
 from app.forms import (SimpleForm, PostForm)
@@ -32,10 +32,8 @@ def post_form_view(request):
 
 def test_markdownify(request):
     post = Post.objects.last()
-
-    if post is not None:
-        context = {'post': post}
-    else:
+    context = {'post': post}
+    if post is None:
         context = {
             'post': {
                 'title': 'Fake Post',

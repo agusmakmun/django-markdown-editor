@@ -46,9 +46,10 @@ MARTOR_MARKDOWN_EXTENSIONS = getattr(
 
         # Custom markdown extensions.
         'martor.extensions.urlize',
-        'martor.extensions.del_ins',  # ~~strikethrough~~ and ++underscores++
-        'martor.extensions.mention',  # to parse markdown mention
-        'martor.extensions.emoji',    # to parse markdown emoji
+        'martor.extensions.del_ins',    # ~~strikethrough~~ and ++underscores++
+        'martor.extensions.mention',    # to parse markdown mention
+        'martor.extensions.emoji',      # to parse markdown emoji
+        'martor.extensions.mdx_video',  # to parse embed/iframe video
     ]
 )
 
