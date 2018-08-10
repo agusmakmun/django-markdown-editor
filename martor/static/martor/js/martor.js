@@ -140,10 +140,7 @@
             // update the preview if this menu is clicked
             var currentTab = $('.tab.segment[data-tab=preview-tab-'+field_name+']');
             var previewTabButton = $('.item[data-tab=preview-tab-'+field_name+']');
-            previewTabButton.click(function(){
-                // hide the `.martor-toolbar` for this current editor if under preview.
-                $(this).closest('.tab-martor-menu').find('.martor-toolbar').hide();
-
+            refreshPreview = function() {
                 var value = editor.getValue();
                 var form = new FormData();
                 form.append('content', value);
@@ -167,7 +164,15 @@
                         console.log("error", response);
                     }
                 });
+            };
+            previewTabButton.click(function(){
+                // hide the `.martor-toolbar` for this current editor if under preview.
+                $(this).closest('.tab-martor-menu').find('.martor-toolbar').hide();
+                refreshPreview();
             });// end click `previewTabButton`
+            if (editorConfig.living === 'true') {
+                editor.on('change', refreshPreview);
+            }
 
             var editorTabButton = $('.item[data-tab=editor-tab-'+field_name+']');
             editorTabButton.click(function(){
