@@ -233,3 +233,10 @@ body.overflow {
 .no-border {
   border: none!important;
 }
+/* live preview */
+.enable-living .martor-preview {
+  display: block !important;
+}
+.enable-living a[data-tab$=tab-description] {
+  display: none !important;
+}

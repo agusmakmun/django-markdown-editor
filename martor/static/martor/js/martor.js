@@ -56,6 +56,10 @@
                 enableMultiselect: false
             });
 
+            if (editorConfig.living) {
+                $(obj).addClass('enable-living');
+            }
+
             var emojiWordCompleter = {
                 getCompletions: function(editor, session, pos, prefix, callback) {
                     var wordList = emojis; // from `atwho/emojis.min.js`
