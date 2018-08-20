@@ -13,7 +13,7 @@ from .settings import (
 
 class MartorWidget(forms.Textarea):
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None, **kwargs):
         if attrs is None:
             attrs = {}
         elif 'class' in attrs:
