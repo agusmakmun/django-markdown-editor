@@ -113,7 +113,7 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
         'imgur': 'true',     # to enable/disable imgur/custom uploader.
         'mention': 'false',  # to enable/disable mention
         'jquery': 'true',    # to include/revoke jquery (require for admin default django)
-        'living': 'true',    # to enable/disable live updates in preview
+        'living': 'false',   # to enable/disable live updates in preview
     }
 
     # To setup the martor editor with label or not (default is False)
