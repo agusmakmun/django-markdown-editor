@@ -237,6 +237,6 @@ body.overflow {
 .enable-living .martor-preview {
   display: block !important;
 }
-.enable-living a[data-tab$=tab-description] {
+.enable-living .tab-martor-menu a.item {
   display: none !important;
 }
