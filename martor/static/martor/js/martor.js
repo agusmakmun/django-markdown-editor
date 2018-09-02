@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.3.0
+ * Name         : Martor v1.3.1
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 20-Aug-2018
+ * Release date : 02-Sep-2018
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
@@ -144,7 +144,7 @@
             // update the preview if this menu is clicked
             var currentTab = $('.tab.segment[data-tab=preview-tab-'+field_name+']');
             var previewTabButton = $('.item[data-tab=preview-tab-'+field_name+']');
-            refreshPreview = function() {
+            var refreshPreview = function() {
                 var value = editor.getValue();
                 var form = new FormData();
                 form.append('content', value);
@@ -169,13 +169,15 @@
                     }
                 });
             };
-            previewTabButton.click(function(){
-                // hide the `.martor-toolbar` for this current editor if under preview.
-                $(this).closest('.tab-martor-menu').find('.martor-toolbar').hide();
-                refreshPreview();
-            });// end click `previewTabButton`
+
             if (editorConfig.living === 'true') {
                 editor.on('change', refreshPreview);
+            }else {
+              previewTabButton.click(function(){
+                  // hide the `.martor-toolbar` for this current editor if under preview.
+                  $(this).closest('.tab-martor-menu').find('.martor-toolbar').hide();
+                  refreshPreview();
+              });
             }
 
             var editorTabButton = $('.item[data-tab=editor-tab-'+field_name+']');
@@ -191,12 +193,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, ' **** ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row, curpos.column+3);
                 }else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '**'+text+'**');
                   originalRange.end.column += 4; // this because injected from 4 `*` characters.
+                  editor.focus();
                   editor.selection.setSelectionRange(originalRange);
                 }
             };
@@ -206,12 +210,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, ' __ ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row, curpos.column+2);
                 }else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '_'+text+'_');
                   originalRange.end.column += 2; // this because injected from 2 `_` characters.
+                  editor.focus();
                   editor.selection.setSelectionRange(originalRange);
                 }
             };
@@ -221,12 +227,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, ' ++++ ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row, curpos.column+3);
                 }else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '++'+text+'++');
                   originalRange.end.column += 4; // this because injected from 4 `*` characters.
+                  editor.focus();
                   editor.selection.setSelectionRange(originalRange);
                 }
             };
@@ -236,12 +244,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, ' ~~~~ ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row, curpos.column+3);
                 }else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '~~'+text+'~~');
                   originalRange.end.column += 4; // this because injected from 4 `*` characters.
+                  editor.focus();
                   editor.selection.setSelectionRange(originalRange);
                 }
             };
@@ -251,12 +261,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, '\n\n----------\n\n');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row+4, curpos.column+10);
                 }
                 else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '\n\n----------\n\n'+text);
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row+4,
                       originalRange.end.column+10
@@ -269,12 +281,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, '\n\n# ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row+2, curpos.column+2);
                 }
                 else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '\n\n# '+text+'\n');
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row+2,
                       originalRange.end.column+2
@@ -287,12 +301,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, '\n\n## ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row+2, curpos.column+3);
                 }
                 else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '\n\n## '+text+'\n');
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row+2,
                       originalRange.end.column+3
@@ -305,12 +321,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, '\n\n### ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row+2, curpos.column+4);
                 }
                 else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '\n\n### '+text+'\n');
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row+2,
                       originalRange.end.column+4
@@ -323,12 +341,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, '\n\n```\n\n```\n');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row+3, curpos.column);
                 }
                 else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '\n\n```\n'+text+'\n```\n');
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row+3,
                       originalRange.end.column+3
@@ -341,12 +361,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, ' `` ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row, curpos.column+2);
                 }else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '`'+text+'`');
                   originalRange.end.column += 2; // this because injected from 2 `_` characters.
+                  editor.focus();
                   editor.selection.setSelectionRange(originalRange);
                 }
             };
@@ -356,12 +378,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, '\n\n> \n');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row+2, curpos.column+2);
                 }
                 else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '\n\n> '+text+'\n');
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row+2,
                       originalRange.end.column+2
@@ -374,12 +398,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, '\n\n* ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row+2, curpos.column+2);
                 }
                 else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '\n\n* '+text);
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row+2,
                       originalRange.end.column+2
@@ -392,12 +418,14 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, '\n\n1. ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row+2, curpos.column+3);
                 }
                 else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '\n\n1. '+text);
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row+2,
                       originalRange.end.column+3
@@ -410,11 +438,13 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, ' [](http://) ');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row, curpos.column+2);
                 }else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '['+text+'](http://) ');
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row,
                       originalRange.end.column+10
@@ -429,11 +459,13 @@
                     if (editor.selection.isEmpty()) {
                         var curpos = editor.getCursorPosition();
                         editor.session.insert(curpos, ' ![](http://) ');
+                        editor.focus();
                         editor.selection.moveTo(curpos.row, curpos.column+3);
                     }else {
                         var range = editor.getSelectionRange();
                         var text = editor.session.getTextRange(range);
                         editor.session.replace(range, '!['+text+'](http://) ');
+                        editor.focus();
                         editor.selection.moveTo(
                             originalRange.end.row,
                             originalRange.end.column+11
@@ -442,6 +474,7 @@
                 }else { // this if use image upload to imgur.
                   var curpos = editor.getCursorPosition();
                   editor.session.insert(curpos, '!['+imageData.name+']('+imageData.link+') ');
+                  editor.focus();
                   editor.selection.moveTo(
                       curpos.row,
                       curpos.column+imageData.name.length+2
@@ -454,11 +487,13 @@
                 if (editor.selection.isEmpty()) {
                     var curpos = editor.getCursorPosition();
                     editor.session.insert(curpos, ' @[]');
+                    editor.focus();
                     editor.selection.moveTo(curpos.row, curpos.column+3);
                 }else {
                   var range = editor.getSelectionRange();
                   var text = editor.session.getTextRange(range);
                   editor.session.replace(range, '@['+text+']');
+                  editor.focus();
                   editor.selection.moveTo(
                       originalRange.end.row,
                       originalRange.end.column+3
@@ -469,6 +504,7 @@
             var markdownToEmoji = function(editor, data_target) {
                 var curpos = editor.getCursorPosition();
                 editor.session.insert(curpos, ' '+data_target+' ');
+                editor.focus();
                 editor.selection.moveTo(curpos.row, curpos.column+data_target.length+2);
             };
             // Markdown Image Uploader auto insert to editor.
