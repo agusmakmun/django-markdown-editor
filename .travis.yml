@@ -11,10 +11,6 @@ matrix:
       env: DJANGO=1.10.*
     - python: 2.7
       env: DJANGO=1.11.*
-    - python: 2.7
-      env: DJANGO=2.0.*
-    - python: 2.7
-      env: DJANGO=2.1.*
 
     - python: 3.4
       env: DJANGO=1.8.*
@@ -24,10 +20,6 @@ matrix:
       env: DJANGO=1.10.*
     - python: 3.4
       env: DJANGO=1.11.*
-    - python: 3.4
-      env: DJANGO=2.0.*
-    - python: 3.4
-      env: DJANGO=2.1.*
 
     - python: 3.5
       env: DJANGO=1.8.*
