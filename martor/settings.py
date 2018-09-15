@@ -71,6 +71,10 @@ MARTOR_SEARCH_USERS_URL = getattr(
 MARTOR_MARKDOWN_BASE_EMOJI_URL = getattr(
     settings, 'MARTOR_MARKDOWN_BASE_EMOJI_URL', 'https://assets-cdn.github.com/images/icons/emoji/'
 )
+# to use static and keep backward compatibility
+# set to true if using bucket like storage engine
+MARTOR_MARKDOWN_BASE_EMOJI_USE_STATIC = getattr(
+    settings, 'MARTOR_MARKDOWN_BASE_EMOJI_USE_STATIC', False)
 MARTOR_MARKDOWN_BASE_MENTION_URL = getattr(
     settings, 'MARTOR_MARKDOWN_BASE_MENTION_URL', 'https://python.web.id/author/'
 )

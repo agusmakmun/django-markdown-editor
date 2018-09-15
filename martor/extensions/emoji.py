@@ -1,5 +1,8 @@
 import markdown
-from ..settings import MARTOR_MARKDOWN_BASE_EMOJI_URL
+from ..settings import (
+    MARTOR_MARKDOWN_BASE_EMOJI_URL,
+    MARTOR_MARKDOWN_BASE_EMOJI_USE_STATIC)
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 """
 >>> import markdown
@@ -98,6 +101,8 @@ class EmojiPattern(markdown.inlinepatterns.Pattern):
         url = '{0}{1}.png'.format(
             MARTOR_MARKDOWN_BASE_EMOJI_URL, emoji.replace(':', '')
         )
+        if MARTOR_MARKDOWN_BASE_EMOJI_USE_STATIC is True:
+            url = static(url)
         el = markdown.util.etree.Element('img')
         el.set('src', url)
         el.set('class', 'marked-emoji')
@@ -114,6 +119,7 @@ class EmojiExtension(markdown.Extension):
 
 def makeExtension(*args, **kwargs):
     return EmojiExtension(*args, **kwargs)
+
 
 if __name__ == "__main__":
     import doctest
