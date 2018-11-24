@@ -10,6 +10,10 @@ from .settings import (
 )
 
 
+class VersionNotCompatible(Exception):
+    pass
+
+
 def markdownify(markdown_content):
     """
     Render the markdown content to HTML.
@@ -21,12 +25,16 @@ def markdownify(markdown_content):
         '<p><img alt="awesome" src="http://i.imgur.com/hvguiSn.jpg" /></p>'
         >>>
     """
-    return markdown.markdown(
-        markdown_content,
-        safe_mode=MARTOR_MARKDOWN_SAFE_MODE,
-        extensions=MARTOR_MARKDOWN_EXTENSIONS,
-        extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS
-    )
+    try:
+        return markdown.markdown(
+            markdown_content,
+            safe_mode=MARTOR_MARKDOWN_SAFE_MODE,
+            extensions=MARTOR_MARKDOWN_EXTENSIONS,
+            extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS
+        )
+    except Exception:
+        raise VersionNotCompatible("The markdown isn't compatible, please reinstall "
+                                   "your python markdown into Markdown==2.6.9")
 
 
 class LazyEncoder(DjangoJSONEncoder):
