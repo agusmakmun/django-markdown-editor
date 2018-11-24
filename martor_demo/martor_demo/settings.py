@@ -25,6 +25,12 @@ SECRET_KEY = '93fs*#h77*vj&2#2f+!y=kifg0s&63768398a(kx126itq(*6r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ['*']
+MARTOR_ENABLE_CONFIGS = {
+    'imgur': 'true',      # to enable/disable imgur/custom uploader.
+    'mention': 'false',   # to enable/disable mention
+    'jquery': 'true',     # to include/revoke jquery (require for admin default django)
+    'living': 'true',    # to enable/disable live updates in preview
+}
 
 # Application definition
 INSTALLED_APPS = [
