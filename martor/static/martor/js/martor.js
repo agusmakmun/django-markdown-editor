@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.3.6
+ * Name         : Martor v1.3.7
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 09-Feb-2019
+ * Release date : 10-Feb-2019
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
@@ -63,7 +63,7 @@
 
             var emojiWordCompleter = {
                 getCompletions: function(editor, session, pos, prefix, callback) {
-                    var wordList = emojis; // from `atwho/emojis.min.js`
+                    var wordList = typeof(emojis) != "undefined" ? emojis : []; // from `atwho/emojis.min.js`
                     var obj = editor.getSession().getTokenAt(pos.row, pos.column.count);
                     var curTokens = obj.value.split(/\s+/);
                     var lastToken = curTokens[curTokens.length-1];
@@ -537,11 +537,8 @@
                               editor=editor,
                               imageData={name: response.name, link: response.link}
                             );
-                        }else if (response.status == 403) {
-                          alert(response.data.error); // invalid client id
-                        }
-                        else {
-                          console.log(response)
+                        }else {
+                          alert(response.error);
                         }
                     },
                     error: function(response) {
@@ -804,7 +801,7 @@
             // markdown insert emoji from the modal
             $('.markdown-emoji[data-field-name='+field_name+']').click(function(){
                 var modalEmoji = $('.modal-emoji[data-field-name='+field_name+']');
-                var emojiList = emojis; // from `plugins/js/emojis.min.js`
+                var emojiList = typeof(emojis) != "undefined" ? emojis : []; // from `plugins/js/emojis.min.js`
                 var segmentEmoji = modalEmoji.find('.emoji-content-body');
                 var loaderInit  = modalEmoji.find('.emoji-loader-init');
 
