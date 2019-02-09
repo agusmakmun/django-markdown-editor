@@ -48,8 +48,8 @@ Preview
 Requirements
 ------------------------------
 
-* ``Django>=1.10.1``
-* ``Markdown>=2.6.7``
+* ``Django>=2.0``
+* ``Markdown>=3.0``
 * ``requests>=2.12.4``
 
 

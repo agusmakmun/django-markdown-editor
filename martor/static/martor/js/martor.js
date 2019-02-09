@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.3.5
+ * Name         : Martor v1.3.6
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 03-Nov-2018
+ * Release date : 09-Feb-2019
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
@@ -49,6 +49,7 @@
             editor.$blockScrolling = Infinity; // prevents ace from logging annoying warnings
             editor.renderer.setScrollMargin(10, 10); // set padding
             editor.setAutoScrollEditorIntoView(true);
+            editor.setShowPrintMargin(false);
             editor.setOptions({
                 enableBasicAutocompletion: true,
                 enableSnippets: true,

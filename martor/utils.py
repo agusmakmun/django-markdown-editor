@@ -34,7 +34,7 @@ def markdownify(markdown_content):
         )
     except Exception:
         raise VersionNotCompatible("The markdown isn't compatible, please reinstall "
-                                   "your python markdown into Markdown==2.6.9")
+                                   "your python markdown into Markdown>=3.0")
 
 
 class LazyEncoder(DjangoJSONEncoder):
