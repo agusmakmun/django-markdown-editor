@@ -32,8 +32,6 @@ MARTOR_ENABLE_CONFIGS = {
     'jquery': 'true',    # to include/revoke jquery (require for admin default django)
     'living': 'false'    # to enable/disable live updates in preview
 }
-MARTOR_IMGUR_CLIENT_ID = '81e165cc812a9a5'
-MARTOR_IMGUR_API_KEY = '943c0f56d7cfc435d584ba3c2ac2c6062ed40aab'
 
 # Application definition
 INSTALLED_APPS = [
