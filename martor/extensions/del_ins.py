@@ -40,9 +40,9 @@ class DelInsExtension(markdown.extensions.Extension):
 
     def extendMarkdown(self, md, md_globals):
         del_tag = SimpleTagPattern(DEL_RE, 'del')
-        ins_tag = SimpleTagPattern(DEL_RE, 'ins')
-        md.inlinePatterns.add('del', del_tag, '>not_strong')
-        md.inlinePatterns.add('ins', ins_tag, '>not_strong')
+        ins_tag = SimpleTagPattern(INS_RE, 'ins')
+        md.inlinePatterns.add('del', del_tag, '<not_strong')
+        md.inlinePatterns.add('ins', ins_tag, '<not_strong')
 
 
 def makeExtension(*args, **kwargs):
