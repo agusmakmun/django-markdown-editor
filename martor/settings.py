@@ -69,7 +69,7 @@ MARTOR_SEARCH_USERS_URL = getattr(
 
 # Markdown Extensions
 MARTOR_MARKDOWN_BASE_EMOJI_URL = getattr(
-    settings, 'MARTOR_MARKDOWN_BASE_EMOJI_URL', 'https://assets-cdn.github.com/images/icons/emoji/'
+    settings, 'MARTOR_MARKDOWN_BASE_EMOJI_URL', 'https://www.webfx.com/tools/emoji-cheat-sheet/graphics/emojis/'
 )
 # to use static and keep backward compatibility
 # set to true if using bucket like storage engine

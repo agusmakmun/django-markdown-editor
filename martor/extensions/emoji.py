@@ -8,7 +8,7 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 >>> import markdown
 >>> md = markdown.Markdown(extensions=['martor.utils.extensions.emoji'])
 >>> md.convert(':smile:')
-'<p><img class="marked-emoji" src="https://assets-cdn.github.com/images/icons/emoji/smile.png" /></p>'
+'<p><img class="marked-emoji" src="https://www.webfx.com/tools/emoji-cheat-sheet/graphics/emojis/smile.png" /></p>'
 >>>
 """
 
