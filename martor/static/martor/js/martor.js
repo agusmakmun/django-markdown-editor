@@ -831,7 +831,7 @@
 
             // Set initial value if has the content before.
             if (textareaId.val() != '') {
-                editor.setValue(textareaId.val());
+                editor.setValue(textareaId.val(), -1);
             }
         });// end each `mainMartor`
 };
