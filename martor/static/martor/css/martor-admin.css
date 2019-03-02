@@ -1,0 +1,74 @@
+/*
+CSS to handle inside admin django
+by following the default `admin/css/base.css` from django
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+}
+
+#container {
+  -webkit-box-sizing: unset;
+  box-sizing: unset;
+}
+
+body, h1, h2, h3, h4, h5,
+button, input, optgroup, select {
+  font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold!important;
+  line-height: unset!important;
+}
+
+h1 {
+  margin: 0 0 20px!important;
+  font-weight: 300!important;
+  font-size: 20px!important;
+  color: #333!important;
+}
+
+h2 {
+  font-size: 16px!important;
+  margin: 1em 0 .5em 0!important;
+}
+
+h2.subhead {
+  font-weight: normal!important;
+  margin-top: 0!important;
+}
+
+h3 {
+  font-size: 14px!important;
+  margin: .8em 0 .3em 0!important;
+  color: #333!important;
+  font-weight: bold!important;
+}
+
+h4 {
+  font-size: 12px!important;
+  margin: 1em 0 .8em 0!important;
+  padding-bottom: 3px!important;
+}
+
+h5 {
+  font-size: 10px!important;
+  margin: 1.5em 0 .5em 0!important;
+  color: #333!important;
+  text-transform: uppercase!important;
+  letter-spacing: 1px!important;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+  padding: 5px 15px;
+}
+
+.ui.tabular.menu+.attached:not(.top).segment,
+.ui.tabular.menu+.attached:not(.top).segment+.attached:not(.top).segment {
+  width: auto;
+}
