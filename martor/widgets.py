@@ -14,20 +14,32 @@ from .settings import (
 class MartorWidget(forms.Textarea):
 
     def render(self, name, value, attrs=None, renderer=None, **kwargs):
-        if attrs is None:
-            attrs = {}
-        elif 'class' in attrs:
+        # Make the settings the default attributes to pass
+        attributes_to_pass = {
+            'data-enable-configs': MARTOR_ENABLE_CONFIGS,
+            'data-upload-url': MARTOR_UPLOAD_URL,
+            'data-markdownfy-url': MARTOR_MARKDOWNIFY_URL,
+            'data-search-users-url': MARTOR_SEARCH_USERS_URL,
+            'data-base-emoji-url': MARTOR_MARKDOWN_BASE_EMOJI_URL
+        }
+
+        # Make sure that the martor value is in the class attr passed in
+        if 'class' in attrs:
             attrs['class'] += ' martor'
         else:
-            attrs.update({'class': 'martor'})
+            attrs['class'] = 'martor'
 
-        attrs['data-enable-configs'] = MARTOR_ENABLE_CONFIGS
-        attrs['data-upload-url'] = MARTOR_UPLOAD_URL
-        attrs['data-markdownfy-url'] = MARTOR_MARKDOWNIFY_URL
-        attrs['data-search-users-url'] = MARTOR_SEARCH_USERS_URL
-        attrs['data-base-emoji-url'] = MARTOR_MARKDOWN_BASE_EMOJI_URL
+        # Update and overwrite with the attributes passed in
+        attributes_to_pass.update(attrs)
 
-        widget = super(MartorWidget, self).render(name, value, attrs)
+        # Update and overwrite with any attributes that are on the widget
+        # itself. This is also the only way we can push something in without
+        # being part of the render chain.
+        attributes_to_pass.update(self.attrs)
+
+        widget = super(MartorWidget, self).render(name,
+                                                  value,
+                                                  attributes_to_pass)
 
         template = get_template('martor/editor.html')
 
