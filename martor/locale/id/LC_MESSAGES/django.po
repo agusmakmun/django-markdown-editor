@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-18 07:19+0700\n"
+"POT-Creation-Date: 2019-06-30 05:48+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,7 +138,9 @@ msgstr "Permintaan tidak valid"
 #: views.py:75
 #, python-format
 msgid "No users registered as `%(username)s` or user is unactived."
-msgstr "Tidak ada pengguna terdaftar sebagai `%(username)s` atau pengguna telah nonaktif."
+msgstr ""
+"Tidak ada pengguna terdaftar sebagai `%(username)s` atau pengguna telah "
+"nonaktif."
 
 #: views.py:81
 msgid "Validation Failed for field `username`"

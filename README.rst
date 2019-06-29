@@ -11,7 +11,7 @@ martor |pypi version|
 .. image:: https://img.shields.io/pypi/pyversions/martor.svg
    :target: https://pypi.python.org/pypi/martor
 
-.. image:: https://img.shields.io/badge/Django-1.8,%201.9,%201.10,%201.11,%202.0,%202.1-green.svg
+.. image:: https://img.shields.io/badge/Django-1.8%20%3E=%202.2-green.svg
   :target: https://www.djangoproject.com
 
 .. image:: https://travis-ci.org/agusmakmun/django-markdown-editor.svg?branch=master
