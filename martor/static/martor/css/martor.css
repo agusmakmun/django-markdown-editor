@@ -90,7 +90,7 @@ form .martor-preview h2,
 form .martor-preview h3,
 form .martor-preview h4,
 form .martor-preview h5,
-form .martor-preview h6{margin:20px 0 10px;padding:0;font-weight:bold;-webkit-font-smoothing:antialiased;cursor:text;position:relative}
+form .martor-preview h6{margin:20px 0 10px;padding:0;font-weight:bold;-webkit-font-smoothing:antialiased;cursor:text;position:relative;background:none;}
 
 form .martor-preview h1:hover a.anchor,
 form .martor-preview h2:hover a.anchor,
