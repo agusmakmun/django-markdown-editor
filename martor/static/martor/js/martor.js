@@ -60,6 +60,11 @@
             if (editorConfig.living == 'true') {
                 $(obj).addClass('enable-living');
             }
+            console.log('test!');
+            if (editorConfig.spellcheck == 'true') {
+              enable_spellcheck(editor);
+              console.log('Is this working?');
+            }
 
             var emojiWordCompleter = {
                 getCompletions: function(editor, session, pos, prefix, callback) {
