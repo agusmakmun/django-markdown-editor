@@ -66,13 +66,13 @@ class MartorWidget(forms.Textarea):
             'plugins/js/highlight.min.js',
             'plugins/js/resizable.min.js',
             'plugins/js/emojis.min.js',
-            'plugins/js/spellcheck.js',
             # TODO: Remove martor.min.js?
             'martor/js/martor.js',
         )
 
         if MARTOR_ENABLE_CONFIGS['spellcheck'] == 'true':
-            js = ('plugins/js/spellcheck.js', 'plugins/js/typo.js',).__add__(js)
+            # Adding the following scripts to the end of the tuple in case it affects behaviour
+            js = js.__add__(('plugins/js/typo.js', 'plugins/js/spellcheck.js', ))
 
         if MARTOR_ENABLE_CONFIGS['jquery'] == 'true':
             js = ('plugins/js/jquery.min.js',).__add__(js)

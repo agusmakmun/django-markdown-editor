@@ -188,7 +188,7 @@
             });
 
             if (editorConfig.spellcheck == 'true') {
-              enable_spellcheck(editor);
+              enable_spellcheck(editorId);
             }
 
             // win/linux: Ctrl+B, mac: Command+B
