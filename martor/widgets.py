@@ -22,7 +22,6 @@ class MartorWidget(forms.Textarea):
             'data-search-users-url': MARTOR_SEARCH_USERS_URL,
             'data-base-emoji-url': MARTOR_MARKDOWN_BASE_EMOJI_URL
         }
-
         # Make sure that the martor value is in the class attr passed in
         if 'class' in attrs:
             attrs['class'] += ' martor'
@@ -67,8 +66,14 @@ class MartorWidget(forms.Textarea):
             'plugins/js/highlight.min.js',
             'plugins/js/resizable.min.js',
             'plugins/js/emojis.min.js',
-            'martor/js/martor.min.js',
+            'plugins/js/spellcheck.js',
+            # TODO: Remove martor.min.js?
+            'martor/js/martor.js',
         )
+
+        if MARTOR_ENABLE_CONFIGS['spellcheck'] == 'true':
+            js = ('plugins/js/spellcheck.js', 'plugins/js/typo.js',).__add__(js)
+
         if MARTOR_ENABLE_CONFIGS['jquery'] == 'true':
             js = ('plugins/js/jquery.min.js',).__add__(js)
 

@@ -60,11 +60,6 @@
             if (editorConfig.living == 'true') {
                 $(obj).addClass('enable-living');
             }
-            console.log('test!');
-            if (editorConfig.spellcheck == 'true') {
-              enable_spellcheck(editor);
-              console.log('Is this working?');
-            }
 
             var emojiWordCompleter = {
                 getCompletions: function(editor, session, pos, prefix, callback) {
@@ -192,6 +187,9 @@
                 $(this).closest('.tab-martor-menu').find('.martor-toolbar').show();
             });
 
+            if (editorConfig.spellcheck == 'true') {
+              enable_spellcheck(editor);
+            }
 
             // win/linux: Ctrl+B, mac: Command+B
             var markdownToBold = function(editor) {

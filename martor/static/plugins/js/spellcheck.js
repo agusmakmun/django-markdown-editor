@@ -1,3 +1,5 @@
+// Using code from: https://github.com/swenson/ace_spell_check_js
+
 // You also need to load in typo.js and jquery.js
 
 // You should configure these classes.
