@@ -72,7 +72,7 @@ class MartorWidget(forms.Textarea):
 
         if MARTOR_ENABLE_CONFIGS['spellcheck'] == 'true':
             # Adding the following scripts to the end of the tuple in case it affects behaviour
-            js = js.__add__(('plugins/js/typo.js', 'plugins/js/spellcheck.js', ))
+            js = ('plugins/js/typo.js', 'plugins/js/spellcheck.js').__add__(js)
 
         if MARTOR_ENABLE_CONFIGS['jquery'] == 'true':
             js = ('plugins/js/jquery.min.js',).__add__(js)
