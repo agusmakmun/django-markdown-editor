@@ -3,7 +3,6 @@
 // You also need to load in typo.js and jquery.js
 
 // You should configure these classes.
-var editor = null;
 var lang = "en_US";
 var dicPath = "/static/dicts/en_US.dic";
 var affPath = "/static/dicts/en_US.aff";
@@ -42,12 +41,6 @@ function misspelled(line) {
   return bads;
 }
 
-var contents_modified = true;
-
-var currently_spellchecking = false;
-
-var markers_present = [];
-
 // Spell check the Ace editor contents.
 function spell_check(editor) {
   // Wait for the dictionary to be loaded.
@@ -55,18 +48,18 @@ function spell_check(editor) {
     return;
   }
 
-  if (currently_spellchecking) {
+  if (editor.currently_spellchecking) {
   	return;
   }
 
-  if (!contents_modified) {
+  if (!editor.contents_modified) {
   	return;
   }
-  currently_spellchecking = true;
+  editor.currently_spellchecking = true;
   var session = ace.edit(editor).getSession();
 
 	// Clear all markers and gutter
-	clear_spellcheck_markers();
+	clear_spellcheck_markers(editor);
 	// Populate with markers and gutter
   try {
 	  var Range = ace.require('ace/range').Range
@@ -78,44 +71,48 @@ function spell_check(editor) {
 	    // Add markers and gutter markings.
 	    if (misspellings.length > 0) {
 	      session.addGutterDecoration(i, "misspelled");
-	    }
+		}
+
 	    for (var j in misspellings) {
 	      var range = new Range(i, misspellings[j][0], i, misspellings[j][1]);
-	      markers_present[markers_present.length] = session.addMarker(range, "misspelled", "typo", true);
+	      editor.markers_present[editor.markers_present.length] = session.addMarker(range, "misspelled", "typo", true);
 	    }
 	  }
 	} finally {
-		currently_spellchecking = false;
-		contents_modified = false;
+		editor.currently_spellchecking = false;
+		editor.contents_modified = false;
 	}
 }
 
-var spellcheckEnabled = false;
 function enable_spellcheck(editor) {
-	spellcheckEnabled = true
+	editor.markers_present = [];
+	editor.spellcheckEnabled = true;
+	editor.currently_spellchecking = false;
+	editor.contents_modified = true;
+
 	ace.edit(editor).getSession().on('change', function(e) {
-		if (spellcheckEnabled) {
-			contents_modified = true;
+		if (editor.spellcheckEnabled) {
+			editor.contents_modified = true;
 			spell_check(editor);
 		};
 	})
 	// needed to trigger update once without input
-	contents_modified = true;
+	editor.contents_modified = true;
 	spell_check(editor);
 }
 
-function disable_spellcheck() {
-	spellcheckEnabled = false
+function disable_spellcheck(editor) {
+	editor.spellcheckEnabled = false
 	// Clear the markers
-	clear_spellcheck_markers();
+	clear_spellcheck_markers(editor);
 }
 
-function clear_spellcheck_markers() {
+function clear_spellcheck_markers(editor) {
 	var session = ace.edit(editor).getSession();
-	for (var i in markers_present) {
-		session.removeMarker(markers_present[i]);
+	for (var i in editor.markers_present) {
+		session.removeMarker(editor.markers_present[i]);
 	};
-	markers_present = [];
+	editor.markers_present = [];
 	// Clear the gutter
 	var lines = session.getDocument().getAllLines();
 	for (var i in lines) {
