@@ -42,7 +42,9 @@ function misspelled(line) {
 }
 
 // Spell check the Ace editor contents.
-function spell_check(editor) {
+function spell_check(editorID) {
+  var editor = ace.edit(editorID);
+
   // Wait for the dictionary to be loaded.
   if (dictionary == null) {
     return;
@@ -56,10 +58,10 @@ function spell_check(editor) {
   	return;
   }
   editor.currently_spellchecking = true;
-  var session = ace.edit(editor).getSession();
+  var session = editor.getSession();
 
 	// Clear all markers and gutter
-	clear_spellcheck_markers(editor);
+	clear_spellcheck_markers(editorID);
 	// Populate with markers and gutter
   try {
 	  var Range = ace.require('ace/range').Range
@@ -84,7 +86,8 @@ function spell_check(editor) {
 	}
 }
 
-function enable_spellcheck(editor) {
+function enable_spellcheck(editorID) {
+	var editor = ace.edit(editorID);
 	editor.markers_present = [];
 	editor.spellcheckEnabled = true;
 	editor.currently_spellchecking = false;
@@ -93,26 +96,32 @@ function enable_spellcheck(editor) {
 	ace.edit(editor).getSession().on('change', function(e) {
 		if (editor.spellcheckEnabled) {
 			editor.contents_modified = true;
-			spell_check(editor);
+			spell_check(editorID);
 		};
 	})
 	// needed to trigger update once without input
 	editor.contents_modified = true;
-	spell_check(editor);
+	spell_check(editorID);
 }
 
-function disable_spellcheck(editor) {
+function disable_spellcheck(editorID) {
+	var editor = ace.edit(editorID);
 	editor.spellcheckEnabled = false
+
 	// Clear the markers
-	clear_spellcheck_markers(editor);
+	clear_spellcheck_markers(editorID);
 }
 
-function clear_spellcheck_markers(editor) {
-	var session = ace.edit(editor).getSession();
+function clear_spellcheck_markers(editorID) {
+	var editor = ace.edit(editorID);
+	var session = editor.getSession();
+
 	for (var i in editor.markers_present) {
 		session.removeMarker(editor.markers_present[i]);
 	};
+
 	editor.markers_present = [];
+
 	// Clear the gutter
 	var lines = session.getDocument().getAllLines();
 	for (var i in lines) {
