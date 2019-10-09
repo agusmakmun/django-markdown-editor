@@ -17,7 +17,7 @@ martor |pypi version|
 .. image:: https://travis-ci.org/agusmakmun/django-markdown-editor.svg?branch=master
   :target: https://travis-ci.org/agusmakmun/django-markdown-editor
 
-**Martor** is Markdown Editor plugin for Django and new face of **DracEditor**.
+**Martor** is a Markdown Editor plugin for Django and the new face of **DracEditor**.
 
 
 Features
@@ -26,13 +26,13 @@ Features
 * Live Preview
 * Integrated with `Ace Editor`_
 * Integrated with `Semantic-UI`_
-* Support Multiple Fields (`fixed this issue`_)
-* Upload Image to imgur.com `(via API)` and `custom uploader`_.
-* Direct Mention users ``@[username]`` - `(require user to logged in)`
-* Support embed/iframe video from (Youtube, Vimeo, Dailymotion, Yahoo, Veoh, & Metacafe)
+* Supports Multiple Fields (`fixed this issue`_)
+* Upload Images to imgur.com `(via API)` and `custom uploader`_.
+* Direct Mention users ``@[username]`` - `(requires user to logged in)`
+* Supports embed/iframe video from (Youtube, Vimeo, Dailymotion, Yahoo, Veoh, & Metacafe)
 * Emoji ``:emoji_name:`` + Cheat sheets
-* Martor Commands Refference
-* Support Django Admin
+* Martor Commands Reference
+* Supports Django Admin
 * Toolbar Buttons
 * Highlight ``pre``
 
@@ -94,7 +94,7 @@ Martor is available directly from `PyPI`_:
     ]
 
 
-4. Collect included some martor static files to your ``STATIC_ROOT`` folder.
+4. Collect martor's static files in your ``STATIC_ROOT`` folder.
 
 ::
 
@@ -104,7 +104,7 @@ Martor is available directly from `PyPI`_:
 Setting Configurations ``settings.py``
 ---------------------------------------
 
-Please register application in https://api.imgur.com/oauth2/addclient
+Please register your application at https://api.imgur.com/oauth2/addclient
 to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
 
 ::
@@ -212,7 +212,7 @@ Usage
 
 **Template**
 
-Simply safe the markdown content as html ouput with loading the templatetags from ``martor/templatetags/martortags.py``.
+Simply safely parse markdown content as html ouput by loading templatetags from ``martor/templatetags/martortags.py``.
 
 ::
 
@@ -227,12 +227,12 @@ Custom Uploader
 -----------------
 
 If you want to save the images uploaded to your storage,
-**Martor** also provide to handle it. Please checkout this `WIKI`_.
+**Martor** also provides a way to handle this. Please checkout this `WIKI`_.
 
-Test the Martor from this Repository
+Test Martor from this Repository
 -------------------------------------
 
-I assume you already setup with virtual enviroment (virtualenv).
+Assuming you are already setup with a virtual enviroment (virtualenv):
 
 ::
 
@@ -243,10 +243,10 @@ I assume you already setup with virtual enviroment (virtualenv).
     $ python manage.py runserver
 
 
-And let checkout at http://127.0.0.1:8000/simple-form/ to your browser.
+Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 
 
-Martor Commands Refference
+Martor Commands Reference
 --------------------------------
 
 .. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/__screenshot/martor-guide.png
@@ -255,7 +255,7 @@ Martor Commands Refference
 Notes
 --------------------------------
 
-**Martor** was inspired by great `django-markdownx`_, `Python Markdown`_ and `Online reStructuredText editor`_.
+**Martor** was inspired by these great projects: `django-markdownx`_, `Python Markdown`_ and `Online reStructuredText editor`_.
 
 
 .. _Ace Editor: https://ace.c9.io
