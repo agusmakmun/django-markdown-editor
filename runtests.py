@@ -40,13 +40,20 @@ settings.configure(
     }],
     STATIC_URL='/static/',
     ROOT_URLCONF='martor.tests.urls',
-    INSTALLED_APPS=['django.contrib.admin',
-                    'django.contrib.auth',
-                    'django.contrib.contenttypes',
-                    'django.contrib.sessions',
-                    'django.contrib.messages',
-                    'django.contrib.staticfiles',
-                    'martor'])
+    INSTALLED_APPS=[
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.admin',
+        'martor'
+    ],
+    MIDDLEWARE=[
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+    ],
+)
 
 try:
     # Django <= 1.8
