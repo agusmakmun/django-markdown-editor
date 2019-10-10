@@ -13,6 +13,15 @@ settings.configure(
             'ENGINE': 'django.db.backends.sqlite3',
         }
     },
+    MIDDLEWARE=[
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ],
     TEMPLATES=[{
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
@@ -29,11 +38,14 @@ settings.configure(
             ],
         },
     }],
+    STATIC_URL='/static/',
     ROOT_URLCONF='martor.tests.urls',
-    INSTALLED_APPS=['django.contrib.auth',
+    INSTALLED_APPS=['django.contrib.admin',
+                    'django.contrib.auth',
                     'django.contrib.contenttypes',
                     'django.contrib.sessions',
-                    'django.contrib.admin',
+                    'django.contrib.messages',
+                    'django.contrib.staticfiles',
                     'martor'])
 
 try:
