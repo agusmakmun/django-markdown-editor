@@ -47,12 +47,7 @@ settings.configure(
         'django.contrib.messages',
         'django.contrib.admin',
         'martor'
-    ],
-    MIDDLEWARE=[
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-    ],
+    ]
 )
 
 try:
