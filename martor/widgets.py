@@ -66,7 +66,6 @@ class MartorWidget(forms.Textarea):
             'plugins/js/highlight.min.js',
             'plugins/js/resizable.min.js',
             'plugins/js/emojis.min.js',
-            # TODO: Remove martor.min.js?
             'martor/js/martor.js',
         )
 
