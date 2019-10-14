@@ -22,6 +22,7 @@ class MartorWidget(forms.Textarea):
             'data-search-users-url': MARTOR_SEARCH_USERS_URL,
             'data-base-emoji-url': MARTOR_MARKDOWN_BASE_EMOJI_URL
         }
+
         # Make sure that the martor value is in the class attr passed in
         if 'class' in attrs:
             attrs['class'] += ' martor'
