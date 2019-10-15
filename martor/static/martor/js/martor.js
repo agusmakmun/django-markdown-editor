@@ -187,6 +187,9 @@
                 $(this).closest('.tab-martor-menu').find('.martor-toolbar').show();
             });
 
+            if (editorConfig.spellcheck == 'true') {
+              enable_spellcheck(editorId);
+            }
 
             // win/linux: Ctrl+B, mac: Command+B
             var markdownToBold = function(editor) {

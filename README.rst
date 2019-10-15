@@ -35,6 +35,7 @@ Features
 * Supports Django Admin
 * Toolbar Buttons
 * Highlight ``pre``
+* Spellchecking (only supports US English at this time)
 
 
 Preview
