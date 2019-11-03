@@ -150,6 +150,7 @@
                 var form = new FormData();
                 form.append('content', value);
                 form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                currentTab.addClass('martor-preview-stale');
 
                 $.ajax({
                     url: textareaId.data('markdownfy-url'),
@@ -159,7 +160,7 @@
                     contentType: false,
                     success: function(response) {
                         if(response){
-                          currentTab.html(response);
+                          currentTab.html(response).removeClass('martor-preview-stale');
                           $('pre').each(function(i, block){
                               hljs.highlightBlock(block);
                           });
