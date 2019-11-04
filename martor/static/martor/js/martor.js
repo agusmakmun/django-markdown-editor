@@ -160,9 +160,11 @@
                     success: function(response) {
                         if(response){
                           currentTab.html(response);
-                          $('pre').each(function(i, block){
-                              hljs.highlightBlock(block);
-                          });
+                          if (editorConfig.hljs == 'true') {
+                              $('pre').each(function (i, block) {
+                                  hljs.highlightBlock(block);
+                              });
+                          }
                         }else {currentTab.html('<p>Nothing to preview</p>');}
                     },
                     error: function(response) {
