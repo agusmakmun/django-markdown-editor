@@ -209,6 +209,11 @@ form .martor-preview pre tt{margin:0;padding:0;background-color:transparent;bord
 .section-martor {
 
 }
+
+.section-martor div[data-tab="editor-tab-description"] {
+  padding: 0 !important;
+}
+
 .martor {
   height: 500px;
   max-height: 500px;
