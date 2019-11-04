@@ -462,13 +462,13 @@
                 if (typeof(imageData) === 'undefined') {
                     if (editor.selection.isEmpty()) {
                         var curpos = editor.getCursorPosition();
-                        editor.session.insert(curpos, ' ![](http://) ');
+                        editor.session.insert(curpos, ' ![](http://)');
                         editor.focus();
                         editor.selection.moveTo(curpos.row, curpos.column+3);
                     }else {
                         var range = editor.getSelectionRange();
                         var text = editor.session.getTextRange(range);
-                        editor.session.replace(range, '!['+text+'](http://) ');
+                        editor.session.replace(range, '!['+text+'](http://)');
                         editor.focus();
                         editor.selection.moveTo(
                             originalRange.end.row,
@@ -477,7 +477,7 @@
                     }
                 }else { // this if use image upload to imgur.
                   var curpos = editor.getCursorPosition();
-                  editor.session.insert(curpos, '!['+imageData.name+']('+imageData.link+') ');
+                  editor.session.insert(curpos, '!['+imageData.name+']('+imageData.link+')');
                   editor.focus();
                   editor.selection.moveTo(
                       curpos.row,
