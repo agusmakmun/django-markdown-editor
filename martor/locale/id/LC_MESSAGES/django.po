@@ -49,10 +49,10 @@ msgstr "Bantuan Penggunaan Markdown"
 #, python-format
 msgid ""
 "This site is powered by Markdown. For full documentation, <a href="
-"\"%(doc_url)s\" target=\"_blank\">click here</a>"
+"\"%(doc_url)s\" target=\"_blank\">click here</a>."
 msgstr ""
 "Situs ini menggunakan Markdown. Untuk dokumentasi lengkapnya <a href="
-"\"%(doc_url)s\" target=\"_blank\">klik disini</a>"
+"\"%(doc_url)s\" target=\"_blank\">klik disini</a>."
 
 #: templates/martor/guide.html:10 templates/martor/toolbar.html:26
 msgid "Code"
