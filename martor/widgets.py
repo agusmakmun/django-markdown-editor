@@ -55,7 +55,8 @@ class MartorWidget(forms.Textarea):
                 'plugins/css/semantic.min.css',
                 'plugins/css/resizable.min.css',
                 'martor/css/martor.min.css',
-                'martor/css/martor-admin.min.css'
+                'martor/css/martor-admin.min.css',
+                'martor/css/martor-preview.css',
             )
         }
         js = (
