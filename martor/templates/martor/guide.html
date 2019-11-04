@@ -15,21 +15,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>:emoji_name:</td>
-          <td>&mdash;</td>
-          <td>&mdash;</td>
-          <td>&mdash;</td>
-          <td><img class="marked-emoji" src="{% static 'plugins/images/heart.png' %}"></td>
-        </tr>
-        <tr>
-          <td>@[username]</td>
-          <td>&mdash;</td>
-          <td>Ctrl+M</td>
-          <td>Command+M</td>
-          <td><a href="#">@username</a></td>
-        </tr>
-        <tr><td colspan="5"></td></tr>
+        {% if emoji_enabled %}
+          <tr>
+            <td>:emoji_name:</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td><img class="marked-emoji" src="{% static 'plugins/images/heart.png' %}"></td>
+          </tr>
+        {% endif %}
+        {% if mentions_enabled %}
+          <tr>
+            <td>@[username]</td>
+            <td>&mdash;</td>
+            <td>Ctrl+M</td>
+            <td>Command+M</td>
+            <td><a href="#">@username</a></td>
+          </tr>
+        {% endif %}
+        {% if emoji_enabled or mentions_enabled %}
+          <tr><td colspan="5"></td></tr>
+        {% endif %}
         <tr>
           <td>*Italic*</td>
           <td>_Italic_</td>
