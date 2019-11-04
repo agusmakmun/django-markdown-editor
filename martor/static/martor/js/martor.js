@@ -128,6 +128,12 @@
             $(obj).find('.modal-help-guide').attr({'data-field-name': field_name});
             $(obj).find('.modal-emoji').attr({'data-field-name': field_name});
 
+            // Set if editor has changed.
+            editor.on('change', function(evt){
+                var value = editor.getValue();
+                textareaId.val(value);
+            });
+
             // resize the editor using `resizable.min.js`
             $('#'+editorId).resizable({
                 direction: 'bottom',
@@ -139,7 +145,12 @@
             // update the preview if this menu is clicked
             var currentTab = $('.tab.segment[data-tab=preview-tab-'+field_name+']');
             var previewTabButton = $('.item[data-tab=preview-tab-'+field_name+']');
+            var needsRefresh = true;
             var refreshPreview = function() {
+                if (!needsRefresh) {
+                    return;
+                }
+
                 var value = textareaId.val();
                 var form = new FormData();
                 form.append('content', value);
@@ -152,12 +163,15 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        if(response){
-                          currentTab.html(response);
-                          $('pre').each(function(i, block){
-                              hljs.highlightBlock(block);
-                          });
-                        }else {currentTab.html('<p>Nothing to preview</p>');}
+                        if (response) {
+                            currentTab.html(response);
+                            $('pre').each(function (i, block) {
+                                hljs.highlightBlock(block);
+                            });
+                            needsRefresh = false;
+                        } else {
+                            currentTab.html('<p>Nothing to preview</p>');
+                        }
                     },
                     error: function(response) {
                         console.log("error", response);
@@ -171,9 +185,12 @@
             // Set if editor has changed.
             editor.on('change', function (evt) {
                 var value = editor.getValue();
-                textareaId.val(value);
-                if (editorConfig.living === 'true') {
-                    refreshPreview();
+                if (value !== textareaId.val()) {
+                    textareaId.val(value);
+                    needsRefresh = true;
+                    if (editorConfig.living === 'true') {
+                        refreshPreview();
+                    }
                 }
             });
 
