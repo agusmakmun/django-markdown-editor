@@ -18,22 +18,9 @@
         martor.trigger('martor.init');
 
         // CSRF code
-        var getCookie = function(name) {
-            var cookieValue = null;
-            var i = 0;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (i; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
+        var getCsrfToken = function(name) {
+            $("form").find('input[name=csrfmiddlewaretoken]').val()
+        };
 
         // Each multiple editor fields
         mainMartor.each(function(i, obj) {
@@ -91,7 +78,7 @@
                             url: textareaId.data('search-users-url'),
                             data: {
                                 'username': username,
-                                'csrfmiddlewaretoken': getCookie('csrftoken')
+                                'csrfmiddlewaretoken': getCsrfToken()
                             },
                             success: function(data) {
                                 if (data['status'] == 200) {
@@ -149,7 +136,7 @@
                 var value = editor.getValue();
                 var form = new FormData();
                 form.append('content', value);
-                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                form.append('csrfmiddlewaretoken', getCsrfToken());
 
                 $.ajax({
                     url: textareaId.data('markdownfy-url'),
@@ -517,7 +504,7 @@
                 var firstForm = $('#'+editorId).closest('form').get(0);
                 var field_name = editor.container.id.replace('martor-', '');
                 var form = new FormData(firstForm);
-                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                form.append('csrfmiddlewaretoken', getCsrfToken());
 
                 $.ajax({
                     url: textareaId.data('upload-url'),
