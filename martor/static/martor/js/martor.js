@@ -125,12 +125,6 @@
             $(obj).find('.modal-help-guide').attr({'data-field-name': field_name});
             $(obj).find('.modal-emoji').attr({'data-field-name': field_name});
 
-            // Set if editor has changed.
-            editor.on('change', function(evt){
-                var value = editor.getValue();
-                textareaId.val(value);
-            });
-
             // resize the editor using `resizable.min.js`
             $('#'+editorId).resizable({
                 direction: 'bottom',
@@ -143,7 +137,7 @@
             var currentTab = $('.tab.segment[data-tab=preview-tab-'+field_name+']');
             var previewTabButton = $('.item[data-tab=preview-tab-'+field_name+']');
             var refreshPreview = function() {
-                var value = editor.getValue();
+                var value = textareaId.val();
                 var form = new FormData();
                 form.append('content', value);
                 form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
@@ -170,9 +164,19 @@
                 });
             };
 
-            if (editorConfig.living === 'true') {
-                editor.on('change', refreshPreview);
-            }else {
+            // Refresh the preview unconditionally on first load.
+            refreshPreview();
+
+            // Set if editor has changed.
+            editor.on('change', function (evt) {
+                var value = editor.getValue();
+                textareaId.val(value);
+                if (editorConfig.living === 'true') {
+                    refreshPreview();
+                }
+            });
+
+            if (editorConfig.living !== 'true') {
               previewTabButton.click(function(){
                   // hide the `.martor-toolbar` for this current editor if under preview.
                   $(this).closest('.tab-martor-menu').find('.martor-toolbar').hide();
