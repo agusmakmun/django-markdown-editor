@@ -209,6 +209,11 @@ form .martor-preview pre tt{margin:0;padding:0;background-color:transparent;bord
 .section-martor {
 
 }
+
+.section-martor div[data-tab="editor-tab-description"] {
+  padding: 0 !important;
+}
+
 .martor {
   height: 500px;
   max-height: 500px;
@@ -223,6 +228,10 @@ form .martor-preview {
   padding: 1rem;
   overflow: auto;
   background: #F9F9F9;
+}
+
+form .martor-preview-stale {
+  background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f8f8f8 10px, #f8f8f8 20px) !important;
 }
 
 .icon.expand-editor {
