@@ -11,11 +11,7 @@
         $ = django.jQuery;
     }
     $.fn.martor = function() {
-
-        var martor         = $(this);
-        var mainMartor     = $('.main-martor');
-
-        martor.trigger('martor.init');
+        $('.martor').trigger('martor.init');
 
         // CSRF code
         var getCookie = function(name) {
@@ -33,11 +29,12 @@
                 }
             }
             return cookieValue;
-        }
+        };
 
         // Each multiple editor fields
-        mainMartor.each(function(i, obj) {
-            var field_name   = $(obj).data('field-name');
+        this.each(function(i, obj) {
+            var mainMartor   = $(obj);
+            var field_name   = mainMartor.data('field-name');
             var textareaId   = $('#id_'+field_name);
             var editorId     = 'martor-'+field_name;
             var editor       = ace.edit(editorId);
@@ -155,6 +152,7 @@
                 var form = new FormData();
                 form.append('content', value);
                 form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                currentTab.addClass('martor-preview-stale');
 
                 $.ajax({
                     url: textareaId.data('markdownfy-url'),
@@ -781,8 +779,11 @@
                 $('.modal-help-guide[data-field-name='+field_name+']').modal('show');
             });
 
+            // Handle tabs.
+            mainMartor.find('.ui.martor-toolbar .ui.dropdown').dropdown();
+            mainMartor.find('.ui.tab-martor-menu .item').tab();
+
             // Toggle editor, preview, maximize
-            var mainMartor        = $(obj);
             var martorField       = $('.martor-field-'+field_name);
             var btnToggleMaximize = $('.markdown-toggle-maximize[data-field-name='+field_name+']');
 
@@ -858,14 +859,22 @@
                 editor.setValue(textareaId.val(), -1);
             }
         });// end each `mainMartor`
-};
-$(function() {
-    $('.martor').martor();
-});
-})(jQuery);
+    };
 
-$( document ).ready(function(){
-    // Semantic UI
-    $('.ui.martor-toolbar .ui.dropdown').dropdown();
-    $('.ui.tab-martor-menu .item').tab();
-});
+    $(function() {
+        $('.main-martor').martor();
+    });
+
+    if ('django' in window && 'jQuery' in window.django)
+        django.jQuery(document).on('formset:added', function (event, $row) {
+            $row.find('.main-martor').each(function () {
+                var id = $row.attr('id');
+                id = id.substr(id.lastIndexOf('-') + 1);
+                // Notice here we are using our jQuery instead of Django's.
+                // This is because plugins are only loaded for ours.
+                var fixed = $(this.outerHTML.replace(/__prefix__/g, id));
+                $(this).replaceWith(fixed);
+                fixed.martor();
+            });
+        });
+})(jQuery);

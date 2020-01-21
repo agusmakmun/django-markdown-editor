@@ -225,6 +225,10 @@ form .martor-preview {
   background: #F9F9F9;
 }
 
+form .martor-preview-stale {
+  background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f8f8f8 10px, #f8f8f8 20px) !important;
+}
+
 .icon.expand-editor {
   position: absolute;
   bottom: .8em;
