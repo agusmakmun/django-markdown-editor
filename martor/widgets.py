@@ -45,7 +45,9 @@ class MartorWidget(forms.Textarea):
 
         return template.render({
             'martor': widget,
-            'field_name': name
+            'field_name': name,
+            'emoji_enabled': MARTOR_ENABLE_CONFIGS.get('emoji', None) == 'true',
+            'mentions_enabled': MARTOR_ENABLE_CONFIGS.get('mention', None) == 'true',
         })
 
     class Media:
