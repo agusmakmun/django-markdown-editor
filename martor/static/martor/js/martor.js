@@ -163,6 +163,7 @@
                           $('pre').each(function(i, block){
                               hljs.highlightBlock(block);
                           });
+                          $(document).trigger('martor:preview', [currentTab]);
                         }else {currentTab.html('<p>Nothing to preview</p>');}
                     },
                     error: function(response) {
