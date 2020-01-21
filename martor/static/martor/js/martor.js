@@ -151,12 +151,16 @@
                     contentType: false,
                     success: function(response) {
                         if(response){
+                          if (editorConfig.hljs == 'true') {
+                              $('pre').each(function (i, block) {
+                                  hljs.highlightBlock(block);
+                              });
+                          }
                           currentTab.html(response).removeClass('martor-preview-stale');
-                          $('pre').each(function(i, block){
-                              hljs.highlightBlock(block);
-                          });
                           $(document).trigger('martor:preview', [currentTab]);
-                        }else {currentTab.html('<p>Nothing to preview</p>');}
+                        }else {
+                          currentTab.html('<p>Nothing to preview</p>');
+                        }
                     },
                     error: function(response) {
                         console.log("error", response);
