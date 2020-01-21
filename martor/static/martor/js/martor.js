@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.4.1
+ * Name         : Martor v1.4.5
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 30-Jun-2019
+ * Release date : 21-Jan-2020
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
@@ -142,12 +142,7 @@
             // update the preview if this menu is clicked
             var currentTab = $('.tab.segment[data-tab=preview-tab-'+field_name+']');
             var previewTabButton = $('.item[data-tab=preview-tab-'+field_name+']');
-            var needsRefresh = true;
             var refreshPreview = function() {
-                if (!needsRefresh) {
-                    return;
-                }
-
                 var value = textareaId.val();
                 var form = new FormData();
                 form.append('content', value);
@@ -162,13 +157,13 @@
                     contentType: false,
                     success: function(response) {
                         if (response) {
-                            currentTab.html(response).removeClass('martor-preview-stale');
                             if (editorConfig.hljs == 'true') {
                                 $('pre').each(function (i, block) {
                                     hljs.highlightBlock(block);
                                 });
                             }
-                            needsRefresh = false;
+                            currentTab.html(response).removeClass('martor-preview-stale');
+                            $(document).trigger('martor:preview', [currentTab]);
                         } else {
                             currentTab.html('<p>Nothing to preview</p>');
                         }
@@ -182,24 +177,14 @@
             // Refresh the preview unconditionally on first load.
             refreshPreview();
 
-            // Set if editor has changed.
-            editor.on('change', function (evt) {
-                var value = editor.getValue();
-                if (value !== textareaId.val()) {
-                    textareaId.val(value);
-                    needsRefresh = true;
-                    if (editorConfig.living === 'true') {
-                        refreshPreview();
-                    }
-                }
-            });
-
             if (editorConfig.living !== 'true') {
               previewTabButton.click(function(){
                   // hide the `.martor-toolbar` for this current editor if under preview.
                   $(this).closest('.tab-martor-menu').find('.martor-toolbar').hide();
                   refreshPreview();
               });
+            }else {
+              editor.on('change', refreshPreview);
             }
 
             var editorTabButton = $('.item[data-tab=editor-tab-'+field_name+']');
@@ -209,7 +194,11 @@
             });
 
             if (editorConfig.spellcheck == 'true') {
-              enable_spellcheck(editorId);
+              try {
+                enable_spellcheck(editorId);
+              }catch (e) {
+                console.log("Spellcheck lib doesn't installed.");
+              }
             }
 
             // win/linux: Ctrl+B, mac: Command+B

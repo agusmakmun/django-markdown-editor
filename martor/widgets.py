@@ -37,17 +37,17 @@ class MartorWidget(forms.Textarea):
         # being part of the render chain.
         attributes_to_pass.update(self.attrs)
 
-        widget = super(MartorWidget, self).render(name,
-                                                  value,
-                                                  attributes_to_pass)
+        widget = super(MartorWidget, self).render(name, value, attributes_to_pass)
 
         template = get_template('martor/editor.html')
+        emoji_enabled = MARTOR_ENABLE_CONFIGS.get('emoji') == 'true'
+        mentions_enabled = MARTOR_ENABLE_CONFIGS.get('mention') == 'true'
 
         return template.render({
             'martor': widget,
             'field_name': name,
-            'emoji_enabled': MARTOR_ENABLE_CONFIGS.get('emoji', None) == 'true',
-            'mentions_enabled': MARTOR_ENABLE_CONFIGS.get('mention', None) == 'true',
+            'emoji_enabled': emoji_enabled,
+            'mentions_enabled': mentions_enabled
         })
 
     class Media:

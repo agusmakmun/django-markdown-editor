@@ -24,6 +24,7 @@
             <td><img class="marked-emoji" src="{% static 'plugins/images/heart.png' %}"></td>
           </tr>
         {% endif %}
+
         {% if mentions_enabled %}
           <tr>
             <td>@[username]</td>
@@ -33,9 +34,11 @@
             <td><a href="#">@username</a></td>
           </tr>
         {% endif %}
+
         {% if emoji_enabled or mentions_enabled %}
           <tr><td colspan="5"></td></tr>
         {% endif %}
+
         <tr>
           <td>*Italic*</td>
           <td>_Italic_</td>
