@@ -27,10 +27,11 @@ SECRET_KEY = '93fs*#h77*vj&2#2f+!y=kifg0s&63768398a(kx126itq(*6r'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 MARTOR_ENABLE_CONFIGS = {
-    'imgur': 'true',     # to enable/disable imgur/custom uploader.
-    'mention': 'true',   # to enable/disable mention
-    'jquery': 'true',    # to include/revoke jquery (require for admin default django)
-    'living': 'false'    # to enable/disable live updates in preview
+    'imgur': 'true',         # to enable/disable imgur/custom uploader.
+    'mention': 'true',       # to enable/disable mention
+    'jquery': 'true',        # to include/revoke jquery (require for admin default django)
+    'living': 'false',       # to enable/disable live updates in preview
+    'spellcheck': 'true',    # to enable/disable spellcheck in the editor.
 }
 
 # Application definition
