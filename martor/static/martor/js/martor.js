@@ -162,10 +162,12 @@
                     contentType: false,
                     success: function(response) {
                         if (response) {
-                            currentTab.html(response);
-                            $('pre').each(function (i, block) {
-                                hljs.highlightBlock(block);
-                            });
+                            currentTab.html(response).removeClass('martor-preview-stale');
+                            if (editorConfig.hljs == 'true') {
+                                $('pre').each(function (i, block) {
+                                    hljs.highlightBlock(block);
+                                });
+                            }
                             needsRefresh = false;
                         } else {
                             currentTab.html('<p>Nothing to preview</p>');
