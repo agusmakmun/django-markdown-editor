@@ -23,11 +23,11 @@ class MentionPattern(markdown.inlinepatterns.Pattern):
 
     def handleMatch(self, m):
         username = self.unescape(m.group(2))
-        user_check = get_user_model().objects.filter(username=username, is_active=True)
+        users = get_user_model().objects.filter(username=username, is_active=True)
 
         """Makesure `username` is registered and actived."""
         if MARTOR_ENABLE_CONFIGS['mention'] == 'true':
-            if user_check.exists():
+            if users.exists():
                 url = '{0}{1}/'.format(MARTOR_MARKDOWN_BASE_MENTION_URL, username)
                 el = markdown.util.etree.Element('a')
                 el.set('href', url)
