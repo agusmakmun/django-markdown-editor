@@ -1,5 +1,5 @@
 import markdown
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from ..settings import (
     MARTOR_ENABLE_CONFIGS,
     MARTOR_MARKDOWN_BASE_MENTION_URL
@@ -23,10 +23,11 @@ class MentionPattern(markdown.inlinepatterns.Pattern):
 
     def handleMatch(self, m):
         username = self.unescape(m.group(2))
+        users = get_user_model().objects.filter(username=username, is_active=True)
 
         """Makesure `username` is registered and actived."""
         if MARTOR_ENABLE_CONFIGS['mention'] == 'true':
-            if username in [u.username for u in User.objects.exclude(is_active=False)]:
+            if users.exists():
                 url = '{0}{1}/'.format(MARTOR_MARKDOWN_BASE_MENTION_URL, username)
                 el = markdown.util.etree.Element('a')
                 el.set('href', url)
