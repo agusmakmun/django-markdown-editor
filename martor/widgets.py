@@ -69,7 +69,7 @@ class MartorWidget(forms.Textarea):
             'plugins/js/highlight.min.js',
             'plugins/js/resizable.min.js',
             'plugins/js/emojis.min.js',
-            'martor/js/martor.js',
+            'martor/js/martor.min.js',
         )
 
         if MARTOR_ENABLE_CONFIGS.get('spellcheck') == 'true':
