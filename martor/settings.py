@@ -4,13 +4,13 @@ from django.conf import settings
 # Input: string boolean, `true/false`
 MARTOR_ENABLE_CONFIGS = getattr(
     settings, 'MARTOR_ENABLE_CONFIGS', {
-        'emoji': 'true',       # to enable/disable emoji icons.
-        'imgur': 'true',       # to enable/disable imgur/custom uploader.
-        'mention': 'false',    # to enable/disable mention
-        'jquery': 'true',      # to include/revoke jquery (require for admin default django)
-        'living': 'false',     # to enable/disable live updates in preview
-        'spellcheck': 'true',  # to enable/disable spellcheck in form textareas
-        'hljs': 'true',        # to enable/disable hljs highlighting in preview
+        'emoji': 'true',        # to enable/disable emoji icons.
+        'imgur': 'true',        # to enable/disable imgur/custom uploader.
+        'mention': 'false',     # to enable/disable mention
+        'jquery': 'true',       # to include/revoke jquery (require for admin default django)
+        'living': 'false',      # to enable/disable live updates in preview
+        'spellcheck': 'false',  # to enable/disable spellcheck in form textareas
+        'hljs': 'true',         # to enable/disable hljs highlighting in preview
     }
 )
 
