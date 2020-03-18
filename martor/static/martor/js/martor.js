@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.4.7
+ * Name         : Martor v1.4.8
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 17-Feb-2020
+ * Release date : 18-Mar-2020
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
@@ -157,13 +157,14 @@
                     contentType: false,
                     success: function(response) {
                         if (response) {
+                            currentTab.html(response).removeClass('martor-preview-stale');
+                            $(document).trigger('martor:preview', [currentTab]);
+
                             if (editorConfig.hljs == 'true') {
                                 $('pre').each(function (i, block) {
                                     hljs.highlightBlock(block);
                                 });
                             }
-                            currentTab.html(response).removeClass('martor-preview-stale');
-                            $(document).trigger('martor:preview', [currentTab]);
                         } else {
                             currentTab.html('<p>Nothing to preview</p>');
                         }
