@@ -41,9 +41,9 @@ Features
 Preview
 ------------------------------
 
-.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/__screenshot/martor-preview-editor.png
+.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/martor-preview-editor.png
 
-.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/__screenshot/martor-preview-result.png
+.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/martor-preview-result.png
 
 
 Requirements
@@ -253,7 +253,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 Martor Commands Reference
 --------------------------------
 
-.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/__screenshot/martor-guide.png
+.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/martor-guide.png
 
 
 Notes
