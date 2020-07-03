@@ -54,7 +54,6 @@ class MartorWidget(forms.Textarea):
         css = {
             'all': (
                 'plugins/css/ace.min.css',
-                'plugins/css/semantic.min.css',
                 'plugins/css/resizable.min.css',
                 'martor/css/martor.min.css',
                 'martor/css/martor-admin.min.css'
@@ -62,7 +61,6 @@ class MartorWidget(forms.Textarea):
         }
         js = (
             'plugins/js/ace.js',
-            'plugins/js/semantic.min.js',
             'plugins/js/mode-markdown.js',
             'plugins/js/ext-language_tools.js',
             'plugins/js/theme-github.js',
@@ -71,6 +69,11 @@ class MartorWidget(forms.Textarea):
             'plugins/js/emojis.min.js',
             'martor/js/martor.min.js',
         )
+
+        if MARTOR_ENABLE_CONFIGS.get('semantic') == 'true':
+            # Allows to disable the included semantic version if a custom themed semantic version shouldn't be overriden
+            css["all"] = ('plugins/css/semantic.min.css',).__add__(css.get('all'))
+            js = ('plugins/js/semantic.min.js',).__add__(js)
 
         if MARTOR_ENABLE_CONFIGS.get('spellcheck') == 'true':
             # Adding the following scripts to the end of the tuple in case it affects behaviour

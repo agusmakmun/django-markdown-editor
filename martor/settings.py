@@ -11,6 +11,7 @@ MARTOR_ENABLE_CONFIGS = getattr(
         'living': 'false',      # to enable/disable live updates in preview
         'spellcheck': 'false',  # to enable/disable spellcheck in form textareas
         'hljs': 'true',         # to enable/disable hljs highlighting in preview
+        'semantic': 'true',    # to enable/disable using packaged semantic version
     }
 )
 
