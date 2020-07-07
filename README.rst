@@ -120,6 +120,7 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
         'living': 'false',      # to enable/disable live updates in preview
         'spellcheck': 'false',  # to enable/disable spellcheck in form textareas
         'hljs': 'true',         # to enable/disable hljs highlighting in preview
+        'semantic': 'true',     # to enable/disable the packaged semantic ui version
     }
 
     # To setup the martor editor with label or not (default is False)
