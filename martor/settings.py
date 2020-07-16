@@ -14,7 +14,17 @@ MARTOR_ENABLE_CONFIGS = getattr(
     }
 )
 
-# To setup the martor editor with label or not (default is False)
+# To show the toolbar buttons
+MARTOR_TOOLBAR_BUTTONS = getattr(
+    settings, 'MARTOR_TOOLBAR_BUTTONS', [
+        'bold', 'italic', 'horizontal', 'heading', 'pre-code',
+        'blockquote', 'unordered-list', 'ordered-list',
+        'link', 'image-link', 'image-upload', 'emoji',
+        'direct-mention', 'toggle-maximize', 'help'
+    ]
+)
+
+# To setup the martor editor with title label or not (default is False)
 MARTOR_ENABLE_LABEL = getattr(
     settings, 'MARTOR_ENABLE_LABEL', False
 )

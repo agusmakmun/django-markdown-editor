@@ -7,7 +7,8 @@ from .settings import (
     MARTOR_UPLOAD_URL,
     MARTOR_MARKDOWNIFY_URL,
     MARTOR_SEARCH_USERS_URL,
-    MARTOR_MARKDOWN_BASE_EMOJI_URL
+    MARTOR_MARKDOWN_BASE_EMOJI_URL,
+    MARTOR_TOOLBAR_BUTTONS
 )
 
 
@@ -47,7 +48,8 @@ class MartorWidget(forms.Textarea):
             'martor': widget,
             'field_name': name,
             'emoji_enabled': emoji_enabled,
-            'mentions_enabled': mentions_enabled
+            'mentions_enabled': mentions_enabled,
+            'toolbar_buttons': MARTOR_TOOLBAR_BUTTONS
         })
 
     class Media:

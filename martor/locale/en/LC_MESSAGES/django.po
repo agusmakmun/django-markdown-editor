@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-21 10:54+0700\n"
+"POT-Creation-Date: 2020-07-16 11:05+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgid ""
 "\"%(doc_url)s\" target=\"_blank\">click here</a>."
 msgstr ""
 
-#: templates/martor/guide.html:10 templates/martor/toolbar.html:26
+#: templates/martor/guide.html:10 templates/martor/toolbar.html:38
 msgid "Code"
 msgstr ""
 
@@ -64,68 +64,68 @@ msgstr ""
 msgid "... to Get"
 msgstr ""
 
-#: templates/martor/toolbar.html:4
+#: templates/martor/toolbar.html:5
 msgid "Bold"
 msgstr ""
 
-#: templates/martor/toolbar.html:7
+#: templates/martor/toolbar.html:11
 msgid "Italic"
 msgstr ""
 
-#: templates/martor/toolbar.html:10
+#: templates/martor/toolbar.html:17
 msgid "Horizontal Line"
 msgstr ""
 
-#: templates/martor/toolbar.html:13 templates/martor/toolbar.html:16
-#: templates/martor/toolbar.html:17 templates/martor/toolbar.html:18
+#: templates/martor/toolbar.html:23 templates/martor/toolbar.html:26
+#: templates/martor/toolbar.html:27 templates/martor/toolbar.html:28
 msgid "Heading"
 msgstr ""
 
-#: templates/martor/toolbar.html:22
+#: templates/martor/toolbar.html:34
 msgid "Pre or Code"
 msgstr ""
 
-#: templates/martor/toolbar.html:25
+#: templates/martor/toolbar.html:37
 msgid "Pre"
 msgstr ""
 
-#: templates/martor/toolbar.html:29
+#: templates/martor/toolbar.html:44
 msgid "Quote"
 msgstr ""
 
-#: templates/martor/toolbar.html:32
+#: templates/martor/toolbar.html:50
 msgid "Unordered List"
 msgstr ""
 
-#: templates/martor/toolbar.html:35
+#: templates/martor/toolbar.html:56
 msgid "Ordered List"
 msgstr ""
 
-#: templates/martor/toolbar.html:39
+#: templates/martor/toolbar.html:62
 msgid "URL/Link"
 msgstr ""
 
-#: templates/martor/toolbar.html:42
+#: templates/martor/toolbar.html:68
 msgid "Insert Image Link"
 msgstr ""
 
-#: templates/martor/toolbar.html:45 templates/martor/toolbar.html:47
+#: templates/martor/toolbar.html:74 templates/martor/toolbar.html:76
 msgid "Upload an Image"
 msgstr ""
 
-#: templates/martor/toolbar.html:49
+#: templates/martor/toolbar.html:81
 msgid "Insert Emoji"
 msgstr ""
 
-#: templates/martor/toolbar.html:52
+#: templates/martor/toolbar.html:87
 msgid "Direct Mention a User"
 msgstr ""
 
-#: templates/martor/toolbar.html:56
+#: templates/martor/toolbar.html:93
 msgid "Full Screen"
 msgstr ""
 
-#: templates/martor/toolbar.html:59
+#: templates/martor/toolbar.html:99
 msgid "Markdown Guide (Help)"
 msgstr ""
 
