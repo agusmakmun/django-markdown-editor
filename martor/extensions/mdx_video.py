@@ -20,6 +20,7 @@ class VideoExtension(markdown.Extension):
             'yahoo_height': ['351', 'Height for Yahoo! videos'],
             'youtube_width': ['560', 'Width for Youtube videos'],
             'youtube_height': ['315', 'Height for Youtube videos'],
+            'youtube_nocookie': [False, 'Use youtube-nocookie.com instead of youtube.com']
         }
 
         # Override defaults with user settings
@@ -97,7 +98,10 @@ class Yahoo(markdown.inlinepatterns.Pattern):
 class Youtube(markdown.inlinepatterns.Pattern):
 
     def handleMatch(self, m):
-        url = '//www.youtube.com/embed/%s' % m.group('youtubeid')
+        if self.ext.config['youtube_nocookie'][0]:
+            url = '//www.youtube-nocookie.com/embed/%s' % m.group('youtubeid')
+        else:
+            url = '//www.youtube.com/embed/%s' % m.group('youtubeid')
         width = self.ext.config['youtube_width'][0]
         height = self.ext.config['youtube_height'][0]
         return render_iframe(url, width, height)
