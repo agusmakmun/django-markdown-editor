@@ -26,15 +26,24 @@ SECRET_KEY = '93fs*#h77*vj&2#2f+!y=kifg0s&63768398a(kx126itq(*6r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ['*']
+
+# Martor
 MARTOR_ENABLE_CONFIGS = {
-    'emoji': 'true',       # to enable/disable emoji icons.
-    'imgur': 'true',       # to enable/disable imgur/custom uploader.
-    'mention': 'true',     # to enable/disable mention
-    'jquery': 'true',      # to include/revoke jquery (require for admin default django)
-    'living': 'false',     # to enable/disable live updates in preview
+    'emoji': 'true',        # to enable/disable emoji icons.
+    'imgur': 'true',        # to enable/disable imgur/custom uploader.
+    'mention': 'true',      # to enable/disable mention
+    'jquery': 'true',       # to include/revoke jquery (require for admin default django)
+    'living': 'false',      # to enable/disable live updates in preview
     'spellcheck': 'false',  # to enable/disable spellcheck in form textareas
-    'hljs': 'true',        # to enable/disable hljs highlighting in preview
+    'hljs': 'true',         # to enable/disable hljs highlighting in preview
 }
+
+MARTOR_TOOLBAR_BUTTONS = [
+    'bold', 'italic', 'horizontal', 'heading', 'pre-code',
+    'blockquote', 'unordered-list', 'ordered-list',
+    'link', 'image-link', 'image-upload', 'emoji',
+    'direct-mention', 'toggle-maximize', 'help'
+]
 
 # Application definition
 INSTALLED_APPS = [
