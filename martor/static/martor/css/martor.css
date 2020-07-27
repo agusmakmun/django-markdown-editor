@@ -8,19 +8,19 @@ body.overflow {
 
 /* Scroll Bar */
 .section-martor ::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	border-radius: 10px;
-	background-color: #F5F5F5;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
 }
 .section-martor ::-webkit-scrollbar {
   height: 6px;
-	width: 6px;
-	background-color: #F5F5F5;
+  width: 6px;
+  background-color: #F5F5F5;
 }
 .section-martor ::-webkit-scrollbar-thumb {
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #555;
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #555;
 }
 .ace_scrollbar-v {
   cursor: ns-resize;
@@ -90,7 +90,7 @@ form .martor-preview h2,
 form .martor-preview h3,
 form .martor-preview h4,
 form .martor-preview h5,
-form .martor-preview h6{margin:20px 0 10px;padding:0;font-weight:bold;-webkit-font-smoothing:antialiased;cursor:text;position:relative;background:none;}
+form .martor-preview h6{margin:20px 0 10px;padding:0;font-weight:bold !important;-webkit-font-smoothing:antialiased;cursor:text;position:relative;background:none;}
 
 form .martor-preview h1:hover a.anchor,
 form .martor-preview h2:hover a.anchor,
@@ -112,11 +112,11 @@ form .martor-preview h5 code,
 form .martor-preview h6 tt,
 form .martor-preview h6 code{font-size:inherit}
 
-form .martor-preview h1{font-size:28px;color:#000}
-form .martor-preview h2{font-size:24px;border-bottom:1px solid #ccc;color:#000}
-form .martor-preview h3{font-size:18px}
-form .martor-preview h4{font-size:16px}
-form .martor-preview h5{font-size:14px}
+form .martor-preview h1{font-size:28px !important;color:#000 !important}
+form .martor-preview h2{font-size:24px !important;color:#000 !important}
+form .martor-preview h3{font-size:18px !important;}
+form .martor-preview h4{font-size:16px !important;}
+form .martor-preview h5{font-size:14px !important;text-transform:none !important}
 form .martor-preview h6{color:#777;font-size:14px}
 form .martor-preview p,
 form .martor-preview blockquote,
