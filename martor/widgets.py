@@ -8,7 +8,9 @@ from .settings import (
     MARTOR_MARKDOWNIFY_URL,
     MARTOR_SEARCH_USERS_URL,
     MARTOR_MARKDOWN_BASE_EMOJI_URL,
-    MARTOR_TOOLBAR_BUTTONS
+    MARTOR_TOOLBAR_BUTTONS,
+    MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE,
+    MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE
 )
 
 
@@ -72,10 +74,15 @@ class MartorWidget(forms.Textarea):
             'martor/js/martor.min.js',
         )
 
-        if MARTOR_ENABLE_CONFIGS.get('semantic') == 'true':
-            # Allows to disable the included semantic version if a custom themed semantic version shouldn't be overriden
-            css["all"] = ('plugins/css/semantic.min.css',).__add__(css.get('all'))
+        if MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE is None:
             js = ('plugins/js/semantic.min.js',).__add__(js)
+        else:
+            js = (MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE,).__add__(js)
+
+        if MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE is None:
+            css["all"] = ('plugins/css/semantic.min.css',).__add__(css.get('all'))
+        else:
+            css["all"] = (MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE,).__add__(css.get('all'))
 
         if MARTOR_ENABLE_CONFIGS.get('spellcheck') == 'true':
             # Adding the following scripts to the end of the tuple in case it affects behaviour

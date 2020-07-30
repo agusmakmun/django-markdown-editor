@@ -120,7 +120,6 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
         'living': 'false',      # to enable/disable live updates in preview
         'spellcheck': 'false',  # to enable/disable spellcheck in form textareas
         'hljs': 'true',         # to enable/disable hljs highlighting in preview
-        'semantic': 'true',     # to enable/disable the packaged semantic ui version
     }
 
     # To show the toolbar buttons
@@ -171,6 +170,10 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
     # MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://www.webfx.com/tools/emoji-cheat-sheet/graphics/emojis/'     # from webfx
     MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://github.githubassets.com/images/icons/emoji/'                  # default from github
     MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/'                                      # please change this to your domain
+
+    # If you need to use your own themed semantic ui dependency
+    MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE = "semantic-themed/semantic.min.js"
+    MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE = "semantic-themed/semantic.min.css"
 
 Check this setting is not set else csrf will not be sent over ajax calls:
 
