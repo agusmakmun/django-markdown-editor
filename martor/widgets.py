@@ -10,7 +10,8 @@ from .settings import (
     MARTOR_MARKDOWN_BASE_EMOJI_URL,
     MARTOR_TOOLBAR_BUTTONS,
     MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE,
-    MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE
+    MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE,
+    MARTOR_ALTERNATIVE_JQUERY_JS_FILE
 )
 
 
@@ -74,11 +75,6 @@ class MartorWidget(forms.Textarea):
             'martor/js/martor.min.js',
         )
 
-        if MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE is None:
-            js = ('plugins/js/semantic.min.js',).__add__(js)
-        else:
-            js = (MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE,).__add__(js)
-
         if MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE is None:
             css["all"] = ('plugins/css/semantic.min.css',).__add__(css.get('all'))
         else:
@@ -88,8 +84,15 @@ class MartorWidget(forms.Textarea):
             # Adding the following scripts to the end of the tuple in case it affects behaviour
             js = ('plugins/js/typo.js', 'plugins/js/spellcheck.js').__add__(js)
 
+        if MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE is None:
+            js = ('plugins/js/semantic.min.js',).__add__(js)
+        else:
+            js = (MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE,).__add__(js)
+
         if MARTOR_ENABLE_CONFIGS.get('jquery') == 'true':
             js = ('plugins/js/jquery.min.js',).__add__(js)
+        elif MARTOR_ALTERNATIVE_JQUERY_JS_FILE:
+            js = (MARTOR_ALTERNATIVE_JQUERY_JS_FILE,).__add__(js)
 
 
 class AdminMartorWidget(MartorWidget, widgets.AdminTextareaWidget):
