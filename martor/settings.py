@@ -37,11 +37,6 @@ MARTOR_IMGUR_API_KEY = getattr(
     settings, 'MARTOR_IMGUR_API_KEY', ''
 )
 
-# Safe Mode
-MARTOR_MARKDOWN_SAFE_MODE = getattr(
-    settings, 'MARTOR_MARKDOWN_SAFE_MODE', True
-)
-
 # Markdownify
 MARTOR_MARKDOWNIFY_FUNCTION = getattr(
     settings, 'MARTOR_MARKDOWNIFY_FUNCTION', 'martor.utils.markdownify'
@@ -60,10 +55,11 @@ MARTOR_MARKDOWN_EXTENSIONS = getattr(
 
         # Custom markdown extensions.
         'martor.extensions.urlize',
-        'martor.extensions.del_ins',    # ~~strikethrough~~ and ++underscores++
-        'martor.extensions.mention',    # to parse markdown mention
-        'martor.extensions.emoji',      # to parse markdown emoji
-        'martor.extensions.mdx_video',  # to parse embed/iframe video
+        'martor.extensions.del_ins',      # ~~strikethrough~~ and ++underscores++
+        'martor.extensions.mention',      # to parse markdown mention
+        'martor.extensions.emoji',        # to parse markdown emoji
+        'martor.extensions.mdx_video',    # to parse embed/iframe video
+        'martor.extensions.escape_html',  # to handle the XSS vulnerabilities
     ]
 )
 

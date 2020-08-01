@@ -4,7 +4,6 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 import markdown
 from .settings import (
-    MARTOR_MARKDOWN_SAFE_MODE,
     MARTOR_MARKDOWN_EXTENSIONS,
     MARTOR_MARKDOWN_EXTENSION_CONFIGS
 )
@@ -28,7 +27,6 @@ def markdownify(markdown_content):
     try:
         return markdown.markdown(
             markdown_content,
-            safe_mode=MARTOR_MARKDOWN_SAFE_MODE,
             extensions=MARTOR_MARKDOWN_EXTENSIONS,
             extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS
         )
