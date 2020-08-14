@@ -11,6 +11,7 @@ MARTOR_ENABLE_CONFIGS = getattr(
         'living': 'false',      # to enable/disable live updates in preview
         'spellcheck': 'false',  # to enable/disable spellcheck in form textareas
         'hljs': 'true',         # to enable/disable hljs highlighting in preview
+        'semantic': 'true',    # to enable/disable using packaged semantic version
     }
 )
 
@@ -27,6 +28,16 @@ MARTOR_TOOLBAR_BUTTONS = getattr(
 # To setup the martor editor with title label or not (default is False)
 MARTOR_ENABLE_LABEL = getattr(
     settings, 'MARTOR_ENABLE_LABEL', False
+)
+
+MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE = getattr(
+    settings, 'MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE', None
+)
+MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE = getattr(
+    settings, 'MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE', None
+)
+MARTOR_ALTERNATIVE_JQUERY_JS_FILE = getattr(
+    settings, 'MARTOR_ALTERNATIVE_JQUERY_JS_FILE', None
 )
 
 # Imgur API Keys

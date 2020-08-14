@@ -8,7 +8,10 @@ from .settings import (
     MARTOR_MARKDOWNIFY_URL,
     MARTOR_SEARCH_USERS_URL,
     MARTOR_MARKDOWN_BASE_EMOJI_URL,
-    MARTOR_TOOLBAR_BUTTONS
+    MARTOR_TOOLBAR_BUTTONS,
+    MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE,
+    MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE,
+    MARTOR_ALTERNATIVE_JQUERY_JS_FILE
 )
 
 
@@ -56,7 +59,6 @@ class MartorWidget(forms.Textarea):
         css = {
             'all': (
                 'plugins/css/ace.min.css',
-                'plugins/css/semantic.min.css',
                 'plugins/css/resizable.min.css',
                 'martor/css/martor.min.css',
                 'martor/css/martor-admin.min.css'
@@ -64,7 +66,6 @@ class MartorWidget(forms.Textarea):
         }
         js = (
             'plugins/js/ace.js',
-            'plugins/js/semantic.min.js',
             'plugins/js/mode-markdown.js',
             'plugins/js/ext-language_tools.js',
             'plugins/js/theme-github.js',
@@ -74,12 +75,24 @@ class MartorWidget(forms.Textarea):
             'martor/js/martor.min.js',
         )
 
+        if MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE is None:
+            css["all"] = ('plugins/css/semantic.min.css',).__add__(css.get('all'))
+        else:
+            css["all"] = (MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE,).__add__(css.get('all'))
+
         if MARTOR_ENABLE_CONFIGS.get('spellcheck') == 'true':
             # Adding the following scripts to the end of the tuple in case it affects behaviour
             js = ('plugins/js/typo.js', 'plugins/js/spellcheck.js').__add__(js)
 
+        if MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE is None:
+            js = ('plugins/js/semantic.min.js',).__add__(js)
+        else:
+            js = (MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE,).__add__(js)
+
         if MARTOR_ENABLE_CONFIGS.get('jquery') == 'true':
             js = ('plugins/js/jquery.min.js',).__add__(js)
+        elif MARTOR_ALTERNATIVE_JQUERY_JS_FILE:
+            js = (MARTOR_ALTERNATIVE_JQUERY_JS_FILE,).__add__(js)
 
 
 class AdminMartorWidget(MartorWidget, widgets.AdminTextareaWidget):
