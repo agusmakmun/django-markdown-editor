@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-15 15:54+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Ozcan Yarimdunya <ozcanyd@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: templates/martor/editor.html:5
+msgid "Editor"
+msgstr "Editör"
+
+#: templates/martor/editor.html:6
+msgid "Preview"
+msgstr "Ön izleme"
+
+#: templates/martor/editor.html:11
+msgid "Uploading... please wait..."
+msgstr "Yükleniyor ... Lütfen Bekleyin..."
+
+#: templates/martor/editor.html:18
+msgid "Nothing to preview"
+msgstr "Önizlenecek bir şey yok"
+
+#: templates/martor/emoji.html:4
+msgid "Select Emoji to Insert"
+msgstr "Eklenecek Emojiyi Seçin"
+
+#: templates/martor/emoji.html:8
+msgid "Preparing emojis..."
+msgstr "Emojiler hazırlanıyor ..."
+
+#: templates/martor/guide.html:4
+msgid "Markdown Guide"
+msgstr "Markdown Kılavuzu"
+
+#: templates/martor/guide.html:6
+#, python-format
+msgid ""
+"This site is powered by Markdown. For full documentation, <a href="
+"\"%(doc_url)s\" target=\"_blank\">click here</a>."
+msgstr ""
+"Bu site Markdown tarafından desteklenmektedir. Bütün dokümantasyon için, <a href="
+"\"%(doc_url)s\" target=\"_blank\">buraya tıkla</a>."
+
+#: templates/martor/guide.html:10 templates/martor/toolbar.html:38
+msgid "Code"
+msgstr "Kod"
+
+#: templates/martor/guide.html:11
+msgid "Or"
+msgstr "Veya"
+
+#: templates/martor/guide.html:14
+msgid "... to Get"
+msgstr "... Almak için"
+
+#: templates/martor/toolbar.html:5
+msgid "Bold"
+msgstr "Kalın"
+
+#: templates/martor/toolbar.html:11
+msgid "Italic"
+msgstr "İtalik"
+
+#: templates/martor/toolbar.html:17
+msgid "Horizontal Line"
+msgstr "Yatay çizgi"
+
+#: templates/martor/toolbar.html:23 templates/martor/toolbar.html:26
+#: templates/martor/toolbar.html:27 templates/martor/toolbar.html:28
+msgid "Heading"
+msgstr "Başlık"
+
+#: templates/martor/toolbar.html:34
+msgid "Pre or Code"
+msgstr "Ön veya Kod"
+
+#: templates/martor/toolbar.html:37
+msgid "Pre"
+msgstr "Ön"
+
+#: templates/martor/toolbar.html:44
+msgid "Quote"
+msgstr "Alıntı"
+
+#: templates/martor/toolbar.html:50
+msgid "Unordered List"
+msgstr "Sırasız liste"
+
+#: templates/martor/toolbar.html:56
+msgid "Ordered List"
+msgstr "Sıralı Liste"
+
+#: templates/martor/toolbar.html:62
+msgid "URL/Link"
+msgstr "URL/Link"
+
+#: templates/martor/toolbar.html:68
+msgid "Insert Image Link"
+msgstr "Resim Bağlantısı Ekle"
+
+#: templates/martor/toolbar.html:74 templates/martor/toolbar.html:76
+msgid "Upload an Image"
+msgstr "Bir Resim Yükle"
+
+#: templates/martor/toolbar.html:81
+msgid "Insert Emoji"
+msgstr "Emoji Ekle"
+
+#: templates/martor/toolbar.html:87
+msgid "Direct Mention a User"
+msgstr "Bir Kullanıcıdan Doğrudan Bahset"
+
+#: templates/martor/toolbar.html:93
+msgid "Full Screen"
+msgstr "Tam ekran"
+
+#: templates/martor/toolbar.html:99
+msgid "Markdown Guide (Help)"
+msgstr "Markdown Kılavuzu (Yardım)"
+
+#: views.py:18 views.py:32 views.py:33
+msgid "Invalid request!"
+msgstr "Geçersiz istek!"
+
+#: views.py:75
+#, python-format
+msgid "No users registered as `%(username)s` or user is unactived."
+msgstr "`%(username)s` kullanıcı kayıtlı değil veya aktif değil"
+
+#: views.py:81
+msgid "Validation Failed for field `username`"
+msgstr "`kullanıcı adı` alanı için doğrulama başarısız"
