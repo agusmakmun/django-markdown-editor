@@ -1,0 +1,166 @@
+{% load i18n static %}
+
+<div class="modal fade" id="modalMarkdownGuide" tabindex="-1" aria-labelledby="modalMarkdownGuideTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalMarkdownGuideTitle">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+          </svg>
+          <span>{% trans "Markdown Guide" %}</span>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{% blocktrans with doc_url='http://commonmark.org/help/' %}This site is powered by Markdown. For full documentation, <a href="{{ doc_url }}" target="_blank">click here</a>.{% endblocktrans %}</p>
+        <table class="table markdown-reference">
+          <thead class="thead-light">
+            <tr>
+              <th>{% trans "Code" %}</th>
+              <th>{% trans "Or" %}</th>
+              <th>Linux/Windows</th>
+              <th>Mac OS</th>
+              <th>{% trans "... to Get" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if emoji_enabled %}
+              <tr>
+                <td>:emoji_name:</td>
+                <td>&mdash;</td>
+                <td>&mdash;</td>
+                <td>&mdash;</td>
+                <td><img class="marked-emoji" src="{% static 'plugins/images/heart.png' %}"></td>
+              </tr>
+            {% endif %}
+
+            {% if mentions_enabled %}
+              <tr>
+                <td>@[username]</td>
+                <td>&mdash;</td>
+                <td>Ctrl+M</td>
+                <td>Command+M</td>
+                <td><a href="#">@username</a></td>
+              </tr>
+            {% endif %}
+
+            {% if emoji_enabled or mentions_enabled %}
+              <tr><td colspan="5"></td></tr>
+            {% endif %}
+
+            <tr>
+              <td>*Italic*</td>
+              <td>_Italic_</td>
+              <td>Ctrl+I</td>
+              <td>Command+I</td>
+              <td><em>Italic</em></td>
+            </tr>
+            <tr>
+              <td>**Bold**</td>
+              <td>__Bold__</td>
+              <td>Ctrl+B</td>
+              <td>Command+B</td>
+              <td><strong>Bold</strong></td>
+            </tr>
+            <tr>
+              <td>++Underscores++</td>
+              <td>&mdash;</td>
+              <td>Shift+U</td>
+              <td>Option+U</td>
+              <td><ins>Underscores</ins></td>
+            </tr>
+            <tr>
+              <td>~~Strikethrough~~</td>
+              <td>&mdash;</td>
+              <td>Shift+S</td>
+              <td>Option+S</td>
+              <td><del>Strikethrough</del></td>
+            </tr>
+            <tr>
+              <td># Heading 1</td>
+              <td>Heading 1<br> =========</td>
+              <td>Ctrl+Alt+1</td>
+              <td>Command+Option+1</td>
+              <td><h1>Heading 1</h1></td>
+            </tr>
+            <tr>
+              <td>## Heading 2</td>
+              <td>Heading 2<br> -----------</td>
+              <td>Ctrl+Alt+2</td>
+              <td>Command+Option+2</td>
+              <td><h2>Heading 2</h2></td>
+            </tr>
+            <tr>
+              <td>[Link](http://a.com)</td>
+              <td>[Link][1]<br> &#8285;<br> [1]: http://b.org</td>
+              <td>Ctrl+L</td>
+              <td>Command+L</td>
+              <td><a href="http://commonmark.org/">Link</a></td>
+            </tr>
+            <tr>
+              <td>![Image](http://url/a.png)</td>
+              <td>![Image][1]<br> &#8285;<br> [1]: http://url/b.jpg</td>
+              <td>Ctrl+Shift+I</td>
+              <td>Command+Option+I</td>
+              <td><img src="{% static 'plugins/images/commonmark.png' %}" width="36" height="36" alt="Markdown"></td>
+            </tr>
+            <tr>
+              <td>&gt; Blockquote</td>
+              <td>&mdash;</td>
+              <td>Ctrl+Q</td>
+              <td>Command+Q</td>
+              <td><blockquote>Blockquote</blockquote></td>
+            </tr>
+            <tr>
+              <td>A paragraph.<br><br> A paragraph after 1 blank line.</td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td><p>A paragraph.</p><p>A paragraph after 1 blank line.</p></td>
+            </tr>
+            <tr>
+              <td><p>* List<br> * List<br> * List</p></td>
+              <td><p> - List<br> - List<br> - List<br></p></td>
+              <td>Ctrl+U</td>
+              <td>Command+U</td>
+              <td><ul><li>List</li><li>List</li><li>List</li></ul>
+              </td>
+            </tr>
+            <tr>
+              <td><p> 1. One<br> 2. Two<br> 3. Three</p></td>
+              <td><p> 1) One<br> 2) Two<br> 3) Three</p></td>
+              <td>Ctrl+Shift+O</td>
+              <td>Command+Option+O</td>
+              <td><ol><li>One</li><li>Two</li><li>Three</li></ol></td>
+            </tr>
+            <tr>
+              <td>Horizontal Rule<br><br> -----------</td>
+              <td>Horizontal Rule<br><br> ***********</td>
+              <td>Ctrl+H</td>
+              <td>Command+H</td>
+              <td>Horizontal Rule <hr></td>
+            </tr>
+            <tr>
+              <td>`Inline code` with backticks</td>
+              <td>&mdash;</td>
+              <td>Ctrl+Alt+C</td>
+              <td>Command+Option+C</td>
+              <td><code>Inline code</code> with backticks</td>
+            </tr>
+            <tr>
+              <td>```<br> def whatever(foo):<br>&nbsp;&nbsp;&nbsp;&nbsp;return foo<br>```</td>
+              <td><b>with tab / 4 spaces</b><br>....def whatever(foo):<br>....&nbsp;&nbsp;&nbsp;&nbsp;return foo</td>
+              <td>Ctrl+Alt+P</td>
+              <td>Command+Option+P</td>
+              <td><pre>def whatever(foo):<br />    return foo</pre></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

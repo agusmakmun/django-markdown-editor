@@ -43,7 +43,8 @@ class MartorWidget(forms.Textarea):
 
         widget = super(MartorWidget, self).render(name, value, attributes_to_pass)
 
-        template = get_template('martor/editor.html')
+        # FIXME: DON'T MISS TO CHANGE THE TEMPLATE NAME
+        template = get_template('martor/bootstrap/editor.html')
         emoji_enabled = MARTOR_ENABLE_CONFIGS.get('emoji') == 'true'
         mentions_enabled = MARTOR_ENABLE_CONFIGS.get('mention') == 'true'
 

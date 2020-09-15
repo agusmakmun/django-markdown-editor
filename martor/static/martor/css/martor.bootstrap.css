@@ -1,0 +1,30 @@
+body.overflow {
+  overflow: hidden!important;
+}
+
+.main-martor .modal-header {
+  padding: 10px 1rem;
+}
+.main-martor .modal-header h5 {
+  font-size: 16px;
+}
+
+.martor-toolbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.table.markdown-reference {
+  font-size: 12px;
+}
+.table.markdown-reference h1 {
+  font-size: 2em;
+}
+.table.markdown-reference h2 {
+  font-size: 1.5em;
+}
+.table.markdown-reference ul,
+.table.markdown-reference ol {
+  padding-left: 1rem!important;
+}

@@ -13,7 +13,8 @@ def home_redirect_view(request):
 def simple_form_view(request):
     form = SimpleForm()
     context = {'form': form, 'title': 'Simple Form'}
-    return render(request, 'custom_form.html', context)
+    # FIXME: DON'T MISS TO CHANGE THE TEMPLATE NAME
+    return render(request, 'bootstrap/form.html', context)
 
 
 @login_required

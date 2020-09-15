@@ -1,0 +1,30 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+  <form class="form" method="post">{% csrf_token %}
+    <div class="form-group">
+      {{ form.title }}
+    </div>
+    <div class="form-group">
+      {{ form.description }}
+    </div>
+    <div class="form-group">
+      {{ form.wiki }}
+    </div>
+    <div class="form-group">
+      <button class="btn btn-success">
+        <i class="save icon"></i> Save Post
+      </button>
+    </div>
+  </form>
+{% endblock %}
+
+{% block js %}
+  <script>
+    $('form [name="title"]').attr({
+      'class': 'form-control',
+      'placeholder': 'Post Title'
+    });
+  </script>
+{% endblock %}
