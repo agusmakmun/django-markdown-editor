@@ -22,7 +22,7 @@
 {% block js %}
   <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
   <script>
-    $('pre').each(function(i, block){
+    $('.martor-preview pre').each(function(i, block){
         hljs.highlightBlock(block);
     });
   </script>

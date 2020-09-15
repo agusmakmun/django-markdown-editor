@@ -172,11 +172,11 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
     MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://github.githubassets.com/images/icons/emoji/'                  # default from github
     MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/'                                      # please change this to your domain
 
-    # If you need to use your own themed semantic ui dependency
+    # If you need to use your own themed "bootstrap" or "semantic ui" dependency
     # replace the values with the file in your static files dir
     MARTOR_ALTERNATIVE_JS_FILE_THEME = "semantic-themed/semantic.min.js"   # default None
     MARTOR_ALTERNATIVE_CSS_FILE_THEME = "semantic-themed/semantic.min.css" # default None
-    MARTOR_ALTERNATIVE_JQUERY_JS_FILE = "jquery/dist/jquery.js"            # default None
+    MARTOR_ALTERNATIVE_JQUERY_JS_FILE = "jquery/dist/jquery.min.js"        # default None
 
 Check this setting is not set else csrf will not be sent over ajax calls:
 
@@ -229,7 +229,7 @@ Usage
     admin.site.register(YourModel, YourModelAdmin)
 
 
-**Template**
+**Template Renderer**
 
 Simply safely parse markdown content as html ouput by loading templatetags from ``martor/templatetags/martortags.py``.
 
@@ -240,6 +240,85 @@ Simply safely parse markdown content as html ouput by loading templatetags from 
 
     # example
     {{ post.description|safe_markdown }}
+
+
+Don't miss to include the required css & js files before use.
+You can take a look at this folder `martor_demo/app/templates`_ for more details.
+The below example is a one of the way to implement it when you choose the ``MARTOR_THEME = 'bootstrap'``:
+
+::
+
+    {% extends "bootstrap/base.html" %}
+    {% load static %}
+    {% load martortags %}
+
+    {% block css %}
+      <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+      <link href="{% static 'martor/css/martor.bootstrap.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+    {% endblock %}
+
+    {% block content %}
+      <div class="martor-preview">
+        <h1>Title: {{ post.title }}</h1>
+        <p><b>Description:</b></p>
+        <hr />
+        {{ post.description|safe_markdown }}
+      </div>
+    {% endblock %}
+
+    {% block js %}
+      <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+      <script>
+        $('.martor-preview pre').each(function(i, block){
+            hljs.highlightBlock(block);
+        });
+      </script>
+    {% endblock %}
+
+
+**Template Editor Form**
+
+Different with *Template Renderer*, the *Template Editor Form* have more css & javascript dependencies.
+
+::
+
+    {% extends "bootstrap/base.html" %}
+    {% load static %}
+
+    {% block css %}
+      <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+      <link href="{% static 'plugins/css/resizable.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+      <link href="{% static 'martor/css/martor.bootstrap.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+    {% endblock %}
+
+    {% block content %}
+      <form class="form" method="post">{% csrf_token %}
+        <div class="form-group">
+          {{ form.title }}
+        </div>
+        <div class="form-group">
+          {{ form.description }}
+        </div>
+        <div class="form-group">
+          <button class="btn btn-success">
+            <i class="save icon"></i> Save Post
+          </button>
+        </div>
+      </form>
+    {% endblock %}
+
+    {% block js %}
+      <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/mode-markdown.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/ext-language_tools.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/theme-github.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/typo.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/spellcheck.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/resizable.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'martor/js/martor.bootstrap.min.js' %}"></script>
+    {% endblock %}
 
 
 Custom Uploader
@@ -285,5 +364,6 @@ Notes
 .. _Python Markdown: https://github.com/waylan/Python-Markdown
 .. _Online reStructuredText editor: http://rst.ninjs.org
 .. _WIKI: https://github.com/agusmakmun/django-markdown-editor/wiki
+.. _martor_demo/app/templates: https://github.com/agusmakmun/django-markdown-editor/tree/master/martor_demo/app/templates
 .. _fixed this issue: https://github.com/agusmakmun/django-markdown-editor/issues/3
 .. _custom uploader: https://github.com/agusmakmun/django-markdown-editor/wiki
