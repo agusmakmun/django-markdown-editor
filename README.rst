@@ -110,7 +110,7 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
 
 ::
 
-    # Choices are: "semantic-ui", "bootstrap"
+    # Choices are: "semantic", "bootstrap"
     MARTOR_THEME = 'bootstrap'
 
     # Global martor settings
