@@ -16,13 +16,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body emoji-content-body">
-        <div class="text-center emoji-loader-init">
+      <div class="modal-body emoji-content-base">
+        <div class="text-center emoji-loader-init" style="display:none">
           <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
           </div>
           <div>{% trans "Preparing emojis..." %}</div>
         </div>
+        <div class="row p3 emoji-content-body" style="display:none"></div>
       </div>
     </div>
   </div>
