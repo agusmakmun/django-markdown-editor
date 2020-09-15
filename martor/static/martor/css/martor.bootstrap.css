@@ -32,8 +32,12 @@ body.overflow {
 
 .martor-toolbar {
   position: absolute;
+  z-index: 100;
   right: 0;
   top: 0;
+}
+.enable-living .martor-toolbar {
+  position: relative;
 }
 
 .martor-toolbar .markdown-image-upload {
@@ -123,8 +127,9 @@ form .martor-preview-stale {
 /* live preview */
 form .enable-living .martor-preview {
   display: block!important;
+  opacity: unset;
 }
-form .enable-living .tab-martor-menu a.item {
+form .enable-living .tab-martor-menu a.nav-link {
   display: none!important;
 }
 
