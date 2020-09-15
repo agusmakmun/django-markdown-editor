@@ -1,0 +1,29 @@
+{% extends "semantic/base.html" %}
+{% load static %}
+{% load martortags %}
+{% block title %}Test Markdonify :: {{ block.super }}{% endblock %}
+
+
+{% block css %}
+  <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'martor/css/martor.semantic.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+  <div class="martor-preview">
+    <h1>Title: {{ post.title }}</h1>
+    <p><b>Description:</b></p>
+    <hr />
+    {{ post.description|safe_markdown }}
+  </div>
+{% endblock %}
+
+
+{% block js %}
+  <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+  <script>
+    $('pre').each(function(i, block){
+        hljs.highlightBlock(block);
+    });
+  </script>
+{% endblock %}

@@ -1,12 +1,6 @@
 import markdown
 
-try:
-    from django.contrib.staticfiles.templatetags.staticfiles import static
-except ModuleNotFoundError:
-    from django.templatetags.static import static
-
-from ..settings import (MARTOR_MARKDOWN_BASE_EMOJI_URL,
-                        MARTOR_MARKDOWN_BASE_EMOJI_USE_STATIC)
+from ..settings import MARTOR_MARKDOWN_BASE_EMOJI_URL
 
 """
 >>> import markdown
@@ -102,11 +96,8 @@ class EmojiPattern(markdown.inlinepatterns.Pattern):
         emoji = self.unescape(m.group(2))
         if emoji not in EMOJIS:
             return emoji
-        url = '{0}{1}.png'.format(
-            MARTOR_MARKDOWN_BASE_EMOJI_URL, emoji.replace(':', '')
-        )
-        if MARTOR_MARKDOWN_BASE_EMOJI_USE_STATIC is True:
-            url = static(url)
+
+        url = '{0}{1}.png'.format(MARTOR_MARKDOWN_BASE_EMOJI_URL, emoji.replace(':', ''))
         el = markdown.util.etree.Element('img')
         el.set('src', url)
         el.set('class', 'marked-emoji')

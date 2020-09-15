@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import django
 from .views import (markdownfy_view,
                     markdown_imgur_uploader,

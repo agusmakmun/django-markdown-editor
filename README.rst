@@ -11,7 +11,7 @@ martor |pypi version|
 .. image:: https://img.shields.io/pypi/pyversions/martor.svg
    :target: https://pypi.python.org/pypi/martor
 
-.. image:: https://img.shields.io/badge/Django-1.8%20%3E=%203.0-green.svg
+.. image:: https://img.shields.io/badge/Django-1.8%20%3E=%203.1-green.svg
   :target: https://www.djangoproject.com
 
 .. image:: https://travis-ci.org/agusmakmun/django-markdown-editor.svg?branch=master
@@ -25,8 +25,8 @@ Features
 
 * Live Preview
 * Integrated with `Ace Editor`_
-* Integrated with `Semantic-UI`_
-* Supports Multiple Fields (`fixed this issue`_)
+* Supported with `Bootstrap`_ and `Semantic-UI`_
+* Supported Multiple Fields (`fixed this issue`_)
 * Upload Images to imgur.com `(via API)` and `custom uploader`_.
 * Direct Mention users ``@[username]`` - `(requires user to logged in)`
 * Supports embed/iframe video from (Youtube, Vimeo, Dailymotion, Yahoo, Veoh, & Metacafe)
@@ -41,9 +41,9 @@ Features
 Preview
 ------------------------------
 
-.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/martor-preview-editor.png
+.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/bootstrap/martor-editor.png
 
-.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/martor-preview-result.png
+.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/bootstrap/martor-preview.png
 
 
 Requirements
@@ -110,6 +110,9 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
 
 ::
 
+    # Choices are: "semantic-ui", "bootstrap"
+    MARTOR_THEME = 'bootstrap'
+
     # Global martor settings
     # Input: string boolean, `true/false`
     MARTOR_ENABLE_CONFIGS = {
@@ -171,9 +174,9 @@ to get ``IMGUR_CLIENT_ID`` and ``IMGUR_API_KEY``.
 
     # If you need to use your own themed semantic ui dependency
     # replace the values with the file in your static files dir
-    MARTOR_ALTERNATIVE_SEMANTIC_JS_FILE = "semantic-themed/semantic.min.js"
-    MARTOR_ALTERNATIVE_SEMANTIC_CSS_FILE = "semantic-themed/semantic.min.css"
-    MARTOR_ALTERNATIVE_JQUERY_JS_FILE = "jquery/dist/jquery.js"
+    MARTOR_ALTERNATIVE_JS_FILE_THEME = "semantic-themed/semantic.min.js"   # default None
+    MARTOR_ALTERNATIVE_CSS_FILE_THEME = "semantic-themed/semantic.min.css" # default None
+    MARTOR_ALTERNATIVE_JQUERY_JS_FILE = "jquery/dist/jquery.js"            # default None
 
 Check this setting is not set else csrf will not be sent over ajax calls:
 
@@ -265,7 +268,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 Martor Commands Reference
 --------------------------------
 
-.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/martor-guide.png
+.. image:: https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/bootstrap/martor-guide.png
 
 
 Notes
@@ -275,7 +278,8 @@ Notes
 
 
 .. _Ace Editor: https://ace.c9.io
-.. _Semantic-UI: http://semantic-ui.com
+.. _Bootstrap: https://getbootstrap.com
+.. _Semantic-UI: https://semantic-ui.com
 .. _PyPI: https://pypi.python.org/pypi/martor
 .. _django-markdownx: https://github.com/adi-/django-markdownx
 .. _Python Markdown: https://github.com/waylan/Python-Markdown

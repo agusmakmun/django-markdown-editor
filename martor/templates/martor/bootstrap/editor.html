@@ -1,0 +1,50 @@
+{% load i18n %}
+<div class="main-martor main-martor-{{ field_name }}" data-field-name="{{ field_name }}">
+  <div class="section-martor">
+    <nav class="tab-martor-menu" style="position:relative">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-link active" data-tab="editor-tab-{{ field_name }}" id="nav-editor-tab-{{ field_name }}" data-toggle="tab" href="#nav-editor-{{ field_name }}" role="tab" aria-controls="nav-editor-{{ field_name }}" aria-selected="true">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+          </svg>
+          <span>{% trans "Editor" %}</span>
+        </a>
+        <a class="nav-link" data-tab="preview-tab-{{ field_name }}" id="nav-preview-tab-{{ field_name }}" data-toggle="tab" href="#nav-preview-{{ field_name }}" role="tab" aria-controls="nav-preview-{{ field_name }}" aria-selected="false">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+            <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+          </svg>
+          <span>{% trans "Preview" %}</span>
+        </a>
+
+        {% include "martor/bootstrap/toolbar.html" %}
+      </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-editor-{{ field_name }}" role="tabpanel" aria-labelledby="nav-editor-tab-{{ field_name }}">
+        <div class="text-center upload-progress" data-field-name="{{ field_name }}" style="display:none">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <div>{% trans "Uploading... please wait..." %}</div>
+        </div>
+        <div id="martor-{{ field_name }}" class="martor-field martor-field-{{ field_name }}"></div>
+        {{ martor }}
+        <span class="icon expand-editor">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-expand" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10z"/>
+          </svg>
+        </span>
+      </div>
+
+      <div class="tab-pane fade martor-preview" id="nav-preview-{{ field_name }}" role="tabpanel" aria-labelledby="nav-preview-tab-{{ field_name }}">
+        <p>{% trans "Nothing to preview" %}</p>
+      </div>
+    </div>
+  </div><!-- end  /.section-martor -->
+
+  {% include 'martor/bootstrap/guide.html' %}
+  {% include 'martor/bootstrap/emoji.html' %}
+</div>

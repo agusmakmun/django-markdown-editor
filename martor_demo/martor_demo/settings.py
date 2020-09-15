@@ -27,7 +27,9 @@ SECRET_KEY = '93fs*#h77*vj&2#2f+!y=kifg0s&63768398a(kx126itq(*6r'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-# Martor
+# Martor Configuration
+MARTOR_THEME = 'bootstrap'  # semantic
+MARTOR_ENABLE_LABEL = True
 MARTOR_ENABLE_CONFIGS = {
     'emoji': 'true',        # to enable/disable emoji icons.
     'imgur': 'true',        # to enable/disable imgur/custom uploader.
@@ -37,7 +39,6 @@ MARTOR_ENABLE_CONFIGS = {
     'spellcheck': 'false',  # to enable/disable spellcheck in form textareas
     'hljs': 'true',         # to enable/disable hljs highlighting in preview
 }
-
 MARTOR_TOOLBAR_BUTTONS = [
     'bold', 'italic', 'horizontal', 'heading', 'pre-code',
     'blockquote', 'unordered-list', 'ordered-list',

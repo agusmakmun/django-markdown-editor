@@ -1,0 +1,48 @@
+{% extends "semantic/base.html" %}
+{% load static %}
+{% block title %}{{ title }} :: {{ block.super }}{% endblock %}
+
+{% block css %}
+  <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'plugins/css/resizable.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'martor/css/martor.semantic.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+  <form class="ui form" method="post">{% csrf_token %}
+    <div class="field">
+      {{ form.title }}
+    </div>
+    <div class="field">
+      {{ form.description }}
+    </div>
+    <div class="field">
+      {{ form.wiki }}
+    </div>
+    <div class="field">
+      <div class="ui clearing segment">
+        <button class="ui right floated positive button">
+          <i class="save icon"></i> Save Post
+        </button>
+      </div>
+    </div>
+  </form>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/mode-markdown.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/ext-language_tools.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/theme-github.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/typo.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/spellcheck.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/resizable.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'martor/js/martor.semantic.min.js' %}"></script>
+
+  <script>
+    $('form [name="title"]').attr({'placeholder': 'Post Title'});
+    $('.ui.menu .ui.dropdown.item').dropdown();
+  </script>
+{% endblock %}

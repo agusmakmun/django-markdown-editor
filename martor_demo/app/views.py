@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import (render, redirect)
 from django.contrib.auth.decorators import login_required
@@ -13,7 +14,8 @@ def home_redirect_view(request):
 def simple_form_view(request):
     form = SimpleForm()
     context = {'form': form, 'title': 'Simple Form'}
-    return render(request, 'custom_form.html', context)
+    theme = getattr(settings, 'MARTOR_THEME', 'bootstrap')
+    return render(request, '%s/form.html' % theme, context)
 
 
 @login_required
@@ -27,7 +29,8 @@ def post_form_view(request):
     else:
         form = PostForm()
         context = {'form': form, 'title': 'Post Form'}
-    return render(request, 'custom_form.html', context)
+    theme = getattr(settings, 'MARTOR_THEME', 'bootstrap')
+    return render(request, '%s/form.html' % theme, context)
 
 
 def test_markdownify(request):
@@ -40,4 +43,5 @@ def test_markdownify(request):
                 'description': """It **working**! :heart: [Python Learning](https://python.web.id)"""
             }
         }
-    return render(request, 'test_markdownify.html', context)
+    theme = getattr(settings, 'MARTOR_THEME', 'bootstrap')
+    return render(request, '%s/test_markdownify.html' % theme, context)
