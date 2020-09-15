@@ -72,3 +72,10 @@ h5 {
 .ui.tabular.menu+.attached:not(.top).segment+.attached:not(.top).segment {
   width: auto;
 }
+
+fieldset .form-row>div {
+  width: 100%;
+}
+fieldset .form-row div>label {
+  display: contents!important;
+}

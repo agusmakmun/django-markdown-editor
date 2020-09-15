@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import json
 import base64
 import requests
@@ -10,15 +13,12 @@ def imgur_uploader(image):
     """
     Basic imgur uploader return as json data.
     :param `image` is from `request.FILES['markdown-image-upload']`
-
-    Return:
-        success: {'status': 200, 'link': <link_image>, 'name': <image_name>}
-        error  : {'status': <error_code>, 'erorr': <erorr_message>}
+    :return json response
     """
-    url_api = 'https://api.imgur.com/3/upload.json'
+    api_url = 'https://api.imgur.com/3/upload.json'
     headers = {'Authorization': 'Client-ID ' + MARTOR_IMGUR_CLIENT_ID}
     response = requests.post(
-        url_api,
+        api_url,
         headers=headers,
         data={
             'key': MARTOR_IMGUR_API_KEY,
@@ -28,26 +28,21 @@ def imgur_uploader(image):
         }
     )
 
-    """
-    Some function we got from `response`:
-
-    ['connection', 'content', 'cookies', 'elapsed', 'encoding', 'headers','history',
-    'is_permanent_redirect', 'is_redirect', 'iter_content', 'iter_lines', 'json',
-    'links', 'ok', 'raise_for_status', 'raw', 'reason', 'request', 'status_code', 'text', 'url']
-    """
     if response.status_code == 200:
-        respdata = json.loads(response.content.decode('utf-8'))
+        response_data = json.loads(response.content.decode('utf-8'))
         return json.dumps({
-            'status': respdata['status'],
-            'link': respdata['data']['link'],
-            'name': respdata['data']['name']
+            'status': response_data['status'],
+            'link': response_data['data']['link'],
+            'name': response_data['data']['name']
         })
+
     elif response.status_code == 415:
         # Unsupport File type
         return json.dumps({
             'status': response.status_code,
             'error': response.reason
         })
+
     return json.dumps({
         'status': response.status_code,
         'error': response.content.decode('utf-8')

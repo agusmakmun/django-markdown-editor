@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.utils.functional import Promise
 from django.utils.encoding import force_text
 from django.core.serializers.json import DjangoJSONEncoder

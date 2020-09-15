@@ -85,7 +85,7 @@ body.overflow {
 form .martor-preview {
   padding: 1rem;
   overflow: auto;
-  background: #F9F9F9;
+  background: #fdfdfd;
 }
 
 form .martor-preview-stale {

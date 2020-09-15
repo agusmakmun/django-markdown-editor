@@ -1,28 +1,30 @@
-{% extends "bootstrap/base.html" %}
+{% extends "semantic/base.html" %}
 {% load static %}
 {% block title %}{{ title }} :: {{ block.super }}{% endblock %}
 
 {% block css %}
   <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
   <link href="{% static 'plugins/css/resizable.min.css' %}" type="text/css" media="all" rel="stylesheet" />
-  <link href="{% static 'martor/css/martor.bootstrap.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'martor/css/martor.semantic.css' %}" type="text/css" media="all" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
-  <form class="form" method="post">{% csrf_token %}
-    <div class="form-group">
+  <form class="ui form" method="post">{% csrf_token %}
+    <div class="field">
       {{ form.title }}
     </div>
-    <div class="form-group">
+    <div class="field">
       {{ form.description }}
     </div>
-    <div class="form-group">
+    <div class="field">
       {{ form.wiki }}
     </div>
-    <div class="form-group">
-      <button class="btn btn-success">
-        <i class="save icon"></i> Save Post
-      </button>
+    <div class="field">
+      <div class="ui clearing segment">
+        <button class="ui right floated positive button">
+          <i class="save icon"></i> Save Post
+        </button>
+      </div>
     </div>
   </form>
 {% endblock %}
@@ -37,12 +39,10 @@
   <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/resizable.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'martor/js/martor.bootstrap.js' %}"></script>
+  <script type="text/javascript" src="{% static 'martor/js/martor.semantic.js' %}"></script>
 
   <script>
-    $('form [name="title"]').attr({
-      'class': 'form-control',
-      'placeholder': 'Post Title'
-    });
+    $('form [name="title"]').attr({'placeholder': 'Post Title'});
+    $('.ui.menu .ui.dropdown.item').dropdown();
   </script>
 {% endblock %}

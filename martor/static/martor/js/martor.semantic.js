@@ -176,7 +176,9 @@
             };
 
             // Refresh the preview unconditionally on first load.
-            refreshPreview();
+            window.onload = function() {
+              refreshPreview();
+            }
 
             if (editorConfig.living !== 'true') {
               previewTabButton.click(function(){
