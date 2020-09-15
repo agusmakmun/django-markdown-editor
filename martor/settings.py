@@ -91,7 +91,8 @@ MARTOR_MARKDOWN_BASE_MENTION_URL = getattr(
     settings, 'MARTOR_MARKDOWN_BASE_MENTION_URL', 'https://python.web.id/author/'
 )
 
-# Use alternative vendor theme file source
+# If you need to use your own themed "bootstrap" or "semantic ui" dependency
+# replace the values with the file in your static files dir
 MARTOR_ALTERNATIVE_JS_FILE_THEME = getattr(
     settings, 'MARTOR_ALTERNATIVE_JS_FILE_THEME', None
 )

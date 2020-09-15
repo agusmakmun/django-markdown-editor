@@ -16,6 +16,10 @@ body {
   box-sizing: unset;
 }
 
+#branding h1 {
+  margin: 0!important;
+}
+
 body, h1, h2, h3, h4, h5,
 button, input, optgroup, select {
   font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;

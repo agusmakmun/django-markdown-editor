@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 11:05+0700\n"
+"POT-Creation-Date: 2020-09-16 06:22+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,35 +17,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/martor/editor.html:5
+#: templates/martor/bootstrap/editor.html:11
+#: templates/martor/semantic/editor.html:5
 msgid "Editor"
 msgstr ""
 
-#: templates/martor/editor.html:6
+#: templates/martor/bootstrap/editor.html:18
+#: templates/martor/semantic/editor.html:6
 msgid "Preview"
 msgstr "Pratinjau"
 
-#: templates/martor/editor.html:11
+#: templates/martor/bootstrap/editor.html:31
+#: templates/martor/semantic/editor.html:11
 msgid "Uploading... please wait..."
 msgstr "Sedang mengupload... silahkan tunggu..."
 
-#: templates/martor/editor.html:18
+#: templates/martor/bootstrap/editor.html:43
+#: templates/martor/semantic/editor.html:18
 msgid "Nothing to preview"
 msgstr "Tidak ada yang bisa dilihat"
 
-#: templates/martor/emoji.html:4
+#: templates/martor/bootstrap/emoji.html:13
+#: templates/martor/semantic/emoji.html:4
 msgid "Select Emoji to Insert"
 msgstr "Pilih Emoji untuk menyisipkan"
 
-#: templates/martor/emoji.html:8
+#: templates/martor/bootstrap/emoji.html:24
+#: templates/martor/semantic/emoji.html:8
 msgid "Preparing emojis..."
 msgstr "Sedang menyiapkan emoji..."
 
-#: templates/martor/guide.html:4
+#: templates/martor/bootstrap/guide.html:12
+#: templates/martor/semantic/guide.html:4
 msgid "Markdown Guide"
 msgstr "Bantuan Penggunaan Markdown"
 
-#: templates/martor/guide.html:6
+#: templates/martor/bootstrap/guide.html:19
+#: templates/martor/semantic/guide.html:6
 #, python-format
 msgid ""
 "This site is powered by Markdown. For full documentation, <a href="
@@ -54,94 +62,126 @@ msgstr ""
 "Situs ini menggunakan Markdown. Untuk dokumentasi lengkapnya <a href="
 "\"%(doc_url)s\" target=\"_blank\">klik disini</a>."
 
-#: templates/martor/guide.html:10 templates/martor/toolbar.html:38
+#: templates/martor/bootstrap/guide.html:23
+#: templates/martor/bootstrap/toolbar.html:54
+#: templates/martor/semantic/guide.html:10
+#: templates/martor/semantic/toolbar.html:38
 msgid "Code"
 msgstr "Kode"
 
-#: templates/martor/guide.html:11
+#: templates/martor/bootstrap/guide.html:24
+#: templates/martor/semantic/guide.html:11
 msgid "Or"
 msgstr "Atau"
 
-#: templates/martor/guide.html:14
+#: templates/martor/bootstrap/guide.html:27
+#: templates/martor/semantic/guide.html:14
 msgid "... to Get"
 msgstr "... untuk Mendapatkan"
 
-#: templates/martor/toolbar.html:5
+#: templates/martor/bootstrap/toolbar.html:3
+msgid "Martor Toolbar Buttons"
+msgstr ""
+
+#: templates/martor/bootstrap/toolbar.html:7
+#: templates/martor/semantic/toolbar.html:5
 msgid "Bold"
 msgstr "Tebal"
 
-#: templates/martor/toolbar.html:11
+#: templates/martor/bootstrap/toolbar.html:15
+#: templates/martor/semantic/toolbar.html:11
 msgid "Italic"
 msgstr "Miring"
 
-#: templates/martor/toolbar.html:17
+#: templates/martor/bootstrap/toolbar.html:23
+#: templates/martor/semantic/toolbar.html:17
 msgid "Horizontal Line"
 msgstr "Garis Horisontal"
 
-#: templates/martor/toolbar.html:23 templates/martor/toolbar.html:26
-#: templates/martor/toolbar.html:27 templates/martor/toolbar.html:28
+#: templates/martor/bootstrap/toolbar.html:32
+#: templates/martor/bootstrap/toolbar.html:38
+#: templates/martor/bootstrap/toolbar.html:39
+#: templates/martor/bootstrap/toolbar.html:40
+#: templates/martor/semantic/toolbar.html:23
+#: templates/martor/semantic/toolbar.html:26
+#: templates/martor/semantic/toolbar.html:27
+#: templates/martor/semantic/toolbar.html:28
 msgid "Heading"
 msgstr ""
 
-#: templates/martor/toolbar.html:34
+#: templates/martor/bootstrap/toolbar.html:47
+#: templates/martor/semantic/toolbar.html:34
 msgid "Pre or Code"
 msgstr "Pre atau Kode"
 
-#: templates/martor/toolbar.html:37
+#: templates/martor/bootstrap/toolbar.html:53
+#: templates/martor/semantic/toolbar.html:37
 msgid "Pre"
 msgstr ""
 
-#: templates/martor/toolbar.html:44
+#: templates/martor/bootstrap/toolbar.html:60
+#: templates/martor/semantic/toolbar.html:44
 msgid "Quote"
 msgstr "Kutipan"
 
-#: templates/martor/toolbar.html:50
+#: templates/martor/bootstrap/toolbar.html:69
+#: templates/martor/semantic/toolbar.html:50
 msgid "Unordered List"
 msgstr "Daftar tak berurut"
 
-#: templates/martor/toolbar.html:56
+#: templates/martor/bootstrap/toolbar.html:77
+#: templates/martor/semantic/toolbar.html:56
 msgid "Ordered List"
 msgstr "Daftar berurut"
 
-#: templates/martor/toolbar.html:62
+#: templates/martor/bootstrap/toolbar.html:86
+#: templates/martor/semantic/toolbar.html:62
 msgid "URL/Link"
 msgstr ""
 
-#: templates/martor/toolbar.html:68
+#: templates/martor/bootstrap/toolbar.html:95
+#: templates/martor/semantic/toolbar.html:68
 msgid "Insert Image Link"
 msgstr "Sisipkan Link Gambar"
 
-#: templates/martor/toolbar.html:74 templates/martor/toolbar.html:76
+#: templates/martor/bootstrap/toolbar.html:103
+#: templates/martor/bootstrap/toolbar.html:108
+#: templates/martor/semantic/toolbar.html:74
+#: templates/martor/semantic/toolbar.html:76
 msgid "Upload an Image"
 msgstr "Unggah Gambar"
 
-#: templates/martor/toolbar.html:81
+#: templates/martor/bootstrap/toolbar.html:113
+#: templates/martor/semantic/toolbar.html:81
 msgid "Insert Emoji"
 msgstr "Sisipkan Emoji"
 
-#: templates/martor/toolbar.html:87
-msgid "Direct Mention a User"
+#: templates/martor/bootstrap/toolbar.html:121
+#: templates/martor/semantic/toolbar.html:87
+msgid "Direct Mention User"
 msgstr "Sebutkan Pengguna secara Langsung"
 
-#: templates/martor/toolbar.html:93
+#: templates/martor/bootstrap/toolbar.html:129
+#: templates/martor/semantic/toolbar.html:93
 msgid "Full Screen"
 msgstr "Layar Penuh"
 
-#: templates/martor/toolbar.html:99
+#: templates/martor/bootstrap/toolbar.html:140
+#: templates/martor/semantic/toolbar.html:99
 msgid "Markdown Guide (Help)"
 msgstr "Bantuan Penggunaan Markdown"
 
-#: views.py:18 views.py:32 views.py:33
+#: views.py:23 views.py:37 views.py:38
 msgid "Invalid request!"
 msgstr "Permintaan tidak valid"
 
-#: views.py:75
+#: views.py:80
 #, python-format
 msgid "No users registered as `%(username)s` or user is unactived."
 msgstr ""
 "Tidak ada pengguna terdaftar sebagai `%(username)s` atau pengguna telah "
 "nonaktif."
 
-#: views.py:81
+#: views.py:84
 msgid "Validation Failed for field `username`"
 msgstr "Validasi Gagal untuk field `username`"
