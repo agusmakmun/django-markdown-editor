@@ -62,50 +62,54 @@
                 getCompletions: function(editor, session, pos, prefix, callback) {
                     var wordList = typeof(emojis) != "undefined" ? emojis : []; // from `atwho/emojis.min.js`
                     var obj = editor.getSession().getTokenAt(pos.row, pos.column.count);
-                    var curTokens = obj.value.split(/\s+/);
-                    var lastToken = curTokens[curTokens.length-1];
+                    if(typeof(obj.value) != "undefined") {
+                        var curTokens = obj.value.split(/\s+/);
+                        var lastToken = curTokens[curTokens.length-1];
 
-                    if (lastToken[0] == ':') {
-                      callback(null, wordList.map(function(word) {
-                          return {
-                              caption: word,
-                              value: word.replace(':', '') + ' ',
-                              meta: 'emoji' // this should return as text only.
-                          };
-                      }));
+                        if (lastToken[0] == ':') {
+                          callback(null, wordList.map(function(word) {
+                              return {
+                                  caption: word,
+                                  value: word.replace(':', '') + ' ',
+                                  meta: 'emoji' // this should return as text only.
+                              };
+                          }));
+                        }
                     }
                 }
             }
             var mentionWordCompleter = {
                 getCompletions: function(editor, session, pos, prefix, callback) {
                     var obj = editor.getSession().getTokenAt(pos.row, pos.column.count);
-                    var curTokens = obj.value.split(/\s+/);
-                    var lastToken = curTokens[curTokens.length-1];
+                    if(typeof(obj.value) != "undefined") {
+                        var curTokens = obj.value.split(/\s+/);
+                        var lastToken = curTokens[curTokens.length-1];
 
-                    if (lastToken[0] == '@' && lastToken[1] == '[') {
-                        username = lastToken.replace(/([\@\[/\]/])/g, '');
-                        $.ajax({
-                            url: textareaId.data('search-users-url'),
-                            data: {
-                                'username': username,
-                                'csrfmiddlewaretoken': getCookie('csrftoken')
-                            },
-                            success: function(data) {
-                                if (data['status'] == 200) {
-                                    var wordList = [];
-                                    for (var i = 0; i < data['data'].length; i++) {
-                                        wordList.push(data['data'][i].username)
+                        if (lastToken[0] == '@' && lastToken[1] == '[') {
+                            username = lastToken.replace(/([\@\[/\]/])/g, '');
+                            $.ajax({
+                                url: textareaId.data('search-users-url'),
+                                data: {
+                                    'username': username,
+                                    'csrfmiddlewaretoken': getCookie('csrftoken')
+                                },
+                                success: function(data) {
+                                    if (data['status'] == 200) {
+                                        var wordList = [];
+                                        for (var i = 0; i < data['data'].length; i++) {
+                                            wordList.push(data['data'][i].username)
+                                        }
+                                        callback(null, wordList.map(function(word) {
+                                            return {
+                                                caption: word,
+                                                value: word,
+                                                meta: 'username' // this should return as text only.
+                                            };
+                                        }));
                                     }
-                                    callback(null, wordList.map(function(word) {
-                                        return {
-                                            caption: word,
-                                            value: word,
-                                            meta: 'username' // this should return as text only.
-                                        };
-                                    }));
-                                }
-                            }// end success
-                        });
+                                }// end success
+                            });
+                        }
                     }
                 }
             }
