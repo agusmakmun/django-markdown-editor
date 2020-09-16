@@ -42,7 +42,9 @@ matrix:
     - python: 3.6
       env: DJANGO="==2.2.*"
     - python: 3.6
-      env: DJANGO=">=3.0a1,<3.1"
+      env: DJANGO="==3.0.*"
+    - python: 3.6
+      env: DJANGO="==3.1.*"
 
     - python: 3.7
       env: DJANGO="==2.0.*"
@@ -51,11 +53,13 @@ matrix:
     - python: 3.7
       env: DJANGO="==2.2.*"
     - python: 3.7
-      env: DJANGO=">=3.0a1,<3.1"
+      env: DJANGO="==3.0.*"
+    - python: 3.7
+      env: DJANGO="==3.1.*"
 
     - os: osx
       language: generic
-      env: DJANGO="==1.10.*"
+      env: DJANGO="==3.1.*"
 
 # Perform the manual steps on OSX to install Python3 and activate venv:
 # Since Python versions have been tested on Linux and it is only a matter of
