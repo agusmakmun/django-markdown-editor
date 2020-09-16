@@ -1,5 +1,9 @@
-martor |pypi version|
-------------------------------
+martor |pypi version| |paypal donation|
+-----------------------------------------
+
+.. |paypal donation|
+   image:: https://img.shields.io/badge/donate-paypal-blue
+   :target: https://www.paypal.com/paypalme/summonagus
 
 .. |pypi version|
    image:: https://img.shields.io/pypi/v/martor.svg
