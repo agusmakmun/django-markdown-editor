@@ -16,7 +16,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>{% blocktrans with doc_url='http://commonmark.org/help/' %}This site is powered by Markdown. For full documentation, <a href="{{ doc_url }}" target="_blank">click here</a>.{% endblocktrans %}</p>
+        <div class="text-center small credit">
+          <span>{% blocktrans with repo_url='https://github.com/agusmakmun/django-markdown-editor' %}Copyright &copy; <a href="{{ repo_url }}">Martor</a>{% endblocktrans %}</span>
+        </div>
+        <div class="text-center">
+          <p>{% blocktrans with doc_url='http://commonmark.org/help/' %}This editor is powered by Markdown. For full documentation, <a href="{{ doc_url }}" target="_blank">click here</a>.{% endblocktrans %}</p>
+        </div>
         <table class="table markdown-reference">
           <thead class="thead-light">
             <tr>

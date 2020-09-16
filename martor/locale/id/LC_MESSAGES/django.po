@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-16 08:34+0700\n"
+"POT-Creation-Date: 2020-09-16 11:53+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,30 +52,36 @@ msgstr "Sedang menyiapkan emoji..."
 msgid "Markdown Guide"
 msgstr "Bantuan Penggunaan Markdown"
 
-#: templates/martor/bootstrap/guide.html:19
-#: templates/martor/semantic/guide.html:6
+#: templates/martor/bootstrap/guide.html:20
+#: templates/martor/semantic/guide.html:7
 #, python-format
-msgid ""
-"This site is powered by Markdown. For full documentation, <a href="
-"\"%(doc_url)s\" target=\"_blank\">click here</a>."
-msgstr ""
-"Situs ini menggunakan Markdown. Untuk dokumentasi lengkapnya <a href="
-"\"%(doc_url)s\" target=\"_blank\">klik disini</a>."
+msgid "Copyright &copy; <a href=\"%(repo_url)s\">Martor</a>"
+msgstr "Hak cipta &copy; <a href=\"%(repo_url)s\">Martor</a>"
 
 #: templates/martor/bootstrap/guide.html:23
-#: templates/martor/bootstrap/toolbar.html:54
 #: templates/martor/semantic/guide.html:10
+#, python-format
+msgid ""
+"This editor is powered by Markdown. For full documentation, <a href="
+"\"%(doc_url)s\" target=\"_blank\">click here</a>."
+msgstr ""
+"Editor ini menggunakan Markdown. Untuk dokumentasi lengkapnya <a href="
+"\"%(doc_url)s\" target=\"_blank\">klik disini</a>."
+
+#: templates/martor/bootstrap/guide.html:28
+#: templates/martor/bootstrap/toolbar.html:54
+#: templates/martor/semantic/guide.html:15
 #: templates/martor/semantic/toolbar.html:38
 msgid "Code"
 msgstr "Kode"
 
-#: templates/martor/bootstrap/guide.html:24
-#: templates/martor/semantic/guide.html:11
+#: templates/martor/bootstrap/guide.html:29
+#: templates/martor/semantic/guide.html:16
 msgid "Or"
 msgstr "Atau"
 
-#: templates/martor/bootstrap/guide.html:27
-#: templates/martor/semantic/guide.html:14
+#: templates/martor/bootstrap/guide.html:32
+#: templates/martor/semantic/guide.html:19
 msgid "... to Get"
 msgstr "... untuk Mendapatkan"
 
