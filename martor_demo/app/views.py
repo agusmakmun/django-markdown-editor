@@ -2,6 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import (render, redirect)
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from app.forms import (SimpleForm, PostForm)
 from app.models import Post
@@ -23,9 +24,9 @@ def post_form_view(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save()
-            title = form.cleaned_data['title']
-            return HttpResponse('%s successfully  saved!' % title)
+            post = form.save()
+            messages.success(request, '%s successfully saved.' % post.title)
+            return redirect('test_markdownify')
     else:
         form = PostForm()
         context = {'form': form, 'title': 'Post Form'}

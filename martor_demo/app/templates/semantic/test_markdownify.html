@@ -10,11 +10,13 @@
 {% endblock %}
 
 {% block content %}
-  <div class="martor-preview">
+  <div class="martor-content">
     <h1>Title: {{ post.title }}</h1>
     <p><b>Description:</b></p>
     <hr />
-    {{ post.description|safe_markdown }}
+    <div class="martor-preview">
+      {{ post.description|safe_markdown }}
+    </div>
   </div>
 {% endblock %}
 

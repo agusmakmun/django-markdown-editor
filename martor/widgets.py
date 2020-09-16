@@ -73,8 +73,8 @@ class MartorWidget(forms.Textarea):
             'all': (
                 'plugins/css/ace.min.css',
                 'plugins/css/resizable.min.css',
-                'martor/css/martor.%s.css' % selected_theme,
-                'martor/css/martor-admin.css'
+                'martor/css/martor.%s.min.css' % selected_theme,
+                'martor/css/martor-admin.min.css'
             )
         }
         js = (
@@ -85,7 +85,7 @@ class MartorWidget(forms.Textarea):
             'plugins/js/highlight.min.js',
             'plugins/js/resizable.min.js',
             'plugins/js/emojis.min.js',
-            'martor/js/martor.%s.js' % selected_theme,
+            'martor/js/martor.%s.min.js' % selected_theme,
         )
 
         # Adding the following scripts to the end of the tuple in case it affects behaviour.
