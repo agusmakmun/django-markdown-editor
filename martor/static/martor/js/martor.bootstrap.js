@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.5.7
+ * Name         : Martor v1.5.8
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 16-Sep-2020
+ * Release date : 05-Oct-2020
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
@@ -145,7 +145,18 @@
 
             // update the preview if this menu is clicked
             var currentTab = $('.tab-pane#nav-preview-'+field_name);
+            var editorTabButton = $('.nav-link#nav-editor-tab-'+field_name);
             var previewTabButton = $('.nav-link#nav-preview-tab-'+field_name);
+            var toolbarButtons = $(this).closest('.tab-martor-menu').find('.martor-toolbar')
+
+            editorTabButton.click(function(){
+                // show the `.martor-toolbar` for this current editor if under preview.
+                $(this).closest('.tab-martor-menu').find('.martor-toolbar').show();
+            });
+            previewTabButton.click(function() {
+                $(this).closest('.tab-martor-menu').find('.martor-toolbar').hide();
+            });
+
             var refreshPreview = function() {
                 var value = textareaId.val();
                 var form = new FormData();
@@ -193,12 +204,6 @@
             }else {
               editor.on('change', refreshPreview);
             }
-
-            var editorTabButton = $('.nav-link#nav-preview-tab-'+field_name);
-            editorTabButton.click(function(){
-                // show the `.martor-toolbar` for this current editor if under preview.
-                $(this).closest('.tab-martor-menu').find('.martor-toolbar').show();
-            });
 
             if (editorConfig.spellcheck == 'true') {
               try {

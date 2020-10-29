@@ -120,6 +120,7 @@ div.martor-preview-stale {
   position: absolute;
   bottom: -8px;
   right: 8px;
+  z-index: 100;
 }
 .no-border {
   border: none!important;
