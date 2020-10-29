@@ -40,14 +40,14 @@
 
 Martor is available directly from [PyPI][2]:
 
-1. Installing the package.
+**1.** Installing the package.
 
 ```
 $ pip install martor
 ```
 
 
-2. Don't forget to add `'martor'` to your `'INSTALLED_APPS'` setting _(without migrations)_.
+**2.** Don't forget to add `'martor'` to your `'INSTALLED_APPS'` setting _(without migrations)_.
 
 ```
 # settings.py
@@ -58,7 +58,7 @@ INSTALLED_APPS = [
 ```
 
 
-3. Add url pattern to your `urls.py.`
+**3.** Add url pattern to your `urls.py.`
 
 ```
 # urls.py
@@ -76,15 +76,14 @@ urlpatterns = [
 ```
 
 
-4. Collect martor's static files in your `STATIC_ROOT` folder.
+**4.** Collect martor's static files in your `STATIC_ROOT` folder.
 
 ```
 ./manage.py collectstatic
 ```
 
 
-Setting Configurations `settings.py`
----------------------------------------
+### Setting Configurations `settings.py`
 
 Please register your application at https://api.imgur.com/oauth2/addclient
 to get `IMGUR_CLIENT_ID` and `IMGUR_API_KEY`.

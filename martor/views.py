@@ -65,8 +65,7 @@ def markdown_search_user(request):
             and username != '' \
             and ' ' not in username:
 
-        queries = {'%s__iexact' % User.USERNAME_FIELD: username,
-                   '%s__icontains' % User.USERNAME_FIELD: username}
+        queries = {'%s__icontains' % User.USERNAME_FIELD: username}
         users = User.objects.filter(**queries).filter(is_active=True)
         if users.exists():
             response_data.update({'status': 200,
