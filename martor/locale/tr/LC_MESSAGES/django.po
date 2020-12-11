@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-16 11:55+0700\n"
+"POT-Creation-Date: 2020-11-01 13:57+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Ozcan Yarimdunya <ozcanyd@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,8 +66,8 @@ msgid ""
 "This editor is powered by Markdown. For full documentation, <a href="
 "\"%(doc_url)s\" target=\"_blank\">click here</a>."
 msgstr ""
-"Bu editör Markdown tarafından desteklenmektedir. Bütün dokümantasyon için, <a "
-"href=\"%(doc_url)s\" target=\"_blank\">buraya tıkla</a>."
+"Bu editör Markdown tarafından desteklenmektedir. Bütün dokümantasyon için, "
+"<a href=\"%(doc_url)s\" target=\"_blank\">buraya tıkla</a>."
 
 #: templates/martor/bootstrap/guide.html:28
 #: templates/martor/bootstrap/toolbar.html:54
@@ -178,15 +178,15 @@ msgstr "Tam ekran"
 msgid "Markdown Guide (Help)"
 msgstr "Markdown Kılavuzu (Yardım)"
 
-#: views.py:22 views.py:36 views.py:37
+#: views.py:21 views.py:35 views.py:36
 msgid "Invalid request!"
 msgstr "Geçersiz istek!"
 
-#: views.py:77
+#: views.py:74
 #, python-format
 msgid "No users registered as `%(username)s` or user is unactived."
 msgstr "`%(username)s` kullanıcı kayıtlı değil veya aktif değil"
 
-#: views.py:81
+#: views.py:79
 msgid "Validation Failed for field `username`"
 msgstr "`kullanıcı adı` alanı için doğrulama başarısız"

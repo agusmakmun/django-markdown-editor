@@ -162,7 +162,7 @@ div.enable-living .tab-martor-menu a.nav-link {
 .main-martor-fullscreen {
   background: #fff;
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   max-height: 100%;
   height: 100%;
   width: 100%;
