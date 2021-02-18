@@ -33,7 +33,9 @@ def markdownify(markdown_content):
             extensions=MARTOR_MARKDOWN_EXTENSIONS,
             extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS
         )
-    except Exception:
+    except TypeError as e:
+        if 'extendMarkdown' not in str(e):
+            raise
         raise VersionNotCompatible("The markdown isn't compatible, please reinstall "
                                    "your python markdown into Markdown>=3.0")
 
