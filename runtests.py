@@ -1,6 +1,6 @@
-import django
-import sys
 import os
+import sys
+import django
 from django.conf import settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -46,6 +46,7 @@ class MentionExtension(markdown.Extension):
 def makeExtension(*args, **kwargs):
     return MentionExtension(*args, **kwargs)
 
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()

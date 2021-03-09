@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.5.8
+ * Name         : Martor v1.5.9
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 11-Des-2020
+ * Release date : 15-Feb-2021
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
@@ -826,7 +826,7 @@
 
             // markdown insert emoji from the modal
             $('.markdown-emoji[data-field-name='+field_name+']').click(function(){
-                var modalEmoji = $('.modal-emoji[data-field-name='+field_name+']');
+                var modalEmoji = $('.modal-emoji[data-field-name='+field_name+']').modal('show');
                 var emojiList = typeof(emojis) != "undefined" ? emojis : []; // from `plugins/js/emojis.min.js`
                 var segmentEmoji = modalEmoji.find('.emoji-content-body');
                 var loaderInit  = modalEmoji.find('.emoji-loader-init');

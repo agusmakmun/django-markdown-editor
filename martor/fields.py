@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django import forms
 
 from .settings import MARTOR_ENABLE_LABEL
-from .widgets import (MartorWidget, AdminMartorWidget)
+from .widgets import MartorWidget
 
 
 class MartorFormField(forms.CharField):

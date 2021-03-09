@@ -83,3 +83,15 @@ fieldset .form-row>div {
 fieldset .form-row div>label {
   display: contents!important;
 }
+
+.submit-row a.deletelink {
+  height: unset;
+}
+
+.table.markdown-reference h2 {
+  font-size: 1.5em;
+  background: none;
+  color: unset;
+  padding: 0;
+  font-weight: 300!important;
+}
