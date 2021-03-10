@@ -9,10 +9,13 @@ from ..settings import (
 >>> import markdown
 >>> md = markdown.Markdown(extensions=['martor.utils.extensions.mention'])
 >>> md.convert('@[summonagus]')
-'<p><a class="direct-mention-link" href="https://webname.com/profile/summonagus/">summonagus</a></p>'
+'<p><a class="direct-mention-link"
+href="https://example.com/profile/summonagus/">summonagus</a></p>'
 >>>
 >>> md.convert('hello @[summonagus], i mentioned you!')
-'<p>hello <a class="direct-mention-link" href="https://webname.com/profile/summonagus/">summonagus</a>, i mentioned you!</p>'
+'<p>hello <a class="direct-mention-link"
+href="https://example.com/profile/summonagus/">summonagus</a>,
+i mentioned you!</p>'
 >>>
 """
 

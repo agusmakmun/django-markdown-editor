@@ -57,7 +57,7 @@ class MartorWidget(forms.Textarea):
         emoji_enabled = MARTOR_ENABLE_CONFIGS.get('emoji') == 'true'
         mentions_enabled = MARTOR_ENABLE_CONFIGS.get('mention') == 'true'
 
-        widget = super(MartorWidget, self).render(name, value, attributes_to_pass)
+        widget = super().render(name, value, attributes_to_pass)
 
         return template.render({
             'martor': widget,
@@ -88,7 +88,8 @@ class MartorWidget(forms.Textarea):
             'martor/js/martor.%s.min.js' % selected_theme,
         )
 
-        # Adding the following scripts to the end of the tuple in case it affects behaviour.
+        # Adding the following scripts to the end
+        # of the tuple in case it affects behaviour.
         # spellcheck configuration
         if MARTOR_ENABLE_CONFIGS.get('spellcheck') == 'true':
             js = ('plugins/js/typo.js', 'plugins/js/spellcheck.js').__add__(js)

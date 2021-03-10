@@ -36,15 +36,17 @@ def markdownify(markdown_content):
     except TypeError as e:
         if 'extendMarkdown' not in str(e):
             raise
-        raise VersionNotCompatible("The markdown isn't compatible, please reinstall "
-                                   "your python markdown into Markdown>=3.0")
+        raise VersionNotCompatible(
+            "The markdown isn't compatible, please reinstall "
+            "your python markdown into Markdown>=3.0"
+        )
 
 
 class LazyEncoder(DjangoJSONEncoder):
     """
     This problem because we found error encoding,
-    as docs says, django has special `DjangoJSONEncoder`
-    at https://docs.djangoproject.com/en/1.10/topics/serialization/#serialization-formats-json
+    as docs says, django has special `DjangoJSONEncoder` at
+    https://docs.djangoproject.com/en/dev/topics/serialization/#serialization-formats-json
     also discused in this answer: http://stackoverflow.com/a/31746279/6396981
 
     Usage:

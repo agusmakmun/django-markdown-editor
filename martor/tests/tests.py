@@ -1,5 +1,5 @@
-
 from django.test import TestCase
+from martor.utils import markdownify, VersionNotCompatible
 
 
 class SimpleTest(TestCase):
@@ -9,12 +9,11 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_markdownify_error(self,):
-        from martor.utils import markdownify, VersionNotCompatible
-        ## This tests that real errors don't raise VersionNotCompatible
+        # This tests that real errors don't raise VersionNotCompatible
         #  errors, which could be misleading.
         try:
             markdownify(None)
         except Exception as e:
-            self.assertNotIsInstance(e,VersionNotCompatible)
+            self.assertNotIsInstance(e, VersionNotCompatible)
         else:
             self.fail("no assertion raised")

@@ -10,13 +10,13 @@ MARTOR_THEME = getattr(settings, 'MARTOR_THEME', 'bootstrap')
 # Input: string boolean, `true/false`
 MARTOR_ENABLE_CONFIGS = getattr(
     settings, 'MARTOR_ENABLE_CONFIGS', {
-        'emoji': 'true',        # to enable/disable emoji icons.
-        'imgur': 'true',        # to enable/disable imgur/custom uploader.
-        'mention': 'false',     # to enable/disable mention
-        'jquery': 'true',       # to include/revoke jquery (require for admin default django)
-        'living': 'false',      # to enable/disable live updates in preview
-        'spellcheck': 'false',  # to enable/disable spellcheck in form textareas
-        'hljs': 'true',         # to enable/disable hljs highlighting in preview
+        'emoji': 'true',  # enable/disable emoji icons.
+        'imgur': 'true',  # enable/disable imgur/custom uploader.
+        'mention': 'false',  # enable/disable mention
+        'jquery': 'true',  # include/revoke jquery (require for admin django)
+        'living': 'false',  # enable/disable live updates in preview
+        'spellcheck': 'false',  # enable/disable spellcheck in form textareas
+        'hljs': 'true',  # enable/disable hljs highlighting in preview
     }
 )
 
@@ -61,10 +61,10 @@ MARTOR_MARKDOWN_EXTENSIONS = getattr(
 
         # Custom markdown extensions.
         'martor.extensions.urlize',
-        'martor.extensions.del_ins',      # ~~strikethrough~~ and ++underscores++
-        'martor.extensions.mention',      # to parse markdown mention
-        'martor.extensions.emoji',        # to parse markdown emoji
-        'martor.extensions.mdx_video',    # to parse embed/iframe video
+        'martor.extensions.del_ins',  # ~~strikethrough~~ and ++underscores++
+        'martor.extensions.mention',  # to parse markdown mention
+        'martor.extensions.emoji',  # to parse markdown emoji
+        'martor.extensions.mdx_video',  # to parse embed/iframe video
         'martor.extensions.escape_html',  # to handle the XSS vulnerabilities
     ]
 )
@@ -76,19 +76,23 @@ MARTOR_MARKDOWN_EXTENSION_CONFIGS = getattr(
 
 # Markdown urls
 MARTOR_UPLOAD_URL = getattr(
-    settings, 'MARTOR_UPLOAD_URL', '/martor/uploader/'  # for imgur
+    settings, 'MARTOR_UPLOAD_URL',
+    '/martor/uploader/'  # for imgur
 )
 MARTOR_SEARCH_USERS_URL = getattr(
-    settings, 'MARTOR_SEARCH_USERS_URL', '/martor/search-user/'  # for mention
+    settings, 'MARTOR_SEARCH_USERS_URL',
+    '/martor/search-user/'  # for mention
 )
 
 # Markdown Extensions
 MARTOR_MARKDOWN_BASE_EMOJI_URL = getattr(
-    settings, 'MARTOR_MARKDOWN_BASE_EMOJI_URL', 'https://github.githubassets.com/images/icons/emoji/'
+    settings, 'MARTOR_MARKDOWN_BASE_EMOJI_URL',
+    'https://github.githubassets.com/images/icons/emoji/'
 )
 
 MARTOR_MARKDOWN_BASE_MENTION_URL = getattr(
-    settings, 'MARTOR_MARKDOWN_BASE_MENTION_URL', 'https://python.web.id/author/'
+    settings, 'MARTOR_MARKDOWN_BASE_MENTION_URL',
+    'https://python.web.id/author/'
 )
 
 # If you need to use your own themed "bootstrap" or "semantic ui" dependency

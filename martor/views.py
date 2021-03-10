@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
+
 from django.http import (HttpResponse, JsonResponse)
 from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
@@ -9,6 +11,7 @@ from django.contrib.auth import get_user_model
 
 from .api import imgur_uploader
 from .settings import MARTOR_MARKDOWNIFY_FUNCTION
+from .utils import LazyEncoder
 
 User = get_user_model()
 
@@ -67,8 +70,9 @@ def markdown_search_user(request):
         queries = {'%s__icontains' % User.USERNAME_FIELD: username}
         users = User.objects.filter(**queries).filter(is_active=True)
         if users.exists():
-            users_name = users.values_list('username', flat=True)
-            response_data.update({'status': 200, 'data': users_name})
+            usernames = users.values_list('username', flat=True)
+            usernames = json.dumps(list(usernames))
+            response_data.update({'status': 200, 'data': usernames})
             return JsonResponse(response_data)
 
         error_message = _('No users registered as `%(username)s` '
@@ -79,4 +83,4 @@ def markdown_search_user(request):
         error_message = _('Validation Failed for field `username`')
         response_data.update({'status': 204, 'error': error_message})
 
-    return JsonResponse(response_data)
+    return JsonResponse(response_data, encoder=LazyEncoder)
