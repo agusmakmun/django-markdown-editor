@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import json
-
 from django.http import (HttpResponse, JsonResponse)
 from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
@@ -70,8 +68,7 @@ def markdown_search_user(request):
         queries = {'%s__icontains' % User.USERNAME_FIELD: username}
         users = User.objects.filter(**queries).filter(is_active=True)
         if users.exists():
-            usernames = users.values_list('username', flat=True)
-            usernames = json.dumps(list(usernames))
+            usernames = list(users.values_list('username', flat=True))
             response_data.update({'status': 200, 'data': usernames})
             return JsonResponse(response_data)
 
