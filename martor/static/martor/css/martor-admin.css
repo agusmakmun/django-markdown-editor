@@ -95,3 +95,8 @@ fieldset .form-row div>label {
   padding: 0;
   font-weight: 300!important;
 }
+
+/* fix issue: #152 */
+.js-inline-admin-formset .form-row {
+  display: revert;
+}

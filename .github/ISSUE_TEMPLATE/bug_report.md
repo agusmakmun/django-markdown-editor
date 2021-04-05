@@ -10,7 +10,7 @@ about: Create a bug report
 - OS (Operating System) version:
 - Browser and browser version:
 - Django version:
-- Martor version:
+- Martor version & theme:
 
 ### Steps to reproduce
 
