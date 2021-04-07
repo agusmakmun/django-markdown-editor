@@ -3,6 +3,11 @@ CSS to handle inside admin django
 by following the default `admin/css/base.css` from django
 */
 
+:root {
+  --primary: #79aec8;
+  --secondary: #417690;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -70,6 +75,10 @@ h5 {
 
 .button, input[type=submit], input[type=button], .submit-row input, a.button {
   padding: 5px 15px;
+}
+
+nav.sticky caption {
+  caption-side: unset;
 }
 
 .ui.tabular.menu+.attached:not(.top).segment,
