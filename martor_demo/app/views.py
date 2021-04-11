@@ -8,14 +8,12 @@ from app.models import Post
 
 
 def home_redirect_view(request):
-    return redirect('simple_form')
+    return redirect('overview')
 
 
-def simple_form_view(request):
-    form = SimpleForm()
-    context = {'form': form, 'title': 'Simple Form'}
-    theme = getattr(settings, 'MARTOR_THEME', 'bootstrap')
-    return render(request, '%s/form.html' % theme, context)
+def overview_view(request):
+    
+    return render(request, '%s/overview.html' % theme, context)
 
 
 @login_required
