@@ -23,7 +23,7 @@ blocks:
           commands:
             - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
             - 'docker pull $DOCKER_USERNAME/face-detection-website:latest || true'
-            - 'docker build --cache-from=$DOCKER_USERNAME/face-detection-website:latest -t $DOCKER_USERNAME/django-markdown-editor:latest .'
+            - 'docker build --cache-from=$DOCKER_USERNAME/face-detection-website:latest -t $DOCKER_USERNAME/face-detection-website:latest .'
             - 'docker push $DOCKER_USERNAME/face-detection-website:latest'
       secrets:
         - name: dcokerhub
