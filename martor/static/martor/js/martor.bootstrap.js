@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.6.2
+ * Name         : Martor v1.6.3
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 07-Apr-2021
+ * Release date : 13-Jun-2021
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
