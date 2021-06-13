@@ -76,6 +76,10 @@ body.overflow {
   height: 90%;
   position: relative;
 }
+.main-martor-fullscreen .martor-field,
+.main-martor-fullscreen .martor-preview {
+  min-height: 95vh
+}
 /* EOF */
 
 .marked-emoji,

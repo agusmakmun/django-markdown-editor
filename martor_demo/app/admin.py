@@ -12,7 +12,7 @@ class PostMetaAdminInline(admin.TabularInline):
 
 
 class PostAdmin(admin.ModelAdmin):
-    inlines = [PostMetaAdminInline,]
+    inlines = [PostMetaAdminInline, ]
     list_display = ['title', 'id']
     formfield_overrides = {
         MartorField: {'widget': AdminMartorWidget},

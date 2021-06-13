@@ -178,6 +178,10 @@ div.enable-living .tab-martor-menu a.nav-link {
   height: 90%;
   position: relative;
 }
+.main-martor-fullscreen .martor-field,
+.main-martor-fullscreen div.martor-preview {
+  min-height: 95vh
+}
 
 /* Preview */
 .marked-emoji,

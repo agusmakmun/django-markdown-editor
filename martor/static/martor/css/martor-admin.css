@@ -89,8 +89,8 @@ nav.sticky caption {
 fieldset .form-row>div {
   width: 100%;
 }
-fieldset .form-row div>label {
-  display: contents!important;
+fieldset .form-row .main-martor {
+  display: grid!important;
 }
 
 .submit-row a.deletelink {
