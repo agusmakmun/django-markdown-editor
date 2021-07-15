@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.6.3
+ * Name         : Martor v1.6.4
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 13-Jun-2021
+ * Release date : 15-Jul-2021
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
 **/
@@ -748,33 +748,26 @@
             });
 
             // Custom decission for toolbar buttons.
-            var btnMention = $('.markdown-direct-mention[data-field-name='+field_name+']'); // To Direct Mention
-            var btnUpload = $('.markdown-image-upload[data-field-name='+field_name+']'); // To Upload Image
-            if (editorConfig.mention === 'true' && editorConfig.imgur === 'true') {
+            var btnMention = $('.markdown-direct-mention[data-field-name='+field_name+']');  // To Direct Mention
+            var btnUpload = $('.markdown-image-upload[data-field-name='+field_name+']');     // To Upload Image
+
+            if (editorConfig.mention == 'true') {
                 btnMention.click(function(){
                     markdownToMention(editor);
                 });
-                btnUpload.on('change', function(evt){
-                    evt.preventDefault();
-                    markdownToUploadImage(editor);
-                });
-            }else if (editorConfig.mention === 'true' && editorConfig.imgur === 'false') {
-                btnMention.click(function(){
-                    markdownToMention(editor);
-                });
-                btnUpload.remove();
-            }else if (editorConfig.mention === 'false' && editorConfig.imgur === 'true') {
+            }else {
                 btnMention.remove();
-                btnUpload.on('change', function(evt){
-                    evt.preventDefault();
-                    markdownToUploadImage(editor);
-                });
-            }
-            else {
-                btnMention.remove();
-                btnUpload.remove();
                 // Disable help of `mention`
                 $('.markdown-reference tbody tr')[1].remove();
+            }
+
+            if (editorConfig.imgur == 'true') {
+                btnUpload.on('change', function(evt){
+                    evt.preventDefault();
+                    markdownToUploadImage(editor);
+                });
+            }else {
+                btnUpload.remove();
             }
 
             // Modal Popup for Help Guide & Emoji Cheat Sheet
