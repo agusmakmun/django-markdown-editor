@@ -345,7 +345,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 [7]: https://img.shields.io/pypi/pyversions/martor.svg
 [8]: https://pypi.python.org/pypi/martor
 
-[9]: https://img.shields.io/badge/Django-1.8%20%3E=%203.1-green.svg
+[9]: https://img.shields.io/badge/Django-1.8%20%3E=%203.2-green.svg
 [10]: https://www.djangoproject.com
 
 [11]: https://travis-ci.org/agusmakmun/django-markdown-editor.svg?branch=master

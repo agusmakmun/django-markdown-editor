@@ -6,6 +6,7 @@ from django.conf import settings
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 settings.configure(
+    SECRET_KEY='xxxxx',
     DEBUG=True,
     DATABASES={
         'default': {
@@ -51,14 +52,14 @@ settings.configure(
 )
 
 try:
-    # Django <= 1.8
-    from django.test.simple import DjangoTestSuiteRunner
-    test_runner = DjangoTestSuiteRunner(verbosity=1)
-except ImportError:
     # Django >= 1.8
     django.setup()
     from django.test.runner import DiscoverRunner
     test_runner = DiscoverRunner(verbosity=1)
+except (ImportError, ModuleNotFoundError):
+    # Django <= 1.8
+    from django.test.simple import DjangoTestSuiteRunner
+    test_runner = DjangoTestSuiteRunner(verbosity=1)
 
 failures = test_runner.run_tests(['martor'])
 if failures:
