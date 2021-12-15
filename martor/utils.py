@@ -2,8 +2,12 @@
 from __future__ import unicode_literals
 
 from django.utils.functional import Promise
-from django.utils.encoding import force_str
 from django.core.serializers.json import DjangoJSONEncoder
+
+try:
+    from django.utils.encoding import force_str  # noqa: Django>=4.x
+except ImportError:
+    from django.utils.encoding import force_text as force_str  # noqa: Django<=3.x
 
 import markdown
 from .settings import (
