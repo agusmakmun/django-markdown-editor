@@ -2,8 +2,12 @@
 from __future__ import unicode_literals
 
 from django.utils.functional import Promise
-from django.utils.encoding import force_text
 from django.core.serializers.json import DjangoJSONEncoder
+
+try:
+    from django.utils.encoding import force_str  # noqa: Django>=4.x
+except ImportError:
+    from django.utils.encoding import force_text as force_str  # noqa: Django<=3.x
 
 import markdown
 from .settings import (
@@ -56,5 +60,5 @@ class LazyEncoder(DjangoJSONEncoder):
 
     def default(self, obj):
         if isinstance(obj, Promise):
-            return force_text(obj)
+            return force_str(obj)
         return super(LazyEncoder, self).default(obj)
