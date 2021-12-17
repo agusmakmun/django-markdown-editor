@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.http import (HttpResponse, JsonResponse)
 from django.utils.module_loading import import_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 
