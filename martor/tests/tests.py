@@ -1,4 +1,4 @@
-from django.test import TestCase, override_settings
+from django.test import TestCase, Client, override_settings
 from django.contrib.auth.models import User
 from martor.utils import markdownify, VersionNotCompatible
 
@@ -10,8 +10,7 @@ class SimpleTest(TestCase):
             email="user1@mail.com",
             password="TestEgg@1234",
         )
-        self.user.is_active = True
-        self.user.save()
+        self.client = Client()
         self.client.force_login(self.user)
 
     def test_form(self):
