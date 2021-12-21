@@ -84,3 +84,11 @@ class SimpleTest(TestCase):
             self.assertNotIsInstance(e, VersionNotCompatible)
         else:
             self.fail('no assertion raised')
+
+    def test_markdownify_xss_handled(self):
+        xss_payload = '[aaaa](javascript:alert(1))'
+        response = markdownify(xss_payload)
+        self.assertEqual(
+            response,
+            '<p><a href="alert(1)">aaaa</a></p>'
+        )

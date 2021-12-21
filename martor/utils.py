@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+import re
 
+from django.utils.html import strip_tags
 from django.utils.functional import Promise
 from django.core.serializers.json import DjangoJSONEncoder
 
@@ -12,7 +12,8 @@ except ImportError:
 import markdown
 from .settings import (
     MARTOR_MARKDOWN_EXTENSIONS,
-    MARTOR_MARKDOWN_EXTENSION_CONFIGS
+    MARTOR_MARKDOWN_EXTENSION_CONFIGS,
+    ALLOWED_URL_SCHEMES,
 )
 
 
@@ -20,7 +21,7 @@ class VersionNotCompatible(Exception):
     pass
 
 
-def markdownify(markdown_content):
+def markdownify(markdown_text):
     """
     Render the markdown content to HTML.
 
@@ -32,8 +33,17 @@ def markdownify(markdown_content):
         >>>
     """
     try:
+        # Strip HTML tags
+        markdown_text = strip_tags(markdown_text)
+
+        # Sanitize Markdown links
+        schemes = '|'.join(ALLOWED_URL_SCHEMES)
+        pattern = fr'\[(.+)\]\((?!({schemes})).*:(.+)\)'
+        markdown_text = re.sub(pattern, '[\\1](\\3)', markdown_text,
+                               flags=re.IGNORECASE)
+
         return markdown.markdown(
-            markdown_content,
+            markdown_text,
             extensions=MARTOR_MARKDOWN_EXTENSIONS,
             extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS
         )

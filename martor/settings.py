@@ -106,3 +106,9 @@ MARTOR_ALTERNATIVE_CSS_FILE_THEME = getattr(
 MARTOR_ALTERNATIVE_JQUERY_JS_FILE = getattr(
     settings, 'MARTOR_ALTERNATIVE_JQUERY_JS_FILE', None
 )
+
+ALLOWED_URL_SCHEMES = getattr(
+    settings, 'ALLOWED_URL_SCHEMES',
+    ['file', 'ftp', 'ftps', 'http', 'https', 'irc', 'mailto',
+     'sftp', 'ssh', 'tel', 'telnet', 'tftp', 'vnc', 'xmpp']
+)
