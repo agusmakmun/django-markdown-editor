@@ -1,6 +1,6 @@
 from django.test import TestCase, override_settings
 from django.contrib.auth.models import User
-from martor.utils import markdownify, VersionNotCompatible
+from martor.utils import markdownify
 
 
 class SimpleTest(TestCase):
@@ -76,18 +76,6 @@ class SimpleTest(TestCase):
         #     response.content.decode('utf-8'),
         #     '...fixme'
         # )
-
-    def test_markdownify_error(
-        self,
-    ):
-        # This tests that real errors don't raise VersionNotCompatible
-        #  errors, which could be misleading.
-        try:
-            markdownify(None)
-        except Exception as e:
-            self.assertNotIsInstance(e, VersionNotCompatible)
-        else:
-            self.fail("no assertion raised")
 
     def test_markdownify_xss_handled(self):
         xss_payload = "[aaaa](javascript:alert(1))"

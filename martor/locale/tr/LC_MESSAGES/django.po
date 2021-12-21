@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 08:33+0700\n"
+"POT-Creation-Date: 2021-12-21 20:13+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Ozcan Yarimdunya <ozcanyd@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,11 +182,11 @@ msgstr "Markdown Kılavuzu (Yardım)"
 msgid "Invalid request!"
 msgstr "Geçersiz istek!"
 
-#: views.py:75
+#: views.py:74
 #, python-format
 msgid "No users registered as `%(username)s` or user is unactived."
 msgstr "`%(username)s` kullanıcı kayıtlı değil veya aktif değil"
 
-#: views.py:80
+#: views.py:79
 msgid "Validation Failed for field `username`"
 msgstr "`kullanıcı adı` alanı için doğrulama başarısız"

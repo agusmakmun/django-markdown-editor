@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-10 08:32+0700\n"
+"POT-Creation-Date: 2021-12-21 20:12+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,11 +179,11 @@ msgstr ""
 msgid "Invalid request!"
 msgstr ""
 
-#: views.py:75
+#: views.py:74
 #, python-format
 msgid "No users registered as `%(username)s` or user is unactived."
 msgstr ""
 
-#: views.py:80
+#: views.py:79
 msgid "Validation Failed for field `username`"
 msgstr ""
