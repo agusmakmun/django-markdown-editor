@@ -8,12 +8,11 @@ from .widgets import MartorWidget
 
 
 class MartorFormField(forms.CharField):
-
     def __init__(self, *args, **kwargs):
 
         # to setup the editor without label
         if not MARTOR_ENABLE_LABEL:
-            kwargs['label'] = ''
+            kwargs["label"] = ""
 
         super(MartorFormField, self).__init__(*args, **kwargs)
 

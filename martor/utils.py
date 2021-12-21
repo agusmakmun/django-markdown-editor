@@ -37,18 +37,23 @@ def markdownify(markdown_text):
         markdown_text = strip_tags(markdown_text)
 
         # Sanitize Markdown links
-        schemes = '|'.join(ALLOWED_URL_SCHEMES)
-        pattern = fr'\[(.+)\]\((?!({schemes})).*:(.+)\)'
-        markdown_text = re.sub(pattern, '[\\1](\\3)', markdown_text,
-                               flags=re.IGNORECASE)
+        # https://github.com/netbox-community/netbox/commit/5af2b3c2f577a01d177cb24cda1019551a2a4b64
+        schemes = "|".join(ALLOWED_URL_SCHEMES)
+        pattern = fr"\[(.+)\]\((?!({schemes})).*:(.+)\)"
+        markdown_text = re.sub(
+            pattern,
+            "[\\1](\\3)",
+            markdown_text,
+            flags=re.IGNORECASE,
+        )
 
         return markdown.markdown(
             markdown_text,
             extensions=MARTOR_MARKDOWN_EXTENSIONS,
-            extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS
+            extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS,
         )
     except TypeError as e:
-        if 'extendMarkdown' not in str(e):
+        if "extendMarkdown" not in str(e):
             raise
         raise VersionNotCompatible(
             "The markdown isn't compatible, please reinstall "

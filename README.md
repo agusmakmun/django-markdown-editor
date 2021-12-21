@@ -1,6 +1,6 @@
 ## martor [![pypi version][1]][2] [![paypal donation][3]][4]
 
-[![license][5]][6] [![python version][7]][8] [![django version][9]][10] [![build][11]][12]
+[![license][5]][6] [![python version][7]][8] [![django version][9]][10] [![build][11]][12] [![black][18]][19]
 
 **Martor** is a Markdown Editor plugin for Django, supported for _Bootstrap_ & _Semantic-UI_.
 
@@ -156,6 +156,12 @@ MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/'              
 MARTOR_ALTERNATIVE_JS_FILE_THEME = "semantic-themed/semantic.min.js"   # default None
 MARTOR_ALTERNATIVE_CSS_FILE_THEME = "semantic-themed/semantic.min.css" # default None
 MARTOR_ALTERNATIVE_JQUERY_JS_FILE = "jquery/dist/jquery.min.js"        # default None
+
+# URL schemes that are allowed within links
+ALLOWED_URL_SCHEMES = [
+    "file", "ftp", "ftps", "http", "https", "irc", "mailto",
+    "sftp", "ssh", "tel", "telnet", "tftp", "vnc", "xmpp",
+]
 ```
 
 Check this setting is not set else csrf will not be sent over ajax calls:
@@ -345,7 +351,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 [7]: https://img.shields.io/pypi/pyversions/martor.svg
 [8]: https://pypi.python.org/pypi/martor
 
-[9]: https://img.shields.io/badge/Django-1.8%20%3E=%203.2-green.svg
+[9]: https://img.shields.io/badge/Django-1.8%20%3E=%204.0-green.svg
 [10]: https://www.djangoproject.com
 
 [11]: https://travis-ci.org/agusmakmun/django-markdown-editor.svg?branch=master
@@ -356,3 +362,6 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 [15]: https://github.com/adi-/django-markdownx
 [16]: https://github.com/waylan/Python-Markdown
 [17]: http://rst.ninjs.org
+
+[18]: https://img.shields.io/badge/code%20style-black-000000.svg
+[19]: https://github.com/ambv/black

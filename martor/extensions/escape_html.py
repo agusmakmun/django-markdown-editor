@@ -1,12 +1,10 @@
-
 import markdown
 
 
 class EscapeHtml(markdown.Extension):
-
     def extendMarkdown(self, md):
-        md.preprocessors.deregister('html_block')
-        md.inlinePatterns.deregister('html')
+        md.preprocessors.deregister("html_block")
+        md.inlinePatterns.deregister("html")
 
 
 def makeExtension(*args, **kwargs):
@@ -15,4 +13,5 @@ def makeExtension(*args, **kwargs):
 
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod()

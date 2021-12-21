@@ -1,4 +1,3 @@
 Django
 Markdown
 requests
-importlib-metadata>=4.4;python_version<'3.10'
