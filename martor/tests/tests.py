@@ -9,8 +9,9 @@ class SimpleTest(TestCase):
             username="user1",
             email="user1@mail.com",
             password="TestEgg@1234",
-            is_active=True,
         )
+        self.user.is_active = True
+        self.user.save()
         self.client.force_login(self.user)
 
     def test_form(self):
