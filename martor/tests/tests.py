@@ -1,17 +1,20 @@
-from django.test import TestCase, Client, override_settings
+from django.test import TestCase, override_settings
 from django.contrib.auth.models import User
 from martor.utils import markdownify, VersionNotCompatible
 
 
 class SimpleTest(TestCase):
     def setUp(self):
+        self.user_password = "TestEgg@1234"
         self.user = User.objects.create_user(
             username="user1",
             email="user1@mail.com",
-            password="TestEgg@1234",
+            password=self.user_password,
         )
-        self.client = Client()
-        self.client.force_login(self.user)
+        self.client.login(
+            username=self.user.username,
+            password=self.user_password,
+        )
 
     def test_form(self):
         response = self.client.get("/test-form-view/")
@@ -49,7 +52,7 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.content.decode("utf-8"),
-            '<p><a href="https://python.web.id">python</a></p>'
+            '<p><a href="https://python.web.id">python</a></p>',
         )  # noqa: E501
 
         # Image
@@ -60,7 +63,7 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.content.decode("utf-8"),
-            '<p><img alt="image" src="https://imgur.com/test.png" /></p>'
+            '<p><img alt="image" src="https://imgur.com/test.png" /></p>',
         )  # noqa: E501
 
         # # Mention
