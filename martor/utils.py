@@ -34,7 +34,7 @@ def markdownify(markdown_text):
     # Sanitize Markdown links
     # https://github.com/netbox-community/netbox/commit/5af2b3c2f577a01d177cb24cda1019551a2a4b64
     schemes = "|".join(ALLOWED_URL_SCHEMES)
-    pattern = fr"\[(.+)\]\((?!({schemes})).*:(.+)\)"
+    pattern = fr"\[(.+)\]\((?!({schemes})).*(:|;)(.+)\)"
     markdown_text = re.sub(
         pattern,
         "[\\1](\\3)",
