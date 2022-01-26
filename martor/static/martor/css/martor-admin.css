@@ -106,6 +106,6 @@ fieldset .form-row .main-martor {
 }
 
 /* fix issue: #152 */
-.js-inline-admin-formset .form-row {
+.js-inline-admin-formset .form-row:not(.empty-form) {
   display: revert;
 }
