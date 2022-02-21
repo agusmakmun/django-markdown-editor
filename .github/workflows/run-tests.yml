@@ -73,6 +73,16 @@ jobs:
           - python-version: 3.9
             django-version: 4.0
 
+        exclude:
+          - os: macos-latest
+            django-version: 4.0
+          - os: macos-latest
+            django-version: 4.1
+          - os: macos-latest
+            django-version: 4.2
+          - os: macos-latest
+            django-version: 5.0
+
     steps:
       - name: Install system dependencies (windows)
         if: matrix.os == 'windows-latest'
