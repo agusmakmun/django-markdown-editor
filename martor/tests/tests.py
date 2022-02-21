@@ -63,7 +63,7 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.content.decode("utf-8"),
-            '<p><img alt="image" src="https://imgur.com/test.png" /></p>',
+            '<p><img alt="image" src="https://imgur.com/test.png"></p>',
         )  # noqa: E501
 
         # # Mention
@@ -78,6 +78,10 @@ class SimpleTest(TestCase):
         # )
 
     def test_markdownify_xss_handled(self):
-        xss_payload = "[aaaa](javascript:alert(1))"
-        response = markdownify(xss_payload)
-        self.assertEqual(response, '<p><a href="alert(1)">aaaa</a></p>')
+        xss_payload_1 = "[aaaa](javascript:alert(1))"
+        response_1 = markdownify(xss_payload_1)
+        self.assertEqual(response_1, '<p><a href=":">aaaa</a></p>')
+
+        # xss_payload_2 = "![\" onerror=alert(1) ](x)"
+        # response_2 = markdownify(xss_payload_2)
+        # self.assertEqual(response_2, '')

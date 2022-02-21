@@ -1,6 +1,5 @@
 import re
 
-from django.utils.html import strip_tags
 from django.utils.functional import Promise
 from django.core.serializers.json import DjangoJSONEncoder
 
@@ -28,9 +27,6 @@ def markdownify(markdown_text):
         '<p><img alt="awesome" src="http://i.imgur.com/hvguiSn.jpg" /></p>'
         >>>
     """
-    # Strip HTML tags
-    markdown_text = strip_tags(markdown_text)
-
     # Sanitize Markdown links
     # https://github.com/netbox-community/netbox/commit/5af2b3c2f577a01d177cb24cda1019551a2a4b64
     schemes = "|".join(ALLOWED_URL_SCHEMES)
@@ -46,6 +42,7 @@ def markdownify(markdown_text):
         markdown_text,
         extensions=MARTOR_MARKDOWN_EXTENSIONS,
         extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS,
+        output_format="html5",
     )
 
 
