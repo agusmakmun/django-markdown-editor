@@ -7,8 +7,12 @@ User = get_user_model()
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               blank=True, null=True)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
     title = models.CharField(max_length=200)
     description = MartorField()
     wiki = MartorField(blank=True)

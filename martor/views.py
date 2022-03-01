@@ -28,7 +28,11 @@ def markdown_imgur_uploader(request):
     Makdown image upload for uploading to imgur.com
     and represent as json to markdown editor.
     """
-    if request.method == "POST" and request.is_ajax():
+
+    def is_ajax(request):
+        return request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
+
+    if request.method == "POST" and is_ajax(request):
         if "markdown-image-upload" in request.FILES:
             image = request.FILES["markdown-image-upload"]
             response_data = imgur_uploader(image=image)

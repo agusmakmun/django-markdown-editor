@@ -70,7 +70,8 @@ body.overflow {
   font-size: 12px;
 }
 .insert-emoji {
-  cursor: pointer
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .table.markdown-reference {
