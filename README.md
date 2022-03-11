@@ -49,7 +49,7 @@ $ pip install martor
 
 **2.** Don't forget to add `'martor'` to your `'INSTALLED_APPS'` setting _(without migrations)_.
 
-```
+```python
 # settings.py
 INSTALLED_APPS = [
     ....
@@ -60,7 +60,7 @@ INSTALLED_APPS = [
 
 **3.** Add url pattern to your `urls.py.`
 
-```
+```python
 # urls.py
 # django >= 2.0
 urlpatterns = [
@@ -88,7 +88,7 @@ urlpatterns = [
 Please register your application at https://api.imgur.com/oauth2/addclient
 to get `IMGUR_CLIENT_ID` and `IMGUR_API_KEY`.
 
-```
+```python
 # Choices are: "semantic", "bootstrap"
 MARTOR_THEME = 'bootstrap'
 
@@ -166,7 +166,7 @@ ALLOWED_URL_SCHEMES = [
 
 Check this setting is not set else csrf will not be sent over ajax calls:
 
-```
+```python
 CSRF_COOKIE_HTTPONLY = False
 ```
 
@@ -176,7 +176,7 @@ CSRF_COOKIE_HTTPONLY = False
 
 #### Model
 
-```
+```python
 from django.db import models
 from martor.models import MartorField
 
@@ -187,7 +187,7 @@ class Post(models.Model):
 
 #### Form
 
-```
+```python
 from django import forms
 from martor.fields import MartorFormField
 
@@ -198,7 +198,7 @@ class PostForm(forms.Form):
 
 #### Admin
 
-```
+```python
 from django.db import models
 from django.contrib import admin
 
@@ -219,7 +219,7 @@ admin.site.register(YourModel, YourModelAdmin)
 
 Simply safely parse markdown content as html ouput by loading templatetags from `martor/templatetags/martortags.py`.
 
-```
+```html
 {% load martortags %}
 {{ field_name|safe_markdown }}
 
@@ -232,7 +232,7 @@ Don't miss to include the required css & js files before use.
 You can take a look at this folder [martor_demo/app/templates][14] for more details.
 The below example is a one of the way to implement it when you choose the `MARTOR_THEME = 'bootstrap'`:
 
-```
+```html
 {% extends "bootstrap/base.html" %}
 {% load static %}
 {% load martortags %}
@@ -266,7 +266,7 @@ The below example is a one of the way to implement it when you choose the `MARTO
 
 Different with *Template Renderer*, the *Template Editor Form* have more css & javascript dependencies.
 
-```
+```html
 {% extends "bootstrap/base.html" %}
 {% load static %}
 
