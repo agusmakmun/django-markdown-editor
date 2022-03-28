@@ -32,10 +32,7 @@ body.overflow {
 }
 
 .martor-toolbar {
-  position: absolute;
   z-index: 100;
-  right: 0;
-  top: 0;
 }
 .enable-living .martor-toolbar {
   position: relative;
