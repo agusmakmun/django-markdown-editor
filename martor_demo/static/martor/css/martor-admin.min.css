@@ -1,0 +1,8 @@
+/**
+ * Name         : Martor v1.6.13
+ * Created by   : Agus Makmun (Summon Agus)
+ * Release date : 31-Mar-2022
+ * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ * Repository   : https://github.com/agusmakmun/django-markdown-editor
+**/
+:root{--primary:#79aec8;--secondary:#417690}body{margin:0;padding:0;font-size:14px;color:#333;background:#fff}#container{-webkit-box-sizing:unset;box-sizing:unset}#branding h1{margin:0!important}body,button,h1,h2,h3,h4,h5,input,optgroup,select{font-family:Roboto,"Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif}h1,h2,h3,h4,h5{font-weight:700!important;line-height:unset!important}h1{margin:0 0 20px!important;font-weight:300!important;font-size:20px!important;color:#333!important}h2{font-size:16px!important;margin:1em 0 .5em 0!important}h2.subhead{font-weight:400!important;margin-top:0!important}h3{font-size:14px!important;margin:.8em 0 .3em 0!important;color:#333!important;font-weight:700!important}h4{font-size:12px!important;margin:1em 0 .8em 0!important;padding-bottom:3px!important}h5{font-size:10px!important;margin:1.5em 0 .5em 0!important;color:#333!important;text-transform:uppercase!important;letter-spacing:1px!important}.button,.submit-row input,a.button,input[type=button],input[type=submit]{padding:5px 15px}nav.sticky caption{caption-side:unset}.ui.tabular.menu+.attached:not(.top).segment,.ui.tabular.menu+.attached:not(.top).segment+.attached:not(.top).segment{width:auto}fieldset .form-row>div{width:100%}fieldset .form-row .main-martor{display:grid!important}.submit-row a.deletelink{height:unset}.table.markdown-reference h2{font-size:1.5em;background:0 0;color:unset;padding:0;font-weight:300!important}.js-inline-admin-formset .form-row {display: revert}
