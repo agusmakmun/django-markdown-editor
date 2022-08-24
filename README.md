@@ -31,7 +31,7 @@
 
 ### Requirements
 
-* `Django>=2.0`
+* `Django>=3.2`
 * `Markdown>=3.0`
 * `requests>=2.12.4`
 
@@ -62,16 +62,9 @@ INSTALLED_APPS = [
 
 ```python
 # urls.py
-# django >= 2.0
 urlpatterns = [
     ...
     path('martor/', include('martor.urls')),
-]
-
-# django <= 1.9
-urlpatterns = [
-    ...
-    url(r'^martor/', include('martor.urls')),
 ]
 ```
 
@@ -351,7 +344,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 [7]: https://img.shields.io/pypi/pyversions/martor.svg
 [8]: https://pypi.python.org/pypi/martor
 
-[9]: https://img.shields.io/badge/Django-1.8%20%3E=%204.0-green.svg
+[9]: https://img.shields.io/badge/Django-3.2%20%3E=%204.1-green.svg
 [10]: https://www.djangoproject.com
 
 [11]: https://travis-ci.org/agusmakmun/django-markdown-editor.svg?branch=master
