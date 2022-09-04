@@ -51,6 +51,10 @@ if [ "$commit" ] && [ "$branch" ]; then
         git push origin master;
 
         if [ "$upgrade_version" == 'y' ] || [ "$upgrade_version" == 'Y' ]; then
+            echo "[i] updating new git tag to v$input_new_version"
+            git tag -a v"$input_new_version" -m "launch v$input_new_version"
+            git push origin v"$input_new_version"
+
             echo "[i] preparing upload to pypi..."
             if ! [ -x "$(command -v twine)" ]; then
                 pip install twine
