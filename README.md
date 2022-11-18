@@ -166,6 +166,7 @@ ALLOWED_HTML_TAGS = [
     "sub", "sup", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "u", "ul"
 ]
 
+# https://github.com/decal/werdlists/blob/master/html-words/html-attributes-list.txt
 ALLOWED_HTML_ATTRIBUTES = [
     "alt", "class", "color", "colspan", "datetime",  # "data",
     "height", "href", "id", "name", "reversed", "rowspan",
