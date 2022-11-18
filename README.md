@@ -34,6 +34,7 @@
 * `Django>=3.2`
 * `Markdown>=3.0`
 * `requests>=2.12.4`
+* `bleach`
 
 
 ### Installation
@@ -154,6 +155,21 @@ MARTOR_ALTERNATIVE_JQUERY_JS_FILE = "jquery/dist/jquery.min.js"        # default
 ALLOWED_URL_SCHEMES = [
     "file", "ftp", "ftps", "http", "https", "irc", "mailto",
     "sftp", "ssh", "tel", "telnet", "tftp", "vnc", "xmpp",
+]
+
+# https://gist.github.com/mrmrs/7650266
+ALLOWED_HTML_TAGS = [
+    "a", "abbr", "b", "blockquote", "br", "cite", "code", "command",
+    "dd", "del", "dl", "dt", "em", "fieldset", "h1", "h2", "h3", "h4", "h5", "h6",
+    "hr", "i", "iframe", "img", "input", "ins", "kbd", "label", "legend",
+    "li", "ol", "optgroup", "option", "p", "pre", "small", "span", "strong",
+    "sub", "sup", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "u", "ul"
+]
+
+ALLOWED_HTML_ATTRIBUTES = [
+    "alt", "class", "color", "colspan", "datetime",  # "data",
+    "height", "href", "id", "name", "reversed", "rowspan",
+    "scope", "src", "style", "title", "type", "width"
 ]
 ```
 

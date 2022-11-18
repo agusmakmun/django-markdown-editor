@@ -82,6 +82,15 @@ class SimpleTest(TestCase):
         response_1 = markdownify(xss_payload_1)
         self.assertEqual(response_1, '<p><a href=":">aaaa</a></p>')
 
-        # xss_payload_2 = "![\" onerror=alert(1) ](x)"
-        # response_2 = markdownify(xss_payload_2)
-        # self.assertEqual(response_2, '')
+        xss_payload_2 = '![" onerror=alert(1) ](x)'
+        response_2 = markdownify(xss_payload_2)
+        self.assertEqual(
+            response_2, '<p><img alt="&quot; onerror=alert(1) " src="x"></p>'
+        )
+
+        xss_payload_3 = '[xss](" onmouseover=alert(document.domain) l)'
+        response_3 = markdownify(xss_payload_3)
+        self.assertEqual(
+            response_3,
+            '<p><a href="&quot; onmouseover=alert(document.domain)">xss</a>)</p>',  # noqa: E501
+        )
