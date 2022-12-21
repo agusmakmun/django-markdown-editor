@@ -364,7 +364,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 [9]: https://img.shields.io/badge/Django-3.2%20%3E=%204.1-green.svg
 [10]: https://www.djangoproject.com
 
-[11]: https://img.shields.io/github/workflow/status/agusmakmun/django-markdown-editor/Run%20tests
+[11]: https://img.shields.io/github/actions/workflow/status/agusmakmun/django-markdown-editor/run-tests.yml?branch=master
 [12]: https://github.com/agusmakmun/django-markdown-editor/actions/workflows/run-tests.yml
 
 [13]: https://github.com/agusmakmun/django-markdown-editor/wiki
