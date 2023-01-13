@@ -7,7 +7,7 @@
 
 ### Features
 
-* Live Preview
+* Live Preview1
 * Integrated with [_Ace Editor_](https://ace.c9.io)
 * Supported with [_Bootstrap_](https://getbootstrap.com) and [_Semantic-UI_](https://semantic-ui.com)
 * Supported Multiple Fields [_fixed this issue_](https://github.com/agusmakmun/django-markdown-editor/issues/3)
