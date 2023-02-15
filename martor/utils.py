@@ -47,7 +47,6 @@ def markdownify(markdown_text):
         markdown_text,
         extensions=MARTOR_MARKDOWN_EXTENSIONS,
         extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS,
-        output_format="html5",
     )
     return format_html(
         mark_safe(

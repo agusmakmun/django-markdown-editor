@@ -32,12 +32,15 @@ class SimpleTest(TestCase):
             "living": "false",  # enable/disable live updates in preview
             "spellcheck": "false",  # enable/disable spellcheck in form textareas # noqa: E501
             "hljs": "true",  # enable/disable hljs highlighting in preview
-        }
+        },
+        MARTOR_MARKDOWN_BASE_EMOJI_URL="https://github.githubassets.com/images/icons/emoji/",
+        MARTOR_MARKDOWN_BASE_MENTION_URL="https://python.web.id/author/",
     )
     def test_markdownify(self):
         # Heading
         response = self.client.post(
-            "/martor/markdownify/", {"content": "# Hello world!"}
+            "/martor/markdownify/",
+            {"content": "# Hello world!"},
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
@@ -66,15 +69,26 @@ class SimpleTest(TestCase):
             '<p><img alt="image" src="https://imgur.com/test.png"></p>',
         )  # noqa: E501
 
+        # Emoji
+        response = self.client.post(
+            "/martor/markdownify/",
+            {"content": ":heart:"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.content.decode("utf-8"),
+            '<p><img class="marked-emoji" src="https://github.githubassets.com/images/icons/emoji/heart.png"></p>',
+        )  # noqa: E501
+
         # # Mention
         # response = self.client.post(
-        #     '/martor/markdownify/',
-        #     {'content': f'@[{self.user.username}]'}
+        #     "/martor/markdownify/",
+        #     {"content": f"@[{self.user.username}]"},
         # )
         # self.assertEqual(response.status_code, 200)
         # self.assertEqual(
-        #     response.content.decode('utf-8'),
-        #     '...fixme'
+        #     response.content.decode("utf-8"),
+        #     f'<p><a class="direct-mention-link" href="https://python.web.id/author/{self.user.username}/">{self.user.username}</a></p>',
         # )
 
     def test_markdownify_xss_handled(self):
