@@ -2,8 +2,6 @@ import re
 import bleach
 
 from django.utils.functional import Promise
-from django.utils.html import format_html
-from django.utils.safestring import mark_safe
 from django.core.serializers.json import DjangoJSONEncoder
 
 try:
@@ -48,15 +46,11 @@ def markdownify(markdown_text):
         extensions=MARTOR_MARKDOWN_EXTENSIONS,
         extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS,
     )
-    return format_html(
-        mark_safe(
-            bleach.clean(
-                html,
-                tags=ALLOWED_HTML_TAGS,
-                attributes=ALLOWED_HTML_ATTRIBUTES,
-                protocols=ALLOWED_URL_SCHEMES,
-            )
-        )
+    return bleach.clean(
+        html,
+        tags=ALLOWED_HTML_TAGS,
+        attributes=ALLOWED_HTML_ATTRIBUTES,
+        protocols=ALLOWED_URL_SCHEMES,
     )
 
 
