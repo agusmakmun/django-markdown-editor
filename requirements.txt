@@ -2,3 +2,5 @@ Django>=3.2
 Markdown==3.3.4
 requests
 bleach
+martor
+gunicorn
