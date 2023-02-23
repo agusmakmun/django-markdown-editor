@@ -10,7 +10,7 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
-            - sem-verison python 3.9
+            - sem-version python 3.9
             - checkout
             - mkdir .pip_cache
             - cache restore
