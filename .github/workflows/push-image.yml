@@ -1,0 +1,30 @@
+name: Push to Docker Hub
+
+on:
+  push:
+    tags:
+      - '*'
+
+env:
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+jobs:
+  push-to-dockerhub:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker build -t $DOCKER_HUB_USERNAME/django-markdown-editor:${{ github.ref }} .
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: $DOCKER_HUB_USERNAME
+          password: $DOCKER_HUB_PASSWORD
+
+      - name: Push Docker image
+        run: docker push $DOCKER_HUB_USERNAME/django-markdown-editor:${{ github.ref }}
