@@ -8,7 +8,7 @@ on:
 env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-  DOCKER_TAG: ${{ github.ref }}
+  DOCKER_TAG: ${{ github.ref.split('/')[-1] }}
 
 jobs:
   push-to-dockerhub:
