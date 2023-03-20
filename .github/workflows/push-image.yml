@@ -8,7 +8,6 @@ on:
 env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-  DOCKER_TAG: ${{ github.ref.split('/')[-1] }}
 
 jobs:
   push-to-dockerhub:
@@ -17,6 +16,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set Docker tag
+        env:
+          DOCKER_TAG: ${{ github.ref }}
+        run: |
+          DOCKER_TAG=${DOCKER_TAG#refs/tags/}
+          DOCKER_TAG=${DOCKER_TAG/\//-}
+          echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
 
       - name: Build Docker image
         run: docker build -t $DOCKER_HUB_USERNAME/django-markdown-editor:$DOCKER_TAG .
