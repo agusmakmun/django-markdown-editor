@@ -18,11 +18,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set Docker tag
+        env:
+          DOCKER_TAG: ${{ github.ref }}
         run: |
-          DOCKER_TAG=${{ github.ref }}
           DOCKER_TAG=${DOCKER_TAG#refs/tags/}
           DOCKER_TAG=${DOCKER_TAG/\//-}
-          echo ::set-env name=DOCKER_TAG::$DOCKER_TAG
+          echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
 
       - name: Build Docker image
         run: docker build -t $DOCKER_HUB_USERNAME/django-markdown-editor:$DOCKER_TAG .
