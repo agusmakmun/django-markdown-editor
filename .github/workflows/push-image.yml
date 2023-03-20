@@ -17,8 +17,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set Docker tag
+        run: |
+          DOCKER_TAG=${{ github.ref }}
+          DOCKER_TAG=${DOCKER_TAG#refs/tags/}
+          DOCKER_TAG=${DOCKER_TAG/\//-}
+          echo ::set-env name=DOCKER_TAG::$DOCKER_TAG
+
       - name: Build Docker image
-        run: docker build -t $DOCKER_HUB_USERNAME/django-markdown-editor:${{ github.ref }} .
+        run: docker build -t $DOCKER_HUB_USERNAME/django-markdown-editor:$DOCKER_TAG .
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
@@ -27,4 +34,4 @@ jobs:
           password: $DOCKER_HUB_PASSWORD
 
       - name: Push Docker image
-        run: docker push $DOCKER_HUB_USERNAME/django-markdown-editor:${{ github.ref }}
+        run: docker push $DOCKER_HUB_USERNAME/django-markdown-editor:$DOCKER_TAG
