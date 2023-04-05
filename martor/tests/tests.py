@@ -1,9 +1,23 @@
-from django.test import TestCase, override_settings
+import sys
+from importlib import reload
+
 from django.contrib.auth.models import User
+from django.core.signals import setting_changed
+from django.test import TestCase, override_settings
+from django.urls import resolve, reverse, NoReverseMatch, clear_url_caches
+
 from martor.utils import markdownify
+from martor.views import markdownfy_view, markdown_imgur_uploader, markdown_search_user
 
 
 class SimpleTest(TestCase):
+    def _on_settings_changed(self, sender, **kwargs):
+        # Reload settings.py and urls.py when @override_settings is called
+        clear_url_caches()
+        reload(sys.modules["martor.settings"])
+        reload(sys.modules["martor.urls"])
+        reload(sys.modules["martor.tests.urls"])
+
     def setUp(self):
         self.user_password = "TestEgg@1234"
         self.user = User.objects.create_user(
@@ -15,6 +29,11 @@ class SimpleTest(TestCase):
             username=self.user.username,
             password=self.user_password,
         )
+
+        setting_changed.connect(self._on_settings_changed)
+
+    def tearDown(self):
+        setting_changed.disconnect(self._on_settings_changed)
 
     def test_form(self):
         response = self.client.get("/test-form-view/")
@@ -108,3 +127,32 @@ class SimpleTest(TestCase):
             response_3,
             '<p><a href="&quot; onmouseover=alert(document.domain)">xss</a>)</p>',  # noqa: E501
         )
+
+    def test_urls(self):
+        with override_settings(
+            MARTOR_MARKDOWNIFY_URL="test/url",
+            MARTOR_UPLOAD_URL="",
+            MARTOR_SEARCH_USERS_URL="",
+        ):
+            found = resolve(reverse("martor_markdownfy"))
+            self.assertEqual(found.func, markdownfy_view)
+
+            with self.assertRaises(NoReverseMatch):
+                reverse("imgur_uploader")
+
+            with self.assertRaises(NoReverseMatch):
+                reverse("search_user_json")
+
+        with override_settings(
+            MARTOR_MARKDOWNIFY_URL="test/url",
+            MARTOR_UPLOAD_URL="test/upload",
+            MARTOR_SEARCH_USERS_URL="test/search",
+        ):
+            found = resolve(reverse("martor_markdownfy"))
+            self.assertEqual(found.func, markdownfy_view)
+
+            found = resolve(reverse("imgur_uploader"))
+            self.assertEqual(found.func, markdown_imgur_uploader)
+
+            found = resolve(reverse("search_user_json"))
+            self.assertEqual(found.func, markdown_search_user)

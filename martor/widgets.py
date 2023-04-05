@@ -2,14 +2,14 @@
 from __future__ import unicode_literals
 
 from django import forms
-from django.template.loader import get_template
 from django.contrib.admin import widgets
+from django.template.loader import get_template
+from django.urls import reverse
 
 from .settings import (
     MARTOR_THEME,
     MARTOR_ENABLE_CONFIGS,
     MARTOR_UPLOAD_URL,
-    MARTOR_MARKDOWNIFY_URL,
     MARTOR_SEARCH_USERS_URL,
     MARTOR_MARKDOWN_BASE_EMOJI_URL,
     MARTOR_TOOLBAR_BUTTONS,
@@ -32,11 +32,15 @@ class MartorWidget(forms.Textarea):
         # Make the settings the default attributes to pass
         attributes_to_pass = {
             "data-enable-configs": MARTOR_ENABLE_CONFIGS,
-            "data-upload-url": MARTOR_UPLOAD_URL,
-            "data-markdownfy-url": MARTOR_MARKDOWNIFY_URL,
-            "data-search-users-url": MARTOR_SEARCH_USERS_URL,
-            "data-base-emoji-url": MARTOR_MARKDOWN_BASE_EMOJI_URL,
+            "data-markdownfy-url": reverse("martor_markdownfy"),
         }
+
+        if MARTOR_UPLOAD_URL:
+            attributes_to_pass["data-upload-url"] = reverse("imgur_uploader")
+        if MARTOR_SEARCH_USERS_URL:
+            attributes_to_pass["data-search-users-url"] = reverse("search_user_json")
+        if MARTOR_SEARCH_USERS_URL:
+            attributes_to_pass["data-base-emoji-url"] = MARTOR_MARKDOWN_BASE_EMOJI_URL
 
         # Make sure that the martor value is in the class attr passed in
         if "class" in attrs:
