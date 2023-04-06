@@ -85,24 +85,30 @@ MARTOR_MARKDOWN_EXTENSION_CONFIGS = getattr(
 )
 
 # Markdown urls
-MARTOR_UPLOAD_URL = getattr(
-    settings, "MARTOR_UPLOAD_URL", "/martor/uploader/"  # for imgur
+MARTOR_UPLOAD_URL = (
+    # Allows to disable this endpoint
+    settings.MARTOR_UPLOAD_URL if hasattr(settings, "MARTOR_UPLOAD_URL")
+    else "/martor/uploader/"
 )
-MARTOR_SEARCH_USERS_URL = getattr(
-    settings, "MARTOR_SEARCH_USERS_URL", "/martor/search-user/"  # for mention
+
+MARTOR_SEARCH_USERS_URL = (
+    # Allows to disable this endpoint
+    settings.MARTOR_SEARCH_USERS_URL if hasattr(settings, "MARTOR_SEARCH_USERS_URL")
+    else "/martor/search-user/"
 )
 
 # Markdown Extensions
-MARTOR_MARKDOWN_BASE_EMOJI_URL = getattr(
-    settings,
-    "MARTOR_MARKDOWN_BASE_EMOJI_URL",
-    "https://github.githubassets.com/images/icons/emoji/",
+MARTOR_MARKDOWN_BASE_EMOJI_URL = (
+    # Allows to disable this endpoint
+    settings.MARTOR_MARKDOWN_BASE_EMOJI_URL
+    if hasattr(settings, "MARTOR_MARKDOWN_BASE_EMOJI_URL")
+    else "https://github.githubassets.com/images/icons/emoji/"
 )
 
 MARTOR_MARKDOWN_BASE_MENTION_URL = getattr(
     settings,
     "MARTOR_MARKDOWN_BASE_MENTION_URL",
-    "https://python.web.id/author/",
+    "",
 )
 
 # If you need to use your own themed "bootstrap" or "semantic ui" dependency

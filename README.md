@@ -137,12 +137,19 @@ MARTOR_MARKDOWN_EXTENSIONS = [
 MARTOR_MARKDOWN_EXTENSION_CONFIGS = {}
 
 # Markdown urls
+MARTOR_UPLOAD_URL = '' # Completely disable the endpoint
+# or:
 MARTOR_UPLOAD_URL = '/martor/uploader/' # default
+
+MARTOR_SEARCH_USERS_URL = '' # Completely disables the endpoint
+# or:
 MARTOR_SEARCH_USERS_URL = '/martor/search-user/' # default
 
 # Markdown Extensions
 # MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://www.webfx.com/tools/emoji-cheat-sheet/graphics/emojis/'     # from webfx
 MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://github.githubassets.com/images/icons/emoji/'                  # default from github
+# or:
+MARTOR_MARKDOWN_BASE_EMOJI_URL = ''  # Completely disables the endpoint
 MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/'                                      # please change this to your domain
 
 # If you need to use your own themed "bootstrap" or "semantic ui" dependency

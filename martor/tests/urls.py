@@ -8,7 +8,7 @@ if django.VERSION >= (2, 0):
 
     urlpatterns = [
         path("test-form-view/", TestFormView.as_view()),
-        path("martor/", include("martor.urls")),
+        path("", include("martor.urls")),
     ]
 else:
     from django.conf.urls import url, include
