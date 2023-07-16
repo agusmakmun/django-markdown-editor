@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import django
 
 from .settings import MARTOR_MARKDOWNIFY_URL, MARTOR_UPLOAD_URL, MARTOR_SEARCH_USERS_URL
@@ -11,8 +8,13 @@ from .views import (
 )
 
 
-def __normalize(path):
-    return path.removeprefix('/').removesuffix('/')
+def __normalize(path: str) -> str:
+    # to support Python < 3.9 we can't use removeprefix('/').removesuffix('/')
+    if path.startswith("/"):
+        path = path[1:]
+    if path.endswith("/"):
+        path = path[:-1]
+    return path
 
 
 if django.VERSION >= (2, 0):
