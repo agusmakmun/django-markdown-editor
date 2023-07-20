@@ -16,6 +16,10 @@ jobs:
         os: [ macos-latest, ubuntu-latest ]
         python-version: [ 3.9, "3.10" ]
         django-version: [ 3.2, 4.0, 4.1 ]
+        include:
+          - os: ubuntu-20.04
+            python-version: "3.6"
+            django-version: "3.2"
 
     steps:
       - name: Install system dependencies (windows)
