@@ -16,6 +16,6 @@ RUN apk add --no-cache python3 py3-pip tini; \
     chown -R appuser:appuser /app
 
 USER appuser
-EXPOSE 8000/tcp
+
 ENTRYPOINT [ "tini", "--" ]
 CMD [ "python3", "/app/martor_demo/manage.py", "runserver", "0.0.0.0:8000" ]
