@@ -209,6 +209,7 @@ ALLOWED_HTML_TAGS = getattr(
 # https://www.w3schools.com/TAGS/ref_standardattributes.asp
 GLOBAL_HTML_ATTRIBUTES = getattr(
     settings,
+    "GLOBAL_HTML_ATTRIBUTES",
     {
         "accesskey",
         "class",
@@ -230,6 +231,7 @@ GLOBAL_HTML_ATTRIBUTES = getattr(
 # https://github.com/decal/werdlists/blob/master/html-words/html-attributes-list.txt
 ALLOWED_HTML_ATTRIBUTES = getattr(
     settings,
+    "ALLOWED_HTML_ATTRIBUTES",
     {
         "a": GLOBAL_HTML_ATTRIBUTES
         | {"href"},  # don't add "rel", it will causing rust error
