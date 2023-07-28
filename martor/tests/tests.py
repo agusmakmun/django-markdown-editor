@@ -74,7 +74,7 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.content.decode("utf-8"),
-            '<p><a href="https://python.web.id">python</a></p>',
+            '<p><a href="https://python.web.id" rel="noopener noreferrer">python</a></p>',
         )  # noqa: E501
 
         # Image
@@ -99,21 +99,26 @@ class SimpleTest(TestCase):
             '<p><img class="marked-emoji" src="https://github.githubassets.com/images/icons/emoji/heart.png"></p>',
         )  # noqa: E501
 
-        # # Mention
-        # response = self.client.post(
-        #     "/martor/markdownify/",
-        #     {"content": f"@[{self.user.username}]"},
-        # )
-        # self.assertEqual(response.status_code, 200)
-        # self.assertEqual(
-        #     response.content.decode("utf-8"),
-        #     f'<p><a class="direct-mention-link" href="https://python.web.id/author/{self.user.username}/">{self.user.username}</a></p>',
-        # )
+        # Mention
+        response = self.client.post(
+            "/martor/markdownify/",
+            {"content": f"@[{self.user.username}]"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.content.decode("utf-8"),
+            (
+                f'<p><a class="direct-mention-link" href="https://python.web.id/author/{self.user.username}/" '
+                f'rel="noopener noreferrer">@{self.user.username}</a></p>'
+            ),
+        )
 
     def test_markdownify_xss_handled(self):
         xss_payload_1 = "[aaaa](javascript:alert(1))"
         response_1 = markdownify(xss_payload_1)
-        self.assertEqual(response_1, '<p><a href=":">aaaa</a></p>')
+        self.assertEqual(
+            response_1, '<p><a href=":" rel="noopener noreferrer">aaaa</a></p>'
+        )
 
         xss_payload_2 = '![" onerror=alert(1) ](x)'
         response_2 = markdownify(xss_payload_2)
@@ -125,7 +130,7 @@ class SimpleTest(TestCase):
         response_3 = markdownify(xss_payload_3)
         self.assertEqual(
             response_3,
-            '<p><a href="&quot; onmouseover=alert(document.domain)">xss</a>)</p>',  # noqa: E501
+            '<p><a href="&quot; onmouseover=alert(document.domain)" rel="noopener noreferrer">xss</a>)</p>',  # noqa: E501
         )
 
     def test_urls(self):

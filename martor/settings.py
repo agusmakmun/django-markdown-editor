@@ -87,13 +87,15 @@ MARTOR_MARKDOWN_EXTENSION_CONFIGS = getattr(
 # Markdown urls
 MARTOR_UPLOAD_URL = (
     # Allows to disable this endpoint
-    settings.MARTOR_UPLOAD_URL if hasattr(settings, "MARTOR_UPLOAD_URL")
+    settings.MARTOR_UPLOAD_URL
+    if hasattr(settings, "MARTOR_UPLOAD_URL")
     else "/martor/uploader/"
 )
 
 MARTOR_SEARCH_USERS_URL = (
     # Allows to disable this endpoint
-    settings.MARTOR_SEARCH_USERS_URL if hasattr(settings, "MARTOR_SEARCH_USERS_URL")
+    settings.MARTOR_SEARCH_USERS_URL
+    if hasattr(settings, "MARTOR_SEARCH_USERS_URL")
     else "/martor/search-user/"
 )
 
@@ -127,7 +129,7 @@ MARTOR_ALTERNATIVE_JQUERY_JS_FILE = getattr(
 ALLOWED_URL_SCHEMES = getattr(
     settings,
     "ALLOWED_URL_SCHEMES",
-    [
+    {
         "file",
         "ftp",
         "ftps",
@@ -142,14 +144,14 @@ ALLOWED_URL_SCHEMES = getattr(
         "tftp",
         "vnc",
         "xmpp",
-    ],
+    },
 )
 
 # https://gist.github.com/mrmrs/7650266
 ALLOWED_HTML_TAGS = getattr(
     settings,
     "ALLOWED_HTML_TAGS",
-    [
+    {
         "a",
         "abbr",
         "b",
@@ -199,31 +201,81 @@ ALLOWED_HTML_TAGS = getattr(
         "tr",
         "u",
         "ul",
-    ],
+    },
 )
 
-# https://github.com/decal/werdlists/blob/master/html-words/html-attributes-list.txt
+# https://www.w3schools.com/TAGS/ref_attributes.asp
+# https://www.w3schools.com/TAGS/default.asp
+# https://www.w3schools.com/TAGS/ref_standardattributes.asp
+GLOBAL_HTML_ATTRIBUTES = getattr(
+    settings,
+    {
+        "accesskey",
+        "class",
+        "contenteditable",
+        "data-",  # https://github.com/messense/nh3/issues/14
+        "dir",
+        "draggable",
+        "hidden",
+        "id",
+        "lang",
+        "spellcheck",
+        "style",
+        "tabindex",
+        "title",
+        "translate",
+    },
+)
+
 ALLOWED_HTML_ATTRIBUTES = getattr(
     settings,
-    "ALLOWED_HTML_ATTRIBUTES",
-    [
-        "alt",
-        "class",
-        "color",
-        "colspan",
-        # "data",
-        "datetime",
-        "height",
-        "href",
-        "id",
-        "name",
-        "reversed",
-        "rowspan",
-        "scope",
-        "src",
-        "style",
-        "title",
-        "type",
-        "width",
-    ],
+    {
+        "a": GLOBAL_HTML_ATTRIBUTES
+        | {"href"},  # don't add "rel", it will causing rust error
+        "abbr": GLOBAL_HTML_ATTRIBUTES,
+        "blockquote": GLOBAL_HTML_ATTRIBUTES,
+        "cite": GLOBAL_HTML_ATTRIBUTES,
+        "code": GLOBAL_HTML_ATTRIBUTES,
+        "command": GLOBAL_HTML_ATTRIBUTES,
+        "dd": GLOBAL_HTML_ATTRIBUTES,
+        "del": GLOBAL_HTML_ATTRIBUTES | {"cite", "datetime"},
+        "dl": GLOBAL_HTML_ATTRIBUTES,
+        "dt": GLOBAL_HTML_ATTRIBUTES,
+        "em": GLOBAL_HTML_ATTRIBUTES,
+        "fieldset": GLOBAL_HTML_ATTRIBUTES,
+        "h1": GLOBAL_HTML_ATTRIBUTES,
+        "h2": GLOBAL_HTML_ATTRIBUTES,
+        "h3": GLOBAL_HTML_ATTRIBUTES,
+        "h4": GLOBAL_HTML_ATTRIBUTES,
+        "h5": GLOBAL_HTML_ATTRIBUTES,
+        "h6": GLOBAL_HTML_ATTRIBUTES,
+        "hr": GLOBAL_HTML_ATTRIBUTES,
+        "iframe": GLOBAL_HTML_ATTRIBUTES,
+        "img": GLOBAL_HTML_ATTRIBUTES | {"alt", "height", "src", "width"},
+        "input": GLOBAL_HTML_ATTRIBUTES | {"type", "name", "value"},
+        "ins": GLOBAL_HTML_ATTRIBUTES | {"cite", "datetime"},
+        "kbd": GLOBAL_HTML_ATTRIBUTES,
+        "label": GLOBAL_HTML_ATTRIBUTES | {"for"},
+        "legend": GLOBAL_HTML_ATTRIBUTES,
+        "li": GLOBAL_HTML_ATTRIBUTES,
+        "ol": GLOBAL_HTML_ATTRIBUTES,
+        "optgroup": GLOBAL_HTML_ATTRIBUTES | {"label"},
+        "option": GLOBAL_HTML_ATTRIBUTES | {"value"},
+        "p": GLOBAL_HTML_ATTRIBUTES,
+        "pre": GLOBAL_HTML_ATTRIBUTES,
+        "small": GLOBAL_HTML_ATTRIBUTES,
+        "span": GLOBAL_HTML_ATTRIBUTES,
+        "strong": GLOBAL_HTML_ATTRIBUTES,
+        "sub": GLOBAL_HTML_ATTRIBUTES,
+        "sup": GLOBAL_HTML_ATTRIBUTES,
+        "table": GLOBAL_HTML_ATTRIBUTES,
+        "tbody": GLOBAL_HTML_ATTRIBUTES,
+        "td": GLOBAL_HTML_ATTRIBUTES,
+        "tfoot": GLOBAL_HTML_ATTRIBUTES,
+        "th": GLOBAL_HTML_ATTRIBUTES,
+        "thead": GLOBAL_HTML_ATTRIBUTES,
+        "tr": GLOBAL_HTML_ATTRIBUTES,
+        "u": GLOBAL_HTML_ATTRIBUTES,
+        "ul": GLOBAL_HTML_ATTRIBUTES,
+    },
 )

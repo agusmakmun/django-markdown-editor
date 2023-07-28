@@ -32,9 +32,9 @@
 ### Requirements
 
 * `Django>=3.2`
-* `Markdown>=3.0`
+* `Markdown<3.4`
 * `requests>=2.12.4`
-* `bleach`
+* [`nh3`](https://pypi.org/project/nh3) _(replacement of `bleach`)_
 
 
 ### Installation
