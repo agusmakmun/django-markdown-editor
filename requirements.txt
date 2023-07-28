@@ -4,5 +4,5 @@ importlib_metadata<4.9 # importlib_metadata 4.9.0 dropped support for Python 3.6
 Django>=3.2
 Markdown<3.4
 requests>=2.12.4
-nh3==0.2.14  # https://github.com/messense/nh3
+nh3  # https://github.com/messense/nh3
 tzdata
