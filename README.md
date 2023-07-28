@@ -159,26 +159,89 @@ MARTOR_ALTERNATIVE_CSS_FILE_THEME = "semantic-themed/semantic.min.css" # default
 MARTOR_ALTERNATIVE_JQUERY_JS_FILE = "jquery/dist/jquery.min.js"        # default None
 
 # URL schemes that are allowed within links
-ALLOWED_URL_SCHEMES = [
+ALLOWED_URL_SCHEMES = {
     "file", "ftp", "ftps", "http", "https", "irc", "mailto",
     "sftp", "ssh", "tel", "telnet", "tftp", "vnc", "xmpp",
-]
+}
 
 # https://gist.github.com/mrmrs/7650266
-ALLOWED_HTML_TAGS = [
+ALLOWED_HTML_TAGS = {
     "a", "abbr", "b", "blockquote", "br", "cite", "code", "command",
     "dd", "del", "dl", "dt", "em", "fieldset", "h1", "h2", "h3", "h4", "h5", "h6",
     "hr", "i", "iframe", "img", "input", "ins", "kbd", "label", "legend",
     "li", "ol", "optgroup", "option", "p", "pre", "small", "span", "strong",
     "sub", "sup", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "u", "ul"
-]
+}
+
+# https://www.w3schools.com/TAGS/ref_attributes.asp
+# https://www.w3schools.com/TAGS/default.asp
+# https://www.w3schools.com/TAGS/ref_standardattributes.asp
+GLOBAL_HTML_ATTRIBUTES = {
+    "accesskey",
+    "class",
+    "contenteditable",
+    "data-",  # https://github.com/messense/nh3/issues/14
+    "dir",
+    "draggable",
+    "hidden",
+    "id",
+    "lang",
+    "spellcheck",
+    "style",
+    "tabindex",
+    "title",
+    "translate",
+}
 
 # https://github.com/decal/werdlists/blob/master/html-words/html-attributes-list.txt
-ALLOWED_HTML_ATTRIBUTES = [
-    "alt", "class", "color", "colspan", "datetime",  # "data",
-    "height", "href", "id", "name", "reversed", "rowspan",
-    "scope", "src", "style", "title", "type", "width"
-]
+ALLOWED_HTML_ATTRIBUTES = {
+    "a": GLOBAL_HTML_ATTRIBUTES | {"href"},  # don't add "rel", it will causing rust error
+    "abbr": GLOBAL_HTML_ATTRIBUTES,
+    "blockquote": GLOBAL_HTML_ATTRIBUTES,
+    "cite": GLOBAL_HTML_ATTRIBUTES,
+    "code": GLOBAL_HTML_ATTRIBUTES,
+    "command": GLOBAL_HTML_ATTRIBUTES,
+    "dd": GLOBAL_HTML_ATTRIBUTES,
+    "del": GLOBAL_HTML_ATTRIBUTES | {"cite", "datetime"},
+    "dl": GLOBAL_HTML_ATTRIBUTES,
+    "dt": GLOBAL_HTML_ATTRIBUTES,
+    "em": GLOBAL_HTML_ATTRIBUTES,
+    "fieldset": GLOBAL_HTML_ATTRIBUTES,
+    "h1": GLOBAL_HTML_ATTRIBUTES,
+    "h2": GLOBAL_HTML_ATTRIBUTES,
+    "h3": GLOBAL_HTML_ATTRIBUTES,
+    "h4": GLOBAL_HTML_ATTRIBUTES,
+    "h5": GLOBAL_HTML_ATTRIBUTES,
+    "h6": GLOBAL_HTML_ATTRIBUTES,
+    "hr": GLOBAL_HTML_ATTRIBUTES,
+    "iframe": GLOBAL_HTML_ATTRIBUTES,
+    "img": GLOBAL_HTML_ATTRIBUTES | {"alt", "height", "src", "width"},
+    "input": GLOBAL_HTML_ATTRIBUTES | {"type", "name", "value"},
+    "ins": GLOBAL_HTML_ATTRIBUTES | {"cite", "datetime"},
+    "kbd": GLOBAL_HTML_ATTRIBUTES,
+    "label": GLOBAL_HTML_ATTRIBUTES | {"for"},
+    "legend": GLOBAL_HTML_ATTRIBUTES,
+    "li": GLOBAL_HTML_ATTRIBUTES,
+    "ol": GLOBAL_HTML_ATTRIBUTES,
+    "optgroup": GLOBAL_HTML_ATTRIBUTES | {"label"},
+    "option": GLOBAL_HTML_ATTRIBUTES | {"value"},
+    "p": GLOBAL_HTML_ATTRIBUTES,
+    "pre": GLOBAL_HTML_ATTRIBUTES,
+    "small": GLOBAL_HTML_ATTRIBUTES,
+    "span": GLOBAL_HTML_ATTRIBUTES,
+    "strong": GLOBAL_HTML_ATTRIBUTES,
+    "sub": GLOBAL_HTML_ATTRIBUTES,
+    "sup": GLOBAL_HTML_ATTRIBUTES,
+    "table": GLOBAL_HTML_ATTRIBUTES,
+    "tbody": GLOBAL_HTML_ATTRIBUTES,
+    "td": GLOBAL_HTML_ATTRIBUTES,
+    "tfoot": GLOBAL_HTML_ATTRIBUTES,
+    "th": GLOBAL_HTML_ATTRIBUTES,
+    "thead": GLOBAL_HTML_ATTRIBUTES,
+    "tr": GLOBAL_HTML_ATTRIBUTES,
+    "u": GLOBAL_HTML_ATTRIBUTES,
+    "ul": GLOBAL_HTML_ATTRIBUTES,
+}
 ```
 
 Check this setting is not set else csrf will not be sent over ajax calls:
