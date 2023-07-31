@@ -1,8 +1,8 @@
-urllib3<2 ; python_version < '3.7' # urllib3 2.0 dropped support for Python 3.6
-zipp<3.7 ; python_version < '3.7' # zipp 3.7.0 dropped support for Python 3.6
-importlib_metadata<4.9 # # importlib_metadata 4.9.0 dropped support for Python 3.6
+urllib3
+zipp
+importlib_metadata
 Django>=3.2
-Markdown<3.4
+Markdown<3.5
 requests
 bleach
 tzdata
