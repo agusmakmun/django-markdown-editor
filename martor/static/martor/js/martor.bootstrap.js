@@ -190,6 +190,15 @@
                 });
             };
 
+            let timeoutID;
+
+            var refreshPreviewTimeout = function () {
+                if (timeoutID) {
+                    clearTimeout(timeoutID);
+                }
+                timeoutID = setTimeout(refreshPreview, textareaId.data("save-timeout"));
+            }
+
             // Refresh the preview unconditionally on first load.
             window.onload = function () {
                 refreshPreview();
@@ -202,7 +211,7 @@
                     refreshPreview();
                 });
             } else {
-                editor.on('change', refreshPreview);
+                editor.on('change', refreshPreviewTimeout);
             }
 
             if (editorConfig.spellcheck == 'true') {
@@ -860,9 +869,10 @@
     });
 
     if ('django' in window && 'jQuery' in window.django)
-        django.jQuery(document).on('formset:added', function (event, $row) {
-            $row.find('.main-martor').each(function () {
-                var id = $row.attr('id');
+        django.jQuery(document).on('formset:added', function (event) {
+            var row = $(event.target);
+            row.find('.main-martor').each(function () {
+                var id = row.attr('id');
                 id = id.substr(id.lastIndexOf('-') + 1);
                 // Notice here we are using our jQuery instead of Django's.
                 // This is because plugins are only loaded for ours.

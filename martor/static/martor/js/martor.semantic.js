@@ -179,6 +179,15 @@
                 });
             };
 
+            let timeoutID;
+
+            var refreshPreviewTimeout = function () {
+                if (timeoutID) {
+                    clearTimeout(timeoutID);
+                }
+                timeoutID = setTimeout(refreshPreview, textareaId.data("save-timeout"));
+            }
+
             // Refresh the preview unconditionally on first load.
             window.onload = function () {
                 refreshPreview();
@@ -191,7 +200,7 @@
                     refreshPreview();
                 });
             } else {
-                editor.on('change', refreshPreview);
+                editor.on('change', refreshPreviewTimeout);
             }
 
             var editorTabButton = $('.item[data-tab=editor-tab-' + field_name + ']');

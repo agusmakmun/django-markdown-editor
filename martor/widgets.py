@@ -17,6 +17,7 @@ from .settings import (
     MARTOR_ALTERNATIVE_CSS_FILE_THEME,
     MARTOR_ALTERNATIVE_JQUERY_JS_FILE,
     MARTOR_ENABLE_ADMIN_CSS,
+    MARTOR_MARKDOWNIFY_TIMEOUT,
 )
 
 
@@ -42,6 +43,8 @@ class MartorWidget(forms.Textarea):
             attributes_to_pass["data-search-users-url"] = reverse("search_user_json")
         if MARTOR_SEARCH_USERS_URL:
             attributes_to_pass["data-base-emoji-url"] = MARTOR_MARKDOWN_BASE_EMOJI_URL
+        if MARTOR_MARKDOWNIFY_TIMEOUT:
+            attributes_to_pass["data-save-timeout"] = MARTOR_MARKDOWNIFY_TIMEOUT
 
         # Make sure that the martor value is in the class attr passed in
         if "class" in attrs:

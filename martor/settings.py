@@ -60,6 +60,9 @@ MARTOR_MARKDOWNIFY_URL = getattr(
     settings, "MARTOR_MARKDOWNIFY_URL", "/martor/markdownify/"
 )
 
+# Time to delay the markdownify ajax request, in millisecond.
+MARTOR_MARKDOWNIFY_TIMEOUT = getattr(settings, "MARTOR_MARKDOWNIFY_TIMEOUT", 1000)
+
 # Markdown extensions
 MARTOR_MARKDOWN_EXTENSIONS = getattr(
     settings,
