@@ -117,6 +117,11 @@ MARTOR_IMGUR_API_KEY   = 'your-api-key'
 MARTOR_MARKDOWNIFY_FUNCTION = 'martor.utils.markdownify' # default
 MARTOR_MARKDOWNIFY_URL = '/martor/markdownify/' # default
 
+# Delay in miliseconds to update editor preview when in living mode.
+MARTOR_MARKDOWNIFY_TIMEOUT = 0 # update the preview instantly
+# or:
+MARTOR_MARKDOWNIFY_TIMEOUT = 1000 # default
+
 # Markdown extensions (default)
 MARTOR_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra',
