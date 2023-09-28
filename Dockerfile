@@ -32,6 +32,9 @@ RUN chown -R appuser:appuser /app
 # Switch to the appuser
 USER appuser
 
+# Expose port 8000 for the application
+EXPOSE 8000
+
 # Specify the entrypoint and command for the container
 ENTRYPOINT [ "tini", "--" ]
 CMD [ "python3", "/app/martor_demo/manage.py", "runserver", "0.0.0.0:8000" ]
