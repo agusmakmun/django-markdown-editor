@@ -1,5 +1,5 @@
 import re
-import bleach
+import nh3
 
 from django.utils.functional import Promise
 from django.core.serializers.json import DjangoJSONEncoder
@@ -33,7 +33,7 @@ def markdownify(markdown_text):
     # Sanitize Markdown links
     # https://github.com/netbox-community/netbox/commit/5af2b3c2f577a01d177cb24cda1019551a2a4b64
     schemes = "|".join(ALLOWED_URL_SCHEMES)
-    pattern = fr"\[(.+)\]\((?!({schemes})).*(:|;)(.+)\)"
+    pattern = rf"\[(.+)\]\((?!({schemes})).*(:|;)(.+)\)"
     markdown_text = re.sub(
         pattern,
         "[\\1](\\3)",
@@ -46,11 +46,11 @@ def markdownify(markdown_text):
         extensions=MARTOR_MARKDOWN_EXTENSIONS,
         extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS,
     )
-    return bleach.clean(
+    return nh3.clean(
         html,
         tags=ALLOWED_HTML_TAGS,
         attributes=ALLOWED_HTML_ATTRIBUTES,
-        protocols=ALLOWED_URL_SCHEMES,
+        url_schemes=ALLOWED_URL_SCHEMES,
     )
 
 
