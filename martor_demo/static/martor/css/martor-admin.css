@@ -1,0 +1,168 @@
+/*
+CSS to handle inside admin django
+by following the default `admin/css/base.css` from django
+*/
+
+:root {
+  --primary: #79aec8;
+  --secondary: #417690;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+}
+
+#container {
+  -webkit-box-sizing: unset;
+  box-sizing: unset;
+}
+
+#branding h1 {
+  margin: 0 !important;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+button,
+input,
+optgroup,
+select {
+  font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: bold !important;
+  line-height: unset !important;
+}
+
+h1 {
+  margin: 0 0 20px !important;
+  font-weight: 300 !important;
+  font-size: 20px !important;
+  color: #333 !important;
+}
+
+h2 {
+  font-size: 16px !important;
+  margin: 1em 0 .5em 0 !important;
+}
+
+h2.subhead {
+  font-weight: normal !important;
+  margin-top: 0 !important;
+}
+
+h3 {
+  font-size: 14px !important;
+  margin: .8em 0 .3em 0 !important;
+  color: #333 !important;
+  font-weight: bold !important;
+}
+
+h4 {
+  font-size: 12px !important;
+  margin: 1em 0 .8em 0 !important;
+  padding-bottom: 3px !important;
+}
+
+h5 {
+  font-size: 10px !important;
+  margin: 1.5em 0 .5em 0 !important;
+  color: #333 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input,
+a.button {
+  padding: 5px 15px;
+}
+
+nav.sticky caption {
+  caption-side: unset;
+}
+
+.ui.tabular.menu+.attached:not(.top).segment,
+.ui.tabular.menu+.attached:not(.top).segment+.attached:not(.top).segment {
+  width: auto;
+}
+
+fieldset .form-row>div {
+  width: 100%;
+}
+
+fieldset .form-row .main-martor {
+  display: grid !important;
+}
+
+.submit-row a.deletelink {
+  height: unset;
+}
+
+.table.markdown-reference h2 {
+  font-size: 1.5em;
+  background: none;
+  color: unset;
+  padding: 0;
+  font-weight: 300 !important;
+}
+
+/* fix issue: #152 */
+.js-inline-admin-formset .form-row:not(.empty-form) {
+  display: revert;
+}
+
+/* fix issue: #168 */
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #fff;
+    background: #121212 !important;
+  }
+
+  h1,
+  h3,
+  h5 {
+    color: #fff !important;
+  }
+
+  /* bootstrap */
+  .modal-help-guide .modal-content {
+    background: #121212 !important;
+  }
+
+  .modal-help-guide .modal-title {
+    color: #333 !important;
+    font-size: unset !important;
+    margin: 0 !important;
+  }
+
+  .modal-help-guide .table.markdown-reference {
+    background: #fff;
+    color: #fff;
+  }
+
+  /* semantic-ui */
+  .modal-help-guide .content {
+    background: #121212 !important;
+  }
+
+  .tab-martor-menu .item,
+  .martor-toolbar .ui.basic.buttons .button {
+    color: #fff !important;
+  }
+}
