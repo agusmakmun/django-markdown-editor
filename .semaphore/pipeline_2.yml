@@ -1,0 +1,26 @@
+version: v1.0
+name: Dockerize pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+  containers:
+    - name: main
+      image: 'semaphoreci/ubuntu:20.04'
+blocks:
+  - name: Dockerize
+    task:
+      jobs:
+        - name: Docker build
+          commands: []
+      prologue:
+        commands:
+          - sem-version python 3.11
+          - checkout
+          - cache restore
+          - mkdir -p .pip_cache
+          - pip install --cache-dir .pip_cache -r requirements.txt
+          - cd martor_demo
+          - 'python manage.py makemigrations '
+          - python manage.py migrate
+          - cd ..
