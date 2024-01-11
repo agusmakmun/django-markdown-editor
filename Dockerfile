@@ -15,6 +15,7 @@ RUN apk add --no-cache python3 py3-pip tini; \
     adduser -u 1000 -G appuser -D -h /app appuser; \
     chown -R appuser:appuser /app
 
+
 USER appuser
 EXPOSE 8000/tcp
 ENTRYPOINT [ "tini", "--" ]
