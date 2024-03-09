@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
+import random
+import string
 from django import forms
 from django.contrib.admin import widgets
 from django.template.loader import get_template
@@ -30,6 +29,11 @@ def get_theme():
 
 class MartorWidget(forms.Textarea):
     def render(self, name, value, attrs=None, renderer=None, **kwargs):
+
+        # Create random string to make field ID unique to prevent duplicated ID when rendering fields with the same field name
+        random_string = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(10))
+        attrs['id'] = attrs['id'] + '-' + random_string
+
         # Make the settings the default attributes to pass
         attributes_to_pass = {
             "data-enable-configs": MARTOR_ENABLE_CONFIGS,
@@ -65,15 +69,13 @@ class MartorWidget(forms.Textarea):
 
         widget = super().render(name, value, attributes_to_pass)
 
-        return template.render(
-            {
-                "martor": widget,
-                "field_name": name,
-                "emoji_enabled": emoji_enabled,
-                "mentions_enabled": mentions_enabled,
-                "toolbar_buttons": MARTOR_TOOLBAR_BUTTONS,
-            }
-        )
+        return template.render({
+            'martor': widget,
+            'field_name': name + '-' + random_string,
+            'emoji_enabled': emoji_enabled,
+            'mentions_enabled': mentions_enabled,
+            'toolbar_buttons': MARTOR_TOOLBAR_BUTTONS,
+        })
 
     class Media:
         selected_theme = get_theme()
