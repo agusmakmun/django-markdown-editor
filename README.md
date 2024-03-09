@@ -109,6 +109,9 @@ MARTOR_TOOLBAR_BUTTONS = [
 # To setup the martor editor with title label or not (default is False)
 MARTOR_ENABLE_LABEL = False
 
+# Disable admin style when using custom admin interface e.g django-grappelli (default is True)
+MARTOR_ENABLE_ADMIN_CSS = True
+
 # Imgur API Keys
 MARTOR_IMGUR_CLIENT_ID = 'your-client-id'
 MARTOR_IMGUR_API_KEY   = 'your-api-key'
