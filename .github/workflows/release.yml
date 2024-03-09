@@ -7,26 +7,19 @@ on:
 
 jobs:
   release:
-    permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for npm provenance
-    name: release
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
-        with:
-          cache: npm
-          node-version: lts/*
-      - run: npm clean-install
-      - run: npm audit signatures
-      # pinned version updated automatically by Renovate.
-      # details at https://semantic-release.gitbook.io/semantic-release/usage/installation#global-installation
-      - run: npx semantic-release@21.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Semantic Release with Docker
+        run: |
+          docker run \
+            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN }} \
+            -v $(pwd):/app \
+            -w /app \
+            ghcr.io/semantic-release/semantic-release:latest
 
   upload-to-pypi:
     needs: release
