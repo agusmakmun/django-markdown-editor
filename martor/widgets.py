@@ -15,7 +15,8 @@ from .settings import (
     MARTOR_ALTERNATIVE_JS_FILE_THEME,
     MARTOR_ALTERNATIVE_CSS_FILE_THEME,
     MARTOR_ALTERNATIVE_JQUERY_JS_FILE,
-    MARTOR_MARKDOWNIFY_TIMEOUT
+    MARTOR_ENABLE_ADMIN_CSS,
+    MARTOR_MARKDOWNIFY_TIMEOUT,
 )
 
 
@@ -84,9 +85,13 @@ class MartorWidget(forms.Textarea):
                 "plugins/css/ace.min.css",
                 "plugins/css/resizable.min.css",
                 "martor/css/martor.%s.min.css" % selected_theme,
-                "martor/css/martor-admin.min.css",
             )
         }
+
+        if MARTOR_ENABLE_ADMIN_CSS:
+            admin_theme = "martor/css/martor-admin.min.css",
+            css["all"] = admin_theme.__add__(css.get("all"))
+
         js = (
             "plugins/js/ace.js",
             "plugins/js/mode-markdown.js",

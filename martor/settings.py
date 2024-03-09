@@ -230,3 +230,5 @@ ALLOWED_HTML_ATTRIBUTES = getattr(
         "width",
     ],
 )
+# Disable admin style when using custom admin interface e.g django-grappelli
+MARTOR_ENABLE_ADMIN_CSS = getattr(settings, "MARTOR_ENABLE_ADMIN_CSS", True)
