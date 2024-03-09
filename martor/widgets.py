@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
+import random
+import string
 from django import forms
 from django.contrib.admin import widgets
 from django.template.loader import get_template
@@ -32,7 +31,6 @@ class MartorWidget(forms.Textarea):
     def render(self, name, value, attrs=None, renderer=None, **kwargs):
 
         # Create random string to make field ID unique to prevent duplicated ID when rendering fields with the same field name
-        import random, string
         random_string = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(10))
         attrs['id'] = attrs['id'] + '-' + random_string
 
