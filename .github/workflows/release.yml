@@ -6,26 +6,25 @@ on:
       - '*'
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
+  # release:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 20
 
-      - name: Run Semantic Release with Docker
-        run: |
-          docker run \
-            -e GITHUB_TOKEN=${{ secrets.GH_TOKEN }} \
-            -v $(pwd):/app \
-            -w /app \
-            ghcr.io/semantic-release/semantic-release:latest
+  #     - name: Semantic Release
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  #       run: npx semantic-release
 
   upload-to-pypi:
-    needs: release
+    # needs: release
     runs-on: ubuntu-latest
 
     steps:
