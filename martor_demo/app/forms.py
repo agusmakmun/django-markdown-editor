@@ -11,7 +11,6 @@ class SimpleForm(forms.Form):
 
 
 class PostForm(forms.ModelForm):
-
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = "__all__"

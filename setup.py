@@ -1,49 +1,46 @@
-from setuptools import (setup, find_packages)
-from martor import (__VERSION__, __AUTHOR__, __AUTHOR_EMAIL__)
+from setuptools import setup, find_packages
+from martor import __VERSION__, __AUTHOR__, __AUTHOR_EMAIL__
 
 
 def get_requirements():
-    return open('requirements.txt').read().splitlines()
+    return open("requirements.txt").read().splitlines()
 
 
 setup(
-    name='martor',
+    name="martor",
     version=__VERSION__,
     packages=find_packages(exclude=["*demo"]),
     include_package_data=True,
     zip_safe=False,
-    description='Django Markdown Editor',
-    url='https://github.com/agusmakmun/django-markdown-editor',
-    download_url='https://github.com/agusmakmun/django-markdown-editor/tarball/v%s' % __VERSION__,
-    keywords=['martor', 'django markdown', 'django markdown editor'],
-    long_description=open('README.md').read(),
-    long_description_content_type='text/markdown',
-    license='GNUGPL-v3',
+    description="Django Markdown Editor",
+    url="https://github.com/agusmakmun/django-markdown-editor",
+    download_url="https://github.com/agusmakmun/django-markdown-editor/tarball/v%s"
+    % __VERSION__,
+    keywords=["martor", "django markdown", "django markdown editor"],
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    license="GNUGPL-v3",
     author=__AUTHOR__,
     author_email=__AUTHOR_EMAIL__,
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        'Framework :: Django',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
-        'Framework :: Django :: 1.10',
-        'Framework :: Django :: 1.11',
-        'Framework :: Django :: 2.0',
-        'Framework :: Django :: 2.1',
-        'Framework :: Django :: 2.2',
-        'Framework :: Django :: 3.0',
-        'Framework :: Django :: 3.1',
-        'Intended Audience :: Developers',
-        'Operating System :: OS Independent',
-        'Programming Language :: JavaScript',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Web Environment",
+        "Framework :: Django",
+        "Framework :: Django :: 3.2",
+        "Framework :: Django :: 4.0",
+        "Framework :: Django :: 4.1",
+        "Framework :: Django :: 4.2",
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: JavaScript",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     ],
     install_requires=get_requirements(),
 )

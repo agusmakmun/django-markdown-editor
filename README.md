@@ -1,6 +1,6 @@
 ## martor [![pypi version][1]][2] [![paypal donation][3]][4]
 
-[![license][5]][6] [![python version][7]][8] [![django version][9]][10] [![build][11]][12]
+[![license][5]][6] [![python version][7]][8] [![django version][9]][10] [![build][11]][12] [![black][18]][19]
 
 **Martor** is a Markdown Editor plugin for Django, supported for _Bootstrap_ & _Semantic-UI_.
 
@@ -31,9 +31,10 @@
 
 ### Requirements
 
-* `Django>=2.0`
+* `Django>=3.2`
 * `Markdown>=3.0`
 * `requests>=2.12.4`
+* `bleach`
 
 
 ### Installation
@@ -49,7 +50,7 @@ $ pip install martor
 
 **2.** Don't forget to add `'martor'` to your `'INSTALLED_APPS'` setting _(without migrations)_.
 
-```
+```python
 # settings.py
 INSTALLED_APPS = [
     ....
@@ -60,18 +61,11 @@ INSTALLED_APPS = [
 
 **3.** Add url pattern to your `urls.py.`
 
-```
+```python
 # urls.py
-# django >= 2.0
 urlpatterns = [
     ...
     path('martor/', include('martor.urls')),
-]
-
-# django <= 1.9
-urlpatterns = [
-    ...
-    url(r'^martor/', include('martor.urls')),
 ]
 ```
 
@@ -88,7 +82,7 @@ urlpatterns = [
 Please register your application at https://api.imgur.com/oauth2/addclient
 to get `IMGUR_CLIENT_ID` and `IMGUR_API_KEY`.
 
-```
+```python
 # Choices are: "semantic", "bootstrap"
 MARTOR_THEME = 'bootstrap'
 
@@ -123,6 +117,11 @@ MARTOR_IMGUR_API_KEY   = 'your-api-key'
 MARTOR_MARKDOWNIFY_FUNCTION = 'martor.utils.markdownify' # default
 MARTOR_MARKDOWNIFY_URL = '/martor/markdownify/' # default
 
+# Delay in miliseconds to update editor preview when in living mode.
+MARTOR_MARKDOWNIFY_TIMEOUT = 0 # update the preview instantly
+# or:
+MARTOR_MARKDOWNIFY_TIMEOUT = 1000 # default
+
 # Markdown extensions (default)
 MARTOR_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra',
@@ -143,12 +142,19 @@ MARTOR_MARKDOWN_EXTENSIONS = [
 MARTOR_MARKDOWN_EXTENSION_CONFIGS = {}
 
 # Markdown urls
+MARTOR_UPLOAD_URL = '' # Completely disable the endpoint
+# or:
 MARTOR_UPLOAD_URL = '/martor/uploader/' # default
+
+MARTOR_SEARCH_USERS_URL = '' # Completely disables the endpoint
+# or:
 MARTOR_SEARCH_USERS_URL = '/martor/search-user/' # default
 
 # Markdown Extensions
 # MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://www.webfx.com/tools/emoji-cheat-sheet/graphics/emojis/'     # from webfx
 MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://github.githubassets.com/images/icons/emoji/'                  # default from github
+# or:
+MARTOR_MARKDOWN_BASE_EMOJI_URL = ''  # Completely disables the endpoint
 MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/'                                      # please change this to your domain
 
 # If you need to use your own themed "bootstrap" or "semantic ui" dependency
@@ -156,11 +162,33 @@ MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/'              
 MARTOR_ALTERNATIVE_JS_FILE_THEME = "semantic-themed/semantic.min.js"   # default None
 MARTOR_ALTERNATIVE_CSS_FILE_THEME = "semantic-themed/semantic.min.css" # default None
 MARTOR_ALTERNATIVE_JQUERY_JS_FILE = "jquery/dist/jquery.min.js"        # default None
+
+# URL schemes that are allowed within links
+ALLOWED_URL_SCHEMES = [
+    "file", "ftp", "ftps", "http", "https", "irc", "mailto",
+    "sftp", "ssh", "tel", "telnet", "tftp", "vnc", "xmpp",
+]
+
+# https://gist.github.com/mrmrs/7650266
+ALLOWED_HTML_TAGS = [
+    "a", "abbr", "b", "blockquote", "br", "cite", "code", "command",
+    "dd", "del", "dl", "dt", "em", "fieldset", "h1", "h2", "h3", "h4", "h5", "h6",
+    "hr", "i", "iframe", "img", "input", "ins", "kbd", "label", "legend",
+    "li", "ol", "optgroup", "option", "p", "pre", "small", "span", "strong",
+    "sub", "sup", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "u", "ul"
+]
+
+# https://github.com/decal/werdlists/blob/master/html-words/html-attributes-list.txt
+ALLOWED_HTML_ATTRIBUTES = [
+    "alt", "class", "color", "colspan", "datetime",  # "data",
+    "height", "href", "id", "name", "reversed", "rowspan",
+    "scope", "src", "style", "title", "type", "width"
+]
 ```
 
 Check this setting is not set else csrf will not be sent over ajax calls:
 
-```
+```python
 CSRF_COOKIE_HTTPONLY = False
 ```
 
@@ -170,7 +198,7 @@ CSRF_COOKIE_HTTPONLY = False
 
 #### Model
 
-```
+```python
 from django.db import models
 from martor.models import MartorField
 
@@ -181,7 +209,7 @@ class Post(models.Model):
 
 #### Form
 
-```
+```python
 from django import forms
 from martor.fields import MartorFormField
 
@@ -192,7 +220,7 @@ class PostForm(forms.Form):
 
 #### Admin
 
-```
+```python
 from django.db import models
 from django.contrib import admin
 
@@ -213,7 +241,7 @@ admin.site.register(YourModel, YourModelAdmin)
 
 Simply safely parse markdown content as html ouput by loading templatetags from `martor/templatetags/martortags.py`.
 
-```
+```html
 {% load martortags %}
 {{ field_name|safe_markdown }}
 
@@ -226,7 +254,7 @@ Don't miss to include the required css & js files before use.
 You can take a look at this folder [martor_demo/app/templates][14] for more details.
 The below example is a one of the way to implement it when you choose the `MARTOR_THEME = 'bootstrap'`:
 
-```
+```html
 {% extends "bootstrap/base.html" %}
 {% load static %}
 {% load martortags %}
@@ -260,7 +288,7 @@ The below example is a one of the way to implement it when you choose the `MARTO
 
 Different with *Template Renderer*, the *Template Editor Form* have more css & javascript dependencies.
 
-```
+```html
 {% extends "bootstrap/base.html" %}
 {% load static %}
 
@@ -345,14 +373,17 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 [7]: https://img.shields.io/pypi/pyversions/martor.svg
 [8]: https://pypi.python.org/pypi/martor
 
-[9]: https://img.shields.io/badge/Django-1.8%20%3E=%203.1-green.svg
+[9]: https://img.shields.io/badge/Django-3.2%20%3E=%204.1-green.svg
 [10]: https://www.djangoproject.com
 
-[11]: https://travis-ci.org/agusmakmun/django-markdown-editor.svg?branch=master
-[12]: https://travis-ci.org/agusmakmun/django-markdown-editor
+[11]: https://img.shields.io/github/actions/workflow/status/agusmakmun/django-markdown-editor/run-tests.yml?branch=master
+[12]: https://github.com/agusmakmun/django-markdown-editor/actions/workflows/run-tests.yml
 
 [13]: https://github.com/agusmakmun/django-markdown-editor/wiki
 [14]: https://github.com/agusmakmun/django-markdown-editor/tree/master/martor_demo/app/templates
 [15]: https://github.com/adi-/django-markdownx
 [16]: https://github.com/waylan/Python-Markdown
 [17]: http://rst.ninjs.org
+
+[18]: https://img.shields.io/badge/code%20style-black-000000.svg
+[19]: https://github.com/ambv/black

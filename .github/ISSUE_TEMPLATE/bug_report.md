@@ -7,9 +7,10 @@ about: Create a bug report
 <!-- Describe the bug here. -->
 
 ## Details
+- OS (Operating System) version:
 - Browser and browser version:
-- OS version:
-- Martor version:
+- Django version:
+- Martor version & theme:
 
 ### Steps to reproduce
 

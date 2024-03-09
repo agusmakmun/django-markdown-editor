@@ -4,14 +4,19 @@ from django.contrib import admin
 from martor.widgets import AdminMartorWidget
 from martor.models import MartorField
 
-from app.models import Post
+from app.models import PostMeta, Post
+
+
+class PostMetaAdminInline(admin.TabularInline):
+    model = PostMeta
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'id']
+    inlines = [PostMetaAdminInline]
+    list_display = ["title", "id"]
     formfield_overrides = {
-        MartorField: {'widget': AdminMartorWidget},
-        models.TextField: {'widget': AdminMartorWidget},
+        MartorField: {"widget": AdminMartorWidget},
+        models.TextField: {"widget": AdminMartorWidget},
     }
 
 

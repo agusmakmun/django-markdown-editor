@@ -1,4 +1,3 @@
-
 from django.db import models
 
 from martor.models import MartorField
@@ -9,4 +8,4 @@ class Post(models.Model):
     wiki = MartorField()
 
     class Meta:
-        app_label = 'Post'
+        app_label = "Post"

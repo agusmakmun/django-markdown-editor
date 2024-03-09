@@ -1,3 +1,8 @@
-Django
-Markdown
+urllib3<2 ; python_version < '3.7' # urllib3 2.0 dropped support for Python 3.6
+zipp<3.7 ; python_version < '3.7' # zipp 3.7.0 dropped support for Python 3.6
+importlib_metadata<4.9 # # importlib_metadata 4.9.0 dropped support for Python 3.6
+Django>=3.2, <=4.2.10
+Markdown<3.4
 requests
+bleach
+tzdata

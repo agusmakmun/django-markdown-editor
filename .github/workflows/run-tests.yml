@@ -1,0 +1,46 @@
+name: Run tests
+
+on:
+  push:
+    branches: [ master ]
+
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ macos-latest, ubuntu-latest ]
+        python-version: [ 3.9, "3.10" ]
+        django-version: [ 3.2, 4.0, 4.1 ]
+        include:
+          - os: ubuntu-20.04
+            python-version: "3.6"
+            django-version: "3.2"
+
+    steps:
+      - name: Install system dependencies (windows)
+        if: matrix.os == 'windows-latest'
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          install: zlib
+
+      - uses: actions/checkout@v2.3.2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install -q Django==${{ matrix.django-version }}
+          python -m pip install --upgrade pip
+          python setup.py install
+      - name: Test with pytest
+        run: |
+          python runtests.py

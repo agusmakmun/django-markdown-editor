@@ -32,10 +32,7 @@ body.overflow {
 }
 
 .martor-toolbar {
-  position: absolute;
   z-index: 100;
-  right: 0;
-  top: 0;
 }
 .enable-living .martor-toolbar {
   position: relative;
@@ -70,7 +67,8 @@ body.overflow {
   font-size: 12px;
 }
 .insert-emoji {
-  cursor: pointer
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .table.markdown-reference {
@@ -177,6 +175,10 @@ div.enable-living .tab-martor-menu a.nav-link {
 .main-martor-fullscreen .section-martor {
   height: 90%;
   position: relative;
+}
+.main-martor-fullscreen .martor-field,
+.main-martor-fullscreen div.martor-preview {
+  min-height: 95vh
 }
 
 /* Preview */
