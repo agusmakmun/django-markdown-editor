@@ -60,6 +60,9 @@ MARTOR_MARKDOWNIFY_URL = getattr(
     settings, "MARTOR_MARKDOWNIFY_URL", "/martor/markdownify/"
 )
 
+# Time to delay the markdownify ajax request, in millisecond.
+MARTOR_MARKDOWNIFY_TIMEOUT = getattr(settings, "MARTOR_MARKDOWNIFY_TIMEOUT", 1000)
+
 # Markdown extensions
 MARTOR_MARKDOWN_EXTENSIONS = getattr(
     settings,
@@ -227,3 +230,5 @@ ALLOWED_HTML_ATTRIBUTES = getattr(
         "width",
     ],
 )
+# Disable admin style when using custom admin interface e.g django-grappelli
+MARTOR_ENABLE_ADMIN_CSS = getattr(settings, "MARTOR_ENABLE_ADMIN_CSS", True)

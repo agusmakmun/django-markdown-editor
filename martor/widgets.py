@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
+import random
+import string
 from django import forms
 from django.contrib.admin import widgets
 from django.template.loader import get_template
@@ -16,6 +15,8 @@ from .settings import (
     MARTOR_ALTERNATIVE_JS_FILE_THEME,
     MARTOR_ALTERNATIVE_CSS_FILE_THEME,
     MARTOR_ALTERNATIVE_JQUERY_JS_FILE,
+    MARTOR_ENABLE_ADMIN_CSS,
+    MARTOR_MARKDOWNIFY_TIMEOUT,
 )
 
 
@@ -29,6 +30,11 @@ def get_theme():
 
 class MartorWidget(forms.Textarea):
     def render(self, name, value, attrs=None, renderer=None, **kwargs):
+
+        # Create random string to make field ID unique to prevent duplicated ID when rendering fields with the same field name
+        random_string = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(10))
+        attrs['id'] = attrs['id'] + '-' + random_string
+
         # Make the settings the default attributes to pass
         attributes_to_pass = {
             "data-enable-configs": MARTOR_ENABLE_CONFIGS,
@@ -41,6 +47,8 @@ class MartorWidget(forms.Textarea):
             attributes_to_pass["data-search-users-url"] = reverse("search_user_json")
         if MARTOR_SEARCH_USERS_URL:
             attributes_to_pass["data-base-emoji-url"] = MARTOR_MARKDOWN_BASE_EMOJI_URL
+        if MARTOR_MARKDOWNIFY_TIMEOUT:
+            attributes_to_pass["data-save-timeout"] = MARTOR_MARKDOWNIFY_TIMEOUT
 
         # Make sure that the martor value is in the class attr passed in
         if "class" in attrs:
@@ -62,15 +70,13 @@ class MartorWidget(forms.Textarea):
 
         widget = super().render(name, value, attributes_to_pass)
 
-        return template.render(
-            {
-                "martor": widget,
-                "field_name": name,
-                "emoji_enabled": emoji_enabled,
-                "mentions_enabled": mentions_enabled,
-                "toolbar_buttons": MARTOR_TOOLBAR_BUTTONS,
-            }
-        )
+        return template.render({
+            'martor': widget,
+            'field_name': name + '-' + random_string,
+            'emoji_enabled': emoji_enabled,
+            'mentions_enabled': mentions_enabled,
+            'toolbar_buttons': MARTOR_TOOLBAR_BUTTONS,
+        })
 
     class Media:
         selected_theme = get_theme()
@@ -79,9 +85,13 @@ class MartorWidget(forms.Textarea):
                 "plugins/css/ace.min.css",
                 "plugins/css/resizable.min.css",
                 "martor/css/martor.%s.min.css" % selected_theme,
-                "martor/css/martor-admin.min.css",
             )
         }
+
+        if MARTOR_ENABLE_ADMIN_CSS:
+            admin_theme = "martor/css/martor-admin.min.css",
+            css["all"] = admin_theme.__add__(css.get("all"))
+
         js = (
             "plugins/js/ace.js",
             "plugins/js/mode-markdown.js",

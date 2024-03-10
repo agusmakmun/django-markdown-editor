@@ -1,24 +1,25 @@
-from setuptools import (setup, find_packages)
-from martor import (__VERSION__, __AUTHOR__, __AUTHOR_EMAIL__)
+from setuptools import setup, find_packages
+from martor import __VERSION__, __AUTHOR__, __AUTHOR_EMAIL__
 
 
 def get_requirements():
-    return open('requirements.txt').read().splitlines()
+    return open("requirements.txt").read().splitlines()
 
 
 setup(
-    name='martor',
+    name="martor",
     version=__VERSION__,
     packages=find_packages(exclude=["*demo"]),
     include_package_data=True,
     zip_safe=False,
-    description='Django Markdown Editor',
-    url='https://github.com/agusmakmun/django-markdown-editor',
-    download_url='https://github.com/agusmakmun/django-markdown-editor/tarball/v%s' % __VERSION__,
-    keywords=['martor', 'django markdown', 'django markdown editor'],
-    long_description=open('README.md').read(),
-    long_description_content_type='text/markdown',
-    license='GNUGPL-v3',
+    description="Django Markdown Editor",
+    url="https://github.com/agusmakmun/django-markdown-editor",
+    download_url="https://github.com/agusmakmun/django-markdown-editor/tarball/v%s"
+    % __VERSION__,
+    keywords=["martor", "django markdown", "django markdown editor"],
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    license="GNUGPL-v3",
     author=__AUTHOR__,
     author_email=__AUTHOR_EMAIL__,
     classifiers=[

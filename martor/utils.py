@@ -33,10 +33,14 @@ def markdownify(markdown_text):
     # Sanitize Markdown links
     # https://github.com/netbox-community/netbox/commit/5af2b3c2f577a01d177cb24cda1019551a2a4b64
     schemes = "|".join(ALLOWED_URL_SCHEMES)
-    pattern = fr"\[(.+)\]\((?!({schemes})).*(:|;)(.+)\)"
+
+    # Adjusted pattern to focus on links that do not follow the allowed schemes directly
+    # The negative lookahead now correctly positioned to ensure it applies to the whole URL
+    pattern = rf"\[([^\]]+)\]\(((?!({schemes}):)[^)]+)\)"
+
     markdown_text = re.sub(
         pattern,
-        "[\\1](\\3)",
+        "[\\1](\\2)",
         markdown_text,
         flags=re.IGNORECASE,
     )
