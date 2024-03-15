@@ -14,6 +14,7 @@ from .utils import LazyEncoder
 User = get_user_model()
 
 
+@login_required
 def markdownfy_view(request):
     if request.method == "POST":
         content = request.POST.get("content", "")
