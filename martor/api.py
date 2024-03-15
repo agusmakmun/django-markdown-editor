@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import json
 import base64
+import json
+
 import requests
-from .settings import MARTOR_IMGUR_CLIENT_ID, MARTOR_IMGUR_API_KEY
+
+from .settings import MARTOR_IMGUR_API_KEY, MARTOR_IMGUR_CLIENT_ID
 
 requests.packages.urllib3.disable_warnings()
 
@@ -39,7 +41,7 @@ def imgur_uploader(image):
         )
 
     elif response.status_code == 415:
-        # Unsupport File type
+        # Unsupported File type
         return json.dumps(
             {
                 "status": response.status_code,

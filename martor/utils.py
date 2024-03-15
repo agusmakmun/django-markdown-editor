@@ -1,8 +1,8 @@
 import re
-import bleach
 
-from django.utils.functional import Promise
+import bleach
 from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.functional import Promise
 
 try:
     from django.utils.encoding import force_str  # noqa: Django>=4.x
@@ -10,12 +10,13 @@ except ImportError:
     from django.utils.encoding import force_text as force_str  # noqa: Django<=3.x
 
 import markdown
+
 from .settings import (
-    MARTOR_MARKDOWN_EXTENSIONS,
-    MARTOR_MARKDOWN_EXTENSION_CONFIGS,
-    ALLOWED_URL_SCHEMES,
-    ALLOWED_HTML_TAGS,
     ALLOWED_HTML_ATTRIBUTES,
+    ALLOWED_HTML_TAGS,
+    ALLOWED_URL_SCHEMES,
+    MARTOR_MARKDOWN_EXTENSION_CONFIGS,
+    MARTOR_MARKDOWN_EXTENSIONS,
 )
 
 
@@ -63,7 +64,7 @@ class LazyEncoder(DjangoJSONEncoder):
     This problem because we found error encoding,
     as docs says, django has special `DjangoJSONEncoder` at
     https://docs.djangoproject.com/en/dev/topics/serialization/#serialization-formats-json
-    also discused in this answer: http://stackoverflow.com/a/31746279/6396981
+    also discussed in this answer: http://stackoverflow.com/a/31746279/6396981
 
     Usage:
         >>> data = {}

@@ -9,7 +9,7 @@ register = template.Library()
 @register.filter
 def safe_markdown(markdown_text):
     """
-    Safe the markdown text as html ouput.
+    Safe the markdown text as html output.
 
     Usage:
         {% load martortags %}

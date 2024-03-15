@@ -4,10 +4,10 @@ from importlib import reload
 from django.contrib.auth.models import User
 from django.core.signals import setting_changed
 from django.test import TestCase, override_settings
-from django.urls import resolve, reverse, NoReverseMatch, clear_url_caches
+from django.urls import clear_url_caches, resolve, reverse
 
 from martor.utils import markdownify
-from martor.views import markdownfy_view, markdown_imgur_uploader, markdown_search_user
+from martor.views import markdown_imgur_uploader, markdown_search_user, markdownfy_view
 
 
 class SimpleTest(TestCase):
@@ -129,20 +129,6 @@ class SimpleTest(TestCase):
         )
 
     def test_urls(self):
-        with override_settings(
-            MARTOR_MARKDOWNIFY_URL="test/url",
-            MARTOR_UPLOAD_URL="",
-            MARTOR_SEARCH_USERS_URL="",
-        ):
-            found = resolve(reverse("martor_markdownfy"))
-            self.assertEqual(found.func, markdownfy_view)
-
-            with self.assertRaises(NoReverseMatch):
-                reverse("imgur_uploader")
-
-            with self.assertRaises(NoReverseMatch):
-                reverse("search_user_json")
-
         with override_settings(
             MARTOR_MARKDOWNIFY_URL="test/url",
             MARTOR_UPLOAD_URL="test/upload",

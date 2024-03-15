@@ -120,7 +120,7 @@ MARTOR_IMGUR_API_KEY   = 'your-api-key'
 MARTOR_MARKDOWNIFY_FUNCTION = 'martor.utils.markdownify' # default
 MARTOR_MARKDOWNIFY_URL = '/martor/markdownify/' # default
 
-# Delay in miliseconds to update editor preview when in living mode.
+# Delay in milliseconds to update editor preview when in living mode.
 MARTOR_MARKDOWNIFY_TIMEOUT = 0 # update the preview instantly
 # or:
 MARTOR_MARKDOWNIFY_TIMEOUT = 1000 # default
@@ -242,7 +242,7 @@ admin.site.register(YourModel, YourModelAdmin)
 
 #### Template Renderer
 
-Simply safely parse markdown content as html ouput by loading templatetags from `martor/templatetags/martortags.py`.
+Simply safely parse markdown content as html output by loading templatetags from `martor/templatetags/martortags.py`.
 
 ```html
 {% load martortags %}
@@ -340,7 +340,7 @@ If you want to save the images uploaded to your storage,
 
 ### Test Martor from this Repository
 
-Assuming you are already setup with a virtual enviroment (virtualenv):
+Assuming you are already setup with a virtual environment (virtualenv):
 
 ```
 $ git clone https://github.com/agusmakmun/django-markdown-editor.git
@@ -356,7 +356,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 
 ### Martor Commands Reference
 
-![command refference](https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/bootstrap/martor-guide.png)
+![command reference](https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/bootstrap/martor-guide.png)
 
 
 ### Notes
