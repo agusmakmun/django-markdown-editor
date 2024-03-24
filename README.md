@@ -386,7 +386,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 [14]: https://github.com/agusmakmun/django-markdown-editor/tree/master/martor_demo/app/templates
 [15]: https://github.com/adi-/django-markdownx
 [16]: https://github.com/waylan/Python-Markdown
-[17]: http://rst.ninjs.org
+[17]: https://rsted.info.ucl.ac.be
 
 [18]: https://img.shields.io/badge/code%20style-black-000000.svg
 [19]: https://github.com/ambv/black
