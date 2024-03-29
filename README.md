@@ -131,6 +131,7 @@ MARTOR_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.nl2br',
     'markdown.extensions.smarty',
     'markdown.extensions.fenced_code',
+    'markdown.extensions.sane_lists',
 
     # Custom markdown extensions.
     'martor.extensions.urlize',
