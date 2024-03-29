@@ -7,11 +7,11 @@ on:
   pull_request:
     branches: [ master ]
 
+# https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django
 jobs:
   build:
     runs-on: ${{ matrix.os }}
 
-    # https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django
     strategy:
       matrix:
         os: [ macos-latest, ubuntu-latest ]
@@ -44,17 +44,11 @@ jobs:
             django-version: "5.0.3"
 
     steps:
-      - name: Install system dependencies (windows)
-        if: matrix.os == 'windows-latest'
-        uses: msys2/setup-msys2@v2
-        with:
-          update: true
-          install: zlib
-
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -63,6 +57,7 @@ jobs:
           pip install -q Django==${{ matrix.django-version }}
           python -m pip install --upgrade pip
           python setup.py install
+
       - name: Test with pytest
         run: |
           python runtests.py
