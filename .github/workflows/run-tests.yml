@@ -2,10 +2,11 @@ name: Run tests
 
 on:
   push:
-    branches: [ master ]
-
+    branches: 
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 # https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django
 jobs:
