@@ -41,4 +41,11 @@ setup(
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     ],
     install_requires=get_requirements(),
+    project_urls={
+        "Documentation": "https://github.com/agusmakmun/django-markdown-editor?tab=readme-ov-file#installation",
+        "Release notes": "https://github.com/agusmakmun/django-markdown-editor/releases",
+        "Funding": "https://www.paypal.com/paypalme/summonagus",
+        "Source": "https://github.com/agusmakmun/django-markdown-editor",
+        "Issue Tracker": "https://github.com/agusmakmun/django-markdown-editor/issues",
+    },
 )
