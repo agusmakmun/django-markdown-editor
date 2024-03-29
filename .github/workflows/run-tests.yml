@@ -11,18 +11,13 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
 
+    # https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django
     strategy:
       matrix:
         os: [ macos-latest, ubuntu-latest ]
         python-version: [ 3.9, "3.10" ]
         django-version: [ 3.2, 4.0, 4.1, 4.2 ]
         include:
-          - os: macos-latest
-            python-version: "3.7"
-            django-version: "3.2"
-          - os: ubuntu-latest
-            python-version: "3.7"
-            django-version: "3.2"
           - os: macos-latest
             python-version: "3.8"
             django-version: "3.2"
