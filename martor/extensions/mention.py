@@ -1,3 +1,5 @@
+from xml.etree import ElementTree
+
 import markdown
 from django.contrib.auth import get_user_model
 
@@ -28,22 +30,21 @@ class MentionPattern(markdown.inlinepatterns.Pattern):
         )  # noqa: E501
 
         """Makesure `username` is registered and activated."""
-        if MARTOR_ENABLE_CONFIGS["mention"] == "true":
-            if users.exists():
-                url = "{0}{1}/".format(
-                    MARTOR_MARKDOWN_BASE_MENTION_URL, username
-                )  # noqa: E501
-                el = markdown.util.etree.Element("a")
-                el.set("href", url)
-                el.set("class", "direct-mention-link")
-                el.text = markdown.util.AtomicString("@" + username)
-                return el
+        if MARTOR_ENABLE_CONFIGS["mention"] == "true" and users.exists():
+            url = "{0}{1}/".format(
+                MARTOR_MARKDOWN_BASE_MENTION_URL, username
+            )  # noqa: E501
+            el = ElementTree.Element("a")
+            el.set("href", url)
+            el.set("class", "direct-mention-link")
+            el.text = markdown.util.AtomicString("@" + username)
+            return el
 
 
 class MentionExtension(markdown.Extension):
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md: markdown.core.Markdown, *args):
         """Setup `mention_link` with MentionPattern"""
-        md.inlinePatterns["mention_link"] = MentionPattern(MENTION_RE, md)
+        md.inlinePatterns.register(MentionPattern(MENTION_RE, md), "mention_link", 13)
 
 
 def makeExtension(*args, **kwargs):

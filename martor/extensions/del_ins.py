@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-
 """
 Del/Ins Extension for Python-Markdown
 =====================================
@@ -26,10 +24,8 @@ This software is released under the modified BSD License.
 See LICENSE.md for details.
 """
 
-
 import markdown
 from markdown.inlinepatterns import SimpleTagPattern
-
 
 DEL_RE = r"(\~\~)(.+?)(\~\~)"
 INS_RE = r"(\+\+)(.+?)(\+\+)"
@@ -38,11 +34,11 @@ INS_RE = r"(\+\+)(.+?)(\+\+)"
 class DelInsExtension(markdown.extensions.Extension):
     """Adds del_ins extension to Markdown class."""
 
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md: markdown.core.Markdown, *args):
         del_tag = SimpleTagPattern(DEL_RE, "del")
         ins_tag = SimpleTagPattern(INS_RE, "ins")
-        md.inlinePatterns.add("del", del_tag, "<not_strong")
-        md.inlinePatterns.add("ins", ins_tag, "<not_strong")
+        md.inlinePatterns.register(del_tag, "del", 10)
+        md.inlinePatterns.register(ins_tag, "ins", 11)
 
 
 def makeExtension(*args, **kwargs):
