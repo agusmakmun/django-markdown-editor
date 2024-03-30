@@ -16,6 +16,7 @@ class PostMetaStackedInline(admin.StackedInline):
 
 
 class PostAdmin(admin.ModelAdmin):
+    autocomplete_fields = ["author"]
     inlines = [PostMetaAdminInline, PostMetaStackedInline]
     list_display = ["title", "id"]
     formfield_overrides = {
