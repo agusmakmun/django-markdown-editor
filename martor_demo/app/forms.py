@@ -1,7 +1,7 @@
+from app.models import Post
 from django import forms
 
 from martor.fields import MartorFormField
-from app.models import Post
 
 
 class SimpleForm(forms.Form):

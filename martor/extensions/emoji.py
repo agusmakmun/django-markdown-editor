@@ -667,7 +667,7 @@ class EmojiPattern(markdown.inlinepatterns.Pattern):
         if emoji not in EMOJIS:
             return emoji
 
-        url = "{0}{1}.png".format(EMOJI_URL, emoji.replace(":", ""))
+        url = "{}{}.png".format(EMOJI_URL, emoji.replace(":", ""))
         el = ElementTree.Element("img")
         el.set("src", url)
         el.set("class", "marked-emoji")

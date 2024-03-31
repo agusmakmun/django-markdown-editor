@@ -1,10 +1,9 @@
-from django.db import models
+from app.models import Post, PostMeta
 from django.contrib import admin
+from django.db import models
 
-from martor.widgets import AdminMartorWidget
 from martor.models import MartorField
-
-from app.models import PostMeta, Post
+from martor.widgets import AdminMartorWidget
 
 
 class PostMetaAdminInline(admin.TabularInline):

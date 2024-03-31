@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -66,7 +63,6 @@ def markdown_search_user(request):
     username = request.GET.get("username")
 
     if username is not None and username != "" and " " not in username:
-
         queries = {"%s__icontains" % User.USERNAME_FIELD: username}
         users = User.objects.filter(**queries).filter(is_active=True)
         if users.exists():

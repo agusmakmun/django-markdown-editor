@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
-from martor import __VERSION__, __AUTHOR__, __AUTHOR_EMAIL__
+from setuptools import find_packages, setup
+
+from martor import __AUTHOR__, __AUTHOR_EMAIL__, __VERSION__
 
 
 def get_requirements():

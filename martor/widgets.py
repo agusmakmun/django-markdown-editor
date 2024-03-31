@@ -31,7 +31,6 @@ def get_theme():
 
 class MartorWidget(forms.Textarea):
     def render(self, name, value, attrs=None, renderer=None, **kwargs):
-
         # Create random string to make field ID unique to prevent duplicated ID
         # when rendering fields with the same field name
         random_string = "".join(

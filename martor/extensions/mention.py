@@ -31,7 +31,7 @@ class MentionPattern(markdown.inlinepatterns.Pattern):
 
         """Makesure `username` is registered and activated."""
         if MARTOR_ENABLE_CONFIGS["mention"] == "true" and users.exists():
-            url = "{0}{1}/".format(
+            url = "{}{}/".format(
                 MARTOR_MARKDOWN_BASE_MENTION_URL, username
             )  # noqa: E501
             el = ElementTree.Element("a")
