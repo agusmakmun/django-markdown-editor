@@ -1,6 +1,6 @@
 urllib3<2 ; python_version < '3.7' # urllib3 2.0 dropped support for Python 3.6
 zipp<3.7 ; python_version < '3.7' # zipp 3.7.0 dropped support for Python 3.6
-Django>=3.2, <=5.0.3
+Django>=3.2
 Markdown<3.6
 requests
 bleach
