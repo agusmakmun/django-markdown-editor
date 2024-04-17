@@ -6,3 +6,5 @@ dist/
 *.pyc
 *note
 *backup*
+
+.idea/
