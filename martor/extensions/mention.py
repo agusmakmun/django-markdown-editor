@@ -24,13 +24,18 @@ MENTION_RE = r"(?<!\!)\@\[([^\]]+)\]"
 
 class MentionPattern(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
+        if MARTOR_ENABLE_CONFIGS["mention"] != "true":
+            return
+
         username = self.unescape(m.group(2))
-        users = get_user_model().objects.filter(
-            username=username, is_active=True
+        User = get_user_model()
+        users = User.objects.filter(
+            is_active=True,
+            **{getattr(User, "USERNAME_FIELD", "username"): username},
         )  # noqa: E501
 
         """Makesure `username` is registered and activated."""
-        if MARTOR_ENABLE_CONFIGS["mention"] == "true" and users.exists():
+        if users.exists():
             url = "{}{}/".format(
                 MARTOR_MARKDOWN_BASE_MENTION_URL, username
             )  # noqa: E501
