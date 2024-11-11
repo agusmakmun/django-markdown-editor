@@ -20,6 +20,7 @@
 * Supports Django Admin
 * Toolbar Buttons
 * Highlight `pre`
+* Custom ID Attributes (Add custom IDs to any text element using `{#custom-id}` syntax, e.g., `# Heading1 {#my-h1-id}`, for easy linking and navigation.
 
 
 ### Preview
@@ -140,6 +141,7 @@ MARTOR_MARKDOWN_EXTENSIONS = [
     'martor.extensions.emoji',        # to parse markdown emoji
     'martor.extensions.mdx_video',    # to parse embed/iframe video
     'martor.extensions.escape_html',  # to handle the XSS vulnerabilities
+    "martor.extensions.mdx_add_id",  # to parse id like {#this_is_id}
 ]
 
 # Markdown Extensions Configs
