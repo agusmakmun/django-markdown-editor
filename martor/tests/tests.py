@@ -110,6 +110,19 @@ class SimpleTest(TestCase):
         #     f'<p><a class="direct-mention-link" href="https://python.web.id/author/{self.user.username}/">{self.user.username}</a></p>',
         # )
 
+        # Id
+        response = self.client.post(
+            "/martor/markdownify/",
+            {
+                "content": "__Advertisement :)__ {#ad-section}\n###### h6 Heading {#h6-heading}"
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.content.decode("utf-8"),
+            '<p><span id="ad-section"><strong>Advertisement :)</strong></span></p>\n<h6><span id="h6-heading">h6 Heading</span></h6>',
+        )  # noqa: E501
+
     def test_markdownify_xss_handled(self):
         xss_payload_1 = "[aaaa](javascript:alert(1))"
         response_1 = markdownify(xss_payload_1)

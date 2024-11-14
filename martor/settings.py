@@ -77,6 +77,7 @@ MARTOR_MARKDOWN_EXTENSIONS = getattr(
         "martor.extensions.emoji",  # to parse markdown emoji
         "martor.extensions.mdx_video",  # to parse embed/iframe video
         "martor.extensions.escape_html",  # to handle the XSS vulnerabilities
+        "martor.extensions.mdx_add_id",  # to parse id like {#this_is_id}
     ],
 )
 
