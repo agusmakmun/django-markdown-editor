@@ -1,10 +1,8 @@
 import re
-import bleach
 
-from django.utils.functional import Promise
-from django.utils.html import format_html
-from django.utils.safestring import mark_safe
+import bleach
 from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.functional import Promise
 
 try:
     from django.utils.encoding import force_str  # noqa: Django>=4.x
@@ -12,12 +10,13 @@ except ImportError:
     from django.utils.encoding import force_text as force_str  # noqa: Django<=3.x
 
 import markdown
+
 from .settings import (
-    MARTOR_MARKDOWN_EXTENSIONS,
-    MARTOR_MARKDOWN_EXTENSION_CONFIGS,
-    ALLOWED_URL_SCHEMES,
-    ALLOWED_HTML_TAGS,
     ALLOWED_HTML_ATTRIBUTES,
+    ALLOWED_HTML_TAGS,
+    ALLOWED_URL_SCHEMES,
+    MARTOR_MARKDOWN_EXTENSION_CONFIGS,
+    MARTOR_MARKDOWN_EXTENSIONS,
 )
 
 
@@ -35,10 +34,14 @@ def markdownify(markdown_text):
     # Sanitize Markdown links
     # https://github.com/netbox-community/netbox/commit/5af2b3c2f577a01d177cb24cda1019551a2a4b64
     schemes = "|".join(ALLOWED_URL_SCHEMES)
-    pattern = fr"\[(.+)\]\((?!({schemes})).*(:|;)(.+)\)"
+
+    # Adjusted pattern to focus on links that do not follow the allowed schemes directly
+    # The negative lookahead now correctly positioned to ensure it applies to the whole URL
+    pattern = rf"\[([^\]]+)\]\(((?!({schemes}):)[^)]+)\)"
+
     markdown_text = re.sub(
         pattern,
-        "[\\1](\\3)",
+        "[\\1](\\2)",
         markdown_text,
         flags=re.IGNORECASE,
     )
@@ -47,17 +50,12 @@ def markdownify(markdown_text):
         markdown_text,
         extensions=MARTOR_MARKDOWN_EXTENSIONS,
         extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS,
-        output_format="html5",
     )
-    return format_html(
-        mark_safe(
-            bleach.clean(
-                html,
-                tags=ALLOWED_HTML_TAGS,
-                attributes=ALLOWED_HTML_ATTRIBUTES,
-                protocols=ALLOWED_URL_SCHEMES,
-            )
-        )
+    return bleach.clean(
+        html,
+        tags=ALLOWED_HTML_TAGS,
+        attributes=ALLOWED_HTML_ATTRIBUTES,
+        protocols=ALLOWED_URL_SCHEMES,
     )
 
 
@@ -66,7 +64,7 @@ class LazyEncoder(DjangoJSONEncoder):
     This problem because we found error encoding,
     as docs says, django has special `DjangoJSONEncoder` at
     https://docs.djangoproject.com/en/dev/topics/serialization/#serialization-formats-json
-    also discused in this answer: http://stackoverflow.com/a/31746279/6396981
+    also discussed in this answer: http://stackoverflow.com/a/31746279/6396981
 
     Usage:
         >>> data = {}
@@ -76,4 +74,4 @@ class LazyEncoder(DjangoJSONEncoder):
     def default(self, obj):
         if isinstance(obj, Promise):
             return force_str(obj)
-        return super(LazyEncoder, self).default(obj)
+        return super().default(obj)

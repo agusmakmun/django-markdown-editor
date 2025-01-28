@@ -1,10 +1,9 @@
-from django.conf import settings
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-
-from app.forms import SimpleForm, PostForm
+from app.forms import PostForm, SimpleForm
 from app.models import Post
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
 
 
 def home_redirect_view(request):

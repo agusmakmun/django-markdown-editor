@@ -37,6 +37,8 @@ u'<p>del.icio.us</p>'
 
 """
 
+from xml.etree import ElementTree
+
 import markdown
 
 # Global Vars
@@ -61,13 +63,13 @@ class UrlizePattern(markdown.inlinepatterns.Pattern):
 
         text = url
 
-        if not url.split("://")[0] in ("http", "https", "ftp"):
+        if url.split("://")[0] not in ("http", "https", "ftp"):
             if "@" in url and "/" not in url:
                 url = "mailto:" + url
             else:
                 url = "http://" + url
 
-        el = markdown.util.etree.Element("a")
+        el = ElementTree.Element("a")
         el.set("href", url)
         el.text = markdown.util.AtomicString(text)
         return el
@@ -76,9 +78,9 @@ class UrlizePattern(markdown.inlinepatterns.Pattern):
 class UrlizeExtension(markdown.Extension):
     """Urlize Extension for Python-Markdown."""
 
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md: markdown.core.Markdown, *args):
         """Replace autolink with UrlizePattern"""
-        md.inlinePatterns["autolink"] = UrlizePattern(URLIZE_RE, md)
+        md.inlinePatterns.register(UrlizePattern(URLIZE_RE, md), "autolink", 14)
 
 
 def makeExtension(*args, **kwargs):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-21 20:13+0700\n"
+"POT-Creation-Date: 2023-02-15 09:08+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,46 +42,51 @@ msgstr "Tidak ada yang bisa dilihat"
 msgid "Select Emoji to Insert"
 msgstr "Pilih Emoji untuk menyisipkan"
 
-#: templates/martor/bootstrap/emoji.html:24
+#: templates/martor/bootstrap/emoji.html:22
 #: templates/martor/semantic/emoji.html:8
 msgid "Preparing emojis..."
 msgstr "Sedang menyiapkan emoji..."
 
-#: templates/martor/bootstrap/guide.html:12
+#: templates/martor/bootstrap/guide.html:14
 #: templates/martor/semantic/guide.html:4
 msgid "Markdown Guide"
 msgstr "Bantuan Penggunaan Markdown"
 
 #: templates/martor/bootstrap/guide.html:20
-#: templates/martor/semantic/guide.html:7
-#, python-format
-msgid "Copyright &copy; <a href=\"%(repo_url)s\">Martor</a>"
+#, fuzzy, python-format
+#| msgid "Copyright &copy; <a href=\"%(repo_url)s\">Martor</a>"
+msgid ""
+"Copyright &copy; <a\n"
+"              href=\"%(repo_url)s\">Martor</a>"
 msgstr "Hak cipta &copy; <a href=\"%(repo_url)s\">Martor</a>"
 
-#: templates/martor/bootstrap/guide.html:23
-#: templates/martor/semantic/guide.html:10
-#, python-format
+#: templates/martor/bootstrap/guide.html:24
+#, fuzzy, python-format
+#| msgid ""
+#| "This editor is powered by Markdown. For full documentation, <a href="
+#| "\"%(doc_url)s\" target=\"_blank\">click here</a>."
 msgid ""
-"This editor is powered by Markdown. For full documentation, <a href="
-"\"%(doc_url)s\" target=\"_blank\">click here</a>."
+"This editor is powered by Markdown. For full\n"
+"            documentation, <a href=\"%(doc_url)s\" target=\"_blank\">click "
+"here</a>."
 msgstr ""
 "Editor ini menggunakan Markdown. Untuk dokumentasi lengkapnya <a href="
 "\"%(doc_url)s\" target=\"_blank\">klik disini</a>."
 
-#: templates/martor/bootstrap/guide.html:28
+#: templates/martor/bootstrap/guide.html:30
 #: templates/martor/bootstrap/toolbar.html:54
-#: templates/martor/semantic/guide.html:15
+#: templates/martor/semantic/guide.html:17
 #: templates/martor/semantic/toolbar.html:38
 msgid "Code"
 msgstr "Kode"
 
-#: templates/martor/bootstrap/guide.html:29
-#: templates/martor/semantic/guide.html:16
+#: templates/martor/bootstrap/guide.html:31
+#: templates/martor/semantic/guide.html:18
 msgid "Or"
 msgstr "Atau"
 
-#: templates/martor/bootstrap/guide.html:32
-#: templates/martor/semantic/guide.html:19
+#: templates/martor/bootstrap/guide.html:34
+#: templates/martor/semantic/guide.html:21
 msgid "... to Get"
 msgstr "... untuk Mendapatkan"
 
@@ -177,17 +182,38 @@ msgstr "Layar Penuh"
 msgid "Markdown Guide (Help)"
 msgstr "Bantuan Penggunaan Markdown"
 
-#: views.py:22 views.py:36 views.py:37
+#: templates/martor/semantic/guide.html:7
+#, fuzzy, python-format
+#| msgid "Copyright &copy; <a href=\"%(repo_url)s\">Martor</a>"
+msgid ""
+"Copyright &copy; <a\n"
+"          href=\"%(repo_url)s\">Martor</a>"
+msgstr "Hak cipta &copy; <a href=\"%(repo_url)s\">Martor</a>"
+
+#: templates/martor/semantic/guide.html:11
+#, fuzzy, python-format
+#| msgid ""
+#| "This editor is powered by Markdown. For full documentation, <a href="
+#| "\"%(doc_url)s\" target=\"_blank\">click here</a>."
+msgid ""
+"This editor is powered by Markdown. For full\n"
+"        documentation, <a href=\"%(doc_url)s\" target=\"_blank\">click here</"
+"a>."
+msgstr ""
+"Editor ini menggunakan Markdown. Untuk dokumentasi lengkapnya <a href="
+"\"%(doc_url)s\" target=\"_blank\">klik disini</a>."
+
+#: views.py:22 views.py:40 views.py:41
 msgid "Invalid request!"
 msgstr "Permintaan tidak valid"
 
-#: views.py:74
+#: views.py:78
 #, python-format
 msgid "No users registered as `%(username)s` or user is unactived."
 msgstr ""
 "Tidak ada pengguna terdaftar sebagai `%(username)s` atau pengguna telah "
 "nonaktif."
 
-#: views.py:79
+#: views.py:83
 msgid "Validation Failed for field `username`"
 msgstr "Validasi Gagal untuk field `username`"

@@ -1,18 +1,22 @@
-from django.db import models
+from app.models import Post, PostMeta
 from django.contrib import admin
+from django.db import models
 
-from martor.widgets import AdminMartorWidget
 from martor.models import MartorField
-
-from app.models import PostMeta, Post
+from martor.widgets import AdminMartorWidget
 
 
 class PostMetaAdminInline(admin.TabularInline):
     model = PostMeta
 
 
+class PostMetaStackedInline(admin.StackedInline):
+    model = PostMeta
+
+
 class PostAdmin(admin.ModelAdmin):
-    inlines = [PostMetaAdminInline]
+    autocomplete_fields = ["author"]
+    inlines = [PostMetaAdminInline, PostMetaStackedInline]
     list_display = ["title", "id"]
     formfield_overrides = {
         MartorField: {"widget": AdminMartorWidget},

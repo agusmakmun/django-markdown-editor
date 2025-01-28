@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
 
 from .api import imgur_uploader
 from .settings import MARTOR_MARKDOWNIFY_FUNCTION
@@ -45,7 +42,7 @@ def markdown_imgur_uploader(request):
 @login_required
 def markdown_search_user(request):
     """
-    Json usernames of the users registered & actived.
+    Json usernames of the users registered & activated.
 
     url(method=get):
         /martor/search-user/?username={username}
@@ -67,7 +64,6 @@ def markdown_search_user(request):
     username = request.GET.get("username")
 
     if username is not None and username != "" and " " not in username:
-
         queries = {"%s__icontains" % User.USERNAME_FIELD: username}
         users = User.objects.filter(**queries).filter(is_active=True)
         if users.exists():

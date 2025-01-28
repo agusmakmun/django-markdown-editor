@@ -1,7 +1,6 @@
-#!/usr/bin/env python
+from xml.etree import ElementTree
 
 import markdown
-from markdown.util import etree
 
 
 class VideoExtension(markdown.Extension):
@@ -29,13 +28,13 @@ class VideoExtension(markdown.Extension):
         for key, value in kwargs.items():
             self.setConfig(key, str(value))
 
-    def add_inline(self, md, name, klass, re):
+    def add_inline(self, md: markdown.core.Markdown, name: str, klass: type, re: str):
         pattern = klass(re)
         pattern.md = md
         pattern.ext = self
-        md.inlinePatterns.add(name, pattern, "<reference")
+        md.inlinePatterns.register(pattern, name, 15)
 
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md, *args):
         self.add_inline(
             md,
             "dailymotion",
@@ -131,7 +130,7 @@ class Youtube(markdown.inlinepatterns.Pattern):
 
 
 def render_iframe(url, width, height):
-    iframe = etree.Element("iframe")
+    iframe = ElementTree.Element("iframe")
     iframe.set("width", width)
     iframe.set("height", height)
     iframe.set("src", url)
@@ -141,16 +140,16 @@ def render_iframe(url, width, height):
 
 
 def flash_object(url, width, height):
-    obj = etree.Element("object")
+    obj = ElementTree.Element("object")
     obj.set("type", "application/x-shockwave-flash")
     obj.set("width", width)
     obj.set("height", height)
     obj.set("data", url)
-    param = etree.Element("param")
+    param = ElementTree.Element("param")
     param.set("name", "movie")
     param.set("value", url)
     obj.append(param)
-    param = etree.Element("param")
+    param = ElementTree.Element("param")
     param.set("name", "allowFullScreen")
     param.set("value", "true")
     obj.append(param)

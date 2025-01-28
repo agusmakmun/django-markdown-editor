@@ -1,3 +1,5 @@
+from xml.etree import ElementTree
+
 import markdown
 
 from ..settings import MARTOR_MARKDOWN_BASE_EMOJI_URL as EMOJI_URL
@@ -665,8 +667,8 @@ class EmojiPattern(markdown.inlinepatterns.Pattern):
         if emoji not in EMOJIS:
             return emoji
 
-        url = "{0}{1}.png".format(EMOJI_URL, emoji.replace(":", ""))
-        el = markdown.util.etree.Element("img")
+        url = "{}{}.png".format(EMOJI_URL, emoji.replace(":", ""))
+        el = ElementTree.Element("img")
         el.set("src", url)
         el.set("class", "marked-emoji")
         el.text = markdown.util.AtomicString(emoji)
@@ -674,9 +676,9 @@ class EmojiPattern(markdown.inlinepatterns.Pattern):
 
 
 class EmojiExtension(markdown.Extension):
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md: markdown.core.Markdown, *args):
         """Setup `emoji_img` with EmojiPattern"""
-        md.inlinePatterns["emoji_img"] = EmojiPattern(EMOJI_RE, md)
+        md.inlinePatterns.register(EmojiPattern(EMOJI_RE, md), "emoji_img", 12)
 
 
 def makeExtension(*args, **kwargs):

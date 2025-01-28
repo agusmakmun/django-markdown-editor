@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.conf import settings
 
 # Choices are: "semantic", "bootstrap"
@@ -60,6 +57,9 @@ MARTOR_MARKDOWNIFY_URL = getattr(
     settings, "MARTOR_MARKDOWNIFY_URL", "/martor/markdownify/"
 )
 
+# Time to delay the markdownify ajax request, in millisecond.
+MARTOR_MARKDOWNIFY_TIMEOUT = getattr(settings, "MARTOR_MARKDOWNIFY_TIMEOUT", 1000)
+
 # Markdown extensions
 MARTOR_MARKDOWN_EXTENSIONS = getattr(
     settings,
@@ -69,6 +69,7 @@ MARTOR_MARKDOWN_EXTENSIONS = getattr(
         "markdown.extensions.nl2br",
         "markdown.extensions.smarty",
         "markdown.extensions.fenced_code",
+        "markdown.extensions.sane_lists",
         # Custom markdown extensions.
         "martor.extensions.urlize",
         "martor.extensions.del_ins",  # ~~strikethrough~~ and ++underscores++
@@ -76,6 +77,7 @@ MARTOR_MARKDOWN_EXTENSIONS = getattr(
         "martor.extensions.emoji",  # to parse markdown emoji
         "martor.extensions.mdx_video",  # to parse embed/iframe video
         "martor.extensions.escape_html",  # to handle the XSS vulnerabilities
+        "martor.extensions.mdx_add_id",  # to parse id like {#this_is_id}
     ],
 )
 
@@ -85,24 +87,32 @@ MARTOR_MARKDOWN_EXTENSION_CONFIGS = getattr(
 )
 
 # Markdown urls
-MARTOR_UPLOAD_URL = getattr(
-    settings, "MARTOR_UPLOAD_URL", "/martor/uploader/"  # for imgur
+MARTOR_UPLOAD_URL = (
+    # Allows to disable this endpoint
+    settings.MARTOR_UPLOAD_URL
+    if hasattr(settings, "MARTOR_UPLOAD_URL")
+    else "/martor/uploader/"
 )
-MARTOR_SEARCH_USERS_URL = getattr(
-    settings, "MARTOR_SEARCH_USERS_URL", "/martor/search-user/"  # for mention
+
+MARTOR_SEARCH_USERS_URL = (
+    # Allows to disable this endpoint
+    settings.MARTOR_SEARCH_USERS_URL
+    if hasattr(settings, "MARTOR_SEARCH_USERS_URL")
+    else "/martor/search-user/"
 )
 
 # Markdown Extensions
-MARTOR_MARKDOWN_BASE_EMOJI_URL = getattr(
-    settings,
-    "MARTOR_MARKDOWN_BASE_EMOJI_URL",
-    "https://github.githubassets.com/images/icons/emoji/",
+MARTOR_MARKDOWN_BASE_EMOJI_URL = (
+    # Allows to disable this endpoint
+    settings.MARTOR_MARKDOWN_BASE_EMOJI_URL
+    if hasattr(settings, "MARTOR_MARKDOWN_BASE_EMOJI_URL")
+    else "https://github.githubassets.com/images/icons/emoji/"
 )
 
 MARTOR_MARKDOWN_BASE_MENTION_URL = getattr(
     settings,
     "MARTOR_MARKDOWN_BASE_MENTION_URL",
-    "https://python.web.id/author/",
+    "",
 )
 
 # If you need to use your own themed "bootstrap" or "semantic ui" dependency
@@ -221,3 +231,5 @@ ALLOWED_HTML_ATTRIBUTES = getattr(
         "width",
     ],
 )
+# Disable admin style when using custom admin interface e.g django-grappelli
+MARTOR_ENABLE_ADMIN_CSS = getattr(settings, "MARTOR_ENABLE_ADMIN_CSS", True)

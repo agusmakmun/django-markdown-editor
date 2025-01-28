@@ -1,5 +1,8 @@
+from xml.etree import ElementTree
+
 import markdown
 from django.contrib.auth import get_user_model
+
 from ..settings import MARTOR_ENABLE_CONFIGS, MARTOR_MARKDOWN_BASE_MENTION_URL
 
 """
@@ -21,28 +24,32 @@ MENTION_RE = r"(?<!\!)\@\[([^\]]+)\]"
 
 class MentionPattern(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
+        if MARTOR_ENABLE_CONFIGS["mention"] != "true":
+            return
+
         username = self.unescape(m.group(2))
-        users = get_user_model().objects.filter(
-            username=username, is_active=True
+        User = get_user_model()
+        users = User.objects.filter(
+            is_active=True,
+            **{getattr(User, "USERNAME_FIELD", "username"): username},
         )  # noqa: E501
 
-        """Makesure `username` is registered and actived."""
-        if MARTOR_ENABLE_CONFIGS["mention"] == "true":
-            if users.exists():
-                url = "{0}{1}/".format(
-                    MARTOR_MARKDOWN_BASE_MENTION_URL, username
-                )  # noqa: E501
-                el = markdown.util.etree.Element("a")
-                el.set("href", url)
-                el.set("class", "direct-mention-link")
-                el.text = markdown.util.AtomicString("@" + username)
-                return el
+        """Makesure `username` is registered and activated."""
+        if users.exists():
+            url = "{}{}/".format(
+                MARTOR_MARKDOWN_BASE_MENTION_URL, username
+            )  # noqa: E501
+            el = ElementTree.Element("a")
+            el.set("href", url)
+            el.set("class", "direct-mention-link")
+            el.text = markdown.util.AtomicString("@" + username)
+            return el
 
 
 class MentionExtension(markdown.Extension):
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md: markdown.core.Markdown, *args):
         """Setup `mention_link` with MentionPattern"""
-        md.inlinePatterns["mention_link"] = MentionPattern(MENTION_RE, md)
+        md.inlinePatterns.register(MentionPattern(MENTION_RE, md), "mention_link", 13)
 
 
 def makeExtension(*args, **kwargs):

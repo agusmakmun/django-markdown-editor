@@ -20,6 +20,7 @@
 * Supports Django Admin
 * Toolbar Buttons
 * Highlight `pre`
+* Custom ID Attributes (Add custom IDs to any text element using `{#custom-id}` syntax, e.g., `# Heading1 {#my-h1-id}`, for easy linking and navigation.
 
 
 ### Preview
@@ -109,6 +110,9 @@ MARTOR_TOOLBAR_BUTTONS = [
 # To setup the martor editor with title label or not (default is False)
 MARTOR_ENABLE_LABEL = False
 
+# Disable admin style when using custom admin interface e.g django-grappelli (default is True)
+MARTOR_ENABLE_ADMIN_CSS = True
+
 # Imgur API Keys
 MARTOR_IMGUR_CLIENT_ID = 'your-client-id'
 MARTOR_IMGUR_API_KEY   = 'your-api-key'
@@ -117,12 +121,18 @@ MARTOR_IMGUR_API_KEY   = 'your-api-key'
 MARTOR_MARKDOWNIFY_FUNCTION = 'martor.utils.markdownify' # default
 MARTOR_MARKDOWNIFY_URL = '/martor/markdownify/' # default
 
+# Delay in milliseconds to update editor preview when in living mode.
+MARTOR_MARKDOWNIFY_TIMEOUT = 0 # update the preview instantly
+# or:
+MARTOR_MARKDOWNIFY_TIMEOUT = 1000 # default
+
 # Markdown extensions (default)
 MARTOR_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra',
     'markdown.extensions.nl2br',
     'markdown.extensions.smarty',
     'markdown.extensions.fenced_code',
+    'markdown.extensions.sane_lists',
 
     # Custom markdown extensions.
     'martor.extensions.urlize',
@@ -131,18 +141,26 @@ MARTOR_MARKDOWN_EXTENSIONS = [
     'martor.extensions.emoji',        # to parse markdown emoji
     'martor.extensions.mdx_video',    # to parse embed/iframe video
     'martor.extensions.escape_html',  # to handle the XSS vulnerabilities
+    "martor.extensions.mdx_add_id",  # to parse id like {#this_is_id}
 ]
 
 # Markdown Extensions Configs
 MARTOR_MARKDOWN_EXTENSION_CONFIGS = {}
 
 # Markdown urls
+MARTOR_UPLOAD_URL = '' # Completely disable the endpoint
+# or:
 MARTOR_UPLOAD_URL = '/martor/uploader/' # default
+
+MARTOR_SEARCH_USERS_URL = '' # Completely disables the endpoint
+# or:
 MARTOR_SEARCH_USERS_URL = '/martor/search-user/' # default
 
 # Markdown Extensions
 # MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://www.webfx.com/tools/emoji-cheat-sheet/graphics/emojis/'     # from webfx
 MARTOR_MARKDOWN_BASE_EMOJI_URL = 'https://github.githubassets.com/images/icons/emoji/'                  # default from github
+# or:
+MARTOR_MARKDOWN_BASE_EMOJI_URL = ''  # Completely disables the endpoint
 MARTOR_MARKDOWN_BASE_MENTION_URL = 'https://python.web.id/author/'                                      # please change this to your domain
 
 # If you need to use your own themed "bootstrap" or "semantic ui" dependency
@@ -227,7 +245,7 @@ admin.site.register(YourModel, YourModelAdmin)
 
 #### Template Renderer
 
-Simply safely parse markdown content as html ouput by loading templatetags from `martor/templatetags/martortags.py`.
+Simply safely parse markdown content as html output by loading templatetags from `martor/templatetags/martortags.py`.
 
 ```html
 {% load martortags %}
@@ -325,7 +343,7 @@ If you want to save the images uploaded to your storage,
 
 ### Test Martor from this Repository
 
-Assuming you are already setup with a virtual enviroment (virtualenv):
+Assuming you are already setup with a virtual environment (virtualenv):
 
 ```
 $ git clone https://github.com/agusmakmun/django-markdown-editor.git
@@ -341,7 +359,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 
 ### Martor Commands Reference
 
-![command refference](https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/bootstrap/martor-guide.png)
+![command reference](https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/bootstrap/martor-guide.png)
 
 
 ### Notes
@@ -361,7 +379,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 [7]: https://img.shields.io/pypi/pyversions/martor.svg
 [8]: https://pypi.python.org/pypi/martor
 
-[9]: https://img.shields.io/badge/Django-3.2%20%3E=%204.1-green.svg
+[9]: https://img.shields.io/badge/Django-3.2%20%3E=%204.2-green.svg
 [10]: https://www.djangoproject.com
 
 [11]: https://img.shields.io/github/actions/workflow/status/agusmakmun/django-markdown-editor/run-tests.yml?branch=master
@@ -371,7 +389,7 @@ Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 [14]: https://github.com/agusmakmun/django-markdown-editor/tree/master/martor_demo/app/templates
 [15]: https://github.com/adi-/django-markdownx
 [16]: https://github.com/waylan/Python-Markdown
-[17]: http://rst.ninjs.org
+[17]: https://rsted.info.ucl.ac.be
 
 [18]: https://img.shields.io/badge/code%20style-black-000000.svg
 [19]: https://github.com/ambv/black

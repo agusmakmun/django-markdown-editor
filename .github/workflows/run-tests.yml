@@ -2,11 +2,13 @@ name: Run tests
 
 on:
   push:
-    branches: [ master ]
-
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
+# https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -15,20 +17,39 @@ jobs:
       matrix:
         os: [ macos-latest, ubuntu-latest ]
         python-version: [ 3.9, "3.10" ]
-        django-version: [ 3.2, 4.0, 4.1 ]
+        django-version: [ 3.2, 4.0, 4.1, 4.2 ]
+        include:
+          - os: macos-latest
+            python-version: "3.8"
+            django-version: "3.2"
+          - os: ubuntu-latest
+            python-version: "3.8"
+            django-version: "3.2"
+          - os: macos-latest
+            python-version: "3.8"
+            django-version: "4.0"
+          - os: ubuntu-latest
+            python-version: "3.8"
+            django-version: "4.0"
+          - os: macos-latest
+            python-version: "3.10"
+            django-version: "5.0"
+          - os: ubuntu-latest
+            python-version: "3.10"
+            django-version: "5.0"
+          - os: macos-latest
+            python-version: "3.10"
+            django-version: "5.0.3"
+          - os: ubuntu-latest
+            python-version: "3.10"
+            django-version: "5.0.3"
 
     steps:
-      - name: Install system dependencies (windows)
-        if: matrix.os == 'windows-latest'
-        uses: msys2/setup-msys2@v2
-        with:
-          update: true
-          install: zlib
-
-      - uses: actions/checkout@v2.3.2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -37,6 +58,7 @@ jobs:
           pip install -q Django==${{ matrix.django-version }}
           python -m pip install --upgrade pip
           python setup.py install
+
       - name: Test with pytest
         run: |
           python runtests.py
