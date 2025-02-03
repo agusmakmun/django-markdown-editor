@@ -136,14 +136,6 @@
                 textareaId.val(value);
             });
 
-            // resize the editor using `resizable.min.js`
-            $('#' + editorId).resizable({
-                direction: 'bottom',
-                stop: function () {
-                    editor.resize();
-                }
-            });
-
             // update the preview if this menu is clicked
             var currentTab = $('.tab.segment[data-tab=preview-tab-' + field_name + ']');
             var previewTabButton = $('.item[data-tab=preview-tab-' + field_name + ']');

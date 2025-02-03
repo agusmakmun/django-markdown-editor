@@ -300,7 +300,6 @@ Different with *Template Renderer*, the *Template Editor Form* have more css & j
 
 {% block css %}
   <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
-  <link href="{% static 'plugins/css/resizable.min.css' %}" type="text/css" media="all" rel="stylesheet" />
   <link href="{% static 'martor/css/martor.bootstrap.min.css' %}" type="text/css" media="all" rel="stylesheet" />
 {% endblock %}
 
@@ -328,7 +327,6 @@ Different with *Template Renderer*, the *Template Editor Form* have more css & j
   <script type="text/javascript" src="{% static 'plugins/js/typo.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/spellcheck.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'plugins/js/resizable.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'martor/js/martor.bootstrap.min.js' %}"></script>
 {% endblock %}

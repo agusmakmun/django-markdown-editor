@@ -88,7 +88,6 @@ class MartorWidget(forms.Textarea):
         css = {
             "all": (
                 "plugins/css/ace.min.css",
-                "plugins/css/resizable.min.css",
                 "martor/css/martor.%s.min.css" % selected_theme,
             )
         }
@@ -103,7 +102,6 @@ class MartorWidget(forms.Textarea):
             "plugins/js/ext-language_tools.js",
             "plugins/js/theme-github.js",
             "plugins/js/highlight.min.js",
-            "plugins/js/resizable.min.js",
             "plugins/js/emojis.min.js",
             "martor/js/martor.%s.min.js" % selected_theme,
         )

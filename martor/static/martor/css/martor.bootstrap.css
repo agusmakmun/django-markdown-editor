@@ -10,6 +10,9 @@ body.overflow {
   width: 100%;
   height: 250px;
   min-height: 100px;
+  resize: vertical;
+  border-right: 1px solid rgb(204, 204, 204);
+  border-bottom: 1px solid rgb(204, 204, 204);
 }
 .main-martor {
   margin: 1em 0;
