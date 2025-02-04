@@ -11,39 +11,15 @@ on:
 # https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        os: [ macos-latest, ubuntu-latest ]
-        python-version: [ 3.9, "3.10" ]
-        django-version: [ 3.2, 4.0, 4.1, 4.2 ]
+        python-version: [ "3.10", "3.11", "3.12" , "3.13"]
+        django-version: [ "5.0", "5.1" ]
         include:
-          - os: macos-latest
-            python-version: "3.8"
-            django-version: "3.2"
-          - os: ubuntu-latest
-            python-version: "3.8"
-            django-version: "3.2"
-          - os: macos-latest
-            python-version: "3.8"
-            django-version: "4.0"
-          - os: ubuntu-latest
-            python-version: "3.8"
-            django-version: "4.0"
-          - os: macos-latest
-            python-version: "3.10"
-            django-version: "5.0"
-          - os: ubuntu-latest
-            python-version: "3.10"
-            django-version: "5.0"
-          - os: macos-latest
-            python-version: "3.10"
-            django-version: "5.0.3"
-          - os: ubuntu-latest
-            python-version: "3.10"
-            django-version: "5.0.3"
-
+          - python-version: "3.9"
+            django-version: "4.2"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -55,8 +31,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -q Django==${{ matrix.django-version }}
-          python -m pip install --upgrade pip
+          pip install -U pip setuptools 
+          pip install -q django==${{ matrix.django-version }}
           python setup.py install
 
       - name: Test with pytest
