@@ -129,6 +129,10 @@ fieldset .form-row .main-martor {
     display: revert
 }
 
+table {
+    caption-side: top;
+}
+
 @media (prefers-color-scheme:dark) {
     body {
         color: #fff;
