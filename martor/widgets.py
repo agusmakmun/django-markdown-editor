@@ -88,6 +88,8 @@ class MartorWidget(forms.Textarea):
         css = {
             "all": (
                 "plugins/css/ace.min.css",
+                "plugins/css/highlight.min.css",
+                "plugins/css/resizable.min.css",
                 "martor/css/martor.%s.min.css" % selected_theme,
             )
         }
