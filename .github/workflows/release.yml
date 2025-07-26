@@ -25,14 +25,10 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install semantic-release
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install python-semantic-release[github]
-
-      - name: Get tag version
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          pip install hatch python-semantic-release[github]
 
       - name: Create GitHub Release
         env:
