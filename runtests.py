@@ -55,7 +55,7 @@ settings.configure(
 )
 
 django.setup()
-from django.test.runner import DiscoverRunner
+from django.test.runner import DiscoverRunner  # noqa: E402
 
 test_runner = DiscoverRunner(verbosity=1)
 

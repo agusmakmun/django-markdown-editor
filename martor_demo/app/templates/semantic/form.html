@@ -6,27 +6,237 @@
   <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
   <link href="{% static 'plugins/css/resizable.min.css' %}" type="text/css" media="all" rel="stylesheet" />
   <link href="{% static 'martor/css/martor.semantic.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <style>
+    .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .form-header h2 {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      color: #6b7280;
+      font-size: 1.1rem;
+    }
+
+    .form-section {
+      background: #f8fafc;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .form-section:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .form-section h5 {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-section h5 i {
+      margin-right: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .martor-editor {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    .martor-editor:focus-within {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid #e5e7eb;
+    }
+
+    .form-info {
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    .form-info i {
+      color: var(--primary-color);
+      margin-right: 0.25rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 auto 1rem;
+    }
+
+    .feature-card h6 {
+      color: var(--dark-color);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .form-actions {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
+  <div class="form-header">
+    <h2><i class="fas fa-edit me-2"></i>{{ title }}</h2>
+    <p>Experience the power of Martor - The most advanced Django Markdown Editor</p>
+  </div>
+
   <form class="ui form" method="post">{% csrf_token %}
-    <div class="field">
-      {{ form.title }}
-    </div>
-    <div class="field">
-      {{ form.description }}
-    </div>
-    <div class="field">
-      {{ form.wiki }}
-    </div>
-    <div class="field">
-      <div class="ui clearing segment">
-        <button class="ui right floated positive button">
-          <i class="save icon"></i> Save Post
-        </button>
+    <div class="form-section">
+      <h5><i class="fas fa-heading"></i>Post Title</h5>
+      <div class="field">
+        {{ form.title }}
       </div>
     </div>
+
+    <div class="form-section">
+      <h5><i class="fas fa-align-left"></i>Description</h5>
+      <div class="field">
+        {{ form.description }}
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h5><i class="fas fa-code"></i>Markdown Content</h5>
+      <div class="field">
+        <div class="martor-editor">
+          {{ form.wiki }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <div class="form-info">
+        <i class="fas fa-info-circle"></i>
+        <span>Your content will be saved with real-time preview and syntax highlighting</span>
+      </div>
+      <button type="submit" class="ui button success">
+        <i class="fas fa-save me-2"></i>Save Post
+      </button>
+    </div>
   </form>
+
+  <div class="features-grid" id="features">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-eye"></i>
+      </div>
+      <h6>Real-time Preview</h6>
+      <p>See your markdown rendered instantly as you type</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-code"></i>
+      </div>
+      <h6>Syntax Highlighting</h6>
+      <p>Beautiful code highlighting for multiple languages</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-smile"></i>
+      </div>
+      <h6>Emoji Support</h6>
+      <p>Insert emojis easily with autocomplete</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-spell-check"></i>
+      </div>
+      <h6>Spell Checker</h6>
+      <p>Built-in spell checking for better writing</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-image"></i>
+      </div>
+      <h6>Image Upload</h6>
+      <p>Upload images directly to the server</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-table"></i>
+      </div>
+      <h6>Table Editor</h6>
+      <p>Create and edit tables with a visual interface</p>
+    </div>
+  </div>
 {% endblock %}
 
 {% block js %}
@@ -42,7 +252,54 @@
   <script type="text/javascript" src="{% static 'martor/js/martor.semantic.min.js' %}"></script>
 
   <script>
-    $('form [name="title"]').attr({'placeholder': 'Post Title'});
-    $('.ui.menu .ui.dropdown.item').dropdown();
+    // Enhanced form styling
+    $('form [name="title"]').attr({
+      'class': 'ui input',
+      'placeholder': 'Enter your post title here...'
+    });
+
+    // Add loading animation to form submission
+    $('form').on('submit', function() {
+      const btn = $(this).find('button[type="submit"]');
+      const originalText = btn.html();
+      btn.html('<i class="fas fa-spinner fa-spin me-2"></i>Saving...');
+      btn.prop('disabled', true);
+
+      // Re-enable after 3 seconds if no response
+      setTimeout(function() {
+        btn.html(originalText);
+        btn.prop('disabled', false);
+      }, 3000);
+    });
+
+    // Add smooth scroll to features section
+    $('a[href="#features"]').on('click', function(e) {
+      e.preventDefault();
+      $('html, body').animate({
+        scrollTop: $('#features').offset().top - 100
+      }, 800);
+    });
+
+    // Add animation to feature cards on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'all 0.6s ease';
+      observer.observe(card);
+    });
   </script>
 {% endblock %}

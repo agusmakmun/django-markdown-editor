@@ -1,36 +1,291 @@
 {% load static %}<!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <title>{% block title %}Martor{% endblock %}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Martor - Django Markdown Editor{% endblock %}</title>
   <link href="{% static 'plugins/css/bootstrap.min.css' %}" type="text/css" media="all" rel="stylesheet" />
-  <style>.main-container {margin-top: 3em}</style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #7861EC;
+      --secondary-color: #7861EC;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --dark-color: #1f2937;
+      --light-color: #f9fafb;
+      --border-radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      background: linear-gradient(135deg, #7861EC 0%, #5a4fcf 100%);
+      min-height: 100vh;
+      color: #374151;
+    }
+
+    .navbar {
+      background: rgba(31, 41, 55, 0.95) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow);
+      z-index: 1040;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 0 2px;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .dropdown-menu {
+      border: none;
+      box-shadow: var(--shadow-lg);
+      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1050;
+      margin-top: 0.5rem;
+      min-width: 200px;
+    }
+
+    .dropdown-item {
+      border-radius: 8px;
+      margin: 2px 8px;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .main-container {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .main-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .alert {
+      border: none;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .btn {
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: var(--shadow);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-success {
+      background: linear-gradient(45deg, var(--success-color), #059669);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    }
+
+    .form-control {
+      border-radius: var(--border-radius);
+      border: 2px solid #e5e7eb;
+      transition: all 0.3s ease;
+      box-shadow: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(120, 97, 236, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .card {
+      border: none;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .stats-card {
+      background: linear-gradient(135deg, rgba(120, 97, 236, 0.1), rgba(90, 79, 207, 0.1));
+      border: 1px solid rgba(120, 97, 236, 0.2);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stats-card:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, rgba(120, 97, 236, 0.15), rgba(90, 79, 207, 0.15));
+    }
+
+    .stats-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer {
+      background: rgba(31, 41, 55, 0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Fix modal z-index and positioning */
+    .modal-help-guide {
+      z-index: 9999 !important;
+    }
+
+    .modal-backdrop.show {
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 1rem;
+        margin: 1rem;
+      }
+
+      .navbar-brand {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
   {% block css %}{% endblock %}
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="/">Martor</a>
+      <a class="navbar-brand" href="/">
+        <i class="fas fa-edit me-2"></i>Martor
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav me-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Choose Demo
+              <i class="fas fa-flask me-1"></i>Demos
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{% url 'simple_form' %}">Simple Form</a>
-              <a class="dropdown-item" href="{% url 'post_form' %}">Post Form (login require)</a>
-              <a class="dropdown-item" href="{% url 'test_markdownify' %}">Test Markdownify</a>
+              <a class="dropdown-item" href="{% url 'simple_form' %}">
+                <i class="fas fa-edit me-2"></i>Simple Form
+              </a>
+              <a class="dropdown-item" href="{% url 'post_form' %}">
+                <i class="fas fa-user-lock me-2"></i>Post Form (Login Required)
+              </a>
+              <a class="dropdown-item" href="{% url 'test_markdownify' %}">
+                <i class="fas fa-eye me-2"></i>Test Markdownify
+              </a>
             </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#features">
+              <i class="fas fa-star me-1"></i>Features
+            </a>
           </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="https://github.com/agusmakmun/django-markdown-editor" target="_blank">
-              <span>Source Code</span>
+              <i class="fab fa-github me-1"></i>Source Code
             </a>
           </li>
         </ul>
@@ -38,14 +293,16 @@
     </div>
   </nav>
 
-  <div class="ui container main-container">
+  <div class="container main-container">
     <div class="main-content">
       {% block messages %}
         {% if messages %}
-          <div class="messages">
+          <div class="messages mb-4">
             {% for message in messages %}
-              <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}">
+              <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show" role="alert">
+                <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
                 {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             {% endfor %}
           </div>
@@ -56,8 +313,54 @@
     </div>
   </div>
 
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><i class="fas fa-edit me-2"></i>Martor</h5>
+          <p class="mb-0">The most powerful Django Markdown Editor with real-time preview and advanced features.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="social-links">
+            <a href="https://github.com/agusmakmun/django-markdown-editor" target="_blank" title="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://github.com/agusmakmun/django-markdown-editor" title="Documentation">
+              <i class="fas fa-book"></i>
+            </a>
+            <a href="https://stackoverflow.com/questions/tagged/martor" target="_blank" title="Stack Overflow Support">
+              <i class="fas fa-question-circle"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr class="my-3" style="border-color: rgba(255,255,255,0.1);">
+      <div class="row">
+        <div class="col-12 text-center">
+          <small>&copy; 2024 Martor. Made with <i class="fas fa-heart text-danger"></i> by Agus Makmun</small>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <script type="text/javascript" src="{% static 'plugins/js/jquery.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/bootstrap.min.js' %}"></script>
+  <script>
+    // Add smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add loading animation
+    window.addEventListener('load', function() {
+      document.body.classList.add('loaded');
+    });
+  </script>
   {% block js %}{% endblock %}
 </body>
 </html>

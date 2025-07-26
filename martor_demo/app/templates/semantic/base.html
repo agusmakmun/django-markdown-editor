@@ -1,27 +1,291 @@
 {% load static %}<!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <title>{% block title %}Martor{% endblock %}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Martor - Django Markdown Editor{% endblock %}</title>
   <link href="{% static 'plugins/css/semantic.min.css' %}" type="text/css" media="all" rel="stylesheet" />
-  <style>.main-container {margin-top: 5em}</style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #7861EC;
+      --secondary-color: #7861EC;
+      --success-color: #21ba45;
+      --warning-color: #fbbd08;
+      --danger-color: #db2828;
+      --dark-color: #1b1c1d;
+      --light-color: #f9fafb;
+      --border-radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      background: linear-gradient(135deg, #7861EC 0%, #5a4fcf 100%);
+      min-height: 100vh;
+      color: #374151;
+    }
+
+    .ui.fixed.inverted.menu {
+      background: rgba(27, 28, 29, 0.95) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow);
+      z-index: 1040;
+    }
+
+    .ui.fixed.inverted.menu .header.item {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ui.fixed.inverted.menu .item {
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 0 2px;
+    }
+
+    .ui.fixed.inverted.menu .item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .ui.dropdown .menu {
+      border: none;
+      box-shadow: var(--shadow-lg);
+      border-radius: var(--border-radius);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1050;
+      margin-top: 0.5rem;
+      min-width: 200px;
+    }
+
+    .ui.dropdown .menu .item {
+      border-radius: 8px;
+      margin: 2px 8px;
+      transition: all 0.3s ease;
+    }
+
+    .ui.dropdown .menu .item:hover {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .main-container {
+      margin-top: 5rem;
+      margin-bottom: 2rem;
+    }
+
+    .ui.segment {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ui.message {
+      border: none;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .ui.button {
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: var(--shadow);
+    }
+
+    .ui.button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .ui.button.primary {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    }
+
+    .ui.button.success {
+      background: linear-gradient(45deg, var(--success-color), #16ab39);
+    }
+
+    .ui.input input {
+      border-radius: var(--border-radius);
+      border: 2px solid #e5e7eb;
+      transition: all 0.3s ease;
+      box-shadow: none;
+    }
+
+    .ui.input input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(120, 97, 236, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .ui.card {
+      border: none;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    .ui.card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .stats-card {
+      background: linear-gradient(135deg, rgba(120, 97, 236, 0.1), rgba(90, 79, 207, 0.1));
+      border: 1px solid rgba(120, 97, 236, 0.2);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stats-card:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, rgba(120, 97, 236, 0.15), rgba(90, 79, 207, 0.15));
+    }
+
+    .stats-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer {
+      background: rgba(27, 28, 29, 0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Fix modal z-index and positioning */
+    .modal-help-guide {
+      z-index: 9999 !important;
+    }
+
+    .modal-help-guide .ui.modal {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      margin: 0 !important;
+      max-width: 90% !important;
+      width: auto !important;
+      z-index: 9999 !important;
+    }
+
+    .ui.dimmer {
+      z-index: 9998 !important;
+    }
+
+    @media (max-width: 768px) {
+      .ui.segment {
+        padding: 1rem;
+        margin: 1rem;
+      }
+
+      .ui.fixed.inverted.menu .header.item {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
   {% block css %}{% endblock %}
 </head>
 <body>
   <header>
     <div class="ui fixed inverted menu">
       <div class="ui container">
-        <div class="header item">Martor</div>
-        <div class="ui dropdown item" tabindex="0">Choose Demo
+        <div class="header item">
+          <i class="fas fa-edit me-2"></i>Martor
+        </div>
+        <div class="ui dropdown item" tabindex="0">
+          <i class="fas fa-flask me-1"></i>Demos
           <i class="dropdown icon"></i>
           <div class="menu transition hidden" tabindex="-1">
-            <a href="{% url 'simple_form' %}" class="item">Simple Form</a>
-            <a href="{% url 'post_form' %}" class="item">Post Form (login require)</a>
-            <a href="{% url 'test_markdownify' %}" class="item">Test Markdownify</a>
+            <a href="{% url 'simple_form' %}" class="item">
+              <i class="fas fa-edit me-2"></i>Simple Form
+            </a>
+            <a href="{% url 'post_form' %}" class="item">
+              <i class="fas fa-user-lock me-2"></i>Post Form (Login Required)
+            </a>
+            <a href="{% url 'test_markdownify' %}" class="item">
+              <i class="fas fa-eye me-2"></i>Test Markdownify
+            </a>
           </div>
+        </div>
+        <div class="item">
+          <i class="fas fa-star me-1"></i>Features
         </div>
         <div class="right menu">
           <a class="item" href="https://github.com/agusmakmun/django-markdown-editor" target="_blank">
-            <i class="github icon"></i> Github
+            <i class="fab fa-github me-1"></i>Source Code
           </a>
         </div>
       </div>
@@ -35,7 +299,8 @@
           <div class="messages">
             {% for message in messages %}
               <div class="ui {% if message.tags %}{{ message.tags }}{% else %}info{% endif %} message">
-                <p>{{ message }</p>
+                <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
+                <p>{{ message }}</p>
               </div>
             {% endfor %}
           </div>
@@ -46,9 +311,54 @@
     </div>
   </div>
 
+  <footer class="footer">
+    <div class="ui container">
+      <div class="ui two column stackable grid">
+        <div class="column">
+          <h5><i class="fas fa-edit me-2"></i>Martor</h5>
+          <p>The most powerful Django Markdown Editor with real-time preview and advanced features.</p>
+        </div>
+        <div class="column right aligned">
+          <div class="social-links">
+            <a href="https://github.com/agusmakmun/django-markdown-editor" target="_blank" title="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://github.com/agusmakmun/django-markdown-editor" title="Documentation">
+              <i class="fas fa-book"></i>
+            </a>
+            <a href="https://stackoverflow.com/questions/tagged/martor" target="_blank" title="Stack Overflow Support">
+              <i class="fas fa-question-circle"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="ui divider" style="border-color: rgba(255,255,255,0.1);"></div>
+      <div class="ui center aligned">
+        <small>&copy; 2024 Martor. Made with <i class="fas fa-heart" style="color: #db2828;"></i> by Agus Makmun</small>
+      </div>
+    </div>
+  </footer>
+
   <script type="text/javascript" src="{% static 'plugins/js/jquery.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/semantic.min.js' %}"></script>
-  <script>$('.ui.menu .ui.dropdown.item').dropdown();</script>
+  <script>
+    $('.ui.menu .ui.dropdown.item').dropdown();
+
+    // Add smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Add loading animation
+    window.addEventListener('load', function() {
+      document.body.classList.add('loaded');
+    });
+  </script>
   {% block js %}{% endblock %}
 </body>
 </html>

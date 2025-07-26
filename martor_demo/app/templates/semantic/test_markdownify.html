@@ -1,31 +1,388 @@
 {% extends "semantic/base.html" %}
 {% load static %}
 {% load martortags %}
-{% block title %}Test Markdonify :: {{ block.super }}{% endblock %}
-
+{% block title %}Test Markdownify :: {{ block.super }}{% endblock %}
 
 {% block css %}
   <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
   <link href="{% static 'martor/css/martor.semantic.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <style>
+    .preview-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .preview-header h2 {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .preview-header p {
+      color: #6b7280;
+      font-size: 1.1rem;
+    }
+
+    .content-section {
+      background: #f8fafc;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .content-section:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .content-section h5 {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .content-section h5 i {
+      margin-right: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .martor-preview {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid #e5e7eb;
+      transition: all 0.3s ease;
+    }
+
+    .martor-preview:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .martor-preview h1,
+    .martor-preview h2,
+    .martor-preview h3,
+    .martor-preview h4,
+    .martor-preview h5,
+    .martor-preview h6 {
+      color: var(--dark-color);
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .martor-preview h1:first-child,
+    .martor-preview h2:first-child,
+    .martor-preview h3:first-child {
+      margin-top: 0;
+    }
+
+    .martor-preview p {
+      line-height: 1.7;
+      color: #374151;
+      margin-bottom: 1rem;
+    }
+
+    .martor-preview code {
+      background: #f3f4f6;
+      color: var(--primary-color);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .martor-preview pre {
+      background: #1f2937;
+      color: #f9fafb;
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      overflow-x: auto;
+      margin: 1rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .martor-preview pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+
+    .martor-preview blockquote {
+      border-left: 4px solid var(--primary-color);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: #6b7280;
+      font-style: italic;
+    }
+
+    .martor-preview table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .martor-preview table th,
+    .martor-preview table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .martor-preview table th {
+      background: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    .martor-preview table tr:nth-child(even) {
+      background: #f9fafb;
+    }
+
+    .martor-preview table tr:hover {
+      background: #f3f4f6;
+    }
+
+    .martor-preview ul,
+    .martor-preview ol {
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .martor-preview li {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .martor-preview img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin: 1rem 0;
+    }
+
+    .martor-preview a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .martor-preview a:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, rgba(120, 97, 236, 0.1), rgba(90, 79, 207, 0.1));
+      border: 1px solid rgba(120, 97, 236, 0.2);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, rgba(120, 97, 236, 0.15), rgba(90, 79, 207, 0.15));
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      justify-content: center;
+    }
+
+    .btn-action {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      color: white;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      color: white;
+    }
+
+    .btn-action i {
+      margin-right: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .martor-preview {
+        padding: 1rem;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
-  <div class="martor-content">
-    <h1>Title: {{ post.title }}</h1>
-    <p><b>Description:</b></p>
-    <hr />
+  <div class="preview-header">
+    <h2><i class="fas fa-eye me-2"></i>Markdown Preview</h2>
+    <p>See how your markdown content is beautifully rendered with Martor</p>
+  </div>
+
+  <div class="content-section">
+    <h5><i class="fas fa-heading"></i>Post Title</h5>
+    <div class="martor-preview">
+      <h3>{{ post.title }}</h3>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h5><i class="fas fa-align-left"></i>Description</h5>
     <div class="martor-preview">
       {{ post.description|safe_markdown }}
     </div>
   </div>
-{% endblock %}
 
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">{{ post.title|length }}</div>
+      <div class="stat-label">Title Characters</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{ post.description|length }}</div>
+      <div class="stat-label">Description Characters</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{ post.description|wordcount }}</div>
+      <div class="stat-label">Words</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">{{ post.description|linecount }}</div>
+      <div class="stat-label">Lines</div>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <a href="{% url 'simple_form' %}" class="btn-action">
+      <i class="fas fa-edit"></i>Create New Post
+    </a>
+    <a href="{% url 'post_form' %}" class="btn-action">
+      <i class="fas fa-user-lock"></i>Login Required Form
+    </a>
+    <a href="https://github.com/agusmakmun/django-markdown-editor" target="_blank" class="btn-action">
+      <i class="fab fa-github"></i>View Source
+    </a>
+  </div>
+{% endblock %}
 
 {% block js %}
   <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
   <script>
+    // Highlight code blocks
     $('.martor-preview pre').each(function(i, block){
         hljs.highlightBlock(block);
     });
+
+    // Add animation to stat cards
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'scale(1)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.stat-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.8)';
+      card.style.transition = 'all 0.6s ease';
+      observer.observe(card);
+    });
+
+    // Add counter animation
+    function animateCounter(element, target) {
+      let current = 0;
+      const increment = target / 50;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = Math.floor(current);
+      }, 20);
+    }
+
+    // Trigger counter animation when stats come into view
+    const statsObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const statNumbers = entry.target.querySelectorAll('.stat-number');
+          statNumbers.forEach(stat => {
+            const target = parseInt(stat.textContent);
+            animateCounter(stat, target);
+          });
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const statsRow = document.querySelector('.stats-row');
+    if (statsRow) {
+      statsObserver.observe(statsRow);
+    }
   </script>
 {% endblock %}
