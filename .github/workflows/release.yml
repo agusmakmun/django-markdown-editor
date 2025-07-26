@@ -8,72 +8,21 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    environment: Secrets
     concurrency: release
+    environment: Secrets
     permissions:
       id-token: write
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          tags: true
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Python Semantic Release
+        uses: python-semantic-release/python-semantic-release@master
         with:
-          python-version: 3.x
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install build
-
-      - name: Get tag version
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      - name: Build package
-        run: python -m build
-
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          tag_name: ${{ steps.get_version.outputs.VERSION }}
-          release_name: Release ${{ steps.get_version.outputs.VERSION }}
-          body: |
-            ## Release ${{ steps.get_version.outputs.VERSION }}
-
-            This is an automated release created from tag ${{ steps.get_version.outputs.VERSION }}.
-          draft: false
-          prerelease: false
-
-      - name: List dist contents
-        run: ls -la dist/
-
-      - name: Upload Wheel Distribution
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/martor-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
-          asset_name: martor-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
-          asset_content_type: application/octet-stream
-
-      - name: Upload Source Distribution
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/martor-${{ steps.get_version.outputs.VERSION }}.tar.gz
-          asset_name: martor-${{ steps.get_version.outputs.VERSION }}.tar.gz
-          asset_content_type: application/gzip
+          github_token: '${{ secrets.GH_TOKEN }}'
 
   upload-to-pypi:
     runs-on: ubuntu-latest
