@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "martor"
-version = "1.7.2"
+version = "1.7.3"
 description = "Django Markdown Editor"
 readme = "README.md"
 license = { text = "GPL-3.0" }
@@ -84,7 +84,7 @@ include = [
 
 [tool.semantic_release]
 version_variable = "martor/__init__.py:__version__"
-version_toml = "pyproject.toml:project.version"
+version_toml = ["pyproject.toml", "project.version"]
 
 # Testing configuration
 [tool.hatch.envs.test]
