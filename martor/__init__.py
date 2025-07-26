@@ -1,4 +1,4 @@
-__version__ = "1.7.1"
+__version__ = "1.7.2"
 __release_date__ = "26-Jul-2025"
 __author__ = "Agus Makmun (Summon Agus)"
 __author_email__ = "summon.agus@gmail.com"

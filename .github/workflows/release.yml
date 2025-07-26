@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          tags: true
 
       - name: Python Semantic Release
         uses: python-semantic-release/python-semantic-release@master
@@ -27,6 +28,7 @@ jobs:
   upload-to-pypi:
     runs-on: ubuntu-latest
     environment: Secrets
+    needs: []
 
     steps:
       - uses: actions/checkout@v4
@@ -45,7 +47,7 @@ jobs:
         run: python -m build
 
       - name: Publish package
-        uses: pypa/gh-action-pypi-publish@15c56dba361d8335944d31a2ecd17d700fc7bcbc
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: '${{ secrets.PYPI_API_TOKEN }}'
+          password: '${{ secrets.PYPI_TOKEN }}'
