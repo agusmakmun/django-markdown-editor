@@ -1,0 +1,28 @@
+[build]
+command = "hatch build"
+path = "dist/"
+
+[changelog]
+exclude_commit_types = [
+    "ci",
+    "build",
+    "chore",
+    "docs",
+    "style",
+    "refactor",
+    "perf",
+    "test",
+]
+
+[changelog.environment]
+start_reference = "HEAD~1"
+
+[changelog.environment.github]
+repo = "agusmakmun/django-markdown-editor"
+
+[upload_to_release]
+enabled = true
+build_artifacts = true
+
+[upload_to_pypi]
+enabled = false
