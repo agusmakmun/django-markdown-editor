@@ -48,7 +48,7 @@ class MartorWidget(forms.Textarea):
             attributes_to_pass["data-upload-url"] = MARTOR_UPLOAD_URL
         if MARTOR_SEARCH_USERS_URL:
             attributes_to_pass["data-search-users-url"] = MARTOR_SEARCH_USERS_URL
-        if MARTOR_SEARCH_USERS_URL:
+        if MARTOR_MARKDOWN_BASE_EMOJI_URL:
             attributes_to_pass["data-base-emoji-url"] = MARTOR_MARKDOWN_BASE_EMOJI_URL
         if MARTOR_MARKDOWNIFY_TIMEOUT:
             attributes_to_pass["data-save-timeout"] = MARTOR_MARKDOWNIFY_TIMEOUT
