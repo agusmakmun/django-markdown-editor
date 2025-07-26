@@ -127,6 +127,11 @@ fieldset .form-row .main-martor {
   display: revert;
 }
 
+/* fix issue: #270 */
+table {
+  caption-side: top;
+}
+
 /* fix issue: #168 */
 @media (prefers-color-scheme: dark) {
   body {
