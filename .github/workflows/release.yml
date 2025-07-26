@@ -55,13 +55,13 @@ jobs:
       - name: List dist contents
         run: ls -la dist/
 
-      - name: Upload Release Assets
+      - name: Upload Wheel Distribution
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/*.whl
+          asset_path: ./dist/martor-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
           asset_name: martor-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
           asset_content_type: application/octet-stream
 
@@ -71,7 +71,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/*.tar.gz
+          asset_path: ./dist/martor-${{ steps.get_version.outputs.VERSION }}.tar.gz
           asset_name: martor-${{ steps.get_version.outputs.VERSION }}.tar.gz
           asset_content_type: application/gzip
 
