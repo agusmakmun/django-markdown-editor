@@ -6,23 +6,23 @@ on:
       - '*'
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    concurrency: release
-    environment: Secrets
-    permissions:
-      id-token: write
-      contents: write
+  # release:
+  #   runs-on: ubuntu-latest
+  #   concurrency: release
+  #   environment: Secrets
+  #   permissions:
+  #     id-token: write
+  #     contents: write
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
 
-      - name: Python Semantic Release
-        uses: python-semantic-release/python-semantic-release@master
-        with:
-          github_token: '${{ secrets.GH_TOKEN }}'
+  #     - name: Python Semantic Release
+  #       uses: python-semantic-release/python-semantic-release@master
+  #       with:
+  #         github_token: '${{ secrets.GH_TOKEN }}'
 
   upload-to-pypi:
     runs-on: ubuntu-latest
