@@ -18,7 +18,10 @@ body.overflow {
 .martor-field {
     width: 100%;
     height: 250px;
-    min-height: 100px
+    min-height: 100px;
+    resize: vertical;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc
 }
 
 .main-martor {
