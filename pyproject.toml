@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "martor"
-version = "1.7.6"
+version = "1.7.7"
 description = "Django Markdown Editor"
 readme = "README.md"
 license = { text = "GPL-3.0" }

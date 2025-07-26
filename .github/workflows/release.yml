@@ -30,11 +30,47 @@ jobs:
           python -m pip install --upgrade pip
           pip install hatch python-semantic-release[github]
 
+      - name: Get tag version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Build package
+        run: hatch build
+
       - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          semantic-release publish
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          release_name: Release ${{ steps.get_version.outputs.VERSION }}
+          body: |
+            ## Release ${{ steps.get_version.outputs.VERSION }}
+
+            This is an automated release created from tag ${{ steps.get_version.outputs.VERSION }}.
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/*.whl
+          asset_name: martor-${{ steps.get_version.outputs.VERSION }}-py3-none-any.whl
+          asset_content_type: application/octet-stream
+
+      - name: Upload Source Distribution
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/*.tar.gz
+          asset_name: martor-${{ steps.get_version.outputs.VERSION }}.tar.gz
+          asset_content_type: application/gzip
 
   upload-to-pypi:
     runs-on: ubuntu-latest
