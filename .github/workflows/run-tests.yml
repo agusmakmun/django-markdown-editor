@@ -31,9 +31,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -U pip setuptools 
+          pip install -U pip setuptools
           pip install -q django==${{ matrix.django-version }}
-          python setup.py install
+          pip install hatch
+          hatch install --editable
 
       - name: Test with pytest
         run: |

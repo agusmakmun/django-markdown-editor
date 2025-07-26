@@ -19,8 +19,8 @@ if [ "$commit" ] && [ "$branch" ]; then
 
         if [ "$upgrade_version" == 'y' ] || [ "$upgrade_version" == 'Y' ]; then
             # https://stackoverflow.com/a/3250387/6396981
-            old_version=$(grep '__VERSION__ = ".*"' $package/__init__.py | cut -d '"' -f 2);
-            old_release_date=$(grep '__RELEASE_DATE__ = ".*"' $package/__init__.py | cut -d '"' -f 2);
+            old_version=$(grep '__version__ = ".*"' $package/__init__.py | cut -d '"' -f 2);
+            old_release_date=$(grep '__release_date__ = ".*"' $package/__init__.py | cut -d '"' -f 2);
             echo "[i] current version is $old_version, released at $old_release_date";
 
             last_numb_old_version=$(echo "$old_version" | grep -o .$);
@@ -56,12 +56,26 @@ if [ "$commit" ] && [ "$branch" ]; then
             git push origin v"$input_new_version"
 
             echo "[i] preparing upload to pypi..."
-            if ! [ -x "$(command -v twine)" ]; then
-                pip install twine
+
+            # Check if hatch is available
+            if ! [ -x "$(command -v hatch)" ]; then
+                echo "[!] Error: hatch is not installed or not in PATH"
+                exit 1
             fi
 
-            python setup.py sdist
-            twine upload dist/"$package-$input_new_version".tar.gz
+            echo "[i] building package for version $input_new_version..."
+            hatch build
+
+            # Verify the built package has the correct version
+            echo "[i] verifying package version..."
+            if [ -f "dist/$package-$input_new_version.tar.gz" ]; then
+                echo "[i] package built successfully: $package-$input_new_version.tar.gz"
+                echo "[i] publishing to PyPI..."
+                hatch publish
+            else
+                echo "[!] Error: Package not found. Expected: dist/$package-$input_new_version.tar.gz"
+                exit 1
+            fi
         fi
     else
         git add .;

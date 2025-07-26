@@ -345,7 +345,7 @@ Assuming you are already setup with a virtual environment (virtualenv):
 
 ```
 $ git clone https://github.com/agusmakmun/django-markdown-editor.git
-$ cd django-markdown-editor/ && python setup.py install
+$ cd django-markdown-editor/ && pip install -e .
 $ cd martor_demo/
 $ python manage.py makemigrations && python manage.py migrate
 $ python manage.py runserver

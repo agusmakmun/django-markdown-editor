@@ -7,3 +7,25 @@ venv/
 *.pyc
 *note
 *backup*
+
+# Hatch
+.hatch/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Type checking
+.mypy_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

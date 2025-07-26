@@ -11,7 +11,7 @@ RUN set -xe && \
 COPY . .
 
 # Install Python dependencies and setup Django app
-RUN python3 setup.py install && \
+RUN pip3 install -e . && \
     python3 martor_demo/manage.py makemigrations && \
     python3 martor_demo/manage.py migrate
 

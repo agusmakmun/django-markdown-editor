@@ -1,6 +1,0 @@
--r requirements.txt
-
-isort
-black
-flake8
-twine

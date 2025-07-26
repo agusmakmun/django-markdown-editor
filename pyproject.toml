@@ -1,0 +1,202 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "martor"
+dynamic = ["version"]
+description = "Django Markdown Editor"
+readme = "README.md"
+license = { text = "GPL-3.0" }
+authors = [
+    { name = "Agus Makmun (Summon Agus)", email = "summon.agus@gmail.com" },
+]
+maintainers = [
+    { name = "Agus Makmun (Summon Agus)", email = "summon.agus@gmail.com" },
+]
+keywords = ["martor", "django markdown", "django markdown editor"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: JavaScript",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "Django>=3.2",
+    "Markdown>=3.0",
+    "requests>=2.12.4",
+    "bleach",
+    "urllib3",
+    "zipp",
+    "tzdata",
+]
+
+[project.urls]
+Homepage = "https://github.com/agusmakmun/django-markdown-editor"
+Documentation = "https://github.com/agusmakmun/django-markdown-editor?tab=readme-ov-file#installation"
+Release-notes = "https://github.com/agusmakmun/django-markdown-editor/releases"
+Funding = "https://www.paypal.com/paypalme/summonagus"
+Source = "https://github.com/agusmakmun/django-markdown-editor"
+Issues = "https://github.com/agusmakmun/django-markdown-editor/issues"
+Download = "https://github.com/agusmakmun/django-markdown-editor/tarball/v{version}"
+
+[project.optional-dependencies]
+dev = [
+    "isort",
+    "black",
+    "flake8",
+    "mypy",
+    "mypy-extensions",
+    "django-stubs",
+    "pytest",
+    "pytest-django",
+]
+
+[tool.hatch.version]
+path = "martor/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["martor"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/LICENSE",
+    "/README.md",
+    "/requirements.txt",
+    "/martor/templates",
+    "/martor/static",
+]
+
+# Testing configuration
+[tool.hatch.envs.test]
+dependencies = [
+    "pytest",
+    "pytest-django",
+    "Django>=3.2",
+    "Markdown>=3.0",
+    "requests>=2.12.4",
+    "bleach",
+]
+
+[tool.hatch.envs.test.scripts]
+test = "python runtests.py"
+test-pytest = "pytest"
+test-verbose = "python runtests.py -v"
+
+# Development environment
+[tool.hatch.envs.dev]
+dependencies = [
+    "isort",
+    "black",
+    "flake8",
+    "mypy",
+    "mypy-extensions",
+    "django-stubs",
+]
+
+[tool.hatch.envs.dev.scripts]
+format = "black ."
+format-check = "black --check ."
+lint = "flake8 ."
+sort = "isort ."
+sort-check = "isort --check-only ."
+type-check = "mypy ."
+
+# Code formatting
+[tool.black]
+line-length = 120
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# Import sorting
+[tool.isort]
+profile = "black"
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+
+# Linting
+[tool.flake8]
+max-line-length = 120
+ignore = ["E402", "E501", "W503", "W504", "E731", "E741"]
+exclude = [
+    ".tox",
+    ".git",
+    "*/migrations/*",
+    "*/static/CACHE/*",
+    "docs",
+    "node_modules",
+    ".vscode",
+    "build",
+    "dist",
+    "*.egg-info",
+]
+
+# Type checking
+[tool.mypy]
+python_version = "3.9"
+check_untyped_defs = false
+ignore_missing_imports = true
+warn_unused_ignores = false
+warn_redundant_casts = false
+warn_unused_configs = false
+# Temporarily disable Django plugin until settings module is created
+# plugins = ["mypy_django_plugin.main"]
+
+[[tool.mypy.overrides]]
+module = "*.migrations.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "martor.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "martor_demo.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "martor_demo.app.*"
+ignore_errors = true
+
+# Django stubs configuration (commented out until settings module is created)
+# [tool.django-stubs]
+# django_settings_module = "martor.tests.settings"
+# strict_settings = false
+
+# Codespell
+[tool.codespell]
+skip = "*.po,,*/static,*.png,*.jpg,*.jpeg,*.svg,*.ico,*.zip,*.pdf,*.egg-info,*/build"
+ignore-words-list = "delink,mimicing,beforeall,afterall,ninjs,womens"
+count = true
+quiet-level = 3
