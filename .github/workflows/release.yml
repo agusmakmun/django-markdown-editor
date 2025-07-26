@@ -20,10 +20,15 @@ jobs:
           fetch-depth: 0
           tags: true
 
+      - name: Get tag version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
       - name: Python Semantic Release
         uses: python-semantic-release/python-semantic-release@master
         with:
           github_token: '${{ secrets.GH_TOKEN }}'
+          command: publish
 
   upload-to-pypi:
     runs-on: ubuntu-latest
