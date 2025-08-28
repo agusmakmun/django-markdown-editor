@@ -355,6 +355,72 @@ $ python manage.py runserver
 Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
 
 
+### Documentation
+
+Complete documentation is available online at: https://django-markdown-editor.readthedocs.io/
+
+#### Running Documentation Locally
+
+To build and view the documentation locally:
+
+**1.** Clone the repository and set up your environment:
+
+```
+$ git clone https://github.com/agusmakmun/django-markdown-editor.git
+$ cd django-markdown-editor/
+$ python -m venv venv
+$ source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+**2.** Install documentation dependencies:
+
+```
+$ pip install -r docs/requirements.txt
+```
+
+**3.** Build the documentation:
+
+```
+$ cd docs/
+$ sphinx-build -b html . _build/html
+```
+
+Or using the included Makefile:
+
+```
+$ cd docs/
+$ make html
+```
+
+**4.** Open the documentation in your browser:
+
+```
+$ open _build/html/index.html  # On macOS
+# Or on Linux/Windows, navigate to docs/_build/html/index.html
+```
+
+Alternatively, serve the documentation with a local HTTP server:
+
+```
+$ make serve
+# Then open http://localhost:8000 in your browser
+```
+
+The documentation includes:
+- Installation and quickstart guides
+- Complete configuration reference
+- Usage examples for models, forms, widgets, and admin
+- API documentation
+- Troubleshooting and FAQ
+
+#### Contributing to Documentation
+
+The documentation is built with [Sphinx](https://www.sphinx-doc.org/) and uses reStructuredText format. To contribute:
+
+1. Edit the `.rst` files in the `docs/` directory
+2. Build the docs locally to test your changes
+3. Submit a pull request with your improvements
+
 ### Martor Commands Reference
 
 ![command reference](https://raw.githubusercontent.com/agusmakmun/django-markdown-editor/master/.etc/images/bootstrap/martor-guide.png)

@@ -29,3 +29,8 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+
+# Build documentation
+docs/_build/
+docs/_static/
+docs/_templates/

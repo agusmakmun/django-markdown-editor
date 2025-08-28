@@ -1,0 +1,9 @@
+sphinx>=5.0.0
+sphinx-rtd-theme>=1.0.0
+Django>=3.2
+Markdown>=3.0
+requests>=2.12.4
+bleach
+urllib3
+zipp
+tzdata
