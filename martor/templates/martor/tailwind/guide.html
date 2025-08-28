@@ -1,0 +1,228 @@
+{% load i18n %}
+
+<!-- Markdown Guide Modal -->
+<div class="modal-help-guide hidden fixed inset-0 z-50 overflow-y-auto" data-field-name="{{ field_name }}" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <!-- Background overlay -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+    <!-- Modal centering -->
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+    <!-- Modal panel -->
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="flex items-start justify-between">
+          <div class="flex items-center">
+            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+              <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                {% trans "Markdown Guide" %}
+              </h3>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">
+                  {% trans "Quick reference for Markdown syntax" %}
+                </p>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="modal-close text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="{% trans 'Close' %}">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 px-4 py-3 sm:px-6">
+        <div class="max-h-96 overflow-y-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Text Formatting -->
+            <div class="bg-white rounded-lg p-4 shadow-sm">
+              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Text Formatting" %}</h4>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Bold" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">**text**</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Italic" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">*text*</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Strikethrough" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">~~text~~</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Underline" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">++text++</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Inline Code" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">`code`</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Headers -->
+            <div class="bg-white rounded-lg p-4 shadow-sm">
+              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Headers" %}</h4>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Header 1" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded"># H1</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Header 2" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">## H2</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Header 3" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">### H3</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Header 4" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">#### H4</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Header 5" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">##### H5</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lists -->
+            <div class="bg-white rounded-lg p-4 shadow-sm">
+              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Lists" %}</h4>
+              <div class="space-y-2 text-sm">
+                <div>
+                  <span class="text-gray-600 block mb-1">{% trans "Unordered List" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded block">* Item 1<br>* Item 2</code>
+                </div>
+                <div>
+                  <span class="text-gray-600 block mb-1">{% trans "Ordered List" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded block">1. First<br>2. Second</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Links & Images -->
+            <div class="bg-white rounded-lg p-4 shadow-sm">
+              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Links & Images" %}</h4>
+              <div class="space-y-2 text-sm">
+                <div>
+                  <span class="text-gray-600 block mb-1">{% trans "Link" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded block">[text](url)</code>
+                </div>
+                <div>
+                  <span class="text-gray-600 block mb-1">{% trans "Image" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded block">![alt](url)</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Code Blocks -->
+            <div class="bg-white rounded-lg p-4 shadow-sm">
+              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Code Blocks" %}</h4>
+              <div class="space-y-2 text-sm">
+                <div>
+                  <span class="text-gray-600 block mb-1">{% trans "Code Block" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded block">```<br>code here<br>```</code>
+                </div>
+                <div>
+                  <span class="text-gray-600 block mb-1">{% trans "Language Specific" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded block">```python<br>code here<br>```</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Other -->
+            <div class="bg-white rounded-lg p-4 shadow-sm">
+              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Other" %}</h4>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Quote" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">&gt; text</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Horizontal Rule" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">---</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Line Break" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">2 spaces</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Mention" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">@[user]</code>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">{% trans "Emoji" %}</span>
+                  <code class="bg-gray-100 px-2 py-1 rounded">:smile:</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tables -->
+            <div class="bg-white rounded-lg p-4 shadow-sm md:col-span-2">
+              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Tables" %}</h4>
+              <div class="text-sm">
+                <span class="text-gray-600 block mb-1">{% trans "Table Syntax" %}</span>
+                <code class="bg-gray-100 px-2 py-1 rounded block">
+                  | Header 1 | Header 2 |<br>
+                  |----------|----------|<br>
+                  | Cell 1   | Cell 2   |
+                </code>
+              </div>
+            </div>
+
+            <!-- Keyboard Shortcuts -->
+            <div class="bg-white rounded-lg p-4 shadow-sm md:col-span-2">
+              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Keyboard Shortcuts" %}</h4>
+              <div class="grid grid-cols-2 gap-4 text-sm">
+                <div class="space-y-1">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">{% trans "Bold" %}</span>
+                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+B</kbd>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">{% trans "Italic" %}</span>
+                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+I</kbd>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">{% trans "Link" %}</span>
+                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+L</kbd>
+                  </div>
+                </div>
+                <div class="space-y-1">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">{% trans "Code" %}</span>
+                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+Alt+C</kbd>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">{% trans "Quote" %}</span>
+                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+Q</kbd>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">{% trans "List" %}</span>
+                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+U</kbd>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <button type="button" class="modal-close w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+          {% trans "Got it!" %}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

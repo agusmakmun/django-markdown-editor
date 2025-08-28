@@ -1,0 +1,57 @@
+{% load i18n %}
+<div class="main-martor main-martor-{{ field_name }}" data-field-name="{{ field_name }}">
+  <div class="section-martor">
+    <nav class="tab-martor-menu border-b border-gray-200 bg-white" role="tablist">
+      <div class="flex items-center justify-between px-4 py-2">
+        <div class="flex space-x-1">
+          <button class="tab-editor-{{ field_name }} flex items-center px-3 py-2 text-sm font-medium text-gray-700 border-b-2 border-gray-800 hover:text-gray-900 focus:outline-none focus:text-gray-900"
+                  id="editor-tab-{{ field_name }}"
+                  type="button"
+                  role="tab"
+                  aria-controls="editor-content-{{ field_name }}"
+                  aria-selected="true">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg>
+            <span>{% trans "Editor" %}</span>
+          </button>
+          <button class="tab-preview-{{ field_name }} flex items-center px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
+                  id="preview-tab-{{ field_name }}"
+                  type="button"
+                  role="tab"
+                  aria-controls="preview-content-{{ field_name }}"
+                  aria-selected="false">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+              <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+            </svg>
+            <span>{% trans "Preview" %}</span>
+          </button>
+        </div>
+
+        {% include "martor/tailwind/toolbar.html" %}
+      </div>
+    </nav>
+
+    <div class="tab-content">
+      <div class="tab-pane block" id="editor-content-{{ field_name }}" role="tabpanel" aria-labelledby="editor-tab-{{ field_name }}">
+        <div class="upload-progress hidden items-center justify-center absolute inset-0 bg-black bg-opacity-75 text-white z-50" data-field-name="{{ field_name }}">
+          <div class="text-center">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
+            <div class="text-sm">{% trans "Uploading... please wait..." %}</div>
+          </div>
+        </div>
+        <div id="martor-{{ field_name }}" class="martor-field martor-field-{{ field_name }} bg-white border-l border-gray-300"></div>
+        {{ martor }}
+      </div>
+
+      <div class="tab-pane hidden martor-preview bg-gray-50 p-4 min-h-64" id="preview-content-{{ field_name }}" role="tabpanel" aria-labelledby="preview-tab-{{ field_name }}">
+        <p class="text-gray-500">{% trans "Nothing to preview" %}</p>
+      </div>
+    </div>
+  </div><!-- end  /.section-martor -->
+
+  {% include 'martor/tailwind/guide.html' %}
+  {% include 'martor/tailwind/emoji.html' %}
+</div>

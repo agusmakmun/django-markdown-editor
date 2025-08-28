@@ -31,7 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 # Martor Configuration
-MARTOR_THEME = "bootstrap"  # semantic
+MARTOR_THEME = "tailwind"  # bootstrap, semantic
 MARTOR_ENABLE_LABEL = True
 MARTOR_ENABLE_CONFIGS = {
     "emoji": "true",  # to enable/disable emoji icons.

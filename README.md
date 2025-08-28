@@ -4,14 +4,14 @@
 
 📖 **Documentation:** https://django-markdown-editor.readthedocs.io
 
-**Martor** is a Markdown Editor plugin for Django, supported for _Bootstrap_ & _Semantic-UI_.
+**Martor** is a Markdown Editor plugin for Django, supported for _Bootstrap_, _Semantic-UI_ & _Tailwind CSS_.
 
 
 ### Features
 
 * Live Preview
 * Integrated with [_Ace Editor_](https://ace.c9.io)
-* Supported with [_Bootstrap_](https://getbootstrap.com) and [_Semantic-UI_](https://semantic-ui.com)
+* Supported with [_Bootstrap_](https://getbootstrap.com), [_Semantic-UI_](https://semantic-ui.com) and [_Tailwind CSS_](https://tailwindcss.com)
 * Supported Multiple Fields [_fixed this issue_](https://github.com/agusmakmun/django-markdown-editor/issues/3)
 * Upload Images to imgur.com _(via API)_ and [custom uploader][13]
 * Direct Mention users `@[username]` - _(requires user to logged in)_.
@@ -86,7 +86,7 @@ Please register your application at https://api.imgur.com/oauth2/addclient
 to get `IMGUR_CLIENT_ID` and `IMGUR_API_KEY`.
 
 ```python
-# Choices are: "semantic", "bootstrap"
+# Choices are: "semantic", "bootstrap", "tailwind"
 MARTOR_THEME = 'bootstrap'
 
 # Global martor settings
@@ -331,6 +331,90 @@ Different with *Template Renderer*, the *Template Editor Form* have more css & j
   <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'martor/js/martor.bootstrap.min.js' %}"></script>
+{% endblock %}
+```
+
+
+#### Tailwind CSS Theme
+
+When using `MARTOR_THEME = 'tailwind'`, include the required CSS and JavaScript files:
+
+**Template Renderer (Tailwind):**
+
+```html
+{% extends "base.html" %}
+{% load static %}
+{% load martortags %}
+
+{% block css %}
+  <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'plugins/css/tailwind.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'martor/css/martor.tailwind.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+  <div class="container mx-auto px-4 py-8">
+    <div class="martor-preview bg-white rounded-lg shadow-sm p-6">
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ post.title }}</h1>
+      <div class="prose prose-sm max-w-none">
+        {{ post.description|safe_markdown }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+  <script>
+    document.querySelectorAll('.martor-preview pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+  </script>
+{% endblock %}
+```
+
+**Template Editor Form (Tailwind):**
+
+```html
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+  <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'plugins/css/tailwind.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'martor/css/martor.tailwind.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+  <div class="container mx-auto px-4 py-8">
+    <form class="bg-white rounded-lg shadow-sm p-6" method="post">{% csrf_token %}
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.title.label }}</label>
+        {{ form.title }}
+      </div>
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">{{ form.description.label }}</label>
+        {{ form.description }}
+      </div>
+      <div class="flex justify-end">
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors">
+          Save Post
+        </button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/mode-markdown.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/ext-language_tools.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/theme-github.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/typo.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/spellcheck.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'martor/js/martor.tailwind.min.js' %}"></script>
 {% endblock %}
 ```
 
