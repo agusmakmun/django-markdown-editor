@@ -33,9 +33,7 @@ class MartorWidget(forms.Textarea):
     def render(self, name, value, attrs=None, renderer=None, **kwargs):
         # Create random string to make field ID unique to prevent duplicated ID
         # when rendering fields with the same field name
-        random_string = "".join(
-            random.choice(string.ascii_letters + string.digits) for x in range(10)
-        )
+        random_string = "".join(random.choice(string.ascii_letters + string.digits) for x in range(10))
         attrs["id"] = attrs["id"] + "-" + random_string
 
         # Make the settings the default attributes to pass
@@ -89,7 +87,6 @@ class MartorWidget(forms.Textarea):
             "all": (
                 "plugins/css/ace.min.css",
                 "plugins/css/highlight.min.css",
-                "plugins/css/resizable.min.css",
                 "martor/css/martor.%s.min.css" % selected_theme,
             )
         }

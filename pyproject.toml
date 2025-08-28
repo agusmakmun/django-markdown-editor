@@ -52,7 +52,7 @@ Release-notes = "https://github.com/agusmakmun/django-markdown-editor/releases"
 Funding = "https://www.paypal.com/paypalme/summonagus"
 Source = "https://github.com/agusmakmun/django-markdown-editor"
 Issues = "https://github.com/agusmakmun/django-markdown-editor/issues"
-Download = "https://github.com/agusmakmun/django-markdown-editor/tarball/v{version}"
+Download = "https://github.com/agusmakmun/django-markdown-editor/releases"
 
 [project.optional-dependencies]
 dev = [
