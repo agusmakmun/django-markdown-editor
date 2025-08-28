@@ -3,7 +3,7 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.7.14 (Current)
+Version 1.7.16 (Current)
 -------------------------
 
 **Release Date:** August 28, 2025
