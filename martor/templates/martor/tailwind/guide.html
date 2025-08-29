@@ -1,227 +1,194 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!-- Markdown Guide Modal -->
-<div class="modal-help-guide hidden fixed inset-0 z-50 overflow-y-auto" data-field-name="{{ field_name }}" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+<div class="modal-help-guide hidden fixed inset-0 z-[99999] overflow-y-auto" data-field-name="{{ field_name }}" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 relative z-10">
     <!-- Background overlay -->
-    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-
-    <!-- Modal centering -->
-    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-0" aria-hidden="true"></div>
 
     <!-- Modal panel -->
-    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
-      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-        <div class="flex items-start justify-between">
-          <div class="flex items-center">
-            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-              <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                {% trans "Markdown Guide" %}
-              </h3>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500">
-                  {% trans "Quick reference for Markdown syntax" %}
-                </p>
-              </div>
-            </div>
-          </div>
-          <button type="button" class="modal-close text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600" aria-label="{% trans 'Close' %}">
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+    <div class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all max-w-4xl w-full p-6 z-10 relative mx-auto">
+      <button type="button" class="modal-close text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-2 float-right transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="{% trans 'Close' %}">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="text-center mb-6 space-y-1">
+        <div class="text-xs text-gray-500">
+          <span>{% blocktrans with repo_url='https://github.com/agusmakmun/django-markdown-editor' %}Copyright &copy; <a href="{{ repo_url }}" class="text-blue-600 hover:text-blue-800 font-medium">Martor</a>{% endblocktrans %}</span>
         </div>
+        <p class="text-xs text-gray-500">
+          {% blocktrans with doc_url='http://commonmark.org/help/' %}This editor is powered by Markdown. For full documentation, <a href="{{ doc_url }}" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium">click here</a>.{% endblocktrans %}
+        </p>
       </div>
 
-      <div class="bg-gray-50 px-4 py-3 sm:px-6">
-        <div class="max-h-96 overflow-y-auto">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Text Formatting -->
-            <div class="bg-white rounded-lg p-4 shadow-sm">
-              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Text Formatting" %}</h4>
-              <div class="space-y-2 text-sm">
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Bold" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">**text**</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Italic" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">*text*</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Strikethrough" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">~~text~~</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Underline" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">++text++</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Inline Code" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">`code`</code>
-                </div>
-              </div>
-            </div>
+      <div class="max-h-100 overflow-y-auto rounded-lg border border-gray-200">
+        <table class="w-full">
+          <thead>
+            <tr>
+              <th>{% trans "Code" %}</th>
+              <th>{% trans "Or" %}</th>
+              <th>Linux/Windows</th>
+              <th>Mac OS</th>
+              <th>{% trans "... to Get" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if emoji_enabled %}
+            <tr>
+              <td><code>:emoji_name:</code></td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td><img class="w-5 h-5" src="{% static 'plugins/images/heart.png' %}" alt="emoji"></td>
+            </tr>
+            {% endif %}
 
-            <!-- Headers -->
-            <div class="bg-white rounded-lg p-4 shadow-sm">
-              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Headers" %}</h4>
-              <div class="space-y-2 text-sm">
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Header 1" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded"># H1</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Header 2" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">## H2</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Header 3" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">### H3</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Header 4" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">#### H4</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Header 5" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">##### H5</code>
-                </div>
-              </div>
-            </div>
+            {% if mentions_enabled %}
+            <tr>
+              <td><code>@[username]</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+M</kbd></td>
+              <td><kbd>Command+M</kbd></td>
+              <td><a href="#" class="text-blue-600 hover:text-blue-800">@username</a></td>
+            </tr>
+            {% endif %}
 
-            <!-- Lists -->
-            <div class="bg-white rounded-lg p-4 shadow-sm">
-              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Lists" %}</h4>
-              <div class="space-y-2 text-sm">
-                <div>
-                  <span class="text-gray-600 block mb-1">{% trans "Unordered List" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded block">* Item 1<br>* Item 2</code>
-                </div>
-                <div>
-                  <span class="text-gray-600 block mb-1">{% trans "Ordered List" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded block">1. First<br>2. Second</code>
-                </div>
-              </div>
-            </div>
+            {% if emoji_enabled or mentions_enabled %}
+            <tr>
+              <td colspan="5" style="padding: 8px;"></td>
+            </tr>
+            {% endif %}
 
-            <!-- Links & Images -->
-            <div class="bg-white rounded-lg p-4 shadow-sm">
-              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Links & Images" %}</h4>
-              <div class="space-y-2 text-sm">
-                <div>
-                  <span class="text-gray-600 block mb-1">{% trans "Link" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded block">[text](url)</code>
-                </div>
-                <div>
-                  <span class="text-gray-600 block mb-1">{% trans "Image" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded block">![alt](url)</code>
-                </div>
-              </div>
-            </div>
-
-            <!-- Code Blocks -->
-            <div class="bg-white rounded-lg p-4 shadow-sm">
-              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Code Blocks" %}</h4>
-              <div class="space-y-2 text-sm">
-                <div>
-                  <span class="text-gray-600 block mb-1">{% trans "Code Block" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded block">```<br>code here<br>```</code>
-                </div>
-                <div>
-                  <span class="text-gray-600 block mb-1">{% trans "Language Specific" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded block">```python<br>code here<br>```</code>
-                </div>
-              </div>
-            </div>
-
-            <!-- Other -->
-            <div class="bg-white rounded-lg p-4 shadow-sm">
-              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Other" %}</h4>
-              <div class="space-y-2 text-sm">
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Quote" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">&gt; text</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Horizontal Rule" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">---</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Line Break" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">2 spaces</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Mention" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">@[user]</code>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-600">{% trans "Emoji" %}</span>
-                  <code class="bg-gray-100 px-2 py-1 rounded">:smile:</code>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tables -->
-            <div class="bg-white rounded-lg p-4 shadow-sm md:col-span-2">
-              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Tables" %}</h4>
-              <div class="text-sm">
-                <span class="text-gray-600 block mb-1">{% trans "Table Syntax" %}</span>
-                <code class="bg-gray-100 px-2 py-1 rounded block">
-                  | Header 1 | Header 2 |<br>
-                  |----------|----------|<br>
-                  | Cell 1   | Cell 2   |
-                </code>
-              </div>
-            </div>
-
-            <!-- Keyboard Shortcuts -->
-            <div class="bg-white rounded-lg p-4 shadow-sm md:col-span-2">
-              <h4 class="text-md font-semibold text-gray-900 mb-3">{% trans "Keyboard Shortcuts" %}</h4>
-              <div class="grid grid-cols-2 gap-4 text-sm">
-                <div class="space-y-1">
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">{% trans "Bold" %}</span>
-                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+B</kbd>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">{% trans "Italic" %}</span>
-                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+I</kbd>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">{% trans "Link" %}</span>
-                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+L</kbd>
-                  </div>
-                </div>
-                <div class="space-y-1">
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">{% trans "Code" %}</span>
-                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+Alt+C</kbd>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">{% trans "Quote" %}</span>
-                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+Q</kbd>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">{% trans "List" %}</span>
-                    <kbd class="bg-gray-100 px-2 py-1 rounded text-xs">Ctrl+U</kbd>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-        <button type="button" class="modal-close w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-          {% trans "Got it!" %}
-        </button>
+            <tr>
+              <td><code>*Italic*</code></td>
+              <td><code>_Italic_</code></td>
+              <td><kbd>Ctrl+I</kbd></td>
+              <td><kbd>Command+I</kbd></td>
+              <td><em>Italic</em></td>
+            </tr>
+            <tr>
+              <td><code>**Bold**</code></td>
+              <td><code>__Bold__</code></td>
+              <td><kbd>Ctrl+B</kbd></td>
+              <td><kbd>Command+B</kbd></td>
+              <td><strong>Bold</strong></td>
+            </tr>
+            <tr>
+              <td><code>++Underscores++</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+Shift+U</kbd></td>
+              <td><kbd>Command+Shift+U</kbd></td>
+              <td><ins>Underscores</ins></td>
+            </tr>
+            <tr>
+              <td><code>~~Strikethrough~~</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+Shift+S</kbd></td>
+              <td><kbd>Command+Shift+S</kbd></td>
+              <td><del>Strikethrough</del></td>
+            </tr>
+            <tr>
+              <td><code># Heading 1</code></td>
+              <td><code>Heading 1<br> =========</code></td>
+              <td><kbd>Ctrl+Alt+1</kbd></td>
+              <td><kbd>Command+Option+1</kbd></td>
+              <td><h1>Heading 1</h1></td>
+            </tr>
+            <tr>
+              <td><code>## Heading 2</code></td>
+              <td><code>Heading 2<br> ---------</code></td>
+              <td><kbd>Ctrl+Alt+2</kbd></td>
+              <td><kbd>Command+Option+2</kbd></td>
+              <td><h2>Heading 2</h2></td>
+            </tr>
+            <tr>
+              <td><code>[Link](http://a.com)</code></td>
+              <td><code>[Link][1]<br><br>[1]: http://b.org</code></td>
+              <td><kbd>Ctrl+L</kbd></td>
+              <td><kbd>Command+L</kbd></td>
+              <td><a href="http://commonmark.org/" class="text-blue-600 hover:text-blue-800">Link</a></td>
+            </tr>
+            <tr>
+              <td><code>![Image](http://url/a.png)</code></td>
+              <td><code>![Image][1]<br><br>[1]: http://url/b.jpg</code></td>
+              <td><kbd>Ctrl+Shift+I</kbd></td>
+              <td><kbd>Command+Option+I</kbd></td>
+              <td><img src="{% static 'plugins/images/commonmark.png' %}" width="36" height="36" alt="Markdown" class="w-9 h-9"></td>
+            </tr>
+            <tr>
+              <td><code>&gt; Blockquote</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+Q</kbd></td>
+              <td><kbd>Command+Shift+K</kbd></td>
+              <td><blockquote>Blockquote</blockquote></td>
+            </tr>
+            <tr>
+              <td><code>A paragraph.<br><br>A paragraph after 1 blank line.</code></td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td>
+                <p style="margin-bottom: 8px;">A paragraph.</p>
+                <p>A paragraph after 1 blank line.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><code>* List<br>* List<br>* List</code></td>
+              <td><code>- List<br>- List<br>- List</code></td>
+              <td><kbd>Ctrl+U</kbd></td>
+              <td><kbd>Command+U</kbd></td>
+              <td>
+                <ul>
+                  <li>List</li>
+                  <li>List</li>
+                  <li>List</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td><code>1. One<br>2. Two<br>3. Three</code></td>
+              <td><code>1) One<br>2) Two<br>3) Three</code></td>
+              <td><kbd>Ctrl+Shift+O</kbd></td>
+              <td><kbd>Command+Option+O</kbd></td>
+              <td>
+                <ol>
+                  <li>One</li>
+                  <li>Two</li>
+                  <li>Three</li>
+                </ol>
+              </td>
+            </tr>
+            <tr>
+              <td><code>Horizontal Rule<br><br>-----------</code></td>
+              <td><code>Horizontal Rule<br><br>***********</code></td>
+              <td><kbd>Ctrl+H</kbd></td>
+              <td><kbd>Command+H</kbd></td>
+              <td>
+                <div>Horizontal Rule</div>
+                <hr>
+              </td>
+            </tr>
+            <tr>
+              <td><code>`Inline code` with backticks</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+Alt+C</kbd></td>
+              <td><kbd>Command+Option+C</kbd></td>
+              <td><code>Inline code</code> with backticks</td>
+            </tr>
+            <tr>
+              <td><code>```<br>def whatever(foo):<br>&nbsp;&nbsp;&nbsp;&nbsp;return foo<br>```</code></td>
+              <td><strong>with tab / 4 spaces</strong><br><code>....def whatever(foo):<br>....&nbsp;&nbsp;&nbsp;&nbsp;return foo</code></td>
+              <td><kbd>Ctrl+Alt+P</kbd></td>
+              <td><kbd>Command+Option+P</kbd></td>
+              <td>
+                <pre><code>def whatever(foo):
+  return foo</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

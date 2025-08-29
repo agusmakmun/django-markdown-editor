@@ -41,11 +41,76 @@
                 $(element).removeClass('block').addClass('hidden');
             },
             showModal: function(element) {
-                $(element).removeClass('hidden').addClass('flex');
+                console.log('Showing modal:', element);
+                var $modal = $(element);
+                $modal.removeClass('hidden').addClass('flex');
+                $modal.css({
+                    'display': 'flex !important',
+                    'z-index': '99999',
+                    'position': 'fixed',
+                    'top': '0',
+                    'left': '0',
+                    'width': '100vw',
+                    'height': '100vh',
+                    'opacity': '1',
+                    'visibility': 'visible'
+                });
                 $('body').addClass('overflow-hidden');
+                console.log('Modal styles applied:', $modal.css(['display', 'z-index', 'position']));
+                console.log('Modal visibility:', $modal.is(':visible'));
+                console.log('Modal dimensions:', {
+                    width: $modal.outerWidth(),
+                    height: $modal.outerHeight(),
+                    offset: $modal.offset()
+                });
+                // Also ensure the modal content is visible
+                $modal.find('.bg-white').css({
+                    'display': 'block',
+                    'position': 'relative',
+                    'z-index': '10'
+                });
+
+                // Force the modal container to be visible
+                $modal.show().fadeIn();
+
+                // Ensure modal content panel is visible
+                var modalPanel = $modal.find('.bg-white').first();
+                var modalContainer = $modal.find('.flex.items-center');
+
+                modalContainer.css({
+                    'display': 'flex !important',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    'width': '100%',
+                    'height': '100%',
+                    'text-align': 'center'
+                });
+
+                modalPanel.css({
+                    'display': 'block !important',
+                    'visibility': 'visible',
+                    'opacity': '1',
+                    'background-color': 'white',
+                    'max-width': '800px',
+                    'width': '90%',
+                    'z-index': '20',
+                    'margin': '0',
+                    'border-radius': '8px',
+                    'box-shadow': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                    'transform': 'none',
+                    'position': 'relative'
+                });
+
+                console.log('Modal panel found:', modalPanel.length);
+                console.log('Modal container found:', modalContainer.length);
+                console.log('Modal panel styles:', modalPanel.css(['display', 'visibility', 'background-color']));
+
+                // Force all content to be visible
+                $modal.find('*').css('visibility', 'visible');
             },
             hideModal: function(element) {
-                $(element).removeClass('flex').addClass('hidden');
+                console.log('Hiding modal:', element);
+                $(element).removeClass('flex').addClass('hidden').css('display', 'none');
                 $('body').removeClass('overflow-hidden');
             },
             toggleTab: function(activeTab, activeContent, inactiveTabs, inactiveContents) {
@@ -271,8 +336,6 @@
                 }
             }
 
-
-
             if (editorConfig.emoji == 'true') {
                 langTools = ace.require("ace/ext/language_tools");
                 langTools.addCompleter(emojiWordCompleter);
@@ -282,8 +345,6 @@
                 langTools = ace.require("ace/ext/language_tools");
                 langTools.addCompleter(mentionWordCompleter);
             }
-
-
 
             // Handle toolbar dropdowns for Tailwind
             $('.martor-toolbar .dropdown').each(function() {
@@ -311,13 +372,27 @@
             });
 
             // Modal Popup for Help Guide & Emoji Cheat Sheet
-            $('.markdown-help[data-field-name=' + field_name + ']').click(function () {
-                TailwindUtils.showModal('.modal-help-guide[data-field-name=' + field_name + ']');
+            $('.markdown-help[data-field-name=' + field_name + ']').click(function (e) {
+                e.preventDefault();
+                console.log('Help button clicked for field:', field_name);
+                var modalSelector = '.modal-help-guide[data-field-name=' + field_name + ']';
+                console.log('Modal selector:', modalSelector);
+                var modal = $(modalSelector);
+                console.log('Modal found:', modal.length);
+                TailwindUtils.showModal(modalSelector);
             });
 
             // Close modal functionality
-            $('.modal-help-guide[data-field-name=' + field_name + '] .modal-close').click(function () {
+            $('.modal-help-guide[data-field-name=' + field_name + '] .modal-close').click(function (e) {
+                e.preventDefault();
                 TailwindUtils.hideModal('.modal-help-guide[data-field-name=' + field_name + ']');
+            });
+
+            // Also handle click on modal backdrop to close
+            $('.modal-help-guide[data-field-name=' + field_name + ']').click(function (e) {
+                if (e.target === this || $(e.target).hasClass('bg-gray-500')) {
+                    TailwindUtils.hideModal('.modal-help-guide[data-field-name=' + field_name + ']');
+                }
             });
 
             // Toggle editor, preview, maximize
@@ -367,28 +442,52 @@
                 var modalEmoji = $('.modal-emoji[data-field-name=' + field_name + ']');
                 TailwindUtils.showModal(modalEmoji);
                 var emojiList = typeof (emojis) != "undefined" ? emojis : []; // from `plugins/js/emojis.min.js`
-                var segmentEmoji = modalEmoji.find('.emoji-content-body');
+                var emojiGrid = modalEmoji.find('#emoji-grid-' + field_name);
                 var loaderInit = modalEmoji.find('.emoji-loader-init');
 
-                // setup initial loader
-                segmentEmoji.html('');
-                TailwindUtils.showElement(loaderInit);
+                // Only load emojis if grid is empty
+                if (emojiGrid.children().length === 0) {
+                    // Show loader
+                    TailwindUtils.showElement(loaderInit);
 
-                    for (var i = 0; i < emojiList.length; i++) {
-                        var linkEmoji = textareaId.data('base-emoji-url') + emojiList[i].replace(/:/g, '') + '.png';
-                    segmentEmoji.append(''
-                        + '<div class="inline-block p-2">'
-                        + '<a data-emoji-target="' + emojiList[i] + '" class="insert-emoji">'
-                        + '<img class="w-5 h-5" src="' + linkEmoji + '"> ' + emojiList[i]
-                        + '</a></div>');
-                        $('a[data-emoji-target="' + emojiList[i] + '"]').click(function () {
-                            markdownToEmoji(editor, $(this).data('emoji-target'));
-                            TailwindUtils.hideModal(modalEmoji);
-                        });
-                    }
+                    // Load emojis with timeout to show loading state
+                    setTimeout(function() {
+                        try {
+                            console.log('Loading emojis, count:', emojiList.length);
 
-                    TailwindUtils.hideElement(loaderInit);
-                    TailwindUtils.showElement(segmentEmoji);
+                            for (var i = 0; i < Math.min(emojiList.length, 300); i++) { // Increased to 300 for more emojis
+                                var emoji = emojiList[i];
+                                var linkEmoji = textareaId.data('base-emoji-url') + emoji.replace(/:/g, '') + '.png';
+
+                                var emojiButton = $('<button type="button" class="insert-emoji p-2 hover:bg-gray-100 rounded border border-gray-200 text-center transition-colors" ' +
+                                    'data-emoji-target="' + emoji + '" title="' + emoji + '">' +
+                                    '<img class="w-6 h-6 mx-auto" src="' + linkEmoji + '" alt="' + emoji + '" ' +
+                                    'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';">' +
+                                    '<span class="text-xs hidden">' + emoji + '</span>' +
+                                    '</button>');
+
+                                emojiGrid.append(emojiButton);
+                            }
+
+                            // Attach click handlers to dynamically created buttons
+                            modalEmoji.find('.insert-emoji').off('click').on('click', function() {
+                                var emojiTarget = $(this).data('emoji-target');
+                                console.log('Emoji selected:', emojiTarget);
+                                markdownToEmoji(editor, emojiTarget);
+                                TailwindUtils.hideModal(modalEmoji);
+                            });
+
+                            TailwindUtils.hideElement(loaderInit);
+                            console.log('Emojis loaded successfully');
+                        } catch (error) {
+                            console.error('Error loading emojis:', error);
+                            TailwindUtils.hideElement(loaderInit);
+                            emojiGrid.html('<div class="col-span-10 text-center text-gray-500 py-4">Error loading emojis. Please try again.</div>');
+                        }
+                    }, 100); // Small delay to show loading state
+                } else {
+                    console.log('Emojis already loaded');
+                }
             });
 
             // Close emoji modal
@@ -396,10 +495,15 @@
                 TailwindUtils.hideModal('.modal-emoji[data-field-name=' + field_name + ']');
             });
 
+            // Handle popular emoji buttons
+            $('.modal-emoji[data-field-name=' + field_name + '] .insert-emoji-popular').click(function () {
+                var emojiTarget = $(this).data('emoji-target');
+                markdownToEmoji(editor, emojiTarget);
+                TailwindUtils.hideModal('.modal-emoji[data-field-name=' + field_name + ']');
+            });
+
             // Set initial value if has the content before.
             editor.setValue(textareaId.val(), -1);
-
-
 
             // win/linux: Ctrl+B, mac: Command+B
             var markdownToBold = function (editor) {

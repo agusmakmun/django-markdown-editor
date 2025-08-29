@@ -41,6 +41,137 @@ body.overflow {
     line-height: 1.5rem;
 }
 
+/* Help Guide Modal */
+.modal-help-guide {
+    z-index: 99999 !important;
+}
+
+.modal-help-guide.flex {
+    display: flex !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.modal-help-guide .bg-white {
+    display: block !important;
+    background-color: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    max-width: 900px !important;
+    width: 95% !important;
+    max-height: 90vh !important;
+    margin: 0 auto !important;
+    z-index: 20 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.modal-help-guide .flex.items-center {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Enhanced Table Styling */
+.modal-help-guide table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    width: 100% !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+}
+
+.modal-help-guide th {
+    background-color: #f8fafc !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    font-size: 12px !important;
+    color: #64748b !important;
+    padding: 12px 16px !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    text-align: left !important;
+}
+
+.modal-help-guide td {
+    padding: 16px !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    vertical-align: top !important;
+}
+
+.modal-help-guide tr:hover td {
+    background-color: #f8fafc !important;
+}
+
+.modal-help-guide code {
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    border: 1px solid #e2e8f0 !important;
+    white-space: nowrap !important;
+}
+
+.modal-help-guide kbd {
+    background-color: #334155 !important;
+    color: white !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid #1e293b !important;
+}
+
+.modal-help-guide h1,
+.modal-help-guide h2 {
+    margin: 0 !important;
+    font-weight: 700 !important;
+}
+
+.modal-help-guide blockquote {
+    margin: 0 !important;
+    font-style: italic !important;
+    color: #64748b !important;
+}
+
+.modal-help-guide ul,
+.modal-help-guide ol {
+    margin: 0 !important;
+    padding-left: 20px !important;
+}
+
+.modal-help-guide pre {
+    margin: 0 !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    font-size: 13px !important;
+    overflow-x: auto !important;
+}
+
+.modal-help-guide hr {
+    border: none !important;
+    height: 2px !important;
+    background-color: #e2e8f0 !important;
+    margin: 8px 0 !important;
+}
+
 /* Upload Progress Overlay */
 .main-martor .upload-progress {
     position: absolute;
@@ -287,6 +418,7 @@ div.martor-preview pre {
 div.martor-preview hr {
     background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxBEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
     @apply border-0 text-gray-300 h-1 p-0;
+    margin: 1rem 0;
 }
 
 /* First Child Margin Reset */
@@ -323,13 +455,27 @@ div.martor-preview li p.first {
     @apply inline-block;
 }
 
-div.martor-preview ul li {
-    @apply list-disc;
+div.martor-preview ul {
+    @apply pl-8;
+    margin: 1rem 0;
+    list-style-type: disc !important;
+    list-style-position: inside !important;
+    display: block !important;
 }
 
-div.martor-preview ul,
 div.martor-preview ol {
     @apply pl-8;
+    margin: 1rem 0;
+    list-style-type: decimal !important;
+    list-style-position: inside !important;
+    display: block !important;
+}
+
+div.martor-preview ul li,
+div.martor-preview ol li {
+    margin: 0.25rem 0;
+    padding-left: 0.5rem;
+    display: list-item !important;
 }
 
 div.martor-preview ul.no-list,
@@ -337,6 +483,7 @@ div.martor-preview ol.no-list {
     @apply list-none p-0;
 }
 
+/* Nested list styles */
 div.martor-preview ul li> :first-child,
 div.martor-preview ul li ul:first-of-type,
 div.martor-preview ol li> :first-child,
@@ -349,6 +496,14 @@ div.martor-preview ul ol,
 div.martor-preview ol ol,
 div.martor-preview ol ul {
     @apply mb-0;
+    margin-top: 0.5rem;
+}
+
+/* Ensure nested lists have proper indentation */
+div.martor-preview li>ul,
+div.martor-preview li>ol {
+    @apply pl-4;
+    margin: 0.25rem 0;
 }
 
 /* Definition Lists */
@@ -386,15 +541,25 @@ div.martor-preview dl dd> :last-child {
 
 /* Blockquotes */
 div.martor-preview blockquote {
-    @apply border-l-4 border-gray-300 py-1 px-4 text-gray-500 bg-white;
+    border-left: 4px solid #d1d5db !important;
+    padding: 0.25rem 1rem !important;
+    margin: 1rem 0 !important;
+    background-color: #f9fafb !important;
+    color: #6b7280 !important;
+    font-style: italic !important;
+    border-radius: 0 0.375rem 0.375rem 0 !important;
+}
+
+div.martor-preview blockquote p {
+    margin: 0.5rem 0 !important;
 }
 
 div.martor-preview blockquote> :first-child {
-    @apply mt-0;
+    margin-top: 0 !important;
 }
 
 div.martor-preview blockquote> :last-child {
-    @apply mb-0;
+    margin-bottom: 0 !important;
 }
 
 /* Tables */
