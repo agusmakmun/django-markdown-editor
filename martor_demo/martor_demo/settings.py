@@ -30,6 +30,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
+# Required for Martor AJAX functionality
+CSRF_COOKIE_HTTPONLY = False
+
 # Martor Configuration
 MARTOR_THEME = "tailwind"  # bootstrap, semantic
 MARTOR_ENABLE_LABEL = True
