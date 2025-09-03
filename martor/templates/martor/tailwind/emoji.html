@@ -1,0 +1,131 @@
+{% load i18n %}
+
+<!-- Emoji Picker Modal -->
+<div class="modal-emoji hidden fixed inset-0 z-[99999] overflow-y-auto" data-field-name="{{ field_name }}" aria-labelledby="emoji-modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 relative z-10">
+    <!-- Background overlay -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-0" aria-hidden="true"></div>
+
+    <!-- Modal panel -->
+    <div class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all max-w-3xl w-full p-6 z-10 relative mx-auto">
+      <button type="button" class="modal-close text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-2 float-right transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="{% trans 'Close' %}">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="text-center mb-6 space-y-1">
+        <h3 class="text-xl font-bold text-gray-900" id="emoji-modal-title">
+          {% trans "Choose an Emoji" %}
+        </h3>
+        <p class="text-sm text-gray-500">
+          {% trans "Click on an emoji to insert it into your text" %}
+        </p>
+      </div>
+
+      <!-- Loading indicator -->
+      <div class="emoji-loader-init hidden text-center py-12">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
+        <p class="text-sm text-gray-500">{% trans "Loading emojis..." %}</p>
+      </div>
+
+      <!-- Main content container -->
+      <div class="max-h-96 overflow-y-auto rounded-lg border border-gray-200 p-4">
+        <!-- Search bar -->
+        <div class="mb-4 sticky top-0 bg-white z-10 pb-2">
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input type="text"
+                   id="emoji-search-{{ field_name }}"
+                   class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                   placeholder="{% trans 'Search emojis...' %}">
+          </div>
+        </div>
+
+        <!-- Popular emojis section -->
+        <div class="mb-6">
+          <h4 class="text-sm font-medium text-gray-900 mb-3">{% trans "Popular" %}</h4>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" class="insert-emoji-popular p-2 hover:bg-gray-100 rounded transition-colors border border-gray-200" data-emoji-target=":heart:" title="heart">
+              <span class="text-2xl">❤️</span>
+            </button>
+            <button type="button" class="insert-emoji-popular p-2 hover:bg-gray-100 rounded transition-colors border border-gray-200" data-emoji-target=":thumbsup:" title="thumbs up">
+              <span class="text-2xl">👍</span>
+            </button>
+            <button type="button" class="insert-emoji-popular p-2 hover:bg-gray-100 rounded transition-colors border border-gray-200" data-emoji-target=":thumbsdown:" title="thumbs down">
+              <span class="text-2xl">👎</span>
+            </button>
+            <button type="button" class="insert-emoji-popular p-2 hover:bg-gray-100 rounded transition-colors border border-gray-200" data-emoji-target=":fire:" title="fire">
+              <span class="text-2xl">🔥</span>
+            </button>
+            <button type="button" class="insert-emoji-popular p-2 hover:bg-gray-100 rounded transition-colors border border-gray-200" data-emoji-target=":star:" title="star">
+              <span class="text-2xl">⭐</span>
+            </button>
+            <button type="button" class="insert-emoji-popular p-2 hover:bg-gray-100 rounded transition-colors border border-gray-200" data-emoji-target=":tada:" title="celebration">
+              <span class="text-2xl">🎉</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Emoji grid -->
+        <div class="emoji-content-body">
+          <h4 class="text-sm font-medium text-gray-900 mb-3">{% trans "All Emojis" %}</h4>
+          <div class="grid grid-cols-10 gap-1" id="emoji-grid-{{ field_name }}">
+            <!-- Emojis will be dynamically loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Enhanced emoji search and filtering functionality
+(function() {
+    // Search functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('emoji-search-{{ field_name }}');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const emojiButtons = document.querySelectorAll('#emoji-grid-{{ field_name }} .insert-emoji');
+
+                emojiButtons.forEach(function(button) {
+                    const emojiName = button.getAttribute('data-emoji-target').toLowerCase();
+                    const emojiTitle = button.getAttribute('title').toLowerCase();
+
+                    if (emojiName.includes(searchTerm) || emojiTitle.includes(searchTerm)) {
+                        button.parentElement.style.display = 'block';
+                    } else {
+                        button.parentElement.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Category tab functionality
+        const categoryTabs = document.querySelectorAll('.emoji-category-tab');
+        categoryTabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                categoryTabs.forEach(function(t) {
+                    t.classList.remove('border-blue-500', 'text-blue-600');
+                    t.classList.add('border-transparent', 'text-gray-500');
+                });
+
+                // Add active class to clicked tab
+                this.classList.remove('border-transparent', 'text-gray-500');
+                this.classList.add('border-blue-500', 'text-blue-600');
+
+                // Filter emojis by category (this would need to be implemented based on emoji data structure)
+                const category = this.getAttribute('data-category');
+                // Filter logic would go here
+            });
+        });
+    });
+})();
+</script>

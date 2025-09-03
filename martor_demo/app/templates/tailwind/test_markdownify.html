@@ -1,0 +1,251 @@
+{% extends 'tailwind/base.html' %}
+{% load static %}
+{% load martortags %}
+
+{% block title %}Test Markdownify - Martor Demo (Tailwind){% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <!-- Header Section -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">
+                Markdownify Test
+            </h2>
+            <p class="text-gray-600 mb-4">
+                See how Martor renders Markdown content with Tailwind CSS styling
+            </p>
+        </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Markdown Source -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <svg class="h-5 w-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                Markdown Source
+            </h3>
+            <div class="bg-gray-50 rounded-lg p-4 overflow-auto">
+                <pre class="text-sm text-gray-800 whitespace-pre-wrap">{{ content }}</pre>
+            </div>
+        </div>
+
+        <!-- Rendered Output -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <svg class="h-5 w-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                Rendered Output
+            </h3>
+            <div class="prose prose-sm max-w-none border border-gray-200 rounded-lg p-4 bg-gray-50">
+                {{ content|safe_markdown }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Sample Markdown Examples -->
+    <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Sample Markdown Examples</h3>
+
+        <div class="space-y-6">
+            <!-- Headers Example -->
+            <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="text-md font-medium text-gray-900 mb-2">Headers</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded p-3">
+                        <code class="text-sm">
+# Heading 1<br>
+## Heading 2<br>
+### Heading 3
+                        </code>
+                    </div>
+                    <div class="prose prose-sm">
+                        <h1 class="text-2xl font-bold">Heading 1</h1>
+                        <h2 class="text-xl font-semibold">Heading 2</h2>
+                        <h3 class="text-lg font-medium">Heading 3</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Formatting Example -->
+            <div class="border-l-4 border-green-500 pl-4">
+                <h4 class="text-md font-medium text-gray-900 mb-2">Text Formatting</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded p-3">
+                        <code class="text-sm">
+**Bold text**<br>
+*Italic text*<br>
+~~Strikethrough~~<br>
+++Underline++<br>
+`inline code`
+                        </code>
+                    </div>
+                    <div class="prose prose-sm">
+                        <p><strong>Bold text</strong></p>
+                        <p><em>Italic text</em></p>
+                        <p><del>Strikethrough</del></p>
+                        <p><u>Underline</u></p>
+                        <p><code>inline code</code></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lists Example -->
+            <div class="border-l-4 border-yellow-500 pl-4">
+                <h4 class="text-md font-medium text-gray-900 mb-2">Lists</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded p-3">
+                        <code class="text-sm">
+* Unordered item 1<br>
+* Unordered item 2<br>
+<br>
+1. Ordered item 1<br>
+2. Ordered item 2
+                        </code>
+                    </div>
+                    <div class="prose prose-sm">
+                        <ul>
+                            <li>Unordered item 1</li>
+                            <li>Unordered item 2</li>
+                        </ul>
+                        <ol>
+                            <li>Ordered item 1</li>
+                            <li>Ordered item 2</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Links and Images Example -->
+            <div class="border-l-4 border-purple-500 pl-4">
+                <h4 class="text-md font-medium text-gray-900 mb-2">Links & Images</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded p-3">
+                        <code class="text-sm">
+[Link text](https://example.com)<br>
+![Alt text](https://via.placeholder.com/150)
+                        </code>
+                    </div>
+                    <div class="prose prose-sm">
+                        <p><a href="https://example.com" class="text-blue-600 hover:text-blue-800">Link text</a></p>
+                        <img src="https://via.placeholder.com/150" alt="Alt text" class="rounded border">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Blocks Example -->
+            <div class="border-l-4 border-red-500 pl-4">
+                <h4 class="text-md font-medium text-gray-900 mb-2">Code Blocks</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded p-3">
+                        <code class="text-sm">
+```python<br>
+def hello_world():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Hello, World!")<br>
+```
+                        </code>
+                    </div>
+                    <div class="prose prose-sm">
+                        <pre class="bg-gray-100 rounded p-3 overflow-auto"><code class="language-python">def hello_world():
+    print("Hello, World!")</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tables Example -->
+            <div class="border-l-4 border-indigo-500 pl-4">
+                <h4 class="text-md font-medium text-gray-900 mb-2">Tables</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded p-3">
+                        <code class="text-sm">
+| Name | Age | City |<br>
+|------|-----|------|<br>
+| John | 30  | NYC  |<br>
+| Jane | 25  | LA   |
+                        </code>
+                    </div>
+                    <div class="prose prose-sm">
+                        <table class="min-w-full border border-gray-300">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="border border-gray-300 px-3 py-2 text-left">Name</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-left">Age</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-left">City</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 px-3 py-2">John</td>
+                                    <td class="border border-gray-300 px-3 py-2">30</td>
+                                    <td class="border border-gray-300 px-3 py-2">NYC</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 px-3 py-2">Jane</td>
+                                    <td class="border border-gray-300 px-3 py-2">25</td>
+                                    <td class="border border-gray-300 px-3 py-2">LA</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blockquotes Example -->
+            <div class="border-l-4 border-gray-500 pl-4">
+                <h4 class="text-md font-medium text-gray-900 mb-2">Blockquotes</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded p-3">
+                        <code class="text-sm">
+> This is a blockquote<br>
+> with multiple lines<br>
+>
+> &gt; Nested quote
+                        </code>
+                    </div>
+                    <div class="prose prose-sm">
+                        <blockquote class="border-l-4 border-gray-300 pl-4 italic text-gray-600">
+                            This is a blockquote<br>
+                            with multiple lines
+                            <blockquote class="border-l-4 border-gray-400 pl-4 ml-4 text-gray-500">
+                                Nested quote
+                            </blockquote>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="mt-6 flex justify-center space-x-4">
+        <a href="{% url 'simple_form' %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Try the Editor
+        </a>
+        <a href="https://github.com/agusmakmun/django-markdown-editor" target="_blank" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <svg class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clip-rule="evenodd" />
+            </svg>
+            View on GitHub
+        </a>
+    </div>
+</div>
+
+<script>
+    // Highlight code blocks after page load
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof hljs !== 'undefined') {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -23,7 +23,7 @@ from .settings import (
 
 def get_theme():
     """function to get the selected theme"""
-    supported_themes = ["bootstrap", "semantic"]
+    supported_themes = ["bootstrap", "semantic", "tailwind"]
     if MARTOR_THEME in supported_themes:
         return MARTOR_THEME
     return "bootstrap"
