@@ -237,5 +237,5 @@ MARTOR_ENABLE_ADMIN_CSS = getattr(settings, "MARTOR_ENABLE_ADMIN_CSS", True)
 MARTOR_CSRF_COOKIE_NAME = (
     settings.MARTOR_CSRF_COOKIE_NAME
     if hasattr(settings, "MARTOR_CSRF_COOKIE_NAME")
-    else None
+    else "csrftoken"
 )

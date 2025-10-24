@@ -41,7 +41,7 @@ class MartorWidget(forms.Textarea):
         attributes_to_pass = {
             "data-enable-configs": MARTOR_ENABLE_CONFIGS,
             "data-markdownfy-url": reverse("martor_markdownfy"),
-            "data-csrf-cookie-name": MARTOR_CSRF_COOKIE_NAME or "csrftoken",
+            "data-csrf-cookie-name": MARTOR_CSRF_COOKIE_NAME,
         }
 
         if MARTOR_UPLOAD_URL:
