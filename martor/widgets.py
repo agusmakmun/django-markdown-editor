@@ -18,6 +18,7 @@ from .settings import (
     MARTOR_THEME,
     MARTOR_TOOLBAR_BUTTONS,
     MARTOR_UPLOAD_URL,
+    MARTOR_CSRF_COOKIE_NAME,
 )
 
 
@@ -50,6 +51,9 @@ class MartorWidget(forms.Textarea):
             attributes_to_pass["data-base-emoji-url"] = MARTOR_MARKDOWN_BASE_EMOJI_URL
         if MARTOR_MARKDOWNIFY_TIMEOUT:
             attributes_to_pass["data-save-timeout"] = MARTOR_MARKDOWNIFY_TIMEOUT
+        if MARTOR_CSRF_COOKIE_NAME:
+            attributes_to_pass["data-csrf-cookie-name"] = MARTOR_CSRF_COOKIE_NAME
+
 
         # Make sure that the martor value is in the class attr passed in
         if "class" in attrs:
