@@ -233,3 +233,9 @@ ALLOWED_HTML_ATTRIBUTES = getattr(
 )
 # Disable admin style when using custom admin interface e.g django-grappelli
 MARTOR_ENABLE_ADMIN_CSS = getattr(settings, "MARTOR_ENABLE_ADMIN_CSS", True)
+
+MARTOR_CSRF_COOKIE_NAME = (
+    settings.MARTOR_CSRF_COOKIE_NAME
+    if hasattr(settings, "MARTOR_CSRF_COOKIE_NAME")
+    else "csrftoken"
+)
