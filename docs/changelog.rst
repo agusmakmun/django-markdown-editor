@@ -3,10 +3,19 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.7.15 (Current)
+Version 1.7.16 (Current)
 -------------------------
 
-**Release Date:** 03-Sep-2025
+**Release Date:** 01-Nov-2025
+
+**Improvements:**
+
+* Support different CSRF_COOKIE_NAME #286
+
+Version 1.7.15
+-------------------------
+
+**Release Date:** 01-Nov-2025
 
 **New Features:**
 
