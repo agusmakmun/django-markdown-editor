@@ -1,0 +1,195 @@
+{% load i18n static %}
+
+<!-- Markdown Guide Modal -->
+<div class="modal-help-guide hidden fixed inset-0 z-[99999] overflow-y-auto" data-field-name="{{ field_name }}" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 relative z-10">
+    <!-- Background overlay -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-0" aria-hidden="true"></div>
+
+    <!-- Modal panel -->
+    <div class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all max-w-4xl w-full p-6 z-10 relative mx-auto">
+      <button type="button" class="modal-close text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-2 float-right transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="{% trans 'Close' %}">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="text-center mb-6 space-y-1">
+        <div class="text-xs text-gray-500">
+          <span>{% blocktrans with repo_url='https://github.com/agusmakmun/django-markdown-editor' %}Copyright &copy; <a href="{{ repo_url }}" class="text-blue-600 hover:text-blue-800 font-medium">Martor</a>{% endblocktrans %}</span>
+        </div>
+        <p class="text-xs text-gray-500">
+          {% blocktrans with doc_url='http://commonmark.org/help/' %}This editor is powered by Markdown. For full documentation, <a href="{{ doc_url }}" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium">click here</a>.{% endblocktrans %}
+        </p>
+      </div>
+
+      <div class="max-h-100 overflow-y-auto rounded-lg border border-gray-200">
+        <table class="w-full">
+          <thead>
+            <tr>
+              <th>{% trans "Code" %}</th>
+              <th>{% trans "Or" %}</th>
+              <th>Linux/Windows</th>
+              <th>Mac OS</th>
+              <th>{% trans "... to Get" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if emoji_enabled %}
+            <tr>
+              <td><code>:emoji_name:</code></td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td><img class="w-5 h-5" src="{% static 'plugins/images/heart.png' %}" alt="emoji"></td>
+            </tr>
+            {% endif %}
+
+            {% if mentions_enabled %}
+            <tr>
+              <td><code>@[username]</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+M</kbd></td>
+              <td><kbd>Command+M</kbd></td>
+              <td><a href="#" class="text-blue-600 hover:text-blue-800">@username</a></td>
+            </tr>
+            {% endif %}
+
+            {% if emoji_enabled or mentions_enabled %}
+            <tr>
+              <td colspan="5" style="padding: 8px;"></td>
+            </tr>
+            {% endif %}
+
+            <tr>
+              <td><code>*Italic*</code></td>
+              <td><code>_Italic_</code></td>
+              <td><kbd>Ctrl+I</kbd></td>
+              <td><kbd>Command+I</kbd></td>
+              <td><em>Italic</em></td>
+            </tr>
+            <tr>
+              <td><code>**Bold**</code></td>
+              <td><code>__Bold__</code></td>
+              <td><kbd>Ctrl+B</kbd></td>
+              <td><kbd>Command+B</kbd></td>
+              <td><strong>Bold</strong></td>
+            </tr>
+            <tr>
+              <td><code>++Underscores++</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+Shift+U</kbd></td>
+              <td><kbd>Command+Shift+U</kbd></td>
+              <td><ins>Underscores</ins></td>
+            </tr>
+            <tr>
+              <td><code>~~Strikethrough~~</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+Shift+S</kbd></td>
+              <td><kbd>Command+Shift+S</kbd></td>
+              <td><del>Strikethrough</del></td>
+            </tr>
+            <tr>
+              <td><code># Heading 1</code></td>
+              <td><code>Heading 1<br> =========</code></td>
+              <td><kbd>Ctrl+Alt+1</kbd></td>
+              <td><kbd>Command+Option+1</kbd></td>
+              <td><h1>Heading 1</h1></td>
+            </tr>
+            <tr>
+              <td><code>## Heading 2</code></td>
+              <td><code>Heading 2<br> ---------</code></td>
+              <td><kbd>Ctrl+Alt+2</kbd></td>
+              <td><kbd>Command+Option+2</kbd></td>
+              <td><h2>Heading 2</h2></td>
+            </tr>
+            <tr>
+              <td><code>[Link](http://a.com)</code></td>
+              <td><code>[Link][1]<br><br>[1]: http://b.org</code></td>
+              <td><kbd>Ctrl+L</kbd></td>
+              <td><kbd>Command+L</kbd></td>
+              <td><a href="http://commonmark.org/" class="text-blue-600 hover:text-blue-800">Link</a></td>
+            </tr>
+            <tr>
+              <td><code>![Image](http://url/a.png)</code></td>
+              <td><code>![Image][1]<br><br>[1]: http://url/b.jpg</code></td>
+              <td><kbd>Ctrl+Shift+I</kbd></td>
+              <td><kbd>Command+Option+I</kbd></td>
+              <td><img src="{% static 'plugins/images/commonmark.png' %}" width="36" height="36" alt="Markdown" class="w-9 h-9"></td>
+            </tr>
+            <tr>
+              <td><code>&gt; Blockquote</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+Q</kbd></td>
+              <td><kbd>Command+Shift+K</kbd></td>
+              <td><blockquote>Blockquote</blockquote></td>
+            </tr>
+            <tr>
+              <td><code>A paragraph.<br><br>A paragraph after 1 blank line.</code></td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td>&mdash;</td>
+              <td>
+                <p style="margin-bottom: 8px;">A paragraph.</p>
+                <p>A paragraph after 1 blank line.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><code>* List<br>* List<br>* List</code></td>
+              <td><code>- List<br>- List<br>- List</code></td>
+              <td><kbd>Ctrl+U</kbd></td>
+              <td><kbd>Command+U</kbd></td>
+              <td>
+                <ul>
+                  <li>List</li>
+                  <li>List</li>
+                  <li>List</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td><code>1. One<br>2. Two<br>3. Three</code></td>
+              <td><code>1) One<br>2) Two<br>3) Three</code></td>
+              <td><kbd>Ctrl+Shift+O</kbd></td>
+              <td><kbd>Command+Option+O</kbd></td>
+              <td>
+                <ol>
+                  <li>One</li>
+                  <li>Two</li>
+                  <li>Three</li>
+                </ol>
+              </td>
+            </tr>
+            <tr>
+              <td><code>Horizontal Rule<br><br>-----------</code></td>
+              <td><code>Horizontal Rule<br><br>***********</code></td>
+              <td><kbd>Ctrl+H</kbd></td>
+              <td><kbd>Command+H</kbd></td>
+              <td>
+                <div>Horizontal Rule</div>
+                <hr>
+              </td>
+            </tr>
+            <tr>
+              <td><code>`Inline code` with backticks</code></td>
+              <td>&mdash;</td>
+              <td><kbd>Ctrl+Alt+C</kbd></td>
+              <td><kbd>Command+Option+C</kbd></td>
+              <td><code>Inline code</code> with backticks</td>
+            </tr>
+            <tr>
+              <td><code>```<br>def whatever(foo):<br>&nbsp;&nbsp;&nbsp;&nbsp;return foo<br>```</code></td>
+              <td><strong>with tab / 4 spaces</strong><br><code>....def whatever(foo):<br>....&nbsp;&nbsp;&nbsp;&nbsp;return foo</code></td>
+              <td><kbd>Ctrl+Alt+P</kbd></td>
+              <td><kbd>Command+Option+P</kbd></td>
+              <td>
+                <pre><code>def whatever(foo):
+  return foo</code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
