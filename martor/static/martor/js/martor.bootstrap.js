@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.7.16
+ * Name         : Martor v1.8.0
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 01-Nov-2025
+ * Release date : 18-Apr-2026
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
  * JS Minifier  : https://jscompress.com
@@ -92,7 +92,7 @@
                                 url: textareaId.data('search-users-url'),
                                 data: {
                                     'username': username,
-                                    'csrfmiddlewaretoken': getCookie(textareaId.data('csrf-cookie-name'))
+                                    'csrfmiddlewaretoken': getCookie('csrftoken')
                                 },
                                 success: function (data) {
                                     if (data['status'] == 200) {
@@ -154,7 +154,7 @@
                 var value = textareaId.val();
                 var form = new FormData();
                 form.append('content', value);
-                form.append('csrfmiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name')));
+                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
                 currentTab.addClass('martor-preview-stale');
 
                 $.ajax({
@@ -541,7 +541,7 @@
                 var firstForm = $('#' + editorId).closest('form').get(0);
                 var field_name = editor.container.id.replace('martor-', '');
                 var form = new FormData(firstForm);
-                form.append('csrfmiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name')));
+                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
 
                 $.ajax({
                     url: textareaId.data('upload-url'),

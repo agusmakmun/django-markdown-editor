@@ -32,6 +32,98 @@
             return cookieValue;
         };
 
+        // Tailwind-specific utility functions
+        var TailwindUtils = {
+            showElement: function(element) {
+                $(element).removeClass('hidden').addClass('block');
+            },
+            hideElement: function(element) {
+                $(element).removeClass('block').addClass('hidden');
+            },
+            showModal: function(element) {
+                console.log('Showing modal:', element);
+                var $modal = $(element);
+                $modal.removeClass('hidden').addClass('flex');
+                $modal.css({
+                    'display': 'flex !important',
+                    'z-index': '99999',
+                    'position': 'fixed',
+                    'top': '0',
+                    'left': '0',
+                    'width': '100vw',
+                    'height': '100vh',
+                    'opacity': '1',
+                    'visibility': 'visible'
+                });
+                $('body').addClass('overflow-hidden');
+                console.log('Modal styles applied:', $modal.css(['display', 'z-index', 'position']));
+                console.log('Modal visibility:', $modal.is(':visible'));
+                console.log('Modal dimensions:', {
+                    width: $modal.outerWidth(),
+                    height: $modal.outerHeight(),
+                    offset: $modal.offset()
+                });
+                // Also ensure the modal content is visible
+                $modal.find('.bg-white').css({
+                    'display': 'block',
+                    'position': 'relative',
+                    'z-index': '10'
+                });
+
+                // Force the modal container to be visible
+                $modal.show().fadeIn();
+
+                // Ensure modal content panel is visible
+                var modalPanel = $modal.find('.bg-white').first();
+                var modalContainer = $modal.find('.flex.items-center');
+
+                modalContainer.css({
+                    'display': 'flex !important',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    'width': '100%',
+                    'height': '100%',
+                    'text-align': 'center'
+                });
+
+                modalPanel.css({
+                    'display': 'block !important',
+                    'visibility': 'visible',
+                    'opacity': '1',
+                    'background-color': 'white',
+                    'max-width': '800px',
+                    'width': '90%',
+                    'z-index': '20',
+                    'margin': '0',
+                    'border-radius': '8px',
+                    'box-shadow': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                    'transform': 'none',
+                    'position': 'relative'
+                });
+
+                console.log('Modal panel found:', modalPanel.length);
+                console.log('Modal container found:', modalContainer.length);
+                console.log('Modal panel styles:', modalPanel.css(['display', 'visibility', 'background-color']));
+
+                // Force all content to be visible
+                $modal.find('*').css('visibility', 'visible');
+            },
+            hideModal: function(element) {
+                console.log('Hiding modal:', element);
+                $(element).removeClass('flex').addClass('hidden').css('display', 'none');
+                $('body').removeClass('overflow-hidden');
+            },
+            toggleTab: function(activeTab, activeContent, inactiveTabs, inactiveContents) {
+                // Hide all tabs and contents
+                $(inactiveTabs).removeClass('border-b-2 border-gray-800 text-gray-700').addClass('text-gray-500');
+                $(inactiveContents).removeClass('block').addClass('hidden');
+
+                // Show active tab and content
+                $(activeTab).removeClass('text-gray-500').addClass('border-b-2 border-gray-800 text-gray-700');
+                $(activeContent).removeClass('hidden').addClass('block');
+            }
+        };
+
         // Each multiple editor fields
         this.each(function (i, obj) {
             var mainMartor = $(obj);
@@ -104,7 +196,7 @@
                                             return {
                                                 caption: word,
                                                 value: word,
-                                                meta: 'username' // this should return as text only.
+                                                meta: 'username'
                                             };
                                         }));
                                     }
@@ -114,6 +206,7 @@
                     }
                 }
             }
+
             // Set autocomplete for ace editor
             if (editorConfig.mention === 'true') {
                 editor.completers = [emojiWordCompleter, mentionWordCompleter]
@@ -121,7 +214,7 @@
                 editor.completers = [emojiWordCompleter]
             }
 
-            // set css `display:none` fot this textarea.
+            // set css `display:none` for this textarea.
             textareaId.attr({ 'style': 'display:none' });
 
             // assign all `field_name`, uses for a per-single editor.
@@ -137,8 +230,45 @@
             });
 
             // update the preview if this menu is clicked
-            var currentTab = $('.tab.segment[data-tab=preview-tab-' + field_name + ']');
-            var previewTabButton = $('.item[data-tab=preview-tab-' + field_name + ']');
+            var currentTab = $('#preview-content-' + field_name);
+            var editorTabButton = $('.tab-editor-' + field_name);
+            var previewTabButton = $('.tab-preview-' + field_name);
+            var toolbarButtons = $(this).closest('.tab-martor-menu').find('.martor-toolbar');
+
+            // Tailwind-specific tab handling
+            $('.tab-editor-' + field_name).click(function() {
+                var editorContent = $('#editor-content-' + field_name);
+                var previewContent = $('#preview-content-' + field_name);
+                var previewTab = $('.tab-preview-' + field_name);
+
+                TailwindUtils.toggleTab(
+                    this,
+                    editorContent,
+                    previewTab,
+                    previewContent
+                );
+
+                // show the `.martor-toolbar` for this current editor if under preview.
+                $(this).closest('.tab-martor-menu').find('.martor-toolbar').show();
+            });
+
+            $('.tab-preview-' + field_name).click(function() {
+                var editorContent = $('#editor-content-' + field_name);
+                var previewContent = $('#preview-content-' + field_name);
+                var editorTab = $('.tab-editor-' + field_name);
+
+                TailwindUtils.toggleTab(
+                    this,
+                    previewContent,
+                    editorTab,
+                    editorContent
+                );
+
+                // hide the `.martor-toolbar` when activating tab preview.
+                $(this).closest('.tab-martor-menu').find('.martor-toolbar').hide();
+                refreshPreview();
+            });
+
             var refreshPreview = function () {
                 var value = textareaId.val();
                 var form = new FormData();
@@ -155,6 +285,7 @@
                     success: function (response) {
                         if (response) {
                             currentTab.html(response).removeClass('martor-preview-stale');
+                            currentTab.addClass('martor-preview');
                             $(document).trigger('martor:preview', [currentTab]);
 
                             if (editorConfig.hljs == 'true') {
@@ -163,7 +294,7 @@
                                 });
                             }
                         } else {
-                            currentTab.html('<p>Nothing to preview</p>');
+                            currentTab.html('<p class="text-gray-500">Nothing to preview</p>');
                         }
                     },
                     error: function (response) {
@@ -184,24 +315,19 @@
             // Refresh the preview unconditionally on first load.
             window.onload = function () {
                 refreshPreview();
-            }
+            };
 
             if (editorConfig.living !== 'true') {
                 previewTabButton.click(function () {
                     // hide the `.martor-toolbar` for this current editor if under preview.
-                    $(this).closest('.tab-martor-menu').find('.martor-toolbar').hide();
+                    toolbarButtons.hide();
                     refreshPreview();
                 });
             } else {
                 editor.on('change', refreshPreviewTimeout);
             }
 
-            var editorTabButton = $('.item[data-tab=editor-tab-' + field_name + ']');
-            editorTabButton.click(function () {
-                // show the `.martor-toolbar` for this current editor if under preview.
-                $(this).closest('.tab-martor-menu').find('.martor-toolbar').show();
-            });
-
+            // spellcheck
             if (editorConfig.spellcheck == 'true') {
                 try {
                     enable_spellcheck(editorId);
@@ -209,6 +335,190 @@
                     console.log("Spellcheck lib doesn't installed.");
                 }
             }
+
+            if (editorConfig.emoji == 'true') {
+                langTools = ace.require("ace/ext/language_tools");
+                langTools.addCompleter(emojiWordCompleter);
+            }
+
+            if (editorConfig.mention == 'true') {
+                langTools = ace.require("ace/ext/language_tools");
+                langTools.addCompleter(mentionWordCompleter);
+            }
+
+            // Handle toolbar dropdowns for Tailwind
+            $('.martor-toolbar .dropdown').each(function() {
+                var dropdown = $(this);
+                var toggle = dropdown.find('.dropdown-toggle');
+                var menu = dropdown.find('.dropdown-menu');
+
+                toggle.click(function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Close other dropdowns
+                    $('.martor-toolbar .dropdown-menu').not(menu).addClass('hidden');
+
+                    // Toggle current dropdown
+                    menu.toggleClass('hidden');
+                });
+
+                // Close dropdown when clicking outside
+                $(document).click(function(e) {
+                    if (!dropdown.is(e.target) && dropdown.has(e.target).length === 0) {
+                        menu.addClass('hidden');
+                    }
+                });
+            });
+
+            // Modal Popup for Help Guide & Emoji Cheat Sheet
+            $('.markdown-help[data-field-name=' + field_name + ']').click(function (e) {
+                e.preventDefault();
+                console.log('Help button clicked for field:', field_name);
+                var modalSelector = '.modal-help-guide[data-field-name=' + field_name + ']';
+                console.log('Modal selector:', modalSelector);
+                var modal = $(modalSelector);
+                console.log('Modal found:', modal.length);
+                TailwindUtils.showModal(modalSelector);
+            });
+
+            // Close modal functionality
+            $('.modal-help-guide[data-field-name=' + field_name + '] .modal-close').click(function (e) {
+                e.preventDefault();
+                TailwindUtils.hideModal('.modal-help-guide[data-field-name=' + field_name + ']');
+            });
+
+            // Also handle click on modal backdrop to close
+            $('.modal-help-guide[data-field-name=' + field_name + ']').click(function (e) {
+                if (e.target === this || $(e.target).hasClass('bg-gray-500')) {
+                    TailwindUtils.hideModal('.modal-help-guide[data-field-name=' + field_name + ']');
+                }
+            });
+
+            // Toggle editor, preview, maximize
+            var martorField = $('.martor-field-' + field_name);
+            var btnToggleMaximize = $('.markdown-toggle-maximize[data-field-name=' + field_name + ']');
+
+            // Toggle maximize and minimize
+            var handleToggleMinimize = function () {
+                $(document.body).removeClass('overflow-hidden');
+                $(this).attr({ 'title': 'Full Screen' });
+                $(this).find('svg.bi-arrows-angle-expand').removeClass('hidden');
+                $(this).find('svg.bi-arrows-angle-contract').addClass('hidden');
+                $('.main-martor-fullscreen').find('.martor-preview').removeAttr('style');
+                mainMartor.removeClass('main-martor-fullscreen');
+                martorField.removeAttr('style');
+                mainMartor.find('.tab-content').removeAttr('style');
+                mainMartor.find('.tab-pane').removeAttr('style');
+                editor.resize();
+            }
+            var handleToggleMaximize = function (selector) {
+                selector.attr({ 'title': 'Minimize' });
+                selector.find('svg.bi-arrows-angle-expand').addClass('hidden');
+                selector.find('svg.bi-arrows-angle-contract').removeClass('hidden');
+                mainMartor.addClass('main-martor-fullscreen');
+
+                // Use viewport height, not body height, to avoid oversized fullscreen panes.
+                var viewportHeight = window.innerHeight || document.documentElement.clientHeight || 800;
+                var menuHeight = mainMartor.find('.tab-martor-menu').outerHeight() || 64;
+                var contentHeight = Math.max(220, viewportHeight - menuHeight - 16);
+
+                martorField.css({ height: contentHeight + 'px' });
+                mainMartor.find('.tab-content').css({ height: contentHeight + 'px' });
+                mainMartor.find('.tab-pane').css({ height: contentHeight + 'px' });
+
+                var preview = mainMartor.find('.martor-preview');
+                preview.css({ overflowY: 'auto', height: contentHeight + 'px' });
+
+                editor.resize();
+                selector.one('click', handleToggleMinimize);
+                $(document.body).addClass('overflow-hidden');
+            }
+            btnToggleMaximize.on('click', function () {
+                handleToggleMaximize($(this));
+            });
+
+            // Exit full screen when `ESC` is pressed.
+            $(document).keyup(function (e) {
+                if (e.keyCode == 27 && mainMartor.hasClass('main-martor-fullscreen')) {
+                    btnToggleMaximize.trigger('click');
+                }
+            });
+
+            // markdown insert emoji from the modal
+            $('.markdown-emoji[data-field-name=' + field_name + ']').click(function () {
+                var modalEmoji = $('.modal-emoji[data-field-name=' + field_name + ']');
+                TailwindUtils.showModal(modalEmoji);
+                var emojiList = typeof (emojis) != "undefined" ? emojis : []; // from `plugins/js/emojis.min.js`
+                var emojiGrid = modalEmoji.find('#emoji-grid-' + field_name);
+                var loaderInit = modalEmoji.find('.emoji-loader-init');
+
+                // Only load emojis if grid is empty
+                if (emojiGrid.children().length === 0) {
+                    // Show loader
+                    TailwindUtils.showElement(loaderInit);
+
+                    // Load emojis with timeout to show loading state
+                    setTimeout(function() {
+                        try {
+                            console.log('Loading emojis, count:', emojiList.length);
+
+                            for (var i = 0; i < Math.min(emojiList.length, 300); i++) { // Increased to 300 for more emojis
+                                var emoji = emojiList[i];
+                                var linkEmoji = textareaId.data('base-emoji-url') + emoji.replace(/:/g, '') + '.png';
+
+                                var emojiButton = $('<button type="button" class="insert-emoji p-2 hover:bg-gray-100 rounded border border-gray-200 text-center transition-colors" ' +
+                                    'data-emoji-target="' + emoji + '" title="' + emoji + '">' +
+                                    '<img class="w-6 h-6 mx-auto" src="' + linkEmoji + '" alt="' + emoji + '" ' +
+                                    'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';">' +
+                                    '<span class="text-xs hidden">' + emoji + '</span>' +
+                                    '</button>');
+
+                                emojiGrid.append(emojiButton);
+                            }
+
+                            // Attach click handlers to dynamically created buttons
+                            modalEmoji.find('.insert-emoji').off('click').on('click', function() {
+                                var emojiTarget = $(this).data('emoji-target');
+                                console.log('Emoji selected:', emojiTarget);
+                                markdownToEmoji(editor, emojiTarget);
+                                TailwindUtils.hideModal(modalEmoji);
+                            });
+
+                            TailwindUtils.hideElement(loaderInit);
+                            console.log('Emojis loaded successfully');
+                        } catch (error) {
+                            console.error('Error loading emojis:', error);
+                            TailwindUtils.hideElement(loaderInit);
+                            emojiGrid.html('<div class="col-span-10 text-center text-gray-500 py-4">Error loading emojis. Please try again.</div>');
+                        }
+                    }, 100); // Small delay to show loading state
+                } else {
+                    console.log('Emojis already loaded');
+                }
+            });
+
+            // Close emoji modal
+            $('.modal-emoji[data-field-name=' + field_name + '] .modal-close').click(function () {
+                TailwindUtils.hideModal('.modal-emoji[data-field-name=' + field_name + ']');
+            });
+
+            // Close emoji modal when clicking on backdrop
+            $('.modal-emoji[data-field-name=' + field_name + ']').click(function (e) {
+                if (e.target === this || $(e.target).hasClass('bg-gray-500')) {
+                    TailwindUtils.hideModal('.modal-emoji[data-field-name=' + field_name + ']');
+                }
+            });
+
+            // Handle popular emoji buttons
+            $('.modal-emoji[data-field-name=' + field_name + '] .insert-emoji-popular').click(function () {
+                var emojiTarget = $(this).data('emoji-target');
+                markdownToEmoji(editor, emojiTarget);
+                TailwindUtils.hideModal('.modal-emoji[data-field-name=' + field_name + ']');
+            });
+
+            // Set initial value if has the content before.
+            editor.setValue(textareaId.val(), -1);
 
             // win/linux: Ctrl+B, mac: Command+B
             var markdownToBold = function (editor) {
@@ -470,7 +780,7 @@
                     editor.focus();
                     editor.selection.moveTo(
                         originalRange.end.row,
-                        originalRange.end.column + 10
+                        originalRange.end.column + 11
                     );
                 }
             };
@@ -491,7 +801,7 @@
                         editor.focus();
                         editor.selection.moveTo(
                             originalRange.end.row,
-                            originalRange.end.column + 11
+                            originalRange.end.column + 12
                         );
                     }
                 } else { // this if use image upload to imgur.
@@ -570,6 +880,70 @@
                 });
                 return false;
             };
+
+            // Trigger Click
+            $('.markdown-bold[data-field-name=' + field_name + ']').click(function () {
+                markdownToBold(editor);
+            });
+            $('.markdown-italic[data-field-name=' + field_name + ']').click(function () {
+                markdownToItalic(editor);
+            });
+            $('.markdown-horizontal[data-field-name=' + field_name + ']').click(function () {
+                markdownToHorizontal(editor);
+            });
+            $('.markdown-h1[data-field-name=' + field_name + ']').click(function () {
+                markdownToH1(editor);
+            });
+            $('.markdown-h2[data-field-name=' + field_name + ']').click(function () {
+                markdownToH2(editor);
+            });
+            $('.markdown-h3[data-field-name=' + field_name + ']').click(function () {
+                markdownToH3(editor);
+            });
+            $('.markdown-pre[data-field-name=' + field_name + ']').click(function () {
+                markdownToPre(editor);
+            });
+            $('.markdown-code[data-field-name=' + field_name + ']').click(function () {
+                markdownToCode(editor);
+            });
+            $('.markdown-blockquote[data-field-name=' + field_name + ']').click(function () {
+                markdownToBlockQuote(editor);
+            });
+            $('.markdown-unordered-list[data-field-name=' + field_name + ']').click(function () {
+                markdownToUnorderedList(editor);
+            });
+            $('.markdown-ordered-list[data-field-name=' + field_name + ']').click(function () {
+                markdownToOrderedList(editor);
+            });
+            $('.markdown-link[data-field-name=' + field_name + ']').click(function () {
+                markdownToLink(editor);
+            });
+            $('.markdown-image-link[data-field-name=' + field_name + ']').click(function () {
+                markdownToImageLink(editor);
+            });
+
+            // Custom decission for toolbar buttons.
+            var btnMention = $('.markdown-direct-mention[data-field-name=' + field_name + ']');  // To Direct Mention
+            var btnUpload = $('.markdown-image-upload[data-field-name=' + field_name + ']');     // To Upload Image
+
+            if (editorConfig.mention == 'true') {
+                btnMention.click(function () {
+                    markdownToMention(editor);
+                });
+            } else {
+                btnMention.remove();
+                // Disable help of `mention`
+                $('.markdown-reference tbody tr')[1].remove();
+            }
+
+            if (editorConfig.imgur == 'true') {
+                btnUpload.on('change', function (evt) {
+                    evt.preventDefault();
+                    markdownToUploadImage(editor);
+                });
+            } else {
+                btnUpload.remove();
+            }
 
             // Trigger Keyboards
             editor.commands.addCommand({
@@ -693,163 +1067,16 @@
                 readOnly: true
             });
             if (editorConfig.mention === 'true') {
-                editor.commands.addCommand({
+            editor.commands.addCommand({
                     name: 'markdownToMention',
-                    bindKey: { win: 'Ctrl-M', mac: 'Command-M' },
+                bindKey: { win: 'Ctrl-M', mac: 'Command-M' },
                     exec: function (editor) {
                         markdownToMention(editor);
                     },
                     readOnly: true
                 });
             }
-
-            // Trigger Click
-            $('.markdown-bold[data-field-name=' + field_name + ']').click(function () {
-                markdownToBold(editor);
-            });
-            $('.markdown-italic[data-field-name=' + field_name + ']').click(function () {
-                markdownToItalic(editor);
-            });
-            $('.markdown-horizontal[data-field-name=' + field_name + ']').click(function () {
-                markdownToHorizontal(editor);
-            });
-            $('.markdown-h1[data-field-name=' + field_name + ']').click(function () {
-                markdownToH1(editor);
-            });
-            $('.markdown-h2[data-field-name=' + field_name + ']').click(function () {
-                markdownToH2(editor);
-            });
-            $('.markdown-h3[data-field-name=' + field_name + ']').click(function () {
-                markdownToH3(editor);
-            });
-            $('.markdown-pre[data-field-name=' + field_name + ']').click(function () {
-                markdownToPre(editor);
-            });
-            $('.markdown-code[data-field-name=' + field_name + ']').click(function () {
-                markdownToCode(editor);
-            });
-            $('.markdown-blockquote[data-field-name=' + field_name + ']').click(function () {
-                markdownToBlockQuote(editor);
-            });
-            $('.markdown-unordered-list[data-field-name=' + field_name + ']').click(function () {
-                markdownToUnorderedList(editor);
-            });
-            $('.markdown-ordered-list[data-field-name=' + field_name + ']').click(function () {
-                markdownToOrderedList(editor);
-            });
-            $('.markdown-link[data-field-name=' + field_name + ']').click(function () {
-                markdownToLink(editor);
-            });
-            $('.markdown-image-link[data-field-name=' + field_name + ']').click(function () {
-                markdownToImageLink(editor);
-            });
-
-            // Custom decission for toolbar buttons.
-            var btnMention = $('.markdown-direct-mention[data-field-name=' + field_name + ']'); // To Direct Mention
-            var btnUpload = $('.markdown-image-upload[data-field-name=' + field_name + ']');    // To Upload Image
-
-            if (editorConfig.mention === 'true') {
-                btnMention.click(function () {
-                    markdownToMention(editor);
-                });
-            } else {
-                btnMention.remove();
-                // Disable help of `mention`
-                $('.markdown-reference tbody tr')[1].remove();
-            }
-
-            if (editorConfig.imgur === 'true') {
-                btnUpload.on('change', function (evt) {
-                    evt.preventDefault();
-                    markdownToUploadImage(editor);
-                });
-            } else {
-                btnUpload.remove();
-            }
-
-            // Modal Popup for Help Guide & Emoji Cheat Sheet
-            $('.markdown-help[data-field-name=' + field_name + ']').click(function () {
-                $('.modal-help-guide[data-field-name=' + field_name + ']').modal('show');
-            });
-
-            // Handle tabs.
-            mainMartor.find('.ui.martor-toolbar .ui.dropdown').dropdown();
-            mainMartor.find('.ui.tab-martor-menu .item').tab();
-
-            // Toggle editor, preview, maximize
-            var martorField = $('.martor-field-' + field_name);
-            var btnToggleMaximize = $('.markdown-toggle-maximize[data-field-name=' + field_name + ']');
-
-            // Toggle maximize and minimize
-            var handleToggleMinimize = function () {
-                $(document.body).removeClass('overflow');
-                $(this).attr({ 'title': 'Full Screen' });
-                $(this).find('.minimize.icon').removeClass('minimize').addClass('maximize');
-                $('.main-martor-fullscreen').find('.martor-preview').removeAttr('style');
-                mainMartor.removeClass('main-martor-fullscreen');
-                martorField.removeAttr('style');
-                editor.resize();
-            }
-            var handleToggleMaximize = function (selector) {
-                selector.attr({ 'title': 'Minimize' });
-                selector.find('.maximize.icon').removeClass('maximize').addClass('minimize');
-                mainMartor.addClass('main-martor-fullscreen');
-
-                var clientHeight = document.body.clientHeight - 90;
-                martorField.attr({ 'style': 'height:' + clientHeight + 'px' });
-
-                var preview = $('.main-martor-fullscreen').find('.martor-preview');
-                preview.attr({ 'style': 'overflow-y: auto;height:' + clientHeight + 'px' });
-
-                editor.resize();
-                selector.one('click', handleToggleMinimize);
-                $(document.body).addClass('overflow');
-            }
-            btnToggleMaximize.on('click', function () {
-                handleToggleMaximize($(this));
-            });
-
-            // Exit full screen when `ESC` is pressed.
-            $(document).keyup(function (e) {
-                if (e.keyCode == 27 && mainMartor.hasClass('main-martor-fullscreen')) {
-                    $('.minimize.icon').trigger('click');
-                }
-            });
-
-            // markdown insert emoji from the modal
-            $('.markdown-emoji[data-field-name=' + field_name + ']').click(function () {
-                var modalEmoji = $('.modal-emoji[data-field-name=' + field_name + ']');
-                var emojiList = typeof (emojis) != "undefined" ? emojis : []; // from `plugins/js/emojis.min.js`
-                var segmentEmoji = modalEmoji.find('.emoji-content-body');
-                var loaderInit = modalEmoji.find('.emoji-loader-init');
-
-                // setup initial loader
-                segmentEmoji.html('');
-                loaderInit.show();
-                modalEmoji.modal({
-                    onVisible: function () {
-                        for (var i = 0; i < emojiList.length; i++) {
-                            var linkEmoji = textareaId.data('base-emoji-url') + emojiList[i].replace(/:/g, '') + '.png';
-                            segmentEmoji.append(''
-                                + '<div class="four wide column">'
-                                + '<p><a data-emoji-target="' + emojiList[i] + '" class="insert-emoji">'
-                                + '<img class="marked-emoji" src="' + linkEmoji + '"> ' + emojiList[i]
-                                + '</a></p>'
-                                + '</div>');
-                            $('a[data-emoji-target="' + emojiList[i] + '"]').click(function () {
-                                markdownToEmoji(editor, $(this).data('emoji-target'));
-                                modalEmoji.modal('hide', 100);
-                            });
-                        }
-                        loaderInit.hide();
-                        modalEmoji.modal('refresh');
-                    }
-                }).modal('show');
-            });
-
-            // Set initial value if has the content before.
-            editor.setValue(textareaId.val(), -1);
-        });// end each `mainMartor`
+        });
     };
 
     $(function () {
@@ -857,11 +1084,12 @@
     });
 
     if ('django' in window && 'jQuery' in window.django)
-        django.jQuery(document).on('formset:added', function (event, $row) {
+        django.jQuery(document).on('formset:added', function (event) {
             // add delay for formset to load
             setTimeout(function(){
-                $row.find('.main-martor').each(function () {
-                    var id = $row.attr('id');
+                var row = $(event.target);
+                row.find('.main-martor').each(function () {
+                    var id = row.attr('id');
                     id = id.substr(id.lastIndexOf('-') + 1);
                     // Notice here we are using our jQuery instead of Django's.
                     // This is because plugins are only loaded for ours.

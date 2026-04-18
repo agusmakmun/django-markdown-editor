@@ -50,12 +50,8 @@ MARTOR_IMGUR_CLIENT_ID = getattr(settings, "MARTOR_IMGUR_CLIENT_ID", "")
 MARTOR_IMGUR_API_KEY = getattr(settings, "MARTOR_IMGUR_API_KEY", "")
 
 # Markdownify
-MARTOR_MARKDOWNIFY_FUNCTION = getattr(
-    settings, "MARTOR_MARKDOWNIFY_FUNCTION", "martor.utils.markdownify"
-)
-MARTOR_MARKDOWNIFY_URL = getattr(
-    settings, "MARTOR_MARKDOWNIFY_URL", "/martor/markdownify/"
-)
+MARTOR_MARKDOWNIFY_FUNCTION = getattr(settings, "MARTOR_MARKDOWNIFY_FUNCTION", "martor.utils.markdownify")
+MARTOR_MARKDOWNIFY_URL = getattr(settings, "MARTOR_MARKDOWNIFY_URL", "/martor/markdownify/")
 
 # Time to delay the markdownify ajax request, in millisecond.
 MARTOR_MARKDOWNIFY_TIMEOUT = getattr(settings, "MARTOR_MARKDOWNIFY_TIMEOUT", 1000)
@@ -82,9 +78,7 @@ MARTOR_MARKDOWN_EXTENSIONS = getattr(
 )
 
 # Markdown Extensions Configs
-MARTOR_MARKDOWN_EXTENSION_CONFIGS = getattr(
-    settings, "MARTOR_MARKDOWN_EXTENSION_CONFIGS", {}
-)
+MARTOR_MARKDOWN_EXTENSION_CONFIGS = getattr(settings, "MARTOR_MARKDOWN_EXTENSION_CONFIGS", {})
 
 # Markdown urls
 MARTOR_UPLOAD_URL = (
@@ -117,15 +111,9 @@ MARTOR_MARKDOWN_BASE_MENTION_URL = getattr(
 
 # If you need to use your own themed "bootstrap" or "semantic ui" dependency
 # replace the values with the file in your static files dir
-MARTOR_ALTERNATIVE_JS_FILE_THEME = getattr(
-    settings, "MARTOR_ALTERNATIVE_JS_FILE_THEME", None
-)
-MARTOR_ALTERNATIVE_CSS_FILE_THEME = getattr(
-    settings, "MARTOR_ALTERNATIVE_CSS_FILE_THEME", None
-)
-MARTOR_ALTERNATIVE_JQUERY_JS_FILE = getattr(
-    settings, "MARTOR_ALTERNATIVE_JQUERY_JS_FILE", None
-)
+MARTOR_ALTERNATIVE_JS_FILE_THEME = getattr(settings, "MARTOR_ALTERNATIVE_JS_FILE_THEME", None)
+MARTOR_ALTERNATIVE_CSS_FILE_THEME = getattr(settings, "MARTOR_ALTERNATIVE_CSS_FILE_THEME", None)
+MARTOR_ALTERNATIVE_JQUERY_JS_FILE = getattr(settings, "MARTOR_ALTERNATIVE_JQUERY_JS_FILE", None)
 
 # URL schemes that are allowed within links
 ALLOWED_URL_SCHEMES = getattr(

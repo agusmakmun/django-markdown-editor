@@ -1,0 +1,908 @@
+/**
+ * Martor Tailwind CSS Theme
+ * This file provides Tailwind CSS-based styling for the Martor markdown editor
+ * Use with Tailwind CSS framework
+ */
+
+/* Global Body Overflow Control */
+body.overflow {
+  overflow: hidden !important;
+}
+
+/* Main Editor Container */
+.martor {
+  height: 500px;
+  max-height: 500px;
+}
+
+.martor-field {
+  width: 100%;
+  height: 16rem;
+  /* 256px */
+  min-height: 100px;
+  resize: vertical;
+  border-right: 1px solid #d1d5db;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.main-martor {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+/* Modal Styles */
+.main-martor .modal-header {
+  padding: 0.5rem 1rem;
+}
+
+.main-martor .modal-header h5 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+/* Help Guide Modal */
+.modal-help-guide {
+  z-index: 99999 !important;
+}
+
+.modal-help-guide.flex {
+  display: flex !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.modal-help-guide .bg-white {
+  display: block !important;
+  background-color: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  max-width: 900px !important;
+  width: 95% !important;
+  max-height: 90vh !important;
+  margin: 0 auto !important;
+  z-index: 20 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.modal-help-guide .flex.items-center {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Enhanced Table Styling */
+.modal-help-guide table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100% !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+.modal-help-guide th {
+  background-color: #f8fafc !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 12px !important;
+  color: #64748b !important;
+  padding: 12px 16px !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+  text-align: left !important;
+}
+
+.modal-help-guide td {
+  padding: 16px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  vertical-align: top !important;
+}
+
+.modal-help-guide tr:hover td {
+  background-color: #f8fafc !important;
+}
+
+.modal-help-guide code {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+  padding: 6px 10px !important;
+  border-radius: 6px !important;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border: 1px solid #e2e8f0 !important;
+  white-space: nowrap !important;
+}
+
+.modal-help-guide kbd {
+  background-color: #334155 !important;
+  color: white !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #1e293b !important;
+}
+
+.modal-help-guide h1,
+.modal-help-guide h2 {
+  margin: 0 !important;
+  font-weight: 700 !important;
+}
+
+.modal-help-guide blockquote {
+  margin: 0 !important;
+  font-style: italic !important;
+  color: #64748b !important;
+}
+
+.modal-help-guide ul,
+.modal-help-guide ol {
+  margin: 0 !important;
+  padding-left: 20px !important;
+}
+
+.modal-help-guide pre {
+  margin: 0 !important;
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 6px !important;
+  padding: 12px !important;
+  font-size: 13px !important;
+  overflow-x: auto !important;
+}
+
+.modal-help-guide hr {
+  border: none !important;
+  height: 2px !important;
+  background-color: #e2e8f0 !important;
+  margin: 8px 0 !important;
+}
+
+/* Upload Progress Overlay */
+.main-martor .upload-progress {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  padding-top: 5rem;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  text-align: center;
+}
+
+/* Toolbar Styles */
+.martor-toolbar {
+  z-index: 100;
+}
+
+.enable-living .martor-toolbar {
+  position: relative;
+}
+
+.martor-toolbar .markdown-image-upload {
+  position: relative;
+  overflow: hidden;
+}
+
+.martor-toolbar .markdown-image-upload input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 1.5rem;
+  padding: 0;
+  padding-left: 2.25rem;
+  text-align: right;
+  opacity: 0;
+  outline: none;
+  cursor: pointer;
+  display: block;
+  min-width: 100%;
+  min-height: 100%;
+  filter: alpha(opacity=0);
+}
+
+/* Emoji Styles */
+.emoji-loader-init {
+  min-height: 200px !important;
+  padding-top: 4rem;
+}
+
+.emoji-content-body {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.insert-emoji {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Reference Table */
+.table.markdown-reference {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.table.markdown-reference h1 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.table.markdown-reference h2 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.table.markdown-reference ul,
+.table.markdown-reference ol {
+  padding-left: 1rem;
+}
+
+/* Preview Styles */
+div.martor-preview {
+  padding: 1rem;
+  overflow: auto;
+  background-color: #f9fafb;
+}
+
+div.martor-preview-stale {
+  background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f8f8f8 10px, #f8f8f8 20px) !important;
+}
+
+/* Tab Navigation Styles */
+.main-martor .nav-tabs {
+  border-bottom-width: 2px;
+  border-color: #e5e7eb;
+}
+
+.main-martor .nav-tabs .nav-link:hover,
+.main-martor .nav-tabs .nav-link:focus {
+  border-color: transparent;
+}
+
+.main-martor .nav-tabs .nav-item.show .nav-link,
+.main-martor .nav-tabs .nav-link.active,
+.main-martor .nav-tabs .nav-link.active:hover {
+  border-color: transparent;
+  border-bottom-width: 2px;
+  border-color: #1f2937;
+  color: #374151;
+}
+
+.main-martor .tab-pane {
+  position: relative;
+}
+
+.icon.expand-editor {
+  position: absolute;
+  bottom: -0.5rem;
+  right: 0.5rem;
+  z-index: 100;
+}
+
+.no-border {
+  border-width: 0;
+}
+
+/* Live Preview Mode */
+div.enable-living .martor-preview {
+  display: block;
+  opacity: 1;
+  margin-top: 1rem;
+  border-width: 1px;
+  border-color: #e5e7eb;
+  border-radius: 0.375rem;
+}
+
+div.enable-living .tab-martor-menu a.nav-link {
+  display: none;
+}
+
+/* Custom Scrollbar Styles */
+.section-martor ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
+  background-color: #f3f4f6;
+}
+
+.section-martor ::-webkit-scrollbar {
+  height: 0.375rem;
+  width: 0.375rem;
+  background-color: #f3f4f6;
+}
+
+.section-martor ::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: #4b5563;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+.ace_scrollbar-v {
+  cursor: ns-resize;
+}
+
+/* Fullscreen Mode */
+.main-martor-fullscreen {
+  background-color: #ffffff;
+  position: fixed;
+  z-index: 9999;
+  max-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-martor-fullscreen .fields.martor-toolbar {
+  border-bottom-width: 1px;
+  border-color: #d1d5db;
+  margin: 0;
+}
+
+.main-martor-fullscreen .section-martor {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.main-martor-fullscreen .tab-content,
+.main-martor-fullscreen .tab-pane {
+  height: 100%;
+}
+
+.main-martor-fullscreen .martor-field,
+.main-martor-fullscreen div.martor-preview {
+  min-height: 0;
+}
+
+/* Preview Content Styling */
+.marked-emoji,
+div.martor-preview .marked-emoji {
+  max-width: 1.25rem;
+}
+
+div.martor-preview {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  line-height: 1.625;
+}
+
+div.martor-preview>*:first-child {
+  margin-top: 0;
+}
+
+div.martor-preview>*:last-child {
+  margin-bottom: 1.25rem;
+}
+
+div.martor-preview a.absent {
+  color: #dc2626;
+}
+
+div.martor-preview a.anchor {
+  display: block;
+  padding-left: 2rem;
+  margin-left: -2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+/* Heading Styles */
+div.martor-preview h1,
+div.martor-preview h2,
+div.martor-preview h3,
+div.martor-preview h4,
+div.martor-preview h5,
+div.martor-preview h6 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-weight: 700;
+  cursor: text;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  background: none;
+}
+
+div.martor-preview h1:hover a.anchor,
+div.martor-preview h2:hover a.anchor,
+div.martor-preview h3:hover a.anchor,
+div.martor-preview h4:hover a.anchor,
+div.martor-preview h5:hover a.anchor,
+div.martor-preview h6:hover a.anchor {
+  text-decoration: none;
+  line-height: 1;
+  padding-left: 0;
+  margin-left: -1.5rem;
+  top: 15%;
+}
+
+div.martor-preview h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  color: #000000;
+}
+
+div.martor-preview h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  color: #000000;
+}
+
+div.martor-preview h3 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+div.martor-preview h4 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+div.martor-preview h5 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+div.martor-preview h6 {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* Content Elements */
+div.martor-preview p,
+div.martor-preview blockquote,
+div.martor-preview ul,
+div.martor-preview ol,
+div.martor-preview dl,
+div.martor-preview table,
+div.martor-preview pre {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+div.martor-preview hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxBEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border-width: 0;
+  color: #d1d5db;
+  height: 0.25rem;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+/* First Child Margin Reset */
+div.martor-preview>h2:first-child,
+div.martor-preview>h1:first-child,
+div.martor-preview>h1:first-child+h2,
+div.martor-preview>h3:first-child,
+div.martor-preview>h4:first-child,
+div.martor-preview>h5:first-child,
+div.martor-preview>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+div.martor-preview a:first-child h1,
+div.martor-preview a:first-child h2,
+div.martor-preview a:first-child h3,
+div.martor-preview a:first-child h4,
+div.martor-preview a:first-child h5,
+div.martor-preview a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+div.martor-preview h1+p,
+div.martor-preview h2+p,
+div.martor-preview h3+p,
+div.martor-preview h4+p,
+div.martor-preview h5+p,
+div.martor-preview h6+p {
+  margin-top: 0;
+}
+
+/* List Styles */
+div.martor-preview li p.first {
+  display: inline-block;
+}
+
+div.martor-preview ul {
+  padding-left: 2rem;
+  margin: 1rem 0;
+  list-style-type: disc !important;
+  list-style-position: inside !important;
+  display: block !important;
+}
+
+div.martor-preview ol {
+  padding-left: 2rem;
+  margin: 1rem 0;
+  list-style-type: decimal !important;
+  list-style-position: inside !important;
+  display: block !important;
+}
+
+div.martor-preview ul li,
+div.martor-preview ol li {
+  margin: 0.25rem 0;
+  padding-left: 0.5rem;
+  display: list-item !important;
+}
+
+div.martor-preview ul.no-list,
+div.martor-preview ol.no-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Nested list styles */
+div.martor-preview ul li> :first-child,
+div.martor-preview ul li ul:first-of-type,
+div.martor-preview ol li> :first-child,
+div.martor-preview ol li ul:first-of-type {
+  margin-top: 0;
+}
+
+div.martor-preview ul ul,
+div.martor-preview ul ol,
+div.martor-preview ol ol,
+div.martor-preview ol ul {
+  margin-bottom: 0;
+  margin-top: 0.5rem;
+}
+
+/* Ensure nested lists have proper indentation */
+div.martor-preview li>ul,
+div.martor-preview li>ol {
+  padding-left: 1rem;
+  margin: 0.25rem 0;
+}
+
+/* Definition Lists */
+div.martor-preview dl {
+  padding: 0;
+}
+
+div.martor-preview dl dt {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  font-style: italic;
+  padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+div.martor-preview dl dt:first-child {
+  padding: 0;
+}
+
+div.martor-preview dl dt> :first-child {
+  margin-top: 0;
+}
+
+div.martor-preview dl dt> :last-child {
+  margin-bottom: 0;
+}
+
+div.martor-preview dl dd {
+  margin: 0;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+}
+
+div.martor-preview dl dd> :first-child {
+  margin-top: 0;
+}
+
+div.martor-preview dl dd> :last-child {
+  margin-bottom: 0;
+}
+
+/* Blockquotes */
+div.martor-preview blockquote {
+  border-left: 4px solid #d1d5db !important;
+  padding: 0.25rem 1rem !important;
+  margin: 1rem 0 !important;
+  background-color: #f9fafb !important;
+  color: #6b7280 !important;
+  font-style: italic !important;
+  border-radius: 0 0.375rem 0.375rem 0 !important;
+}
+
+div.martor-preview blockquote p {
+  margin: 0.5rem 0 !important;
+}
+
+div.martor-preview blockquote> :first-child {
+  margin-top: 0 !important;
+}
+
+div.martor-preview blockquote> :last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Tables */
+div.martor-preview table th {
+  font-weight: 700;
+}
+
+div.martor-preview table th,
+div.martor-preview table td {
+  border-width: 1px;
+  border-color: #d1d5db;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+div.martor-preview table tr {
+  border-top-width: 1px;
+  border-color: #d1d5db;
+  background-color: #ffffff;
+}
+
+div.martor-preview table tr:nth-child(2n) {
+  background-color: #f9fafb;
+}
+
+/* Images */
+div.martor-preview img,
+div.martor-preview p img {
+  max-width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Image Frames */
+div.martor-preview span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+div.martor-preview span.frame>span {
+  border-width: 1px;
+  border-color: #d1d5db;
+  display: block;
+  float: left;
+  overflow: hidden;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  margin-top: 0;
+  padding: 0.5rem;
+  width: auto;
+}
+
+div.martor-preview span.frame span img {
+  display: block;
+  float: left;
+}
+
+div.martor-preview span.frame span span {
+  clear: both;
+  color: #1f2937;
+  display: block;
+  padding-top: 0.25rem;
+  padding-bottom: 0;
+}
+
+/* Image Alignment */
+div.martor-preview span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+div.martor-preview span.align-center>span {
+  display: block;
+  overflow: hidden;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+div.martor-preview span.align-center span img {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+div.martor-preview span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+div.martor-preview span.align-right>span {
+  display: block;
+  overflow: hidden;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  margin-top: 0;
+  text-align: right;
+}
+
+div.martor-preview span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+div.martor-preview span.float-left {
+  display: block;
+  margin-right: 0.75rem;
+  overflow: hidden;
+  float: left;
+}
+
+div.martor-preview span.float-left span {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  margin-top: 0;
+}
+
+div.martor-preview span.float-right {
+  display: block;
+  margin-left: 0.75rem;
+  overflow: hidden;
+}
+
+div.martor-preview span.float-right>span {
+  display: block;
+  overflow: hidden;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: right;
+}
+
+/* Code Styles */
+div.martor-preview code,
+div.martor-preview tt {
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-width: 1px;
+  border-color: #e5e7eb;
+  background-color: #f3f4f6;
+  border-radius: 0.25rem;
+}
+
+div.martor-preview code {
+  white-space: nowrap;
+}
+
+div.martor-preview pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border-width: 0;
+  background-color: transparent;
+}
+
+div.martor-preview .highlight pre,
+div.martor-preview pre {
+  border-width: 1px;
+  border-color: #e5e7eb;
+  padding: 1rem;
+  overflow: auto;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  line-height: 1.5;
+  background-color: #f9fafb;
+  border-radius: 0.25rem;
+}
+
+div.martor-preview pre code,
+div.martor-preview pre tt {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border-width: 0;
+}
+
+/* Form Integration Styles */
+/* Enhanced form styling for better integration */
+.form-field input[type="text"],
+.form-field textarea,
+form input[type="text"]:not(.martor input),
+form textarea:not(.martor textarea) {
+  width: 100%;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 1px;
+  border-color: #d1d5db;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-duration: 200ms;
+}
+
+/* Error state styling */
+.has-error input,
+.has-error textarea {
+  border-color: #fca5a5;
+}
+
+/* Disabled state */
+input:disabled,
+textarea:disabled {
+  background-color: #f9fafb;
+  color: #6b7280;
+}
+
+/* Enhanced Martor Editor Styling */
+.main-martor {
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  overflow: hidden;
+}
+
+.main-martor .tab-martor-menu {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Force martor field height */
+.main-martor .martor-field {
+  height: 16rem !important;
+  min-height: 16rem !important;
+}
+
+.main-martor .ace_editor {
+  height: 100% !important;
+  min-height: 16rem !important;
+}
+
+
+/* Explicit focus styles for non-processed Tailwind CSS */
+.form-field input[type="text"]:focus,
+.form-field textarea:focus,
+form input[type="text"]:not(.martor input):focus,
+form textarea:not(.martor textarea):focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.has-error input:focus,
+.has-error textarea:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 1px #ef4444;
+}

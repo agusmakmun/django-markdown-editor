@@ -62,9 +62,7 @@ class SimpleTest(TestCase):
             {"content": "# Hello world!"},
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(
-            response.content.decode("utf-8"), "<h1>Hello world!</h1>"
-        )  # noqa: E501
+        self.assertEqual(response.content.decode("utf-8"), "<h1>Hello world!</h1>")  # noqa: E501
 
         # Link
         response = self.client.post(
@@ -113,9 +111,7 @@ class SimpleTest(TestCase):
         # Id
         response = self.client.post(
             "/martor/markdownify/",
-            {
-                "content": "__Advertisement :)__ {#ad-section}\n###### h6 Heading {#h6-heading}"
-            },
+            {"content": "__Advertisement :)__ {#ad-section}\n###### h6 Heading {#h6-heading}"},
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
@@ -130,9 +126,7 @@ class SimpleTest(TestCase):
 
         xss_payload_2 = '![" onerror=alert(1) ](x)'
         response_2 = markdownify(xss_payload_2)
-        self.assertEqual(
-            response_2, '<p><img alt="&quot; onerror=alert(1) " src="x"></p>'
-        )
+        self.assertEqual(response_2, '<p><img alt="&quot; onerror=alert(1) " src="x"></p>')
 
         xss_payload_3 = '[xss](" onmouseover=alert(document.domain) l)'
         response_3 = markdownify(xss_payload_3)
@@ -210,7 +204,9 @@ class MarkdownifyTest(TestCase):
         )
 
     def test_markdownify_not_losing_sentences_semicolon(self):
-        markdown_text = "Citation 4. [footnote 4](#ftnt4) Citation 5. [footnote 5](#ftnt5) Citation 6; [footnote 6](#ftnt6)"
+        markdown_text = (
+            "Citation 4. [footnote 4](#ftnt4) Citation 5. [footnote 5](#ftnt5) Citation 6; [footnote 6](#ftnt6)"
+        )
 
         response = markdownify(markdown_text)
         # previously, this was '<p>Citation 4. <a href="#ftnt4">footnote 4</a> Citation 5. <a href=";">footnote 5</a></p>'
@@ -220,7 +216,9 @@ class MarkdownifyTest(TestCase):
         )
 
     def test_markdownify_not_losing_sentences_colon(self):
-        markdown_text = "Citation 4. [footnote 4](#ftnt4) Citation 5. [footnote 5](#ftnt5) Citation 6: [footnote 6](#ftnt6)"
+        markdown_text = (
+            "Citation 4. [footnote 4](#ftnt4) Citation 5. [footnote 5](#ftnt5) Citation 6: [footnote 6](#ftnt6)"
+        )
 
         response = markdownify(markdown_text)
         # previously, this was '<p>Citation 4. <a href="#ftnt4">footnote 4</a> Citation 5. <a href=":">footnote 5</a></p>'

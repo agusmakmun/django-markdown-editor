@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Martor Demo - Tailwind CSS{% endblock %}</title>
+
+    <!-- Tailwind CSS CDN (for demo purposes) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    {% load static %}
+    {% block css %}
+    <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+    <link href="{% static 'plugins/css/highlight.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+    <link href="{% static 'martor/css/martor.tailwind.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+    {% endblock %}
+
+    <style>
+        /* Custom styles for better integration */
+        .prose {
+            max-width: none;
+        }
+        .prose code {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        .prose pre {
+            background-color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow: auto;
+        }
+        .prose blockquote {
+            border-left: 4px solid #d1d5db;
+            padding-left: 1rem;
+            font-style: italic;
+            color: #4b5563;
+        }
+        .prose table {
+            border-collapse: collapse;
+            border: 1px solid #d1d5db;
+        }
+        .prose th, .prose td {
+            border: 1px solid #d1d5db;
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .prose th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="{% url 'simple_form' %}" class="text-2xl font-bold text-gray-900 hover:text-blue-700 transition-colors">
+                        Martor Demo
+                    </a>
+                    <span class="ml-3 px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
+                        Tailwind CSS
+                    </span>
+                </div>
+                <nav class="flex space-x-4">
+                    <a href="{% url 'simple_form' %}" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                        Simple Form
+                    </a>
+                    <a href="{% url 'test_markdownify' %}" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                        Test Markdownify
+                    </a>
+                    <a href="https://github.com/agusmakmun/django-markdown-editor" target="_blank" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">
+                        GitHub
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="text-center text-gray-600">
+                <p class="text-sm">
+                    Martor Demo with Tailwind CSS Theme
+                </p>
+                <p class="text-xs mt-2">
+                    Built with Django and Tailwind CSS
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    {% block js %}
+    <script type="text/javascript" src="{% static 'plugins/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/mode-markdown.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/ext-language_tools.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/theme-github.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/typo.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/spellcheck.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'martor/js/martor.tailwind.min.js' %}"></script>
+    {% endblock %}
+</body>
+</html>
