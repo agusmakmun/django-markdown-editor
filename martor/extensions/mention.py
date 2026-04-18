@@ -36,9 +36,7 @@ class MentionPattern(markdown.inlinepatterns.Pattern):
 
         """Makesure `username` is registered and activated."""
         if users.exists():
-            url = "{}{}/".format(
-                MARTOR_MARKDOWN_BASE_MENTION_URL, username
-            )  # noqa: E501
+            url = f"{MARTOR_MARKDOWN_BASE_MENTION_URL}{username}/"  # noqa: E501
             el = ElementTree.Element("a")
             el.set("href", url)
             el.set("class", "direct-mention-link")

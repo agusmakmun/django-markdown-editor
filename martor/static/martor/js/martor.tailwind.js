@@ -1,10 +1,10 @@
 /**
- * Name         : Martor v1.6.45 (Tailwind CSS Version)
+ * Name         : Martor v1.8.0
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 15-Nov-2024
+ * Release date : 18-Apr-2026
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
- * Theme        : Tailwind CSS
+ * JS Minifier  : https://jscompress.com
 **/
 
 (function ($) {
@@ -408,6 +408,8 @@
                 $('.main-martor-fullscreen').find('.martor-preview').removeAttr('style');
                 mainMartor.removeClass('main-martor-fullscreen');
                 martorField.removeAttr('style');
+                mainMartor.find('.tab-content').removeAttr('style');
+                mainMartor.find('.tab-pane').removeAttr('style');
                 editor.resize();
             }
             var handleToggleMaximize = function (selector) {
@@ -416,11 +418,17 @@
                 selector.find('svg.bi-arrows-angle-contract').removeClass('hidden');
                 mainMartor.addClass('main-martor-fullscreen');
 
-                var clientHeight = document.body.clientHeight - 90;
-                martorField.attr({ 'style': 'height:' + clientHeight + 'px' });
+                // Use viewport height, not body height, to avoid oversized fullscreen panes.
+                var viewportHeight = window.innerHeight || document.documentElement.clientHeight || 800;
+                var menuHeight = mainMartor.find('.tab-martor-menu').outerHeight() || 64;
+                var contentHeight = Math.max(220, viewportHeight - menuHeight - 16);
 
-                var preview = $('.main-martor-fullscreen').find('.martor-preview');
-                preview.attr({ 'style': 'overflow-y: auto;height:' + clientHeight + 'px' });
+                martorField.css({ height: contentHeight + 'px' });
+                mainMartor.find('.tab-content').css({ height: contentHeight + 'px' });
+                mainMartor.find('.tab-pane').css({ height: contentHeight + 'px' });
+
+                var preview = mainMartor.find('.martor-preview');
+                preview.css({ overflowY: 'auto', height: contentHeight + 'px' });
 
                 editor.resize();
                 selector.one('click', handleToggleMinimize);
@@ -493,6 +501,13 @@
             // Close emoji modal
             $('.modal-emoji[data-field-name=' + field_name + '] .modal-close').click(function () {
                 TailwindUtils.hideModal('.modal-emoji[data-field-name=' + field_name + ']');
+            });
+
+            // Close emoji modal when clicking on backdrop
+            $('.modal-emoji[data-field-name=' + field_name + ']').click(function (e) {
+                if (e.target === this || $(e.target).hasClass('bg-gray-500')) {
+                    TailwindUtils.hideModal('.modal-emoji[data-field-name=' + field_name + ']');
+                }
             });
 
             // Handle popular emoji buttons

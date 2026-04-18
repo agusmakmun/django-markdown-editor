@@ -22,22 +22,37 @@
             max-width: none;
         }
         .prose code {
-            @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded text-sm;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
         }
         .prose pre {
-            @apply bg-gray-50 p-4 rounded-lg overflow-auto;
+            background-color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow: auto;
         }
         .prose blockquote {
-            @apply border-l-4 border-gray-300 pl-4 italic text-gray-600;
+            border-left: 4px solid #d1d5db;
+            padding-left: 1rem;
+            font-style: italic;
+            color: #4b5563;
         }
         .prose table {
-            @apply border-collapse border border-gray-300;
+            border-collapse: collapse;
+            border: 1px solid #d1d5db;
         }
         .prose th, .prose td {
-            @apply border border-gray-300 px-3 py-2 text-left;
+            border: 1px solid #d1d5db;
+            padding: 0.5rem 0.75rem;
+            text-align: left;
         }
         .prose th {
-            @apply bg-gray-50 font-semibold;
+            background-color: #f9fafb;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -47,7 +62,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-gray-900">Martor Demo</h1>
+                    <a href="{% url 'simple_form' %}" class="text-2xl font-bold text-gray-900 hover:text-blue-700 transition-colors">
+                        Martor Demo
+                    </a>
                     <span class="ml-3 px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
                         Tailwind CSS
                     </span>

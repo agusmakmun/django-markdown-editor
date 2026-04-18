@@ -79,14 +79,14 @@ https://hatch.pypa.io/latest/version/#updating
 
 ```console
 $ hatch version
-1.6.45
+1.8.0
 ```
 
 **To tag new release:**
 
 ```console
 $ hatch version "0.1.0"
-Old: 1.6.45
+Old: 1.8.0
 New: 0.1.0
 ```
 
@@ -94,7 +94,7 @@ New: 0.1.0
 
 ```console
 $ hatch version micro
-Old: 1.6.45
+Old: 1.8.0
 New: 1.6.46
 ```
 
@@ -105,10 +105,10 @@ https://hatch.pypa.io/latest/build/
 ```console
 $ hatch build
 [sdist]
-dist/martor-1.6.45.tar.gz
+dist/martor-1.8.0.tar.gz
 
 [wheel]
-dist/martor-1.6.45-py3-none-any.whl
+dist/martor-1.8.0-py3-none-any.whl
 ```
 
 ### 6. Publishing
@@ -135,11 +135,11 @@ $ hatch publish
 
 Enter your username [__token__]:
 Enter your credentials:
-dist/martor-1.6.45.tar.gz ... success
-dist/martor-1.6.45-py3-none-any.whl ... success
+dist/martor-1.8.0.tar.gz ... success
+dist/martor-1.8.0-py3-none-any.whl ... success
 
 [martor]
-https://pypi.org/project/martor/1.6.45/
+https://pypi.org/project/martor/1.8.0/
 ```
 
 ### 7. Environment Management

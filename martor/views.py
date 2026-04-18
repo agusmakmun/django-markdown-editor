@@ -70,9 +70,7 @@ def markdown_search_user(request):
             response_data.update({"status": 200, "data": usernames})
             return JsonResponse(response_data)
 
-        error_message = _(
-            "No users registered as `%(username)s` " "or user is unactived."
-        )
+        error_message = _("No users registered as `%(username)s` " "or user is unactived.")
         error_message = error_message % {"username": username}
         response_data.update({"status": 204, "error": error_message})
     else:

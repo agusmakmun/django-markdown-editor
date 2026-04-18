@@ -59,9 +59,7 @@ class VideoExtension(markdown.Extension):
             Vimeo,
             r"([^(]|^)http://(www.|)vimeo\.com/(?P<vimeoid>\d+)\S*",  # noqa: E501
         )
-        self.add_inline(
-            md, "yahoo", Yahoo, r"([^(]|^)http://screen\.yahoo\.com/.+/?"
-        )  # noqa: E501
+        self.add_inline(md, "yahoo", Yahoo, r"([^(]|^)http://screen\.yahoo\.com/.+/?")  # noqa: E501
         self.add_inline(
             md,
             "youtube",
@@ -94,9 +92,7 @@ class Metacafe(markdown.inlinepatterns.Pattern):
 
 class Veoh(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = "//www.veoh.com/videodetails2.swf?permalinkId=%s" % m.group(
-            "veohid"
-        )  # noqa: E501
+        url = "//www.veoh.com/videodetails2.swf?permalinkId=%s" % m.group("veohid")  # noqa: E501
         width = self.ext.config["veoh_width"][0]
         height = self.ext.config["veoh_height"][0]
         return flash_object(url, width, height)

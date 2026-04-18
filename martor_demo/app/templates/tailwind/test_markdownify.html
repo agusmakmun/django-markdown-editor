@@ -18,32 +18,51 @@
         </div>
     </div>
 
-    <!-- Content Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Markdown Source -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <svg class="h-5 w-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-                Markdown Source
-            </h3>
-            <div class="bg-gray-50 rounded-lg p-4 overflow-auto">
-                <pre class="text-sm text-gray-800 whitespace-pre-wrap">{{ content }}</pre>
+    <!-- Tabbed Content -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <div class="border-b border-gray-200">
+            <nav class="flex" role="tablist" aria-label="Markdownify tabs">
+                <button id="rendered-tab"
+                        type="button"
+                        class="markdownify-tab-btn px-5 py-3 text-sm font-medium border-b-2 border-gray-900 text-gray-900"
+                        data-target="#rendered-panel"
+                        role="tab"
+                        aria-controls="rendered-panel"
+                        aria-selected="true">
+                    <span class="inline-flex items-center">
+                        <svg class="h-5 w-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        Rendered Output
+                    </span>
+                </button>
+                <button id="source-tab"
+                        type="button"
+                        class="markdownify-tab-btn px-5 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700"
+                        data-target="#source-panel"
+                        role="tab"
+                        aria-controls="source-panel"
+                        aria-selected="false">
+                    <span class="inline-flex items-center">
+                        <svg class="h-5 w-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        Markdown Source
+                    </span>
+                </button>
+            </nav>
+        </div>
+
+        <div id="rendered-panel" class="markdownify-tab-panel p-6 block" role="tabpanel" aria-labelledby="rendered-tab">
+            <div class="prose prose-sm max-w-none border border-gray-200 rounded-lg p-4 bg-gray-50">
+                {{ post.description|safe_markdown }}
             </div>
         </div>
 
-        <!-- Rendered Output -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <svg class="h-5 w-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                Rendered Output
-            </h3>
-            <div class="prose prose-sm max-w-none border border-gray-200 rounded-lg p-4 bg-gray-50">
-                {{ content|safe_markdown }}
+        <div id="source-panel" class="markdownify-tab-panel p-6 hidden" role="tabpanel" aria-labelledby="source-tab">
+            <div class="bg-gray-50 rounded-lg p-4 overflow-auto">
+                <pre class="text-sm text-gray-800 whitespace-pre-wrap">{{ post.description }}</pre>
             </div>
         </div>
     </div>
@@ -239,6 +258,38 @@ def hello_world():<br>
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.markdownify-tab-btn');
+        const tabPanels = document.querySelectorAll('.markdownify-tab-panel');
+
+        tabButtons.forEach((button) => {
+            button.addEventListener('click', function() {
+                const targetSelector = this.getAttribute('data-target');
+                const targetPanel = document.querySelector(targetSelector);
+
+                tabButtons.forEach((btn) => {
+                    btn.classList.remove('border-gray-900', 'text-gray-900');
+                    btn.classList.add('border-transparent', 'text-gray-500');
+                    btn.setAttribute('aria-selected', 'false');
+                });
+
+                tabPanels.forEach((panel) => {
+                    panel.classList.remove('block');
+                    panel.classList.add('hidden');
+                });
+
+                this.classList.remove('border-transparent', 'text-gray-500');
+                this.classList.add('border-gray-900', 'text-gray-900');
+                this.setAttribute('aria-selected', 'true');
+
+                if (targetPanel) {
+                    targetPanel.classList.remove('hidden');
+                    targetPanel.classList.add('block');
+                }
+            });
+        });
+    });
+
     // Highlight code blocks after page load
     document.addEventListener('DOMContentLoaded', function() {
         if (typeof hljs !== 'undefined') {
