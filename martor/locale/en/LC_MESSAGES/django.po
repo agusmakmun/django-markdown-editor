@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-15 09:08+0700\n"
+"POT-Creation-Date: 2025-09-03 23:53+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "Uploading... please wait..."
 msgstr ""
 
-#: templates/martor/bootstrap/editor.html:43
+#: templates/martor/bootstrap/editor.html:38
 #: templates/martor/semantic/editor.html:18
 msgid "Nothing to preview"
 msgstr ""
@@ -68,7 +68,7 @@ msgid ""
 msgstr ""
 
 #: templates/martor/bootstrap/guide.html:30
-#: templates/martor/bootstrap/toolbar.html:54
+#: templates/martor/bootstrap/toolbar.html:53
 #: templates/martor/semantic/guide.html:17
 #: templates/martor/semantic/toolbar.html:38
 msgid "Code"
@@ -88,25 +88,25 @@ msgstr ""
 msgid "Martor Toolbar Buttons"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:7
+#: templates/martor/bootstrap/toolbar.html:6
 #: templates/martor/semantic/toolbar.html:5
 msgid "Bold"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:15
+#: templates/martor/bootstrap/toolbar.html:14
 #: templates/martor/semantic/toolbar.html:11
 msgid "Italic"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:23
+#: templates/martor/bootstrap/toolbar.html:22
 #: templates/martor/semantic/toolbar.html:17
 msgid "Horizontal Line"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:32
+#: templates/martor/bootstrap/toolbar.html:31
+#: templates/martor/bootstrap/toolbar.html:37
 #: templates/martor/bootstrap/toolbar.html:38
 #: templates/martor/bootstrap/toolbar.html:39
-#: templates/martor/bootstrap/toolbar.html:40
 #: templates/martor/semantic/toolbar.html:23
 #: templates/martor/semantic/toolbar.html:26
 #: templates/martor/semantic/toolbar.html:27
@@ -114,64 +114,64 @@ msgstr ""
 msgid "Heading"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:47
+#: templates/martor/bootstrap/toolbar.html:46
 #: templates/martor/semantic/toolbar.html:34
 msgid "Pre or Code"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:53
+#: templates/martor/bootstrap/toolbar.html:52
 #: templates/martor/semantic/toolbar.html:37
 msgid "Pre"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:60
+#: templates/martor/bootstrap/toolbar.html:59
 #: templates/martor/semantic/toolbar.html:44
 msgid "Quote"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:69
+#: templates/martor/bootstrap/toolbar.html:68
 #: templates/martor/semantic/toolbar.html:50
 msgid "Unordered List"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:77
+#: templates/martor/bootstrap/toolbar.html:76
 #: templates/martor/semantic/toolbar.html:56
 msgid "Ordered List"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:86
+#: templates/martor/bootstrap/toolbar.html:85
 #: templates/martor/semantic/toolbar.html:62
 msgid "URL/Link"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:95
+#: templates/martor/bootstrap/toolbar.html:94
 #: templates/martor/semantic/toolbar.html:68
 msgid "Insert Image Link"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:103
-#: templates/martor/bootstrap/toolbar.html:108
+#: templates/martor/bootstrap/toolbar.html:102
+#: templates/martor/bootstrap/toolbar.html:107
 #: templates/martor/semantic/toolbar.html:74
 #: templates/martor/semantic/toolbar.html:76
 msgid "Upload an Image"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:113
+#: templates/martor/bootstrap/toolbar.html:112
 #: templates/martor/semantic/toolbar.html:81
 msgid "Insert Emoji"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:121
+#: templates/martor/bootstrap/toolbar.html:120
 #: templates/martor/semantic/toolbar.html:87
 msgid "Direct Mention User"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:129
+#: templates/martor/bootstrap/toolbar.html:128
 #: templates/martor/semantic/toolbar.html:93
 msgid "Full Screen"
 msgstr ""
 
-#: templates/martor/bootstrap/toolbar.html:140
+#: templates/martor/bootstrap/toolbar.html:139
 #: templates/martor/semantic/toolbar.html:99
 msgid "Markdown Guide (Help)"
 msgstr ""
@@ -191,15 +191,15 @@ msgid ""
 "a>."
 msgstr ""
 
-#: views.py:22 views.py:40 views.py:41
+#: views.py:19 views.py:37 views.py:38
 msgid "Invalid request!"
 msgstr ""
 
-#: views.py:78
+#: views.py:74
 #, python-format
 msgid "No users registered as `%(username)s` or user is unactived."
 msgstr ""
 
-#: views.py:83
+#: views.py:79
 msgid "Validation Failed for field `username`"
 msgstr ""

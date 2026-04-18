@@ -6,7 +6,16 @@ This document tracks the changes made to Martor over time.
 Version 1.8.0 (Current)
 -------------------------
 
-**Release Date:** August 28, 2025
+**Release Date:** 01-Nov-2025
+
+**Improvements:**
+
+* Support different CSRF_COOKIE_NAME #286
+
+Version 1.7.15
+-------------------------
+
+**Release Date:** 01-Nov-2025
 
 **New Features:**
 
@@ -28,6 +37,8 @@ Version 1.8.0 (Current)
 * Resolved static file loading issues
 * Fixed admin integration edge cases
 * Improved CSRF token handling
+* Fixed missing ACE editor icon files causing collectstatic MissingFileError
+* Added 26 missing icon files (main-1.png through main-26.png, main-5.svg through main-25.svg) for ACE CSS
 
 **Documentation:**
 
