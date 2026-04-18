@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "martor"
-version = "1.8.0"
+dynamic = ["version"]
 description = "Django Markdown Editor"
 readme = "README.md"
 license = { text = "GPL-3.0" }
@@ -66,6 +66,8 @@ dev = [
     "pytest-django",
 ]
 
+[tool.hatch.version]
+path = "martor/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["martor"]

@@ -515,7 +515,7 @@ What information should I include in bug reports?
 
     ## Environment
     - Django: 4.2.0
-    - Martor: 1.8.0
+    - Martor: 1.8.1
     - Python: 3.9.0
     - Browser: Chrome 91.0
 

@@ -3,7 +3,7 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.8.0 (Current)
+Version 1.8.1 (Current)
 -------------------------
 
 **Release Date:** 01-Nov-2025
@@ -122,8 +122,8 @@ Deprecation Notices
 
 **Planned Deprecations:**
 
-* Support for Python 3.8 will be dropped in version 1.8.0
-* Support for Django 3.1 and earlier will be dropped in version 1.8.0
+* Support for Python 3.8 will be dropped in version 1.8.1
+* Support for Django 3.1 and earlier will be dropped in version 1.8.1
 
 Contributing to Changelog
 --------------------------
