@@ -45,7 +45,6 @@ jobs:
 
       - name: Install dependencies and run tests
         run: |
-          pip install -U pip setuptools
+          pip install -U pip setuptools hatch
           pip install -q django==${{ matrix.django-version }}
-          pip install hatch
           hatch run test:test
