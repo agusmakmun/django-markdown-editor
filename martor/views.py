@@ -59,22 +59,29 @@ def markdown_search_user(request):
                     {'usernane': 'albert'}]
                 }
     """
+
+
+
     response_data = {}
-    username = request.GET.get("username")
 
-    if username is not None and username != "" and " " not in username:
-        queries = {"%s__icontains" % User.USERNAME_FIELD: username}
-        users = User.objects.filter(**queries).filter(is_active=True)
-        if users.exists():
-            usernames = list(users.values_list("username", flat=True))
-            response_data.update({"status": 200, "data": usernames})
-            return JsonResponse(response_data)
-
-        error_message = _("No users registered as `%(username)s` " "or user is unactived.")
-        error_message = error_message % {"username": username}
-        response_data.update({"status": 204, "error": error_message})
+    if MARTOR_ENABLE_CONFIGS.get("mention") == "false":
+        response_data.udpate({"status":"403", "error": _("This featured is disabled, check the documentation")})
     else:
-        error_message = _("Validation Failed for field `username`")
-        response_data.update({"status": 204, "error": error_message})
+        username = request.GET.get("username")
+
+        if username is not None and username != "" and " " not in username:
+            queries = {"%s__icontains" % User.USERNAME_FIELD: username}
+            users = User.objects.filter(**queries).filter(is_active=True)
+            if users.exists():
+                usernames = list(users.values_list("username", flat=True))
+                response_data.update({"status": 200, "data": usernames})
+                return JsonResponse(response_data)
+
+            error_message = _("No users registered as `%(username)s` " "or user is unactived.")
+            error_message = error_message % {"username": username}
+            response_data.update({"status": 204, "error": error_message})
+        else:
+            error_message = _("Validation Failed for field `username`")
+            response_data.update({"status": 204, "error": error_message})
 
     return JsonResponse(response_data, encoder=LazyEncoder)
