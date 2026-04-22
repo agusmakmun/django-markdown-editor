@@ -5,7 +5,7 @@ from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
 from .api import imgur_uploader
-from .settings import MARTOR_MARKDOWNIFY_FUNCTION
+from .settings import MARTOR_MARKDOWNIFY_FUNCTION, MARTOR_ENABLE_CONFIGS
 from .utils import LazyEncoder
 
 User = get_user_model()
