@@ -5,7 +5,7 @@ from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
 from .api import imgur_uploader
-from .settings import MARTOR_MARKDOWNIFY_FUNCTION, MARTOR_ENABLE_CONFIGS
+from .settings import MARTOR_ENABLE_CONFIGS, MARTOR_MARKDOWNIFY_FUNCTION
 from .utils import LazyEncoder
 
 User = get_user_model()
@@ -60,12 +60,10 @@ def markdown_search_user(request):
                 }
     """
 
-
-
     response_data = {}
 
     if MARTOR_ENABLE_CONFIGS.get("mention") == "false":
-        response_data.udpate({"status":"403", "error": _("This featured is disabled, check the documentation")})
+        response_data.update({"status": 403, "error": _("This feature is disabled, check the documentation")})
     else:
         username = request.GET.get("username")
 

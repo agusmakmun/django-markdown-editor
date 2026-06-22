@@ -7,7 +7,6 @@ from django.test import TestCase, override_settings
 from django.urls import clear_url_caches, resolve, reverse
 
 from martor.utils import markdownify
-from martor.views import markdown_imgur_uploader, markdown_search_user, markdownfy_view
 
 
 class SimpleTest(TestCase):
@@ -15,6 +14,8 @@ class SimpleTest(TestCase):
         # Reload settings.py and urls.py when @override_settings is called
         clear_url_caches()
         reload(sys.modules["martor.settings"])
+        if "martor.views" in sys.modules:
+            reload(sys.modules["martor.views"])
         reload(sys.modules["martor.urls"])
         reload(sys.modules["martor.tests.urls"])
 
@@ -135,6 +136,28 @@ class SimpleTest(TestCase):
             '<p><a href="&quot; onmouseover=alert(document.domain)">xss</a>)</p>',  # noqa: E501
         )
 
+    @override_settings(
+        MARTOR_ENABLE_CONFIGS={
+            "mention": "false",
+        }
+    )
+    def test_search_user_mention_disabled(self):
+        response = self.client.get(reverse("search_user_json") + "?username=user")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["status"], 403)
+        self.assertEqual(response.json()["error"], "This feature is disabled, check the documentation")
+
+    @override_settings(
+        MARTOR_ENABLE_CONFIGS={
+            "mention": "true",
+        }
+    )
+    def test_search_user_mention_enabled(self):
+        response = self.client.get(reverse("search_user_json") + "?username=user1")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["status"], 200)
+        self.assertEqual(response.json()["data"], ["user1"])
+
     def test_urls(self):
         with override_settings(
             MARTOR_MARKDOWNIFY_URL="test/url",
@@ -142,13 +165,13 @@ class SimpleTest(TestCase):
             MARTOR_SEARCH_USERS_URL="test/search",
         ):
             found = resolve(reverse("martor_markdownfy"))
-            self.assertEqual(found.func, markdownfy_view)
+            self.assertEqual(found.func.__name__, "markdownfy_view")
 
             found = resolve(reverse("imgur_uploader"))
-            self.assertEqual(found.func, markdown_imgur_uploader)
+            self.assertEqual(found.func.__name__, "markdown_imgur_uploader")
 
             found = resolve(reverse("search_user_json"))
-            self.assertEqual(found.func, markdown_search_user)
+            self.assertEqual(found.func.__name__, "markdown_search_user")
 
 
 class MarkdownifyTest(TestCase):
