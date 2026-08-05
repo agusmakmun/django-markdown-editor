@@ -184,7 +184,7 @@
                                 url: textareaId.data('search-users-url'),
                                 data: {
                                     'username': username,
-                                    'csrfmiddlewaretoken': getCookie('csrftoken')
+                                    'csrfmiddlewaretoken': getCookie(textareaId.data('csrf-cookie-name'))
                                 },
                                 success: function (data) {
                                     if (data['status'] == 200) {
@@ -273,7 +273,7 @@
                 var value = textareaId.val();
                 var form = new FormData();
                 form.append('content', value);
-                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                form.append('Thamiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name')));
                 currentTab.addClass('martor-preview-stale');
 
                 $.ajax({
@@ -846,7 +846,7 @@
                 var firstForm = $('#' + editorId).closest('form').get(0);
                 var field_name = editor.container.id.replace('martor-', '');
                 var form = new FormData(firstForm);
-                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                form.append('csrfmiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name')));
 
                 $.ajax({
                     url: textareaId.data('upload-url'),
