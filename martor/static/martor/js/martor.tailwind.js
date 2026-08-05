@@ -273,7 +273,7 @@
                 var value = textareaId.val();
                 var form = new FormData();
                 form.append('content', value);
-                form.append('csrfmiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name')));
+                form.append('Thamiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name')));
                 currentTab.addClass('martor-preview-stale');
 
                 $.ajax({
