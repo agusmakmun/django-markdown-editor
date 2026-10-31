@@ -3,7 +3,29 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.8.1 (Current)
+Version 1.8.3 (Current)
+-------------------------
+
+**Release Date:** 31-Oct-2026
+
+**New Features:**
+
+* Upload images pasted from the clipboard #240
+* Per-widget toolbar buttons: ``MartorWidget(toolbar_buttons=[...])`` #262
+* ``MARTOR_MARKDOWNIFY_LOGIN_REQUIRED`` setting #194
+
+**Bug Fixes:**
+
+* Restore configurable CSRF cookie name in static JS, default to ``CSRF_COOKIE_NAME`` #292
+* Semantic theme with ``autocomplete_fields`` (``dropdown is not a function``) #271
+* Admin: editor full width / overflow #269 #256, dark mode preview #250, collapsed fieldsets #180, heading sizes #185
+* bleach ``NoCssSanitizerWarning`` (now requires ``bleach[css]``) #202
+* Video embeds use ``https://`` #191
+* Urlize mangling html attributes #74
+* Trailing space after link insert #59
+* Removed Google Fonts import from semantic css #119
+
+Version 1.8.1
 -------------------------
 
 **Release Date:** 01-Nov-2025
