@@ -582,7 +582,7 @@ The documentation is built with [Sphinx](https://www.sphinx-doc.org/) and uses r
 [7]: https://img.shields.io/pypi/pyversions/martor.svg
 [8]: https://pypi.python.org/pypi/martor
 
-[9]: https://img.shields.io/badge/Django-3.2%20%3E=%204.2-green.svg
+[9]: https://img.shields.io/badge/Django-4.2%20%7C%205.x%20%7C%206.x-green.svg
 [10]: https://www.djangoproject.com
 
 [11]: https://img.shields.io/github/actions/workflow/status/agusmakmun/django-markdown-editor/run-tests.yml?branch=master

@@ -34,6 +34,22 @@ jobs:
             django-version: "5.1"
           - python-version: "3.13"
             django-version: "5.2"
+          # Python 3.14 supported in Django 5.2.8+
+          - python-version: "3.14"
+            django-version: "5.2"
+          # Django 6.0 and 6.1 support Python 3.12, 3.13, 3.14
+          - python-version: "3.12"
+            django-version: "6.0"
+          - python-version: "3.13"
+            django-version: "6.0"
+          - python-version: "3.14"
+            django-version: "6.0"
+          - python-version: "3.12"
+            django-version: "6.1"
+          - python-version: "3.13"
+            django-version: "6.1"
+          - python-version: "3.14"
+            django-version: "6.1"
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -48,7 +64,8 @@ jobs:
       - name: Install dependencies and run tests
         run: |
           pip install -U pip setuptools wheel
-          pip install -q django==${{ matrix.django-version }}
+          # latest patch release of the series (`django==5.2` would pin 5.2.0)
+          pip install -q "django~=${{ matrix.django-version }}.0"
           pip install pytest pytest-django
           pip install -e .
           python runtests.py

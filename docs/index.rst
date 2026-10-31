@@ -13,7 +13,7 @@ Martor - Django Markdown Editor
    :target: https://pypi.python.org/pypi/martor
    :alt: Python Version
 
-.. image:: https://img.shields.io/badge/Django-3.2%20%3E=%204.2-green.svg
+.. image:: https://img.shields.io/badge/Django-4.2%20%7C%205.x%20%7C%206.x-green.svg
    :target: https://www.djangoproject.com
    :alt: Django Version
 
