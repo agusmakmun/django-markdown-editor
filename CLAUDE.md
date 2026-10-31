@@ -83,6 +83,9 @@ node -e "require('vm').createScript(require('fs').readFileSync('$f.min.js','utf8
   stay below Django's class rules (e.g. `.theme-toggle svg`), or admin UI breaks.
 - The editor sits inside Django's `form .aligned`, whose label/list rules leak in
   (`label {display:block}`, `ul {margin-left:160px}`, no bullets).
+- Admin markup changes between Django versions: Django 6.1 stacks labels above fields
+  (`.flex-container` is a column), and Django 6 underlines links with an id-level selector.
+  Check new Django releases in the admin, not just the tests.
 - Semantic UI moves modals out of `.main-martor` to `<body>`, so scope modal rules by
   `.modal-help-guide` / `.modal-emoji`, not `.main-martor`.
 
@@ -108,4 +111,10 @@ mode, dark via the admin toggle and dark via the OS. Browsers cache the min file
    uploads to PyPI on any tag push.
 5. `gh release create vX.Y.Z --title vX.Y.Z --generate-notes --latest`.
 
-Work on a branch and open a PR. CI tests Python 3.8-3.13 against Django 4.2-5.2.
+Work on a branch and open a PR. CI tests Python 3.8-3.14 against Django 4.2-6.1 (Django 6.x needs
+Python 3.12+). To test a newer Django locally without touching the 3.9 venv:
+
+```bash
+../bin/uv venv -p 3.13 /tmp/venv-dj && ../bin/uv pip install -p /tmp/venv-dj/bin/python "django~=6.1.0" -e .
+/tmp/venv-dj/bin/python -W error::DeprecationWarning runtests.py
+```

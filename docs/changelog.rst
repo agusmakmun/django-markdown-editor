@@ -3,7 +3,22 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.8.4 (Current)
+Version 1.8.5 (Current)
+-------------------------
+
+**Release Date:** 31-Oct-2026
+
+**Improvements:**
+
+* Support Django 6.0 and 6.1 (and Python 3.14): tested in CI, added classifiers
+* CI tests the latest patch release of each Django series instead of ``X.Y.0``
+
+**Bug Fixes:**
+
+* Django 6.1 admin: the editor fills the field width in the new stacked (column) form layout
+* Django 6 admin: don't underline martor's tabs, toolbar and emoji links
+
+Version 1.8.4
 -------------------------
 
 **Release Date:** 31-Oct-2026

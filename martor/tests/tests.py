@@ -184,8 +184,8 @@ class SimpleTest(TestCase):
         # `Media` is built at import time, so reload the widgets module per theme
         for theme in ["bootstrap", "semantic", "tailwind"]:
             with override_settings(MARTOR_THEME=theme):
-                media = reload(sys.modules["martor.widgets"]).MartorWidget().media
-                for path in [*media._js, *[p for paths in media._css.values() for p in paths]]:
+                media = reload(sys.modules["martor.widgets"]).MartorWidget.Media
+                for path in [*media.js, *media.css["all"]]:
                     self.assertIsNotNone(finders.find(path), f"{theme}: {path}")
         reload(sys.modules["martor.widgets"])
 

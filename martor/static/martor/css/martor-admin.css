@@ -90,8 +90,10 @@ fieldset .form-row>div {
 
 fieldset .form-row .main-martor {
   display: grid !important;
-  /* fix issue: #269, #256 - fill the django>=4 `.flex-container` row without overflowing it */
+  /* fix issue: #269, #256 - fill the django>=4 `.flex-container` row without overflowing it,
+  and its full width in django>=6.1, where it's a column with `align-items: flex-start` */
   flex: 1 1 auto;
+  align-self: stretch;
   min-width: 0;
 }
 
@@ -109,6 +111,13 @@ form .aligned .martor-toolbar label.markdown-image-upload {
 specificity (0,0,2): beats tailwind's bare `img, svg` but not django's class rules like `.theme-toggle svg` */
 html :where(#container) :is(img, svg, video, canvas, audio, iframe, embed, object):not(:where(.main-martor *)) {
   display: revert;
+}
+
+/* django>=6 underlines links with `a:not(#header a, ...)` (id-level specificity), keep martor's own
+tabs, toolbar and emoji links plain; links in the preview content stay underlined */
+.main-martor :is(.tab-martor-menu, .martor-toolbar) a,
+.insert-emoji {
+  text-decoration: none !important;
 }
 
 /* fix issue: #180, #185 - bootstrap's `.collapse:not(.show)` hides django's collapsible fieldsets */
