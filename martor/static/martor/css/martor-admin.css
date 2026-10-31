@@ -118,8 +118,9 @@ form .aligned .martor-toolbar label.markdown-image-upload {
 }
 
 /* tailwind's preflight makes every img/svg a block, which stacks django's inline admin icons
-(related widget links, boolean icons), keep the browser default outside the editor */
-:is(img, svg, video, canvas, audio, iframe, embed, object):not(.main-martor *) {
+(related widget links, boolean icons), keep the browser default outside the editor.
+specificity (0,0,2): beats tailwind's bare `img, svg` but not django's class rules like `.theme-toggle svg` */
+html :is(img, svg, video, canvas, audio, iframe, embed, object):not(:where(.main-martor *)) {
   display: revert;
 }
 
