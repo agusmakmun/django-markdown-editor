@@ -3,7 +3,20 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.8.3 (Current)
+Version 1.8.4 (Current)
+-------------------------
+
+**Release Date:** 31-Oct-2026
+
+**Bug Fixes:**
+
+* Admin follows django's light/dark theme (OS setting and theme toggle) in all themes: editor, toolbar, preview and modals #250
+* Semantic: hidden upload input showing "Choose File" and pushing the toolbar above the tabs
+* Semantic: regenerated broken minified css (fullscreen, live preview, scrollbar rules)
+* Tailwind: stacked admin icons, full width admin inputs, misaligned upload button
+* Help guide: lists indented by django's form styles, unreadable title, overflowing tailwind table
+
+Version 1.8.3
 -------------------------
 
 **Release Date:** 31-Oct-2026
