@@ -3,8 +3,10 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Unreleased
+Version 1.8.5 (Current)
 -------------------------
+
+**Release Date:** 31-Oct-2026
 
 **Improvements:**
 
@@ -16,7 +18,7 @@ Unreleased
 * Django 6.1 admin: the editor fills the field width in the new stacked (column) form layout
 * Django 6 admin: don't underline martor's tabs, toolbar and emoji links
 
-Version 1.8.4 (Current)
+Version 1.8.4
 -------------------------
 
 **Release Date:** 31-Oct-2026
