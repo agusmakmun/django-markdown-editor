@@ -1,0 +1,32 @@
+{% extends "demo/base.html" %}
+
+{% block content %}
+  <div class="demo-hero">
+    <h1>{{ title }}</h1>
+    <p>{{ subtitle }}</p>
+  </div>
+
+  <form class="demo-card" method="post" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="demo-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<p class="demo-help">{{ field.help_text }}</p>{% endif %}
+        {% for error in field.errors %}<p class="demo-error">{{ error }}</p>{% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="demo-form-actions">
+      <span>Use the toolbar or shortcuts like <kbd>Ctrl/⌘ + B</kbd>, and switch to <strong>Preview</strong> to render.</span>
+      <button type="submit" class="demo-btn">Save</button>
+    </div>
+  </form>
+
+  <section class="demo-features">
+    <div class="demo-feature"><strong>Live preview</strong><span>Rendered by your own markdownify function.</span></div>
+    <div class="demo-feature"><strong>Image upload</strong><span>Upload or paste images from the clipboard.</span></div>
+    <div class="demo-feature"><strong>Emoji &amp; mentions</strong><span>Autocomplete for <code>:emoji:</code> and <code>@[user]</code>.</span></div>
+    <div class="demo-feature"><strong>Light &amp; dark</strong><span>Follows the page theme, try the toggle in the navbar.</span></div>
+  </section>
+{% endblock %}

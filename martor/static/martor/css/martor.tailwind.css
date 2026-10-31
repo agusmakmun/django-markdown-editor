@@ -122,7 +122,9 @@ body.overflow {
   font-size: 13px !important;
   font-weight: 500 !important;
   border: 1px solid #e2e8f0 !important;
-  white-space: nowrap !important;
+  /* inline-block + wrapping: multi-line examples stay one chip, and the table fits the modal */
+  display: inline-block;
+  white-space: normal !important;
 }
 
 .modal-help-guide kbd {
@@ -187,6 +189,14 @@ body.overflow {
 /* Toolbar Styles */
 .martor-toolbar {
   z-index: 100;
+}
+
+/* wrap tabs, toolbar and its button groups on narrow screens instead of clipping buttons */
+.tab-martor-menu > div,
+.martor-toolbar,
+.martor-toolbar > div {
+  flex-wrap: wrap;
+  row-gap: .25rem;
 }
 
 .enable-living .martor-toolbar {
@@ -673,6 +683,8 @@ div.martor-preview table tr:nth-child(2n) {
 /* Images */
 div.martor-preview img,
 div.martor-preview p img {
+  /* tailwind's preflight makes images blocks, markdown images are inline (e.g. badges) */
+  display: inline;
   max-width: 100%;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -833,11 +845,11 @@ div.martor-preview pre tt {
 }
 
 /* Form Integration Styles */
-/* Enhanced form styling for better integration */
-.form-field input[type="text"],
-.form-field textarea,
-form input[type="text"]:not(.martor input),
-form textarea:not(.martor textarea) {
+/* Enhanced form styling for better integration, not inside django admin (`#container`) */
+.form-field input[type="text"]:not(#container *),
+.form-field textarea:not(#container *),
+form input[type="text"]:not(.martor input, #container *),
+form textarea:not(.martor textarea, #container *) {
   width: 100%;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -891,10 +903,10 @@ textarea:disabled {
 
 
 /* Explicit focus styles for non-processed Tailwind CSS */
-.form-field input[type="text"]:focus,
-.form-field textarea:focus,
-form input[type="text"]:not(.martor input):focus,
-form textarea:not(.martor textarea):focus {
+.form-field input[type="text"]:not(#container *):focus,
+.form-field textarea:not(#container *):focus,
+form input[type="text"]:not(.martor input, #container *):focus,
+form textarea:not(.martor textarea, #container *):focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   border-color: #3b82f6;

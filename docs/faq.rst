@@ -17,7 +17,7 @@ Why choose Martor over other markdown editors?
 Martor offers several advantages:
 
 * **Deep Django integration** - Works seamlessly with models, forms, and admin
-* **Dual theme support** - Bootstrap and Semantic-UI compatible
+* **Three themes** - Bootstrap, Semantic-UI and Tailwind CSS, with light & dark mode
 * **Security-focused** - Built-in XSS protection and HTML sanitization
 * **Feature-rich** - Image upload, mentions, emoji, video embedding
 * **Extensible** - Custom markdown extensions and easy customization

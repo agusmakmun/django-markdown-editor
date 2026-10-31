@@ -1,5 +1,6 @@
-import markdown
 from xml.etree import ElementTree
+
+import markdown
 
 # Regex pattern to detect `{#id_name}` at the end of the line
 ADD_ID_RE = r"(.+?)\s\{#([a-zA-Z0-9_-]+)\}$"

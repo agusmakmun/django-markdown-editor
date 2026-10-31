@@ -1,0 +1,12 @@
+/*
+Source for martor/static/plugins/css/tailwind.min.css (Tailwind CSS v4), containing only the
+utilities used by martor's tailwind templates and JS. Rebuild after changing their classes
+(from the repo root; `node_modules/` is git-ignored):
+
+  npm i --no-save @tailwindcss/cli@4 tailwindcss@4
+  npx tailwindcss -i .etc/tailwind.input.css -o martor/static/plugins/css/tailwind.min.css --minify
+*/
+@import "tailwindcss" source(none);
+
+@source "../martor/templates/martor/tailwind";
+@source "../martor/static/martor/js/martor.tailwind.js";

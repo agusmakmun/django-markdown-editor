@@ -1,10 +1,10 @@
 /**
- * Name         : Martor v1.8.1
+ * Name         : Martor v1.8.4
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 18-Apr-2026
+ * Release date : 31-Oct-2026
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
- * JS Minifier  : https://jscompress.com
+ * JS Minifier  : terser (https://terser.org)
 **/
 
 (function ($) {
@@ -374,12 +374,7 @@
             // Modal Popup for Help Guide & Emoji Cheat Sheet
             $('.markdown-help[data-field-name=' + field_name + ']').click(function (e) {
                 e.preventDefault();
-                console.log('Help button clicked for field:', field_name);
-                var modalSelector = '.modal-help-guide[data-field-name=' + field_name + ']';
-                console.log('Modal selector:', modalSelector);
-                var modal = $(modalSelector);
-                console.log('Modal found:', modal.length);
-                TailwindUtils.showModal(modalSelector);
+                TailwindUtils.showModal('.modal-help-guide[data-field-name=' + field_name + ']');
             });
 
             // Close modal functionality
@@ -388,9 +383,9 @@
                 TailwindUtils.hideModal('.modal-help-guide[data-field-name=' + field_name + ']');
             });
 
-            // Also handle click on modal backdrop to close
+            // Close when clicking anywhere outside the modal panel
             $('.modal-help-guide[data-field-name=' + field_name + ']').click(function (e) {
-                if (e.target === this || $(e.target).hasClass('bg-gray-500')) {
+                if (!$(e.target).closest('.modal-panel').length) {
                     TailwindUtils.hideModal('.modal-help-guide[data-field-name=' + field_name + ']');
                 }
             });
@@ -440,6 +435,10 @@
 
             // Exit full screen when `ESC` is pressed.
             $(document).keyup(function (e) {
+                // `ESC` also closes this editor's modals
+                if (e.keyCode == 27) {
+                    TailwindUtils.hideModal('.modal-help-guide[data-field-name=' + field_name + '], .modal-emoji[data-field-name=' + field_name + ']');
+                }
                 if (e.keyCode == 27 && mainMartor.hasClass('main-martor-fullscreen')) {
                     btnToggleMaximize.trigger('click');
                 }
@@ -503,9 +502,9 @@
                 TailwindUtils.hideModal('.modal-emoji[data-field-name=' + field_name + ']');
             });
 
-            // Close emoji modal when clicking on backdrop
+            // Close emoji modal when clicking anywhere outside the modal panel
             $('.modal-emoji[data-field-name=' + field_name + ']').click(function (e) {
-                if (e.target === this || $(e.target).hasClass('bg-gray-500')) {
+                if (!$(e.target).closest('.modal-panel').length) {
                     TailwindUtils.hideModal('.modal-emoji[data-field-name=' + field_name + ']');
                 }
             });

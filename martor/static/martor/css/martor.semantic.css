@@ -31,11 +31,11 @@ body.overflow {
   padding: 0 .85714286em!important;
   padding-bottom: 4px!important;
 }
-.martor-toolbar .ui.icon .markdown-image-upload {
+.martor-toolbar .markdown-image-upload {
   position: relative;
   overflow: hidden;
 }
-.martor-toolbar .ui.icon .markdown-image-upload input[type=file] {
+.martor-toolbar .markdown-image-upload input[type=file] {
   position: absolute;
   top: 0;
   right: 0;

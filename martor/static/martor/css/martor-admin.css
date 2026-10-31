@@ -1,19 +1,18 @@
 /*
 CSS to handle inside admin django
-by following the default `admin/css/base.css` from django
+by following the default `admin/css/base.css` from django.
+
+`MartorWidget.Media` also loads this file on frontend forms, so the admin-only resets below are
+scoped to django admin pages with `:where(#container)` / `body:where(:has(#container))`,
+which keeps their specificity unchanged.
 */
 
-:root {
-  --primary: #79aec8;
-  --secondary: #417690;
-}
-
-body {
+body:where(:has(#container)) {
   margin: 0;
   padding: 0;
   font-size: 14px;
-  color: #333;
-  background: #fff;
+  color: var(--body-fg, #333);
+  background: var(--body-bg, #fff);
 }
 
 #container {
@@ -25,71 +24,54 @@ body {
   margin: 0 !important;
 }
 
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-button,
-input,
-optgroup,
-select {
+body:where(:has(#container)),
+:where(#container) :is(h1, h2, h3, h4, h5, button, input, optgroup, select) {
   font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
+:where(#container) :is(h1, h2, h3, h4, h5) {
   font-weight: bold;
   line-height: unset;
 }
 
-h1 {
+:where(#container) h1 {
   margin: 0 0 20px;
   font-weight: 300;
   font-size: 20px;
-  color: #333;
+  color: var(--body-fg, #333);
 }
 
-h2 {
+:where(#container) h2 {
   font-size: 16px;
   margin: 1em 0 .5em 0;
 }
-
-h2.subhead {
+:where(#container) h2.subhead {
   font-weight: normal;
   margin-top: 0;
 }
 
-h3 {
+:where(#container) h3 {
   font-size: 14px;
   margin: .8em 0 .3em 0;
-  color: #333;
+  color: var(--body-fg, #333);
   font-weight: bold;
 }
 
-h4 {
+:where(#container) h4 {
   font-size: 12px;
   margin: 1em 0 .8em 0;
   padding-bottom: 3px;
 }
 
-h5 {
+:where(#container) h5 {
   font-size: 10px;
   margin: 1.5em 0 .5em 0;
-  color: #333;
+  color: var(--body-fg, #333);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.button,
-input[type=submit],
-input[type=button],
-.submit-row input,
-a.button {
+:where(#container) :is(.button, input[type=submit], input[type=button], .submit-row input, a.button) {
   padding: 5px 15px;
 }
 
@@ -113,14 +95,25 @@ fieldset .form-row .main-martor {
   min-width: 0;
 }
 
-/* fix issue: #180, #185 - bootstrap's `.collapse:not(.show)` hides django's collapsible fieldsets */
-fieldset.collapse:not(.show) {
-  display: block;
+/* tailwind upload button is a <label>, keep django's `.aligned label` from turning it into a block */
+form .aligned .martor-toolbar label.markdown-image-upload {
+  display: inline-flex;
+  width: auto;
+  min-width: 0;
+  padding: .25rem .5rem;
+  float: none;
 }
 
-/* fix issue: #250 - preview background is always light, keep its text dark in admin dark mode */
-.main-martor .martor-preview {
-  color: #333;
+/* tailwind's preflight makes every img/svg a block, which stacks django's inline admin icons
+(related widget links, boolean icons), keep the browser default outside the editor.
+specificity (0,0,2): beats tailwind's bare `img, svg` but not django's class rules like `.theme-toggle svg` */
+html :where(#container) :is(img, svg, video, canvas, audio, iframe, embed, object):not(:where(.main-martor *)) {
+  display: revert;
+}
+
+/* fix issue: #180, #185 - bootstrap's `.collapse:not(.show)` hides django's collapsible fieldsets */
+:where(#container) fieldset.collapse:not(.show) {
+  display: block;
 }
 
 .submit-row a.deletelink {
@@ -141,46 +134,247 @@ fieldset.collapse:not(.show) {
 }
 
 /* fix issue: #270 */
-table {
+:where(#container) table {
   caption-side: top;
 }
 
-/* fix issue: #168 */
+/*
+fix issue: #168, #250 - follow django admin's light/dark theme (OS setting or the theme toggle)
+by using django's own css variables, for every martor theme (bootstrap, semantic, tailwind).
+*/
+
+/* editor chrome: tabs, toolbar, dropdowns, buttons */
+.main-martor .tab-martor-menu,
+.main-martor .ui.segment,
+.main-martor .dropdown-menu,
+.main-martor .dropdown-item,
+.main-martor .ui.dropdown .menu,
+.main-martor .ui.dropdown .menu > .item,
+.main-martor .bg-white {
+  background-color: var(--body-bg, #fff) !important;
+  color: var(--body-fg, #333) !important;
+}
+
+/* transparent, so the menu's bottom border isn't painted over */
+.main-martor .tab-martor-menu .nav-link,
+.main-martor .tab-martor-menu .item,
+.main-martor .tab-martor-menu button,
+.main-martor .martor-toolbar,
+.main-martor .martor-toolbar .btn,
+.main-martor .martor-toolbar .ui.button,
+.main-martor .martor-toolbar .markdown-selector {
+  background-color: transparent !important;
+  color: var(--body-fg, #333) !important;
+}
+
+.main-martor .martor-toolbar .btn:hover,
+.main-martor .martor-toolbar .ui.button:hover,
+.main-martor .martor-toolbar .markdown-selector:hover,
+.main-martor .dropdown-item:hover,
+.main-martor .ui.dropdown .menu > .item:hover {
+  background-color: var(--darkened-bg, #f8f8f8) !important;
+}
+
+/* inactive tabs are quieter, the active tab is marked with the text color */
+.main-martor .tab-martor-menu .nav-link:not(.active),
+.main-martor .tab-martor-menu .item:not(.active),
+.main-martor .tab-martor-menu button[aria-selected="false"] {
+  color: var(--body-quiet-color, #666) !important;
+}
+
+.main-martor .nav-tabs .nav-link.active,
+.main-martor .ui.secondary.pointing.menu .active.item,
+.main-martor .tab-martor-menu .border-gray-800 {
+  border-bottom-color: var(--body-fg, #333) !important;
+}
+
+div.main-martor,
+.main-martor .nav-tabs,
+.main-martor .tab-martor-menu,
+.main-martor .ui.segment,
+.main-martor .ui.secondary.pointing.menu,
+.main-martor .dropdown-menu,
+.main-martor .ui.dropdown .menu,
+.main-martor .martor-field {
+  border-color: var(--border-color, #ccc) !important;
+}
+
+.main-martor .martor-toolbar .btn {
+  border-color: var(--hairline-color, #e8e8e8) !important;
+}
+
+/* ace editor (github theme) */
+.main-martor .ace-github.ace_editor {
+  background: var(--body-bg, #fff);
+  color: var(--body-fg, #000);
+}
+
+.main-martor .ace-github.ace_editor .ace_gutter {
+  background: var(--darkened-bg, #e8e8e8);
+  color: var(--body-quiet-color, #aaa);
+}
+
+.main-martor .ace-github.ace_editor .ace_cursor {
+  color: var(--body-fg, #000);
+}
+
+.main-martor .ace-github.ace_editor .ace_marker-layer .ace_active-line,
+.main-martor .ace-github.ace_editor.ace_focus .ace_marker-layer .ace_active-line,
+.main-martor .ace-github.ace_editor .ace_gutter-active-line {
+  background: rgba(127, 127, 127, .12);
+}
+
+.main-martor .ace-github.ace_editor .ace_marker-layer .ace_selection {
+  background: rgba(66, 133, 244, .35);
+}
+
+/* preview, also rendered output (`<div class="martor-preview">{{ text|safe_markdown }}</div>`) outside the editor */
+body div.martor-preview,
+body .ui.segment.martor-preview {
+  background: var(--body-bg, #fff) !important;
+  color: var(--body-fg, #333);
+}
+
+body div.martor-preview-stale {
+  background: repeating-linear-gradient(-45deg, var(--body-bg, #fff), var(--body-bg, #fff) 10px, var(--darkened-bg, #f8f8f8) 10px, var(--darkened-bg, #f8f8f8) 20px) !important;
+}
+
+body div.martor-preview h1,
+body div.martor-preview h2,
+body div.martor-preview h3,
+body div.martor-preview h4,
+body div.martor-preview h5,
+body div.martor-preview h6 {
+  color: var(--body-loud-color, #000) !important;
+}
+
+body div.martor-preview a,
+.insert-emoji {
+  color: var(--link-fg, #447e9b);
+}
+
+body div.martor-preview code,
+body div.martor-preview tt,
+body div.martor-preview pre {
+  background-color: var(--darkened-bg, #f8f8f8) !important;
+  border-color: var(--border-color, #ccc) !important;
+}
+
+body div.martor-preview pre code,
+body div.martor-preview .hljs {
+  background: transparent !important;
+  color: inherit;
+}
+
+body div.martor-preview blockquote {
+  background-color: transparent !important;
+  color: var(--body-quiet-color, #777) !important;
+  border-left-color: var(--border-color, #ddd) !important;
+}
+
+body div.martor-preview table tr {
+  background-color: var(--body-bg, #fff);
+}
+
+body div.martor-preview table tr:nth-child(2n) {
+  background-color: var(--darkened-bg, #f8f8f8);
+}
+
+body div.martor-preview table th,
+body div.martor-preview table td {
+  border-color: var(--border-color, #ccc);
+}
+
+/* fullscreen, help guide & emoji modals (semantic moves modals out of `.main-martor`,
+`body` outweighs the theme css' own `.modal-help-guide x { ... !important }`) */
+.main-martor-fullscreen,
+body :is(.modal-help-guide, .modal-emoji) .modal-content,
+body .ui.modal:is(.modal-help-guide, .modal-emoji),
+body .ui.modal:is(.modal-help-guide, .modal-emoji) > .header,
+body .ui.modal:is(.modal-help-guide, .modal-emoji) > .content,
+body :is(.modal-help-guide, .modal-emoji) .bg-white {
+  background: var(--body-bg, #fff) !important;
+  color: var(--body-fg, #333) !important;
+}
+
+body :is(.modal-help-guide, .modal-emoji) [class*="border-gray-"] {
+  border-color: var(--border-color, #e5e7eb) !important;
+}
+
+body .table.markdown-reference,
+body .modal-help-guide table,
+body .modal-help-guide th,
+body .modal-help-guide td {
+  background: transparent !important;
+  color: var(--body-fg, #333) !important;
+  border-color: var(--border-color, #ccc) !important;
+}
+
+body .modal-help-guide tr:hover td {
+  background: var(--darkened-bg, #f8fafc) !important;
+}
+
+body .modal-help-guide code,
+body .modal-help-guide pre {
+  background-color: var(--darkened-bg, #f8f8f8) !important;
+  color: var(--body-fg, #333) !important;
+  border-color: var(--border-color, #ccc) !important;
+}
+
+/* the guide lives inside a `fieldset.module`, keep django's `.module h2` header bar off its headings */
+body .modal-help-guide h1,
+body .modal-help-guide h2 {
+  background: none !important;
+  color: inherit !important;
+  padding: 0 !important;
+}
+
+body :is(.modal-help-guide, .modal-emoji) .modal-header {
+  background: var(--darkened-bg, #f8f9fa) !important;
+  border-color: var(--border-color, #dee2e6) !important;
+}
+
+body :is(.modal-help-guide, .modal-emoji) .modal-title {
+  color: var(--body-fg, #333) !important;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: normal;
+  margin: 0;
+}
+
+/* the editor lives inside django's `form .aligned`, which indents lists by 160px and drops their bullets */
+body div.modal-help-guide td ul,
+body div.modal-help-guide td ol,
+body div.martor-preview ul,
+body div.martor-preview ol {
+  margin-left: 0;
+  padding-left: 1.5rem;
+}
+
+body div.modal-help-guide td ul,
+body div.martor-preview ul {
+  list-style: disc;
+}
+
+body div.modal-help-guide td ol,
+body div.martor-preview ol {
+  list-style: decimal;
+}
+
+body div.modal-help-guide td li,
+body div.martor-preview li {
+  list-style: inherit;
+}
+
+/* dark icons (close button, markdown logo) need inverting in dark mode */
+html[data-theme="dark"] :is(.modal-help-guide, .modal-emoji) .btn-close,
+html[data-theme="dark"] .modal-help-guide img[src*="commonmark"] {
+  filter: invert(1);
+}
+
 @media (prefers-color-scheme: dark) {
-  body {
-    color: #fff;
-    background: #121212 !important;
-  }
-
-  h1,
-  h3,
-  h5 {
-    color: #fff !important;
-  }
-
-  /* bootstrap */
-  .modal-help-guide .modal-content {
-    background: #121212 !important;
-  }
-
-  .modal-help-guide .modal-title {
-    color: #333 !important;
-    font-size: unset !important;
-    margin: 0 !important;
-  }
-
-  .modal-help-guide .table.markdown-reference {
-    background: #fff;
-    color: #fff;
-  }
-
-  /* semantic-ui */
-  .modal-help-guide .content {
-    background: #121212 !important;
-  }
-
-  .tab-martor-menu .item,
-  .martor-toolbar .ui.basic.buttons .button {
-    color: #fff !important;
+  html:not([data-theme="light"]) :is(.modal-help-guide, .modal-emoji) .btn-close,
+  html:not([data-theme="light"]) .modal-help-guide img[src*="commonmark"] {
+    filter: invert(1);
   }
 }

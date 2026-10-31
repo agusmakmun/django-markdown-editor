@@ -1,0 +1,42 @@
+{% extends "demo/base.html" %}
+{% load martortags %}
+
+{% block content %}
+  <div class="demo-hero">
+    <h1>{{ post.title }}</h1>
+    <p>The latest saved post, rendered with <code>{% verbatim %}{{ post.description|safe_markdown }}{% endverbatim %}</code>.</p>
+  </div>
+
+  <article class="demo-card">
+    <h2>Description</h2>
+    <div class="martor-preview demo-rendered">{{ post.description|safe_markdown }}</div>
+    <details class="demo-raw">
+      <summary>Show markdown source</summary>
+      <pre>{{ post.description }}</pre>
+    </details>
+  </article>
+
+  {% if post.wiki %}
+    <article class="demo-card">
+      <h2>Wiki</h2>
+      <div class="martor-preview demo-rendered">{{ post.wiki|safe_markdown }}</div>
+      <details class="demo-raw">
+        <summary>Show markdown source</summary>
+        <pre>{{ post.wiki }}</pre>
+      </details>
+    </article>
+  {% endif %}
+
+  <div class="demo-form-actions">
+    <span>Write a new one in the editor, it shows up here after saving the post form.</span>
+    <a class="demo-btn" href="{% url 'post_form' %}">New post</a>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script>
+    document.querySelectorAll(".demo-rendered pre code").forEach(function (block) {
+      (hljs.highlightElement || hljs.highlightBlock).call(hljs, block);
+    });
+  </script>
+{% endblock %}
