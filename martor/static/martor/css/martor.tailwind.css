@@ -833,11 +833,11 @@ div.martor-preview pre tt {
 }
 
 /* Form Integration Styles */
-/* Enhanced form styling for better integration */
-.form-field input[type="text"],
-.form-field textarea,
-form input[type="text"]:not(.martor input),
-form textarea:not(.martor textarea) {
+/* Enhanced form styling for better integration, not inside django admin (`#container`) */
+.form-field input[type="text"]:not(#container *),
+.form-field textarea:not(#container *),
+form input[type="text"]:not(.martor input, #container *),
+form textarea:not(.martor textarea, #container *) {
   width: 100%;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -891,10 +891,10 @@ textarea:disabled {
 
 
 /* Explicit focus styles for non-processed Tailwind CSS */
-.form-field input[type="text"]:focus,
-.form-field textarea:focus,
-form input[type="text"]:not(.martor input):focus,
-form textarea:not(.martor textarea):focus {
+.form-field input[type="text"]:not(#container *):focus,
+.form-field textarea:not(#container *):focus,
+form input[type="text"]:not(.martor input, #container *):focus,
+form textarea:not(.martor textarea, #container *):focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   border-color: #3b82f6;

@@ -117,6 +117,12 @@ form .aligned .martor-toolbar label.markdown-image-upload {
   float: none;
 }
 
+/* tailwind's preflight makes every img/svg a block, which stacks django's inline admin icons
+(related widget links, boolean icons), keep the browser default outside the editor */
+:is(img, svg, video, canvas, audio, iframe, embed, object):not(.main-martor *) {
+  display: revert;
+}
+
 /* fix issue: #180, #185 - bootstrap's `.collapse:not(.show)` hides django's collapsible fieldsets */
 fieldset.collapse:not(.show) {
   display: block;
