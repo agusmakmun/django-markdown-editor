@@ -43,46 +43,46 @@ h2,
 h3,
 h4,
 h5 {
-  font-weight: bold !important;
-  line-height: unset !important;
+  font-weight: bold;
+  line-height: unset;
 }
 
 h1 {
-  margin: 0 0 20px !important;
-  font-weight: 300 !important;
-  font-size: 20px !important;
-  color: #333 !important;
+  margin: 0 0 20px;
+  font-weight: 300;
+  font-size: 20px;
+  color: #333;
 }
 
 h2 {
-  font-size: 16px !important;
-  margin: 1em 0 .5em 0 !important;
+  font-size: 16px;
+  margin: 1em 0 .5em 0;
 }
 
 h2.subhead {
-  font-weight: normal !important;
-  margin-top: 0 !important;
+  font-weight: normal;
+  margin-top: 0;
 }
 
 h3 {
-  font-size: 14px !important;
-  margin: .8em 0 .3em 0 !important;
-  color: #333 !important;
-  font-weight: bold !important;
+  font-size: 14px;
+  margin: .8em 0 .3em 0;
+  color: #333;
+  font-weight: bold;
 }
 
 h4 {
-  font-size: 12px !important;
-  margin: 1em 0 .8em 0 !important;
-  padding-bottom: 3px !important;
+  font-size: 12px;
+  margin: 1em 0 .8em 0;
+  padding-bottom: 3px;
 }
 
 h5 {
-  font-size: 10px !important;
-  margin: 1.5em 0 .5em 0 !important;
-  color: #333 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 1px !important;
+  font-size: 10px;
+  margin: 1.5em 0 .5em 0;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .button,
@@ -108,6 +108,19 @@ fieldset .form-row>div {
 
 fieldset .form-row .main-martor {
   display: grid !important;
+  /* fix issue: #269, #256 - fill the django>=4 `.flex-container` row without overflowing it */
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* fix issue: #180, #185 - bootstrap's `.collapse:not(.show)` hides django's collapsible fieldsets */
+fieldset.collapse:not(.show) {
+  display: block;
+}
+
+/* fix issue: #250 - preview background is always light, keep its text dark in admin dark mode */
+.main-martor .martor-preview {
+  color: #333;
 }
 
 .submit-row a.deletelink {

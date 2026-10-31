@@ -44,6 +44,20 @@ Widget Configuration
 
 Martor widgets can be configured through several methods:
 
+Per-Widget Toolbar Buttons
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Override ``MARTOR_TOOLBAR_BUTTONS`` for a single widget, e.g. a restricted public form:
+
+.. code-block:: python
+
+    from martor.widgets import MartorWidget
+
+    class CommentForm(forms.Form):
+        comment = forms.CharField(
+            widget=MartorWidget(toolbar_buttons=["bold", "italic", "link", "help"])
+        )
+
 HTML Attributes
 ~~~~~~~~~~~~~~~
 

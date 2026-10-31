@@ -158,6 +158,37 @@ class SimpleTest(TestCase):
         self.assertEqual(response.json()["status"], 200)
         self.assertEqual(response.json()["data"], ["user1"])
 
+    @override_settings(MARTOR_MARKDOWNIFY_LOGIN_REQUIRED=True)
+    def test_markdownify_login_required(self):
+        url = reverse("martor_markdownfy")
+        self.assertEqual(self.client.post(url, {"content": "**a**"}).status_code, 200)
+        self.client.logout()
+        self.assertEqual(self.client.post(url, {"content": "**a**"}).status_code, 403)
+
+    def test_markdownify_anonymous_allowed_by_default(self):
+        self.client.logout()
+        response = self.client.post(reverse("martor_markdownfy"), {"content": "**a**"})
+        self.assertContains(response, "<strong>a</strong>")
+
+    def test_widget_toolbar_buttons(self):
+        from martor.widgets import MartorWidget
+
+        html = MartorWidget(toolbar_buttons=["bold"]).render("body", "", {"id": "id_body"})
+        self.assertIn("markdown-bold", html)
+        self.assertNotIn("markdown-italic", html)
+        self.assertIn("markdown-italic", MartorWidget().render("body", "", {"id": "id_body"}))
+
+    def test_urlize_does_not_mangle_html_attributes(self):
+        html = markdownify('<img src="https://i.imgur.com/a.png"/>')
+        self.assertIn('<a href="https://i.imgur.com/a.png">', html)
+        self.assertNotIn("http://src=", html)
+
+    def test_youtube_embed_uses_https(self):
+        self.assertIn(
+            'src="https://www.youtube.com/embed/abc123"',
+            markdownify("https://www.youtube.com/watch?v=abc123"),
+        )
+
     def test_urls(self):
         with override_settings(
             MARTOR_MARKDOWNIFY_URL="test/url",

@@ -122,6 +122,11 @@ MARTOR_IMGUR_API_KEY   = 'your-api-key'
 # Markdownify
 MARTOR_MARKDOWNIFY_FUNCTION = 'martor.utils.markdownify' # default
 MARTOR_MARKDOWNIFY_URL = '/martor/markdownify/' # default
+# Require login for the markdownify (preview) endpoint.
+MARTOR_MARKDOWNIFY_LOGIN_REQUIRED = False # default
+
+# CSRF cookie name used by the ajax requests, follows django's CSRF_COOKIE_NAME by default.
+MARTOR_CSRF_COOKIE_NAME = CSRF_COOKIE_NAME
 
 # Delay in milliseconds to update editor preview when in living mode.
 MARTOR_MARKDOWNIFY_TIMEOUT = 0 # update the preview instantly

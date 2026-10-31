@@ -76,7 +76,7 @@ class VideoExtension(markdown.Extension):
 
 class Dailymotion(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = "//www.dailymotion.com/embed/video/%s" % m.group("dailymotionid")
+        url = "https://www.dailymotion.com/embed/video/%s" % m.group("dailymotionid")
         width = self.ext.config["dailymotion_width"][0]
         height = self.ext.config["dailymotion_height"][0]
         return render_iframe(url, width, height)
@@ -84,7 +84,7 @@ class Dailymotion(markdown.inlinepatterns.Pattern):
 
 class Metacafe(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = "//www.metacafe.com/embed/%s/" % m.group("metacafeid")
+        url = "https://www.metacafe.com/embed/%s/" % m.group("metacafeid")
         width = self.ext.config["metacafe_width"][0]
         height = self.ext.config["metacafe_height"][0]
         return render_iframe(url, width, height)
@@ -92,7 +92,7 @@ class Metacafe(markdown.inlinepatterns.Pattern):
 
 class Veoh(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = "//www.veoh.com/videodetails2.swf?permalinkId=%s" % m.group("veohid")  # noqa: E501
+        url = "https://www.veoh.com/videodetails2.swf?permalinkId=%s" % m.group("veohid")  # noqa: E501
         width = self.ext.config["veoh_width"][0]
         height = self.ext.config["veoh_height"][0]
         return flash_object(url, width, height)
@@ -100,7 +100,7 @@ class Veoh(markdown.inlinepatterns.Pattern):
 
 class Vimeo(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        url = "//player.vimeo.com/video/%s" % m.group("vimeoid")
+        url = "https://player.vimeo.com/video/%s" % m.group("vimeoid")
         width = self.ext.config["vimeo_width"][0]
         height = self.ext.config["vimeo_height"][0]
         return render_iframe(url, width, height)
@@ -117,9 +117,9 @@ class Yahoo(markdown.inlinepatterns.Pattern):
 class Youtube(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
         if self.ext.config["youtube_nocookie"][0]:
-            url = "//www.youtube-nocookie.com/embed/%s" % m.group("youtubeid")
+            url = "https://www.youtube-nocookie.com/embed/%s" % m.group("youtubeid")
         else:
-            url = "//www.youtube.com/embed/%s" % m.group("youtubeid")
+            url = "https://www.youtube.com/embed/%s" % m.group("youtubeid")
         width = self.ext.config["youtube_width"][0]
         height = self.ext.config["youtube_height"][0]
         return render_iframe(url, width, height)

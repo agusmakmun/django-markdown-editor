@@ -127,6 +127,23 @@ Delay for live preview updates (in milliseconds):
 
 Higher values reduce server load but create noticeable delays. Use ``0`` for instant updates.
 
+**MARTOR_MARKDOWNIFY_LOGIN_REQUIRED**
+
+Require an authenticated user for the markdownify (preview) endpoint.
+Anonymous requests get a ``403``. Keep it ``False`` if anonymous users use the editor:
+
+.. code-block:: python
+
+    MARTOR_MARKDOWNIFY_LOGIN_REQUIRED = False  # Default
+
+**MARTOR_CSRF_COOKIE_NAME**
+
+CSRF cookie name read by the editor's AJAX requests. Defaults to Django's ``CSRF_COOKIE_NAME``:
+
+.. code-block:: python
+
+    MARTOR_CSRF_COOKIE_NAME = CSRF_COOKIE_NAME  # Default
+
 Image Upload Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 

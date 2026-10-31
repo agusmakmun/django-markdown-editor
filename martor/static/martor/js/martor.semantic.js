@@ -8,7 +8,9 @@
 **/
 
 (function ($) {
-    if (!$) {
+    // Use the jQuery that has semantic's plugins, `jquery.init.js` may have
+    // moved it to `django.jQuery` via noConflict (issue #271).
+    if (!$ || (!$.fn.dropdown && window.django && django.jQuery && django.jQuery.fn.dropdown)) {
         $ = django.jQuery;
     }
     $.fn.martor = function () {
@@ -92,7 +94,7 @@
                                 url: textareaId.data('search-users-url'),
                                 data: {
                                     'username': username,
-                                    'csrfmiddlewaretoken': getCookie('csrftoken')
+                                    'csrfmiddlewaretoken': getCookie(textareaId.data('csrf-cookie-name') || 'csrftoken')
                                 },
                                 success: function (data) {
                                     if (data['status'] == 200) {
@@ -143,7 +145,7 @@
                 var value = textareaId.val();
                 var form = new FormData();
                 form.append('content', value);
-                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                form.append('csrfmiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name') || 'csrftoken'));
                 currentTab.addClass('martor-preview-stale');
 
                 $.ajax({
@@ -466,7 +468,7 @@
                 } else {
                     var range = editor.getSelectionRange();
                     var text = editor.session.getTextRange(range);
-                    editor.session.replace(range, '[' + text + '](https://) ');
+                    editor.session.replace(range, '[' + text + '](https://)');
                     editor.focus();
                     editor.selection.moveTo(
                         originalRange.end.row,
@@ -487,7 +489,7 @@
                     } else {
                         var range = editor.getSelectionRange();
                         var text = editor.session.getTextRange(range);
-                        editor.session.replace(range, '![' + text + '](https://) ');
+                        editor.session.replace(range, '![' + text + '](https://)');
                         editor.focus();
                         editor.selection.moveTo(
                             originalRange.end.row,
@@ -532,11 +534,13 @@
             };
             // Markdown Image Uploader auto insert to editor.
             // with special insert, eg: ![avatar.png](i.imgur.com/DytfpTz.png)
-            var markdownToUploadImage = function (editor) {
+            var markdownToUploadImage = function (editor, file) {
                 var firstForm = $('#' + editorId).closest('form').get(0);
                 var field_name = editor.container.id.replace('martor-', '');
-                var form = new FormData(firstForm);
-                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                // `file` is set when uploading a pasted image, otherwise send the form with the file input.
+                var form = file ? new FormData() : new FormData(firstForm);
+                if (file) form.append('markdown-image-upload', file);
+                form.append('csrfmiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name') || 'csrftoken'));
 
                 $.ajax({
                     url: textareaId.data('upload-url'),
@@ -763,6 +767,15 @@
                     evt.preventDefault();
                     markdownToUploadImage(editor);
                 });
+                // Upload images pasted from the clipboard (issue #240).
+                editor.container.addEventListener('paste', function (evt) {
+                    var files = evt.clipboardData ? evt.clipboardData.files : [];
+                    if (files.length && files[0].type.indexOf('image/') === 0) {
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        markdownToUploadImage(editor, files[0]);
+                    }
+                }, true);
             } else {
                 btnUpload.remove();
             }
@@ -860,6 +873,8 @@
         django.jQuery(document).on('formset:added', function (event, $row) {
             // add delay for formset to load
             setTimeout(function(){
+                // django>=4.1 dispatches a native event without the `$row` argument.
+                $row = $row || $(event.target);
                 $row.find('.main-martor').each(function () {
                     var id = $row.attr('id');
                     id = id.substr(id.lastIndexOf('-') + 1);

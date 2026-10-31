@@ -1,17 +1,20 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
 from .api import imgur_uploader
-from .settings import MARTOR_ENABLE_CONFIGS, MARTOR_MARKDOWNIFY_FUNCTION
+from .settings import MARTOR_ENABLE_CONFIGS, MARTOR_MARKDOWNIFY_FUNCTION, MARTOR_MARKDOWNIFY_LOGIN_REQUIRED
 from .utils import LazyEncoder
 
 User = get_user_model()
 
 
 def markdownfy_view(request):
+    # 403 instead of `login_required` redirect, since this is called via ajax.
+    if MARTOR_MARKDOWNIFY_LOGIN_REQUIRED and not request.user.is_authenticated:
+        return HttpResponseForbidden()
     if request.method == "POST":
         content = request.POST.get("content", "")
         markdownify = import_string(MARTOR_MARKDOWNIFY_FUNCTION)

@@ -45,9 +45,10 @@ import markdown
 URLIZE_RE = "(%s)" % "|".join(
     [
         r"<(?:f|ht)tps?://[^>]*>",
-        r"\b(?:f|ht)tps?://[^)<>\s]+[^.,)<>\s]",
-        r"\bwww\.[^)<>\s]+[^.,)<>\s]",
-        r"[^(<\s]+\.(?:com|net|org)\b",
+        # quotes and `=` are excluded so html attributes like `src="..."` aren't mangled (#74)
+        r"\b(?:f|ht)tps?://[^)<>\s\"']+[^.,)<>\s\"']",
+        r"\bwww\.[^)<>\s\"']+[^.,)<>\s\"']",
+        r"[^(<\s\"'=]+\.(?:com|net|org)\b",
     ]
 )
 
