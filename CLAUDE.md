@@ -13,9 +13,18 @@ image upload, emoji and mentions. Published to PyPI as `martor`.
 - `martor/extensions/`: custom Markdown extensions (urlize, video, mention, emoji, escape_html, ...).
 - `martor/templates/martor/{bootstrap,semantic,tailwind}/`: per-theme editor, toolbar, guide and emoji templates.
 - `martor/static/martor/{css,js}/`: martor's own assets, one set per theme plus `martor-admin.css`.
-- `martor/static/plugins/`: vendored third-party files (ace, bootstrap, semantic, tailwind, highlight.js).
-  Don't edit them unless it's unavoidable.
-- `martor_demo/`: demo project for manual testing. `martor/tests/`: test suite.
+- `martor/static/plugins/`: vendored third-party files (ace, highlight.js, jquery, Bootstrap 5.3.8 bundle,
+  Semantic UI 2.5.0, Tailwind CSS v4). Don't edit them by hand:
+  - Bootstrap/Semantic: copy from the npm packages. For Semantic, rewrite
+    `themes/default/assets/{fonts,images}/` URLs to `../fonts/` / `../images/` and drop the Google Fonts `@import`.
+  - Tailwind: generated from `.etc/tailwind.input.css` (only the utilities martor's tailwind templates/JS
+    use). Rebuild after changing tailwind classes, see the command in that file. It's Tailwind v4, so use
+    v4 class names (`bg-black/75`, not `bg-opacity-*`).
+  - jQuery stays on 3.x: martor's JS uses `$.trim`, which jQuery 4 removed.
+- `martor_demo/`: demo project for manual testing. One set of templates for every theme
+  (`app/templates/demo/`), assets come from `{{ media }}` like a real project, and `app/static/demo/`
+  holds the page styles and the light/dark toggle (same `localStorage` key as django admin).
+- `martor/tests/`: test suite.
 
 ## Commands
 
@@ -59,7 +68,10 @@ node -e "require('vm').createScript(require('fs').readFileSync('$f.min.js','utf8
 ### Admin CSS (`martor-admin.css`)
 - `MartorWidget.Media` adds it to every widget, frontend forms included, while
   `MARTOR_ENABLE_ADMIN_CSS` is `True` (default). So every rule needs a sane fallback outside the admin,
-  where Django's CSS variables are undefined.
+  where Django's CSS variables are undefined, and admin-only resets are scoped with
+  `:where(#container)` / `body:where(:has(#container))` (no added specificity).
+- Any page can theme the editor and rendered `.martor-preview` output by defining the same variables
+  (the demo does, see `martor_demo/app/static/demo/demo.css`).
 - The theme CSS (bootstrap/semantic/tailwind) is loaded globally into the Django admin, so
   conflicts are patched here. Write the fix in this file, not in the vendored plugin CSS.
 - Colours must use Django's CSS variables (`--body-bg`, `--body-fg`, `--body-quiet-color`,

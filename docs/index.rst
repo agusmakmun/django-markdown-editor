@@ -28,8 +28,9 @@ Features
 
 * 📝 **Live Preview** - Real-time markdown rendering
 * ⚡ **Ace Editor Integration** - Powerful code editor with syntax highlighting
-* 🎨 **Dual Theme Support** - Bootstrap and Semantic-UI compatible
-* 📤 **Image Upload** - Direct upload to imgur.com or custom endpoints
+* 🎨 **Three Themes** - Bootstrap 5.3, Semantic UI 2.5 and Tailwind CSS v4
+* 🌗 **Light & Dark Mode** - Follows Django admin's theme, and your own pages via CSS variables
+* 📤 **Image Upload** - Direct upload to imgur.com or custom endpoints, or paste from the clipboard
 * 👥 **User Mentions** - Direct mention users with ``@[username]`` syntax
 * 🎬 **Video Embedding** - Embed videos from YouTube, Vimeo, and more
 * ✅ **Spellcheck** - Built-in spell checking (US English)

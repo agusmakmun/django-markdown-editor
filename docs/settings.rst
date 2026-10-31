@@ -13,7 +13,7 @@ The minimal configuration you need:
     # settings.py
     
     # Choose your theme
-    MARTOR_THEME = 'bootstrap'  # or 'semantic'
+    MARTOR_THEME = 'bootstrap'  # or 'semantic', 'tailwind'
     
     # Required for AJAX functionality
     CSRF_COOKIE_HTTPONLY = False
@@ -26,13 +26,15 @@ Theme Configuration
 
 **MARTOR_THEME**
 
-Choose between Bootstrap or Semantic-UI styling:
+Choose between Bootstrap (5.3), Semantic-UI (2.5) or Tailwind CSS (v4) styling:
 
 .. code-block:: python
 
     MARTOR_THEME = 'bootstrap'  # Default
     # or
     MARTOR_THEME = 'semantic'
+    # or
+    MARTOR_THEME = 'tailwind'
 
 The theme affects:
 
@@ -173,6 +175,9 @@ Configure upload endpoints:
     # Custom upload endpoint
     MARTOR_UPLOAD_URL = '/my-custom-uploader/'
 
+Images pasted into the editor from the clipboard are uploaded to the same URL, with the file in the
+``markdown-image-upload`` form field (like the upload button).
+
 **User Search URL**
 
 For user mentions functionality:
@@ -299,12 +304,14 @@ Admin Interface
 
 **MARTOR_ENABLE_ADMIN_CSS**
 
-Control whether to include admin-specific CSS:
+Control whether to include ``martor/css/martor-admin.css``: fixes for the theme CSS inside Django admin,
+and the light/dark mode styles (see :ref:`light-dark-mode`). It is part of the widget media, so it is
+also loaded on frontend forms; its admin-only rules only apply on admin pages.
 
 .. code-block:: python
 
-    MARTOR_ENABLE_ADMIN_CSS = True   # Default: include admin styles
-    # or  
+    MARTOR_ENABLE_ADMIN_CSS = True   # Default: include admin & light/dark styles
+    # or
     MARTOR_ENABLE_ADMIN_CSS = False  # Disable for custom admin themes like django-grappelli
 
 Security Settings
@@ -440,7 +447,7 @@ Troubleshooting Settings
 ------------------------
 
 **Editor not loading?**
-    Check ``MARTOR_THEME`` is set to a valid value (``'bootstrap'`` or ``'semantic'``).
+    Check ``MARTOR_THEME`` is set to a valid value (``'bootstrap'``, ``'semantic'`` or ``'tailwind'``).
 
 **AJAX errors?**
     Ensure ``CSRF_COOKIE_HTTPONLY = False`` is set.

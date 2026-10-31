@@ -587,6 +587,52 @@ Caching Rendered Content
         </div>
     {% endcache %}
 
+Loading the Static Files
+------------------------
+
+The simplest way to load everything the editor needs for your ``MARTOR_THEME`` is the widget media:
+
+.. code-block:: html+django
+
+    <head>
+      {{ form.media.css }}
+    </head>
+    <body>
+      ...
+      {{ form.media.js }}
+    </body>
+
+On a page without a form (e.g. only rendered markdown), pass ``MartorWidget().media`` to the template
+context instead. The demo project (``martor_demo/app/templates/demo/``) does both.
+
+.. _light-dark-mode:
+
+Light & Dark Mode
+-----------------
+
+In Django admin the editor, preview and modals follow the admin theme automatically, both the OS
+setting and the admin's theme toggle, for every ``MARTOR_THEME``.
+
+On your own pages martor uses the same CSS variable names as Django admin. Define them for your dark
+theme; light values are used when they are not set:
+
+.. code-block:: css
+
+    html[data-theme="dark"] {
+      --body-bg: #17181c;          /* editor & preview background */
+      --body-fg: #e5e7eb;          /* text */
+      --body-quiet-color: #9aa1ab; /* inactive tabs, quotes */
+      --body-loud-color: #ffffff;  /* headings */
+      --darkened-bg: #1f2126;      /* code, table stripes, gutter */
+      --border-color: #343740;
+      --hairline-color: #26282e;
+      --link-fg: #a99dff;
+    }
+
+This requires ``MARTOR_ENABLE_ADMIN_CSS = True`` (default). The variables also apply to rendered output
+wrapped in ``<div class="martor-preview">``. See ``martor_demo/app/static/demo/`` for a complete
+auto/light/dark toggle that shares its setting with Django admin.
+
 Best Practices
 --------------
 

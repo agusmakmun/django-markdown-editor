@@ -13,7 +13,8 @@
 * Integrated with [_Ace Editor_](https://ace.c9.io)
 * Supported with [_Bootstrap_](https://getbootstrap.com), [_Semantic-UI_](https://semantic-ui.com) and [_Tailwind CSS_](https://tailwindcss.com)
 * Supported Multiple Fields [_fixed this issue_](https://github.com/agusmakmun/django-markdown-editor/issues/3)
-* Upload Images to imgur.com _(via API)_ and [custom uploader][13]
+* Upload Images to imgur.com _(via API)_ and [custom uploader][13], or paste them from the clipboard
+* Light & dark mode: follows Django admin's theme (OS setting or the theme toggle), and your own pages via CSS variables
 * Direct Mention users `@[username]` - _(requires user to logged in)_.
 * Supports embed/iframe video from (Youtube, Vimeo, Dailymotion, Yahoo, Veoh, & Metacafe)
 * Spellchecking (only supports US English at this time)
@@ -112,7 +113,8 @@ MARTOR_TOOLBAR_BUTTONS = [
 # To setup the martor editor with title label or not (default is False)
 MARTOR_ENABLE_LABEL = False
 
-# Disable admin style when using custom admin interface e.g django-grappelli (default is True)
+# Martor's admin and light/dark mode styles (default is True).
+# Disable when using custom admin interface e.g django-grappelli
 MARTOR_ENABLE_ADMIN_CSS = True
 
 # Imgur API Keys
@@ -263,12 +265,14 @@ Simply safely parse markdown content as html output by loading templatetags from
 ```
 
 
-Don't miss to include the required css & js files before use.
-You can take a look at this folder [martor_demo/app/templates][14] for more details.
-The below example is a one of the way to implement it when you choose the `MARTOR_THEME = 'bootstrap'`:
+Don't miss to include the required css & js files before use. The easiest way is the widget media,
+which loads exactly the files for your `MARTOR_THEME`: `{{ form.media }}` on a form page, or pass
+`MartorWidget().media` to the template context. See [martor_demo/app/templates/demo][14] for a full example.
+
+Linking the files by hand works too, e.g. for `MARTOR_THEME = 'bootstrap'`:
 
 ```html
-{% extends "bootstrap/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% load martortags %}
 
@@ -300,9 +304,22 @@ The below example is a one of the way to implement it when you choose the `MARTO
 #### Template Editor Form
 
 Different with *Template Renderer*, the *Template Editor Form* have more css & javascript dependencies.
+The simplest is to render the form media, which includes everything for your `MARTOR_THEME`:
 
 ```html
-{% extends "bootstrap/base.html" %}
+<head>
+  {{ form.media.css }}
+</head>
+<body>
+  <form method="post">{% csrf_token %}{{ form.as_p }}<button>Save</button></form>
+  {{ form.media.js }}
+</body>
+```
+
+Or include them by hand:
+
+```html
+{% extends "base.html" %}
 {% load static %}
 
 {% block css %}
@@ -424,10 +441,39 @@ When using `MARTOR_THEME = 'tailwind'`, include the required CSS and JavaScript 
 ```
 
 
+### Light & Dark Mode
+
+In Django admin the editor, preview and modals follow the admin theme automatically (OS setting and
+the admin's theme toggle), for every `MARTOR_THEME`.
+
+On your own pages, martor uses the same CSS variable names as Django admin, so define them for your
+dark theme (light values are the fallback when they are not set):
+
+```css
+html[data-theme="dark"] {
+  --body-bg: #17181c;          /* editor & preview background */
+  --body-fg: #e5e7eb;          /* text */
+  --body-quiet-color: #9aa1ab; /* inactive tabs, quotes */
+  --body-loud-color: #ffffff;  /* headings */
+  --darkened-bg: #1f2126;      /* code, table stripes, gutter */
+  --border-color: #343740;
+  --hairline-color: #26282e;
+  --link-fg: #a99dff;
+}
+```
+
+This needs `MARTOR_ENABLE_ADMIN_CSS = True` (default), which also applies the variables to rendered
+`<div class="martor-preview">{{ post.description|safe_markdown }}</div>` output.
+The demo (`martor_demo/app/static/demo/`) has a complete light/dark/auto toggle.
+
+
 ### Custom Uploader
 
 If you want to save the images uploaded to your storage,
 **Martor** also provides a way to handle this. Please checkout this [WIKI][13]
+
+Images pasted into the editor from the clipboard are uploaded through the same `MARTOR_UPLOAD_URL`
+(form field `markdown-image-upload`).
 
 
 ### Test Martor from this Repository
@@ -443,7 +489,9 @@ $ python manage.py runserver
 ```
 
 
-Checkout at http://127.0.0.1:8000/simple-form/ on your browser.
+Checkout at http://127.0.0.1:8000/simple-form/ on your browser (the post form and admin need a user:
+`python manage.py createsuperuser`). Switch `MARTOR_THEME` in `martor_demo/martor_demo/settings.py`
+to try the other themes, and use the navbar toggle for light/dark mode.
 
 
 ### Documentation
@@ -541,7 +589,7 @@ The documentation is built with [Sphinx](https://www.sphinx-doc.org/) and uses r
 [12]: https://github.com/agusmakmun/django-markdown-editor/actions/workflows/run-tests.yml
 
 [13]: https://github.com/agusmakmun/django-markdown-editor/wiki
-[14]: https://github.com/agusmakmun/django-markdown-editor/tree/master/martor_demo/app/templates
+[14]: https://github.com/agusmakmun/django-markdown-editor/tree/master/martor_demo/app/templates/demo
 [15]: https://github.com/adi-/django-markdownx
 [16]: https://github.com/waylan/Python-Markdown
 [17]: https://rsted.info.ucl.ac.be

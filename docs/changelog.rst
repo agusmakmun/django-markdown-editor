@@ -15,6 +15,14 @@ Version 1.8.4 (Current)
 * Semantic: regenerated broken minified css (fullscreen, live preview, scrollbar rules)
 * Tailwind: stacked admin icons, full width admin inputs, misaligned upload button
 * Help guide: lists indented by django's form styles, unreadable title, overflowing tailwind table
+* Tailwind: don't request the non-existent ``plugins/js/tailwind.min.js``; toolbar wraps on narrow screens
+* ``martor-admin.css`` admin-only resets no longer leak into frontend pages
+
+**Improvements:**
+
+* Updated vendored Bootstrap to 5.3.8 and Semantic UI to 2.5.0; Tailwind CSS is now a real v4 build
+* Rendered ``.martor-preview`` output and the editor follow the page's light/dark theme variables
+* Redesigned demo project with a light/dark toggle, one set of templates for all themes
 
 Version 1.8.3
 -------------------------
