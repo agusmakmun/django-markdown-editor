@@ -132,7 +132,7 @@ class MartorWidget(forms.Textarea):
         if MARTOR_ALTERNATIVE_JS_FILE_THEME:
             js_theme = MARTOR_ALTERNATIVE_JS_FILE_THEME
             js = (MARTOR_ALTERNATIVE_JS_FILE_THEME,).__add__(js)
-        else:
+        elif selected_theme != "tailwind":  # tailwind is css only
             js_theme = "plugins/js/%s.min.js" % selected_theme
             js = (js_theme,).__add__(js)
 

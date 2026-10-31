@@ -191,6 +191,14 @@ body.overflow {
   z-index: 100;
 }
 
+/* wrap tabs, toolbar and its button groups on narrow screens instead of clipping buttons */
+.tab-martor-menu > div,
+.martor-toolbar,
+.martor-toolbar > div {
+  flex-wrap: wrap;
+  row-gap: .25rem;
+}
+
 .enable-living .martor-toolbar {
   position: relative;
 }
@@ -675,6 +683,8 @@ div.martor-preview table tr:nth-child(2n) {
 /* Images */
 div.martor-preview img,
 div.martor-preview p img {
+  /* tailwind's preflight makes images blocks, markdown images are inline (e.g. badges) */
+  display: inline;
   max-width: 100%;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

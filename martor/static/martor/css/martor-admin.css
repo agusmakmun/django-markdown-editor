@@ -1,9 +1,13 @@
 /*
 CSS to handle inside admin django
-by following the default `admin/css/base.css` from django
+by following the default `admin/css/base.css` from django.
+
+`MartorWidget.Media` also loads this file on frontend forms, so the admin-only resets below are
+scoped to django admin pages with `:where(#container)` / `body:where(:has(#container))`,
+which keeps their specificity unchanged.
 */
 
-body {
+body:where(:has(#container)) {
   margin: 0;
   padding: 0;
   font-size: 14px;
@@ -20,59 +24,46 @@ body {
   margin: 0 !important;
 }
 
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-button,
-input,
-optgroup,
-select {
+body:where(:has(#container)),
+:where(#container) :is(h1, h2, h3, h4, h5, button, input, optgroup, select) {
   font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
+:where(#container) :is(h1, h2, h3, h4, h5) {
   font-weight: bold;
   line-height: unset;
 }
 
-h1 {
+:where(#container) h1 {
   margin: 0 0 20px;
   font-weight: 300;
   font-size: 20px;
   color: var(--body-fg, #333);
 }
 
-h2 {
+:where(#container) h2 {
   font-size: 16px;
   margin: 1em 0 .5em 0;
 }
-
-h2.subhead {
+:where(#container) h2.subhead {
   font-weight: normal;
   margin-top: 0;
 }
 
-h3 {
+:where(#container) h3 {
   font-size: 14px;
   margin: .8em 0 .3em 0;
   color: var(--body-fg, #333);
   font-weight: bold;
 }
 
-h4 {
+:where(#container) h4 {
   font-size: 12px;
   margin: 1em 0 .8em 0;
   padding-bottom: 3px;
 }
 
-h5 {
+:where(#container) h5 {
   font-size: 10px;
   margin: 1.5em 0 .5em 0;
   color: var(--body-fg, #333);
@@ -80,11 +71,7 @@ h5 {
   letter-spacing: 1px;
 }
 
-.button,
-input[type=submit],
-input[type=button],
-.submit-row input,
-a.button {
+:where(#container) :is(.button, input[type=submit], input[type=button], .submit-row input, a.button) {
   padding: 5px 15px;
 }
 
@@ -120,12 +107,12 @@ form .aligned .martor-toolbar label.markdown-image-upload {
 /* tailwind's preflight makes every img/svg a block, which stacks django's inline admin icons
 (related widget links, boolean icons), keep the browser default outside the editor.
 specificity (0,0,2): beats tailwind's bare `img, svg` but not django's class rules like `.theme-toggle svg` */
-html :is(img, svg, video, canvas, audio, iframe, embed, object):not(:where(.main-martor *)) {
+html :where(#container) :is(img, svg, video, canvas, audio, iframe, embed, object):not(:where(.main-martor *)) {
   display: revert;
 }
 
 /* fix issue: #180, #185 - bootstrap's `.collapse:not(.show)` hides django's collapsible fieldsets */
-fieldset.collapse:not(.show) {
+:where(#container) fieldset.collapse:not(.show) {
   display: block;
 }
 
@@ -147,7 +134,7 @@ fieldset.collapse:not(.show) {
 }
 
 /* fix issue: #270 */
-table {
+:where(#container) table {
   caption-side: top;
 }
 
@@ -241,60 +228,60 @@ div.main-martor,
   background: rgba(66, 133, 244, .35);
 }
 
-/* preview */
-.main-martor div.martor-preview,
-.main-martor .ui.segment.martor-preview {
+/* preview, also rendered output (`<div class="martor-preview">{{ text|safe_markdown }}</div>`) outside the editor */
+body div.martor-preview,
+body .ui.segment.martor-preview {
   background: var(--body-bg, #fff) !important;
   color: var(--body-fg, #333);
 }
 
-.main-martor div.martor-preview-stale {
+body div.martor-preview-stale {
   background: repeating-linear-gradient(-45deg, var(--body-bg, #fff), var(--body-bg, #fff) 10px, var(--darkened-bg, #f8f8f8) 10px, var(--darkened-bg, #f8f8f8) 20px) !important;
 }
 
-.main-martor div.martor-preview h1,
-.main-martor div.martor-preview h2,
-.main-martor div.martor-preview h3,
-.main-martor div.martor-preview h4,
-.main-martor div.martor-preview h5,
-.main-martor div.martor-preview h6 {
+body div.martor-preview h1,
+body div.martor-preview h2,
+body div.martor-preview h3,
+body div.martor-preview h4,
+body div.martor-preview h5,
+body div.martor-preview h6 {
   color: var(--body-loud-color, #000) !important;
 }
 
-.main-martor div.martor-preview a,
+body div.martor-preview a,
 .insert-emoji {
   color: var(--link-fg, #447e9b);
 }
 
-.main-martor div.martor-preview code,
-.main-martor div.martor-preview tt,
-.main-martor div.martor-preview pre {
+body div.martor-preview code,
+body div.martor-preview tt,
+body div.martor-preview pre {
   background-color: var(--darkened-bg, #f8f8f8) !important;
   border-color: var(--border-color, #ccc) !important;
 }
 
-.main-martor div.martor-preview pre code,
-.main-martor div.martor-preview .hljs {
+body div.martor-preview pre code,
+body div.martor-preview .hljs {
   background: transparent !important;
   color: inherit;
 }
 
-.main-martor div.martor-preview blockquote {
+body div.martor-preview blockquote {
   background-color: transparent !important;
   color: var(--body-quiet-color, #777) !important;
   border-left-color: var(--border-color, #ddd) !important;
 }
 
-.main-martor div.martor-preview table tr {
+body div.martor-preview table tr {
   background-color: var(--body-bg, #fff);
 }
 
-.main-martor div.martor-preview table tr:nth-child(2n) {
+body div.martor-preview table tr:nth-child(2n) {
   background-color: var(--darkened-bg, #f8f8f8);
 }
 
-.main-martor div.martor-preview table th,
-.main-martor div.martor-preview table td {
+body div.martor-preview table th,
+body div.martor-preview table td {
   border-color: var(--border-color, #ccc);
 }
 
@@ -310,6 +297,10 @@ body :is(.modal-help-guide, .modal-emoji) .bg-white {
   color: var(--body-fg, #333) !important;
 }
 
+body :is(.modal-help-guide, .modal-emoji) [class*="border-gray-"] {
+  border-color: var(--border-color, #e5e7eb) !important;
+}
+
 body .table.markdown-reference,
 body .modal-help-guide table,
 body .modal-help-guide th,
@@ -317,6 +308,10 @@ body .modal-help-guide td {
   background: transparent !important;
   color: var(--body-fg, #333) !important;
   border-color: var(--border-color, #ccc) !important;
+}
+
+body .modal-help-guide tr:hover td {
+  background: var(--darkened-bg, #f8fafc) !important;
 }
 
 body .modal-help-guide code,
@@ -350,24 +345,24 @@ body :is(.modal-help-guide, .modal-emoji) .modal-title {
 /* the editor lives inside django's `form .aligned`, which indents lists by 160px and drops their bullets */
 body div.modal-help-guide td ul,
 body div.modal-help-guide td ol,
-.main-martor div.martor-preview ul,
-.main-martor div.martor-preview ol {
+body div.martor-preview ul,
+body div.martor-preview ol {
   margin-left: 0;
   padding-left: 1.5rem;
 }
 
 body div.modal-help-guide td ul,
-.main-martor div.martor-preview ul {
+body div.martor-preview ul {
   list-style: disc;
 }
 
 body div.modal-help-guide td ol,
-.main-martor div.martor-preview ol {
+body div.martor-preview ol {
   list-style: decimal;
 }
 
 body div.modal-help-guide td li,
-.main-martor div.martor-preview li {
+body div.martor-preview li {
   list-style: inherit;
 }
 

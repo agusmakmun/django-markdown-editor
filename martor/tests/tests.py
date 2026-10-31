@@ -178,6 +178,17 @@ class SimpleTest(TestCase):
         self.assertNotIn("markdown-italic", html)
         self.assertIn("markdown-italic", MartorWidget().render("body", "", {"id": "id_body"}))
 
+    def test_widget_media_static_files_exist(self):
+        from django.contrib.staticfiles import finders
+
+        # `Media` is built at import time, so reload the widgets module per theme
+        for theme in ["bootstrap", "semantic", "tailwind"]:
+            with override_settings(MARTOR_THEME=theme):
+                media = reload(sys.modules["martor.widgets"]).MartorWidget().media
+                for path in [*media._js, *[p for paths in media._css.values() for p in paths]]:
+                    self.assertIsNotNone(finders.find(path), f"{theme}: {path}")
+        reload(sys.modules["martor.widgets"])
+
     def test_urlize_does_not_mangle_html_attributes(self):
         html = markdownify('<img src="https://i.imgur.com/a.png"/>')
         self.assertIn('<a href="https://i.imgur.com/a.png">', html)
