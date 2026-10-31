@@ -1,10 +1,10 @@
 /**
- * Name         : Martor v1.8.1
+ * Name         : Martor v1.8.4
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 18-Apr-2026
+ * Release date : 31-Oct-2026
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
- * JS Minifier  : https://jscompress.com
+ * JS Minifier  : terser (https://terser.org)
 **/
 
 (function ($) {
