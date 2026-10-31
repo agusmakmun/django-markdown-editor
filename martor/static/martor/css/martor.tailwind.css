@@ -122,7 +122,9 @@ body.overflow {
   font-size: 13px !important;
   font-weight: 500 !important;
   border: 1px solid #e2e8f0 !important;
-  white-space: nowrap !important;
+  /* inline-block + wrapping: multi-line examples stay one chip, and the table fits the modal */
+  display: inline-block;
+  white-space: normal !important;
 }
 
 .modal-help-guide kbd {
