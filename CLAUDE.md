@@ -23,7 +23,9 @@ The virtualenv lives one level up: use `../bin/python` (Python 3.9, Django 4.2).
 
 ```bash
 ../bin/python runtests.py          # test suite (what CI runs)
-../bin/python -m flake8 martor     # lint, line length 120
+pre-commit run --all-files         # isort, black, pyupgrade, flake8, whitespace (line length 120)
+../bin/python -m mypy martor       # type check
+../bin/python -m build             # package build sanity check
 
 # demo: admin at /admin/app/post/add/, frontend at /simple-form/
 cd martor_demo && ../../bin/python manage.py runserver 127.0.0.1:8765
@@ -31,8 +33,9 @@ cd martor_demo && ../../bin/python manage.py runserver 127.0.0.1:8765
 
 - Switch theme for manual testing: `MARTOR_THEME` in `martor_demo/martor_demo/settings.py`.
   Don't commit that change (`git checkout martor_demo/martor_demo/settings.py`).
-- Pre-commit runs isort, black, pyupgrade, flake8 and end-of-file-fixer. If a commit fails because
-  a hook rewrote files, re-stage and commit again.
+- Pre-commit runs on every commit. If a commit fails because a hook rewrote files, re-stage and
+  commit again. `martor/static/plugins/` (vendored) is excluded from the hooks, so keep it that way.
+- Don't bump black/isort in `.pre-commit-config.yaml` casually: newer versions reformat the whole codebase.
 
 ## Rules
 

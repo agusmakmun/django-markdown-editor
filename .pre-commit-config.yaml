@@ -1,4 +1,4 @@
-exclude: 'docs/|.etc/'
+exclude: 'docs/|.etc/|martor/static/plugins/'
 
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -22,10 +22,10 @@ repos:
       exclude: tests/test_lowlevel.py
 
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.10.1
+  rev: v3.22.0
   hooks:
     - id: pyupgrade
-      args: [--py37-plus]
+      args: [--py38-plus]
 
 - repo: https://github.com/PyCQA/flake8
   rev: 6.1.0

@@ -1,9 +1,4 @@
-from app.views import (
-    home_redirect_view,
-    post_form_view,
-    simple_form_view,
-    test_markdownify,
-)
+from app.views import home_redirect_view, post_form_view, simple_form_view, test_markdownify
 from django.urls import path
 
 urlpatterns = [
