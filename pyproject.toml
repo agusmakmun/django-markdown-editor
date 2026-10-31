@@ -40,7 +40,7 @@ dependencies = [
     "Django>=3.2",
     "Markdown>=3.0",
     "requests>=2.12.4",
-    "bleach",
+    "bleach[css]",
     "urllib3",
     "zipp",
     "tzdata",
@@ -93,7 +93,7 @@ dependencies = [
     "Django>=3.2",
     "Markdown>=3.0",
     "requests>=2.12.4",
-    "bleach",
+    "bleach[css]",
 ]
 
 [tool.hatch.envs.test.scripts]

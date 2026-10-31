@@ -1,6 +1,7 @@
 import re
 
 import bleach
+from bleach.css_sanitizer import CSSSanitizer
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.functional import Promise
 
@@ -56,6 +57,8 @@ def markdownify(markdown_text):
         tags=ALLOWED_HTML_TAGS,
         attributes=ALLOWED_HTML_ATTRIBUTES,
         protocols=ALLOWED_URL_SCHEMES,
+        # sanitize inline `style` values instead of warning (NoCssSanitizerWarning).
+        css_sanitizer=CSSSanitizer(),
     )
 
 

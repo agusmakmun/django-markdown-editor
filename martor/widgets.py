@@ -10,6 +10,7 @@ from .settings import (
     MARTOR_ALTERNATIVE_CSS_FILE_THEME,
     MARTOR_ALTERNATIVE_JQUERY_JS_FILE,
     MARTOR_ALTERNATIVE_JS_FILE_THEME,
+    MARTOR_CSRF_COOKIE_NAME,
     MARTOR_ENABLE_ADMIN_CSS,
     MARTOR_ENABLE_CONFIGS,
     MARTOR_MARKDOWN_BASE_EMOJI_URL,
@@ -18,7 +19,6 @@ from .settings import (
     MARTOR_THEME,
     MARTOR_TOOLBAR_BUTTONS,
     MARTOR_UPLOAD_URL,
-    MARTOR_CSRF_COOKIE_NAME,
 )
 
 
@@ -31,6 +31,12 @@ def get_theme():
 
 
 class MartorWidget(forms.Textarea):
+    def __init__(self, attrs=None, toolbar_buttons=None):
+        # `toolbar_buttons` overrides `MARTOR_TOOLBAR_BUTTONS` for this widget only.
+        # Other settings can be overridden via attrs, e.g: {"data-upload-url": "..."}
+        super().__init__(attrs)
+        self.toolbar_buttons = toolbar_buttons
+
     def render(self, name, value, attrs=None, renderer=None, **kwargs):
         # Create random string to make field ID unique to prevent duplicated ID
         # when rendering fields with the same field name
@@ -52,7 +58,6 @@ class MartorWidget(forms.Textarea):
             attributes_to_pass["data-base-emoji-url"] = MARTOR_MARKDOWN_BASE_EMOJI_URL
         if MARTOR_MARKDOWNIFY_TIMEOUT:
             attributes_to_pass["data-save-timeout"] = MARTOR_MARKDOWNIFY_TIMEOUT
-
 
         # Make sure that the martor value is in the class attr passed in
         if "class" in attrs:
@@ -80,7 +85,7 @@ class MartorWidget(forms.Textarea):
                 "field_name": name + "-" + random_string,
                 "emoji_enabled": emoji_enabled,
                 "mentions_enabled": mentions_enabled,
-                "toolbar_buttons": MARTOR_TOOLBAR_BUTTONS,
+                "toolbar_buttons": (MARTOR_TOOLBAR_BUTTONS if self.toolbar_buttons is None else self.toolbar_buttons),
             }
         )
 

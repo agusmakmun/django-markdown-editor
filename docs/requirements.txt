@@ -3,7 +3,7 @@ sphinx-rtd-theme>=1.0.0
 Django>=3.2
 Markdown>=3.0
 requests>=2.12.4
-bleach
+bleach[css]
 urllib3
 zipp
 tzdata

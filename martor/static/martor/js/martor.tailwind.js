@@ -184,7 +184,7 @@
                                 url: textareaId.data('search-users-url'),
                                 data: {
                                     'username': username,
-                                    'csrfmiddlewaretoken': getCookie('csrftoken')
+                                    'csrfmiddlewaretoken': getCookie(textareaId.data('csrf-cookie-name') || 'csrftoken')
                                 },
                                 success: function (data) {
                                     if (data['status'] == 200) {
@@ -273,7 +273,7 @@
                 var value = textareaId.val();
                 var form = new FormData();
                 form.append('content', value);
-                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                form.append('csrfmiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name') || 'csrftoken'));
                 currentTab.addClass('martor-preview-stale');
 
                 $.ajax({
@@ -776,7 +776,7 @@
                 } else {
                     var range = editor.getSelectionRange();
                     var text = editor.session.getTextRange(range);
-                    editor.session.replace(range, '[' + text + '](https://) ');
+                    editor.session.replace(range, '[' + text + '](https://)');
                     editor.focus();
                     editor.selection.moveTo(
                         originalRange.end.row,
@@ -797,7 +797,7 @@
                     } else {
                         var range = editor.getSelectionRange();
                         var text = editor.session.getTextRange(range);
-                        editor.session.replace(range, '![' + text + '](https://) ');
+                        editor.session.replace(range, '![' + text + '](https://)');
                         editor.focus();
                         editor.selection.moveTo(
                             originalRange.end.row,
@@ -842,11 +842,13 @@
             };
             // Markdown Image Uploader auto insert to editor.
             // with special insert, eg: ![avatar.png](i.imgur.com/DytfpTz.png)
-            var markdownToUploadImage = function (editor) {
+            var markdownToUploadImage = function (editor, file) {
                 var firstForm = $('#' + editorId).closest('form').get(0);
                 var field_name = editor.container.id.replace('martor-', '');
-                var form = new FormData(firstForm);
-                form.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+                // `file` is set when uploading a pasted image, otherwise send the form with the file input.
+                var form = file ? new FormData() : new FormData(firstForm);
+                if (file) form.append('markdown-image-upload', file);
+                form.append('csrfmiddlewaretoken', getCookie(textareaId.data('csrf-cookie-name') || 'csrftoken'));
 
                 $.ajax({
                     url: textareaId.data('upload-url'),
@@ -941,6 +943,15 @@
                     evt.preventDefault();
                     markdownToUploadImage(editor);
                 });
+                // Upload images pasted from the clipboard (issue #240).
+                editor.container.addEventListener('paste', function (evt) {
+                    var files = evt.clipboardData ? evt.clipboardData.files : [];
+                    if (files.length && files[0].type.indexOf('image/') === 0) {
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        markdownToUploadImage(editor, files[0]);
+                    }
+                }, true);
             } else {
                 btnUpload.remove();
             }

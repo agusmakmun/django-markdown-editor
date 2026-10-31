@@ -51,6 +51,8 @@ MARTOR_IMGUR_API_KEY = getattr(settings, "MARTOR_IMGUR_API_KEY", "")
 
 # Markdownify
 MARTOR_MARKDOWNIFY_FUNCTION = getattr(settings, "MARTOR_MARKDOWNIFY_FUNCTION", "martor.utils.markdownify")
+# Require login for the markdownify (preview) endpoint, keep False for anonymous forms
+MARTOR_MARKDOWNIFY_LOGIN_REQUIRED = getattr(settings, "MARTOR_MARKDOWNIFY_LOGIN_REQUIRED", False)
 MARTOR_MARKDOWNIFY_URL = getattr(settings, "MARTOR_MARKDOWNIFY_URL", "/martor/markdownify/")
 
 # Time to delay the markdownify ajax request, in millisecond.
@@ -222,8 +224,5 @@ ALLOWED_HTML_ATTRIBUTES = getattr(
 # Disable admin style when using custom admin interface e.g django-grappelli
 MARTOR_ENABLE_ADMIN_CSS = getattr(settings, "MARTOR_ENABLE_ADMIN_CSS", True)
 
-MARTOR_CSRF_COOKIE_NAME = (
-    settings.MARTOR_CSRF_COOKIE_NAME
-    if hasattr(settings, "MARTOR_CSRF_COOKIE_NAME")
-    else "csrftoken"
-)
+# Follow django's `CSRF_COOKIE_NAME` unless overridden.
+MARTOR_CSRF_COOKIE_NAME = getattr(settings, "MARTOR_CSRF_COOKIE_NAME", settings.CSRF_COOKIE_NAME)

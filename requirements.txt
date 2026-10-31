@@ -3,5 +3,5 @@ zipp
 Django
 Markdown
 requests
-bleach
+bleach[css]
 tzdata
