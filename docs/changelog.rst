@@ -17,6 +17,7 @@ Version 1.8.6 (Current)
 
 * Empty preview kept the striped "stale" background after clearing the editor
 * Bootstrap: heading and code dropdown buttons were bigger than, and misaligned with, the other toolbar buttons
+* Bootstrap: toolbar icons are vertically centered in their buttons (were stuck to the top)
 
 Version 1.8.5
 -------------------------
