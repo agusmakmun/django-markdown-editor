@@ -175,7 +175,7 @@
                                 });
                             }
                         } else {
-                            currentTab.html(emptyPreview);
+                            currentTab.html(emptyPreview).removeClass('martor-preview-stale');
                         }
                     },
                     error: function (response) {
