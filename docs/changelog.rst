@@ -13,6 +13,10 @@ Version 1.8.6 (Current)
 * New ``MARTOR_PREVIEW_PLACEHOLDER`` setting to customize the empty preview text #297
 * The empty preview text is now translated after clearing the editor too (was hardcoded in the JS)
 
+**Bug Fixes:**
+
+* Empty preview kept the striped "stale" background after clearing the editor
+
 Version 1.8.5
 -------------------------
 
