@@ -203,6 +203,13 @@ body.overflow {
   position: relative;
 }
 
+/* tailwind v4's preflight resets buttons to `cursor: default` */
+.tab-martor-menu button,
+.martor-toolbar .markdown-selector,
+.martor-toolbar .dropdown-toggle {
+  cursor: pointer;
+}
+
 .martor-toolbar .markdown-image-upload {
   position: relative;
   overflow: hidden;

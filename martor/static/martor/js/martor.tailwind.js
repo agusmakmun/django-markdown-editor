@@ -1,5 +1,5 @@
 /**
- * Name         : Martor v1.9.0
+ * Name         : Martor v1.9.1
  * Created by   : Agus Makmun (Summon Agus)
  * Release date : 10-Nov-2026
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
@@ -348,7 +348,7 @@
             }
 
             // Handle toolbar dropdowns for Tailwind
-            $('.martor-toolbar .dropdown').each(function() {
+            mainMartor.find('.martor-toolbar .dropdown').each(function() {
                 var dropdown = $(this);
                 var toggle = dropdown.find('.dropdown-toggle');
                 var menu = dropdown.find('.dropdown-menu');
@@ -362,6 +362,11 @@
 
                     // Toggle current dropdown
                     menu.toggleClass('hidden');
+                });
+
+                // Close the dropdown once an item is chosen
+                menu.on('click', '.markdown-selector', function () {
+                    menu.addClass('hidden');
                 });
 
                 // Close dropdown when clicking outside

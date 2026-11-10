@@ -483,7 +483,10 @@ Troubleshooting Widgets
     Ensure attribute names start with ``data-`` and use proper JSON format for complex values.
 
 **Multiple editors conflicting?**
-    Use unique ``data-editor-id`` attributes for each editor.
+    Martor makes each editor's ids unique itself, so several editors on one page work out of the box.
+    If toolbar buttons insert text twice or dropdowns don't open, martor's JS is probably loaded twice
+    (e.g. ``{{ form.media }}`` plus a manual ``<script>`` tag): include it once. With the Tailwind theme,
+    upgrade to 1.9.1+, older versions didn't open the toolbar dropdowns on pages with an even number of editors.
 
 **Upload not working?**
     Verify the upload URL is correct and the endpoint returns proper JSON responses.

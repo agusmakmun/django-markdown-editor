@@ -512,9 +512,11 @@ Common Issues and Solutions
     - Check for CSS specificity issues
 
 **Multiple editors conflicting?**
-    - Ensure unique field names
-    - Check JavaScript console for errors
-    - Use different widget instances for different fields
+    - Check the JavaScript console for errors
+    - Make sure martor's JS is loaded once: the admin includes the widget media for you, so don't add
+      the martor scripts again in a custom template
+    - Tailwind theme: upgrade to 1.9.1+, older versions didn't open the toolbar dropdowns on pages
+      with an even number of editors (e.g. two fields or admin inlines)
 
 Best Practices for Admin
 ------------------------

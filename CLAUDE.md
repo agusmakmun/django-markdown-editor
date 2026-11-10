@@ -64,6 +64,9 @@ node -e "require('vm').createScript(require('fs').readFileSync('$f.min.js','utf8
 - Never use online minifiers: one of them stripped the spaces from descendant selectors in
   `martor.semantic.min.css` and silently broke rules.
 - A JS change goes into all three themes (`martor.{bootstrap,semantic,tailwind}.js`). They share most code.
+- Code inside the per-editor loop (`this.each(...)`) runs once per editor, and a page can have many
+  (form fields, admin inlines). Scope lookups to `mainMartor` (or `[data-field-name=...]`), never a bare
+  `$('.martor-toolbar ...')`, or handlers stack up once per editor. Test with 2+ editors on the page.
 
 ### Admin CSS (`martor-admin.css`)
 - `MartorWidget.Media` adds it to every widget, frontend forms included, while
