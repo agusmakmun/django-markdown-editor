@@ -1,4 +1,4 @@
-## martor [![pypi version][1]][2] [![paypal donation][3]][4]
+## martor [![pypi version][1]][2] [![pypi downloads][20]][21] [![paypal donation][3]][4]
 
 [![license][5]][6] [![python version][7]][8] [![django version][9]][10] [![build][11]][12] [![black][18]][19]
 
@@ -604,3 +604,6 @@ The documentation is built with [Sphinx](https://www.sphinx-doc.org/) and uses r
 
 [18]: https://img.shields.io/badge/code%20style-black-000000.svg
 [19]: https://github.com/ambv/black
+
+[20]: https://img.shields.io/pypi/dm/martor
+[21]: https://pypistats.org/packages/martor
