@@ -477,8 +477,8 @@ The demo (`martor_demo/app/static/demo/`) has a complete light/dark/auto toggle.
 
 ### Custom Uploader
 
-If you want to save the images uploaded to your storage,
-**Martor** also provides a way to handle this. Please checkout this [WIKI][13]
+To save uploaded images to your own storage (`MEDIA_ROOT`, S3, ...) instead of imgur, point
+`MARTOR_UPLOAD_URL` to your own view. See the [custom uploader guide][13] for a complete, secure view.
 
 Images pasted into the editor from the clipboard are uploaded through the same `MARTOR_UPLOAD_URL`
 (form field `markdown-image-upload`).
@@ -596,7 +596,7 @@ The documentation is built with [Sphinx](https://www.sphinx-doc.org/) and uses r
 [11]: https://img.shields.io/github/actions/workflow/status/agusmakmun/django-markdown-editor/run-tests.yml?branch=master
 [12]: https://github.com/agusmakmun/django-markdown-editor/actions/workflows/run-tests.yml
 
-[13]: https://github.com/agusmakmun/django-markdown-editor/wiki
+[13]: https://django-markdown-editor.readthedocs.io/en/latest/examples/custom-uploader.html
 [14]: https://github.com/agusmakmun/django-markdown-editor/tree/master/martor_demo/app/templates/demo
 [15]: https://github.com/adi-/django-markdownx
 [16]: https://github.com/waylan/Python-Markdown
