@@ -16,6 +16,7 @@ Version 1.8.6 (Current)
 **Bug Fixes:**
 
 * Empty preview kept the striped "stale" background after clearing the editor
+* Bootstrap: heading and code dropdown buttons were bigger than, and misaligned with, the other toolbar buttons
 
 Version 1.8.5
 -------------------------
