@@ -15,7 +15,7 @@
       <i class="angle double down grey icon expand-editor"></i>
     </div>
     <div class="ui bottom attached tab segment martor-preview" data-tab="preview-tab-{{ field_name }}">
-      <p>{% trans "Nothing to preview" %}</p>
+      <p>{% if preview_placeholder %}{{ preview_placeholder }}{% else %}{% trans "Nothing to preview" %}{% endif %}</p>
     </div>
   </div><!-- end  /.section-martor -->
 

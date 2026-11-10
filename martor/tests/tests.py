@@ -42,6 +42,13 @@ class SimpleTest(TestCase):
         self.assertTemplateUsed("test_form_view.html")
         self.assertContains(response, "main-martor-description")
         self.assertContains(response, "main-martor-wiki")
+        self.assertContains(response, "Nothing to preview")
+
+    @override_settings(MARTOR_PREVIEW_PLACEHOLDER="Start typing to see a preview")
+    def test_preview_placeholder(self):
+        response = self.client.get("/test-form-view/")
+        self.assertContains(response, "Start typing to see a preview")
+        self.assertNotContains(response, "Nothing to preview")
 
     @override_settings(
         MARTOR_ENABLE_CONFIGS={

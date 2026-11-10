@@ -135,6 +135,9 @@ MARTOR_MARKDOWNIFY_TIMEOUT = 0 # update the preview instantly
 # or:
 MARTOR_MARKDOWNIFY_TIMEOUT = 1000 # default
 
+# Text shown when the preview is empty (default None: "Nothing to preview").
+MARTOR_PREVIEW_PLACEHOLDER = None
+
 # Markdown extensions (default)
 MARTOR_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.extra',
