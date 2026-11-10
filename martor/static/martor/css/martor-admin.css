@@ -351,6 +351,26 @@ body :is(.modal-help-guide, .modal-emoji) .modal-title {
   margin: 0;
 }
 
+/* emoji picker search box (bootstrap & semantic; tailwind's uses `.bg-white`, handled above) */
+body .modal-emoji input.emoji-search {
+  background: var(--body-bg, #fff) !important;
+  color: var(--body-fg, #333) !important;
+  border-color: var(--border-color, #ccc) !important;
+}
+
+body .modal-emoji input.emoji-search::placeholder {
+  color: var(--body-quiet-color, #6c757d) !important;
+}
+
+/* tailwind's fixed text colours in the modals follow the theme too, e.g. the emoji modal's
+title (`text-gray-900`) was dark on dark. Fallback: tailwind's own colour */
+body :is(.modal-help-guide, .modal-emoji) .text-gray-900 { color: var(--body-loud-color, var(--color-gray-900)) !important; }
+body :is(.modal-help-guide, .modal-emoji) .text-gray-600 { color: var(--body-quiet-color, var(--color-gray-600)) !important; }
+body :is(.modal-help-guide, .modal-emoji) .text-gray-500 { color: var(--body-quiet-color, var(--color-gray-500)) !important; }
+body :is(.modal-help-guide, .modal-emoji) .text-gray-400 { color: var(--body-quiet-color, var(--color-gray-400)) !important; }
+body :is(.modal-help-guide, .modal-emoji) .text-blue-600 { color: var(--link-fg, var(--color-blue-600)) !important; }
+body :is(.modal-help-guide, .modal-emoji) .text-blue-800 { color: var(--link-fg, var(--color-blue-800)) !important; }
+
 /* the editor lives inside django's `form .aligned`, which indents lists by 160px and drops their bullets */
 body div.modal-help-guide td ul,
 body div.modal-help-guide td ol,

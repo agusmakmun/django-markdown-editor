@@ -18,7 +18,7 @@
 * Direct Mention users `@[username]` - _(requires user to logged in)_.
 * Supports embed/iframe video from (Youtube, Vimeo, Dailymotion, Yahoo, Veoh, & Metacafe)
 * Spellchecking (only supports US English at this time)
-* Emoji `:emoji_name:` + Cheat sheets
+* Emoji `:emoji_name:` with a searchable emoji picker + Cheat sheets
 * Martor Commands Reference
 * Supports Django Admin
 * Toolbar Buttons

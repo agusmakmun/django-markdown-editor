@@ -34,7 +34,7 @@ Features
 * 👥 **User Mentions** - Direct mention users with ``@[username]`` syntax
 * 🎬 **Video Embedding** - Embed videos from YouTube, Vimeo, and more
 * ✅ **Spellcheck** - Built-in spell checking (US English)
-* 😀 **Emoji Support** - Full emoji support with cheat sheets
+* 😀 **Emoji Support** - ``:emoji_name:`` syntax and a searchable emoji picker
 * 🔧 **Django Admin Integration** - Seamless admin interface integration
 * 🛡️ **Security Features** - XSS protection and HTML sanitization
 * 🔗 **Custom ID Support** - Add custom IDs to text elements

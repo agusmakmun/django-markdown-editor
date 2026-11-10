@@ -66,7 +66,8 @@ Control which features are enabled:
 
 **Feature Details:**
 
-* **emoji**: Enables emoji picker and ``:emoji_name:`` syntax
+* **emoji**: Enables the emoji picker (with search) and ``:emoji_name:`` syntax. Only the names
+  listed in ``martor/extensions/emoji.py`` (``EMOJIS``) are converted, e.g. ``:heart:`` and ``:thumbsup:``
 * **imgur**: Enables image upload functionality
 * **mention**: Enables ``@[username]`` user mention syntax
 * **jquery**: Includes jQuery library (essential for Django admin)

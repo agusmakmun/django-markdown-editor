@@ -98,11 +98,8 @@
                     const emojiName = button.getAttribute('data-emoji-target').toLowerCase();
                     const emojiTitle = button.getAttribute('title').toLowerCase();
 
-                    if (emojiName.includes(searchTerm) || emojiTitle.includes(searchTerm)) {
-                        button.parentElement.style.display = 'block';
-                    } else {
-                        button.parentElement.style.display = 'none';
-                    }
+                    // hide the emoji itself, its parent is the whole grid
+                    button.style.display = (emojiName.includes(searchTerm) || emojiTitle.includes(searchTerm)) ? '' : 'none';
                 });
             });
         }

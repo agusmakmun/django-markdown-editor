@@ -316,7 +316,7 @@ Here are some common markdown patterns you can use:
     |-------|--------|
     | Cell  | Cell   |
 
-    :smile: :heart: :thumbsup: (emoji support)
+    :heart: :thumbsup: :tada: (emoji support)
 
     @[username] (user mentions, if enabled)
 
