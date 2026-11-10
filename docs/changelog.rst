@@ -3,7 +3,28 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.8.6 (Current)
+Version 1.9.0 (Current)
+-------------------------
+
+**Release Date:** 10-Nov-2026
+
+**Security:**
+
+* Replace bleach with `nh3 <https://nh3.readthedocs.io/>`_ for HTML sanitization. bleach is no longer
+  maintained since 2026-06-05, with no future security releases (mozilla/bleach#698) #202 #233
+* New ``ALLOWED_CSS_PROPERTIES`` setting: CSS properties kept in inline ``style`` attributes.
+  The default is the list bleach's ``CSSSanitizer`` allowed
+
+**Changes:**
+
+* Requires ``nh3>=0.3.0`` instead of ``bleach[css]``
+* Disallowed tags are now dropped (their text is kept) instead of being shown escaped. For example,
+  footnotes no longer show a literal ``<div class="footnote">``
+* ``ALLOWED_HTML_ATTRIBUTES`` accepts a list (every tag) or a dict per tag; bleach's callable form is not supported
+* Minor output differences: inline styles are normalized (``color:red``), and characters like quotes
+  and dashes are written as-is (``“``) instead of HTML entities (``&ldquo;``)
+
+Version 1.8.6
 -------------------------
 
 **Release Date:** 10-Nov-2026

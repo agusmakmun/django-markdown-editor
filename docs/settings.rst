@@ -333,6 +333,11 @@ also loaded on frontend forms; its admin-only rules only apply on admin pages.
 Security Settings
 ~~~~~~~~~~~~~~~~~
 
+The rendered HTML is sanitized with `nh3 <https://nh3.readthedocs.io/>`_ (the Ammonia sanitizer),
+using the allowlists below. Anything not allowed is removed: disallowed tags are dropped (their text
+is kept) and disallowed attributes, URL schemes and CSS properties are stripped. Raw HTML typed in the
+markdown is escaped, not rendered.
+
 **ALLOWED_URL_SCHEMES**
 
 URL schemes allowed in links:
@@ -361,7 +366,8 @@ HTML tags allowed in rendered output:
 
 **ALLOWED_HTML_ATTRIBUTES**
 
-HTML attributes allowed in rendered output:
+HTML attributes allowed in rendered output. A list applies to every tag; use a dict to allow
+attributes per tag (``'*'`` for every tag):
 
 .. code-block:: python
 
@@ -370,6 +376,27 @@ HTML attributes allowed in rendered output:
         'id', 'name', 'reversed', 'rowspan', 'scope', 'src', 'style',
         'title', 'type', 'width'
     ]
+
+    # or per tag
+    ALLOWED_HTML_ATTRIBUTES = {
+        '*': ['class', 'id', 'title'],
+        'a': ['href'],
+        'img': ['alt', 'src', 'width', 'height'],
+    }
+
+**ALLOWED_CSS_PROPERTIES**
+
+CSS properties kept in inline ``style`` attributes (e.g. from the ``attr_list`` extension or the
+table alignment), all others are removed. Requires ``'style'`` in ``ALLOWED_HTML_ATTRIBUTES``.
+The default is the list bleach's ``CSSSanitizer`` allowed:
+
+.. code-block:: python
+
+    ALLOWED_CSS_PROPERTIES = [
+        'background-color', 'border-collapse', 'color', 'display', 'float',
+        'font-family', 'font-size', 'font-weight', 'height', 'text-align',
+        'text-decoration', 'vertical-align', 'white-space', 'width', ...
+    ]  # see martor/settings.py for the full default list
 
 Environment-Specific Settings
 -----------------------------

@@ -289,7 +289,7 @@ Is Martor secure against XSS attacks?
 
 Yes! Martor includes built-in security features:
 
-* **HTML sanitization** using the bleach library
+* **HTML sanitization** using nh3 (the Ammonia sanitizer)
 * **Whitelist approach** for allowed HTML tags and attributes
 * **Safe rendering** through the ``safe_markdown`` filter
 

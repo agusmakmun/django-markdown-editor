@@ -9,7 +9,7 @@ image upload, emoji and mentions. Published to PyPI as `martor`.
   declares the static `Media`. Settings are passed to the JS as `data-*` attributes on the textarea.
 - `martor/settings.py`: every `MARTOR_*` setting and its default. Add new settings here.
 - `martor/views.py`, `martor/urls.py`: markdownify (preview), imgur upload, user search endpoints.
-- `martor/utils.py`: `markdownify()` = Python-Markdown + bleach (with `CSSSanitizer`).
+- `martor/utils.py`: `markdownify()` = Python-Markdown + nh3 (allowlists in `martor/settings.py`, incl. `ALLOWED_CSS_PROPERTIES`).
 - `martor/extensions/`: custom Markdown extensions (urlize, video, mention, emoji, escape_html, ...).
 - `martor/templates/martor/{bootstrap,semantic,tailwind}/`: per-theme editor, toolbar, guide and emoji templates.
 - `martor/static/martor/{css,js}/`: martor's own assets, one set per theme plus `martor-admin.css`.
@@ -95,7 +95,7 @@ node -e "require('vm').createScript(require('fs').readFileSync('$f.min.js','utf8
 - Settings are read at import time. Tests that use `override_settings` rely on the reload hook in
   `martor/tests/tests.py` (`_on_settings_changed`).
 - Raw HTML in markdown is escaped on purpose (`escape_html` extension) and the output is sanitized by
-  bleach. Don't weaken this.
+  nh3 (bleach was replaced: it is unmaintained since 2026-06). Don't weaken this.
 - Add a test in `martor/tests/tests.py` for any new behaviour.
 
 ### Verify UI changes in a browser
