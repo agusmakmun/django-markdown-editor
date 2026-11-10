@@ -3,7 +3,20 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.9.0 (Current)
+Version 1.9.1 (Current)
+-------------------------
+
+**Release Date:** 10-Nov-2026
+
+**Bug Fixes:**
+
+* Tailwind: toolbar dropdowns (heading, code) didn't open on pages with an even number of editors, e.g. two
+  fields in a form or admin inlines: every editor bound the click to every dropdown on the page
+* Tailwind: close the dropdown after choosing an item
+* Tailwind: pointer cursor on the editor/preview tabs, toolbar buttons and dropdown items
+  (Tailwind v4 resets buttons to ``cursor: default``)
+
+Version 1.9.0
 -------------------------
 
 **Release Date:** 10-Nov-2026
