@@ -38,7 +38,7 @@
 * `Django>=3.2`
 * `Markdown>=3.0`
 * `requests>=2.12.4`
-* `bleach`
+* `nh3>=0.3.0`
 
 
 ### Installation
@@ -201,6 +201,11 @@ ALLOWED_HTML_ATTRIBUTES = [
     "alt", "class", "color", "colspan", "datetime",  # "data",
     "height", "href", "id", "name", "reversed", "rowspan",
     "scope", "src", "style", "title", "type", "width"
+]
+
+# CSS properties kept in inline `style` attributes (default: the list bleach allowed)
+ALLOWED_CSS_PROPERTIES = [
+    "background-color", "color", "font-size", "font-weight", "text-align", ...
 ]
 ```
 

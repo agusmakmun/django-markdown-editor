@@ -1,7 +1,6 @@
 import re
 
-import bleach
-from bleach.css_sanitizer import CSSSanitizer
+import nh3
 from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.functional import Promise
 
@@ -13,12 +12,20 @@ except ImportError:
 import markdown
 
 from .settings import (
+    ALLOWED_CSS_PROPERTIES,
     ALLOWED_HTML_ATTRIBUTES,
     ALLOWED_HTML_TAGS,
     ALLOWED_URL_SCHEMES,
     MARTOR_MARKDOWN_EXTENSION_CONFIGS,
     MARTOR_MARKDOWN_EXTENSIONS,
 )
+
+
+def _allowed_attributes(attributes):
+    # a list is allowed on every tag (as bleach did), a dict maps tags to their attributes
+    if isinstance(attributes, dict):
+        return {tag: set(names) for tag, names in attributes.items()}
+    return {"*": set(attributes)}
 
 
 def markdownify(markdown_text):
@@ -52,13 +59,15 @@ def markdownify(markdown_text):
         extensions=MARTOR_MARKDOWN_EXTENSIONS,
         extension_configs=MARTOR_MARKDOWN_EXTENSION_CONFIGS,
     )
-    return bleach.clean(
+    return nh3.clean(
         html,
-        tags=ALLOWED_HTML_TAGS,
-        attributes=ALLOWED_HTML_ATTRIBUTES,
-        protocols=ALLOWED_URL_SCHEMES,
-        # sanitize inline `style` values instead of warning (NoCssSanitizerWarning).
-        css_sanitizer=CSSSanitizer(),
+        tags=set(ALLOWED_HTML_TAGS),
+        attributes=_allowed_attributes(ALLOWED_HTML_ATTRIBUTES),
+        url_schemes=set(ALLOWED_URL_SCHEMES),
+        # only these properties are kept in inline `style` attributes
+        filter_style_properties=set(ALLOWED_CSS_PROPERTIES),
+        # nh3 adds rel="noopener noreferrer" to links by default, keep the links as rendered
+        link_rel=None,
     )
 
 

@@ -14,7 +14,7 @@ Martor requires the following:
 * **Additional Dependencies**:
   
   * ``requests`` >= 2.12.4
-  * ``bleach`` (for HTML sanitization)
+  * ``nh3`` >= 0.3.0 (for HTML sanitization)
   * ``urllib3``
   * ``zipp``
   * ``tzdata``

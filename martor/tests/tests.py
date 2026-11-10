@@ -272,7 +272,7 @@ class MarkdownifyTest(TestCase):
         # previously, this was '<p>The CDC reports that it was 26.2 per 100,000.<a href=";">[4]</a></p>', dropping the last sentence
         self.assertEqual(
             response,
-            '<p>The CDC reports that it was 26.2 per 100,000.<a href="#ftnt4">[4]</a> In addition, individuals with mental and behavioral health conditions have a higher risk of suicide; rates increased 46 percent from 2000-2020 in non-metro areas.<a href="#ftnt5">[5]</a></p>',
+            '<p>The CDC reports that it was 26.2 per 100,000.<a href="#ftnt4">[4]</a>&nbsp;In addition, individuals with mental and behavioral health conditions have a higher risk of suicide; rates increased 46 percent from 2000-2020 in non-metro areas.<a href="#ftnt5">[5]</a></p>',
         )
 
     def test_markdownify_not_losing_sentences_semicolon(self):
@@ -298,3 +298,37 @@ class MarkdownifyTest(TestCase):
             response,
             '<p>Citation 4. <a href="#ftnt4">footnote 4</a> Citation 5. <a href="#ftnt5">footnote 5</a> Citation 6: <a href="#ftnt6">footnote 6</a></p>',
         )
+
+    def test_markdownify_sanitizes_html(self):
+        # links and images with a disallowed scheme lose their url
+        self.assertEqual(
+            markdownify("[x](javascript:alert(1)) [y](data:text/html;base64,PHNjcmlwdD4=) ![z](javascript:alert(1))"),
+            '<p><a>x</a> <a>y</a> <img alt="z"></p>',
+        )
+        # raw html is escaped, not rendered
+        self.assertEqual(
+            markdownify("<script>alert(1)</script>"),
+            "<p>&lt;script&gt;alert(1)&lt;/script&gt;</p>",
+        )
+        # event handler attributes are removed
+        self.assertEqual(markdownify('para\n{: onclick="alert(1)" }'), "<p>para<br></p>")
+
+    def test_markdownify_filters_style_properties(self):
+        # only ALLOWED_CSS_PROPERTIES are kept in inline styles
+        self.assertEqual(
+            markdownify('para\n{: style="color: red; position: fixed; background-image: url(javascript:alert(1))" }'),
+            '<p style="color:red">para<br></p>',
+        )
+
+    def test_markdownify_strips_disallowed_tags(self):
+        # the footnotes `<div>` is not allowed: dropped, its content kept (bleach used to show it as text)
+        response = markdownify("Text[^1].\n\n[^1]: The note.")
+        self.assertNotIn("div", response)
+        self.assertIn('<li id="fn:1">', response)
+        self.assertIn("The note.", response)
+
+    def test_allowed_attributes_formats(self):
+        from martor.utils import _allowed_attributes
+
+        self.assertEqual(_allowed_attributes(["href", "title"]), {"*": {"href", "title"}})
+        self.assertEqual(_allowed_attributes({"a": ["href"], "*": ["title"]}), {"a": {"href"}, "*": {"title"}})
