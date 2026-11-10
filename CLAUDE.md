@@ -17,6 +17,8 @@ image upload, emoji and mentions. Published to PyPI as `martor`.
   Semantic UI 2.5.0, Tailwind CSS v4). Don't edit them by hand:
   - Bootstrap/Semantic: copy from the npm packages. For Semantic, rewrite
     `themes/default/assets/{fonts,images}/` URLs to `../fonts/` / `../images/` and drop the Google Fonts `@import`.
+    Keep only the `.woff2` icon fonts: trim each `@font-face` `src` to the `woff2` url and don't copy the
+    `.eot/.svg/.ttf/.woff` files (IE/old iOS only, they were 42% of the package).
   - Tailwind: generated from `.etc/tailwind.input.css` (only the utilities martor's tailwind templates/JS
     use). Rebuild after changing tailwind classes, see the command in that file. It's Tailwind v4, so use
     v4 class names (`bg-black/75`, not `bg-opacity-*`).

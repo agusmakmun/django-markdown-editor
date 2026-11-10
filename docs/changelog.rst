@@ -3,7 +3,27 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.9.1 (Current)
+Version 1.9.2 (Current)
+-------------------------
+
+**Release Date:** 10-Nov-2026
+
+**Improvements:**
+
+* Smaller package: 1.7 MB -> 1.0 MB (-41%). The Semantic UI icon fonts now ship only as ``.woff2``,
+  which every browser Django supports loads; the ``.eot``, ``.svg``, ``.ttf`` and ``.woff`` copies
+  (for Internet Explorer and old iOS) are removed
+* Bootstrap & Semantic: search box in the emoji picker (Tailwind had one already)
+
+**Bug Fixes:**
+
+* Tailwind: the emoji picker only listed the first 300 emojis, now all of them (images load lazily)
+* Tailwind: the emoji search hid or showed the whole list instead of the matching emojis
+* Tailwind: the emoji search is cleared when the picker is opened again, like the other themes
+* Tailwind, dark mode: the emoji modal's title ("Choose an Emoji") was dark text on a dark background.
+  The help and emoji modals' text colours now follow the light/dark theme
+
+Version 1.9.1
 -------------------------
 
 **Release Date:** 10-Nov-2026

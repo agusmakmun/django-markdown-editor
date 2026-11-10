@@ -55,6 +55,8 @@ body.overflow {
   min-height: 200px!important;
 }
 .insert-emoji {cursor: pointer}
+/* room between the emoji search box and the grid (its rows have negative margins) */
+.modal-emoji .emoji-search-wrap {margin-bottom: 1.5rem}
 
 /* Full Screen Mode */
 .main-martor-fullscreen {

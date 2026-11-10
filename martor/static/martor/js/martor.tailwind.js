@@ -1,5 +1,5 @@
 /**
- * Name         : Martor v1.9.1
+ * Name         : Martor v1.9.2
  * Created by   : Agus Makmun (Summon Agus)
  * Release date : 10-Nov-2026
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
@@ -456,6 +456,9 @@
                 TailwindUtils.showModal(modalEmoji);
                 var emojiList = typeof (emojis) != "undefined" ? emojis : []; // from `plugins/js/emojis.min.js`
                 var emojiGrid = modalEmoji.find('#emoji-grid-' + field_name);
+                // start with an empty search and the full list
+                modalEmoji.find('#emoji-search-' + field_name).val('');
+                emojiGrid.children().css('display', '');
                 var loaderInit = modalEmoji.find('.emoji-loader-init');
 
                 // Only load emojis if grid is empty
@@ -468,13 +471,13 @@
                         try {
                             console.log('Loading emojis, count:', emojiList.length);
 
-                            for (var i = 0; i < Math.min(emojiList.length, 300); i++) { // Increased to 300 for more emojis
+                            for (var i = 0; i < emojiList.length; i++) {
                                 var emoji = emojiList[i];
                                 var linkEmoji = textareaId.data('base-emoji-url') + emoji.replace(/:/g, '') + '.png';
 
                                 var emojiButton = $('<button type="button" class="insert-emoji p-2 hover:bg-gray-100 rounded border border-gray-200 text-center transition-colors" ' +
                                     'data-emoji-target="' + emoji + '" title="' + emoji + '">' +
-                                    '<img class="w-6 h-6 mx-auto" src="' + linkEmoji + '" alt="' + emoji + '" ' +
+                                    '<img class="w-6 h-6 mx-auto" loading="lazy" src="' + linkEmoji + '" alt="' + emoji + '" ' +
                                     'onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';">' +
                                     '<span class="text-xs hidden">' + emoji + '</span>' +
                                     '</button>');

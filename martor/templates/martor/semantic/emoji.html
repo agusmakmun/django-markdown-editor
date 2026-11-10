@@ -3,6 +3,10 @@
   <i class="close icon"></i>
   <div class="header"><i class="help circle icon"></i> {% trans "Select Emoji to Insert" %}</div>
   <div class="content emoji-content-base">
+    <div class="ui fluid icon input emoji-search-wrap">
+      <input type="search" class="emoji-search" placeholder="{% trans 'Search emojis...' %}" aria-label="{% trans 'Search emojis...' %}">
+      <i class="search icon"></i>
+    </div>
     <div class="ui segment emoji-loader-init">
       <div class="ui active inverted dimmer">
         <div class="ui text loader">{% trans "Preparing emojis..." %}</div>

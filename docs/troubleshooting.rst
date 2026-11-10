@@ -385,19 +385,10 @@ Browser Compatibility Issues
 Internet Explorer Issues
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Note:** Martor has limited support for older IE versions.
+**Note:** Martor doesn't support Internet Explorer. Django's admin dropped it, and since 1.9.2 the
+Semantic UI icon fonts ship only as ``.woff2``, which IE can't load. Use a current browser.
 
-**Solutions:**
-
-1. **Add polyfills for IE:**
-
-.. code-block:: html
-
-    <!--[if IE]>
-    <script src="{% static 'polyfills/ie-polyfills.js' %}"></script>
-    <![endif]-->
-
-2. **Graceful degradation:**
+If you must keep a fallback for unsupported browsers, show a plain textarea when the editor can't load:
 
 .. code-block:: javascript
 
