@@ -146,6 +146,22 @@ CSRF cookie name read by the editor's AJAX requests. Defaults to Django's ``CSRF
 
     MARTOR_CSRF_COOKIE_NAME = CSRF_COOKIE_NAME  # Default
 
+**MARTOR_PREVIEW_PLACEHOLDER**
+
+Text shown in the preview tab when there is nothing to preview, on page load and after the
+editor is cleared. ``None`` keeps the default, translated "Nothing to preview". The value is
+plain text (HTML is escaped) and applies to every theme:
+
+.. code-block:: python
+
+    MARTOR_PREVIEW_PLACEHOLDER = None  # Default: "Nothing to preview"
+
+    MARTOR_PREVIEW_PLACEHOLDER = "Start typing to see a preview"
+
+    # Translatable, follows the active language
+    from django.utils.translation import gettext_lazy as _
+    MARTOR_PREVIEW_PLACEHOLDER = _("Start typing to see a preview")
+
 Image Upload Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 

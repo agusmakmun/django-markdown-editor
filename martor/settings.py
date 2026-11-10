@@ -226,3 +226,7 @@ MARTOR_ENABLE_ADMIN_CSS = getattr(settings, "MARTOR_ENABLE_ADMIN_CSS", True)
 
 # Follow django's `CSRF_COOKIE_NAME` unless overridden.
 MARTOR_CSRF_COOKIE_NAME = getattr(settings, "MARTOR_CSRF_COOKIE_NAME", settings.CSRF_COOKIE_NAME)
+
+# Text shown in the preview tab when there is nothing to preview.
+# `None` keeps the default (translated) "Nothing to preview".
+MARTOR_PREVIEW_PLACEHOLDER = getattr(settings, "MARTOR_PREVIEW_PLACEHOLDER", None)

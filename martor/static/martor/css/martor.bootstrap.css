@@ -37,6 +37,11 @@ body.overflow {
 .martor-toolbar {
   z-index: 100;
 }
+/* buttons stretch to the tabs' height, keep the icons vertically centered */
+.martor-toolbar .btn {
+  display: inline-flex;
+  align-items: center;
+}
 .enable-living .martor-toolbar {
   position: relative;
 }

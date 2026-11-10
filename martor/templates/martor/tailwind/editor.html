@@ -47,7 +47,7 @@
       </div>
 
       <div class="tab-pane hidden martor-preview bg-gray-50 p-4 min-h-64" id="preview-content-{{ field_name }}" role="tabpanel" aria-labelledby="preview-tab-{{ field_name }}">
-        <p class="text-gray-500">{% trans "Nothing to preview" %}</p>
+        <p class="text-gray-500">{% if preview_placeholder %}{{ preview_placeholder }}{% else %}{% trans "Nothing to preview" %}{% endif %}</p>
       </div>
     </div>
   </div><!-- end  /.section-martor -->

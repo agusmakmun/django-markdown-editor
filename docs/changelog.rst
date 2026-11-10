@@ -3,7 +3,23 @@ Changelog
 
 This document tracks the changes made to Martor over time.
 
-Version 1.8.5 (Current)
+Version 1.8.6 (Current)
+-------------------------
+
+**Release Date:** 10-Nov-2026
+
+**Improvements:**
+
+* New ``MARTOR_PREVIEW_PLACEHOLDER`` setting to customize the empty preview text #297
+* The empty preview text is now translated after clearing the editor too (was hardcoded in the JS)
+
+**Bug Fixes:**
+
+* Empty preview kept the striped "stale" background after clearing the editor
+* Bootstrap: heading and code dropdown buttons were bigger than, and misaligned with, the other toolbar buttons
+* Bootstrap: toolbar icons are vertically centered in their buttons (were stuck to the top)
+
+Version 1.8.5
 -------------------------
 
 **Release Date:** 31-Oct-2026

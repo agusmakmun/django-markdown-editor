@@ -1,7 +1,7 @@
 /**
- * Name         : Martor v1.8.5
+ * Name         : Martor v1.8.6
  * Created by   : Agus Makmun (Summon Agus)
- * Release date : 31-Oct-2026
+ * Release date : 10-Nov-2026
  * License      : GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
  * Repository   : https://github.com/agusmakmun/django-markdown-editor
  * JS Minifier  : terser (https://terser.org)
@@ -231,6 +231,7 @@
 
             // update the preview if this menu is clicked
             var currentTab = $('#preview-content-' + field_name);
+            var emptyPreview = currentTab.html(); // placeholder rendered by the template
             var editorTabButton = $('.tab-editor-' + field_name);
             var previewTabButton = $('.tab-preview-' + field_name);
             var toolbarButtons = $(this).closest('.tab-martor-menu').find('.martor-toolbar');
@@ -294,7 +295,7 @@
                                 });
                             }
                         } else {
-                            currentTab.html('<p class="text-gray-500">Nothing to preview</p>');
+                            currentTab.html(emptyPreview).removeClass('martor-preview-stale');
                         }
                     },
                     error: function (response) {

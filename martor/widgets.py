@@ -6,6 +6,7 @@ from django.contrib.admin import widgets
 from django.template.loader import get_template
 from django.urls import reverse
 
+from . import settings as martor_settings
 from .settings import (
     MARTOR_ALTERNATIVE_CSS_FILE_THEME,
     MARTOR_ALTERNATIVE_JQUERY_JS_FILE,
@@ -86,6 +87,7 @@ class MartorWidget(forms.Textarea):
                 "emoji_enabled": emoji_enabled,
                 "mentions_enabled": mentions_enabled,
                 "toolbar_buttons": (MARTOR_TOOLBAR_BUTTONS if self.toolbar_buttons is None else self.toolbar_buttons),
+                "preview_placeholder": martor_settings.MARTOR_PREVIEW_PLACEHOLDER,
             }
         )
 
